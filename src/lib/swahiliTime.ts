@@ -29,3 +29,16 @@ export function clockLabel(hour24: number): string {
   const clock12 = hour24 % 12 === 0 ? 12 : hour24 % 12
   return `${clock12}:00 ${hour24 < 12 ? 'am' : 'pm'}`
 }
+
+// Which hour of a clock face a touch is nearest to. dx and dy are measured from the centre, with y growing downwards as on a screen.
+export function hourFromPoint(dx: number, dy: number): number {
+  // atan2(dx, -dy) is zero at twelve o'clock and grows clockwise.
+  const degrees = (Math.atan2(dx, -dy) * 180) / Math.PI
+  const hour = Math.round(((degrees + 360) % 360) / 30) % 12
+  return hour === 0 ? 12 : hour
+}
+
+// Puts a watch hour (1 to 12) and a morning or afternoon choice back together as 0 to 23.
+export function toHour24(clock12: number, pm: boolean): number {
+  return (clock12 % 12) + (pm ? 12 : 0)
+}

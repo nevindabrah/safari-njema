@@ -1,13 +1,12 @@
-// A short section on telling time in Swahili: the story of why 7 am is "hour one", the rule, and a slider to try any hour.
+// A short section on telling time in Swahili: the story of why 7 am is "hour one", the rule, and an interactive clock to try and to practise on.
 // Exists because this is the one thing that makes travellers miss a bus: an agreed "saa mbili" is 8 am, not 2.
 import { useState } from 'react'
 import { Card } from '../../components/Card'
 import { Icon } from '../../components/icons'
-import { clockLabel, swahiliHour } from '../../lib/swahiliTime'
-import { ASK_THE_TIME, PART_WORDS, sayHour } from './timeWords'
+import { ASK_THE_TIME } from './timeWords'
+import { TimeExplorer } from './TimeExplorer'
 
 export function SwahiliTimeSection() {
-  const [hour24, setHour24] = useState(8)
   // Starts folded to one line, so the phrase list below it stays within easy reach on a phone.
   const [open, setOpen] = useState(false)
   return (
@@ -19,13 +18,12 @@ export function SwahiliTimeSection() {
         </span>
         <span className="w-11 h-11 shrink-0 rounded-pill bg-tint flex items-center justify-center"><Icon name={open ? 'close' : 'arrow'} size={18} /></span>
       </button>
-      {open && <TimeStory hour24={hour24} onHour={setHour24} />}
+      {open && <TimeStory />}
     </Card>
   )
 }
 
-function TimeStory({ hour24, onHour }: { hour24: number; onHour: (hour: number) => void }) {
-  const { hour, part } = swahiliHour(hour24)
+function TimeStory() {
   return (
     <>
       <p className="mt-3 leading-relaxed">
@@ -37,19 +35,9 @@ function TimeStory({ hour24, onHour }: { hour24: number; onHour: (hour: number) 
         So when you agree a pickup time, check which way you both mean. Hour two in the morning is 8 am, not 2.
       </p>
 
-      <div className="mt-5 rounded-input bg-tint p-4">
-        <label htmlFor="time-hour" className="text-sm font-bold">Slide to any hour</label>
-        <input id="time-hour" type="range" min={0} max={23} step={1} value={hour24} onChange={(e) => onHour(Number(e.target.value))}
-          aria-valuetext={clockLabel(hour24)} className="w-full mt-2 h-11 cursor-pointer" style={{ accentColor: 'var(--accent)' }} />
-        <div className="grid grid-cols-2 gap-3 mt-1" aria-live="polite">
-          <p><span className="block text-xs font-bold text-muted">On a watch</span><span className="font-display font-extrabold text-2xl">{clockLabel(hour24)}</span></p>
-          <p>
-            <span className="block text-xs font-bold text-muted">In Swahili</span>
-            <span lang="sw" className="font-display font-extrabold text-2xl leading-tight block">{sayHour(hour, part)}</span>
-            <span className="text-sm text-muted">hour {hour}, {PART_WORDS[part]}</span>
-          </p>
-        </div>
-      </div>
+      <p className="mt-3 leading-relaxed">On a real watch there is a shortcut: read the number straight across the face from the hour hand. Across from 8 is 2.</p>
+
+      <TimeExplorer />
 
       <p className="mt-4 text-sm">To ask: <b lang="sw">{ASK_THE_TIME.swahili}</b> <span className="text-muted">{ASK_THE_TIME.english}</span></p>
       <p className="mt-3 text-xs text-muted">
