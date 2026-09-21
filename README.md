@@ -107,6 +107,8 @@ The app runs in demo mode when the Supabase values are missing, and also when a 
 - During a lesson the tab bar and the demo strip step aside, and the feedback scrolls into view after each answer, so the Next button is never hidden on a phone.
 - Every stop has a pocket card: all its phrases with pronunciation, the three things to know, the etiquette note and Kenya's emergency numbers, on one page that prints cleanly.
 - The kanga shelf shows a cloth for every lesson. Unearned ones are veiled and keep their proverb hidden until the lesson is finished.
+- There is always a way out. The logo in the top left goes home from anywhere. Every secondary screen has a back arrow, every card, sheet and lesson has an X, the demo strip can be put away, and every search box has an X that clears it (`src/components/Logo.tsx`, `LeaveButton.tsx`, `SearchBox.tsx`).
+- Checked on phones at 320, 360 and 390 px wide: no sideways scrolling, every button at least 40 px tall, and form text at 16 px so iPhones do not zoom in on focus. On a phone a picked place opens as a bottom sheet with "Add to itinerary" always in view, and once a lesson starts its photo shrinks to a slim strip so the answers fit on screen.
 - Laptop users can answer with the number keys and move on with Enter. On a phone the main links sit in a floating tab bar within thumb reach.
 - Finish a quiz and the stop turns green and the trip's progress bar moves. "Start with an empty trip" clears the sample so the first stop flow can be tried from scratch.
 
