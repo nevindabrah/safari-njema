@@ -2,7 +2,7 @@
 // Exists so every screen has the same way to get around.
 import { Link } from 'react-router'
 import { useAuth } from '../features/auth/useAuth'
-import { TestModeBanner } from '../features/testmode/TestModeBanner'
+import { DemoBanner } from '../features/demo/DemoBanner'
 
 export function TopBar() {
   const { user, signOut } = useAuth()
@@ -23,7 +23,7 @@ export function TopBar() {
           )}
         </nav>
       </div>
-      <TestModeBanner />
+      <DemoBanner />
     </header>
   )
 }

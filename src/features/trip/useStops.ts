@@ -3,12 +3,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { StopRow } from '../../lib/types'
-import { isTestMode } from '../testmode/testMode'
-import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops } from '../testmode/localStore'
-import { buildLocalLesson } from '../testmode/localLessons'
+import { isDemoMode } from '../demo/demoMode'
+import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops } from '../demo/localStore'
+import { buildLocalLesson } from '../demo/localLessons'
+import { ensureDemoTrip } from '../demo/demoTrip'
 import type { PickedPlace } from './usePlaceSearch'
 
-const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, position, lesson_status, place:places(*), user_lessons(id)'
+const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, position, lesson_status, place:places(*), user_lessons(id, status)'
 
 export function useStops(tripId: string | null) {
   const [stops, setStops] = useState<StopRow[]>([])
@@ -16,7 +17,8 @@ export function useStops(tripId: string | null) {
 
   const reload = useCallback(async () => {
     if (!tripId) return
-    if (isTestMode) {
+    if (isDemoMode) {
+      await ensureDemoTrip()
       setStops(listLocalStops())
       setLoading(false)
       return
@@ -51,7 +53,7 @@ export function useStops(tripId: string | null) {
   }
 
   async function addStop(place: PickedPlace, visitDate: string | null, activities: string[]) {
-    if (isTestMode) return addLocalStopWithLesson(place, visitDate, activities)
+    if (isDemoMode) return addLocalStopWithLesson(place, visitDate, activities)
     const { data: stopId, error } = await supabase.rpc('add_trip_stop', {
       p_trip_id: tripId,
       p_google_place_id: place.googlePlaceId,
@@ -71,7 +73,7 @@ export function useStops(tripId: string | null) {
 
   async function deleteStop(stopId: string) {
     setStops((list) => list.filter((s) => s.id !== stopId))
-    if (isTestMode) {
+    if (isDemoMode) {
       deleteLocalStop(stopId)
       return reload()
     }

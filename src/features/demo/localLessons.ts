@@ -2,6 +2,7 @@
 // Exists so test mode produces real lessons for any stop without a server.
 import { pickCandidates, pickTemplatePhrases } from '../../../supabase/functions/_shared/pickCandidates'
 import { buildTemplateLesson } from '../../../supabase/functions/_shared/template'
+import { pickProverb } from '../../../supabase/functions/_shared/lessonPlan'
 import { loadSeedBank } from '../lesson/seedBank'
 import type { StoredLesson } from './localStore'
 
@@ -17,7 +18,8 @@ export async function buildLocalLesson(input: LocalLessonInput): Promise<StoredL
   const bank = await loadSeedBank()
   const ctx = { placeType: input.placeType, activities: input.activities, region: input.region, firstStop: input.firstStop, level: 'none', knownIds: [] }
   const picked = pickTemplatePhrases(pickCandidates(bank, ctx), ctx)
-  const lesson = buildTemplateLesson({ placeName: input.placeName, placeType: input.placeType, region: input.region, firstStop: input.firstStop, phrases: picked })
+  const proverbs = (await import('../../../supabase/seed/proverbs.json')).default
+  const lesson = buildTemplateLesson({ placeName: input.placeName, placeType: input.placeType, region: input.region, firstStop: input.firstStop, phrases: picked, proverb: pickProverb(proverbs, input.placeType) })
   const phrases = picked.map((p) => bank.find((b) => b.id === p.phrase.id)!)
-  return { lesson, phrases, generatedBy: 'template', completed: false }
+  return { lesson, phrases, generatedBy: 'template' }
 }

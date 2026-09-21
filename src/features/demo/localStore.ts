@@ -1,15 +1,14 @@
-// Test mode's stand-in for the database: one trip, its stops and their lessons, kept in localStorage.
+// Demo mode's stand-in for the database: one trip, its stops and their lessons, kept in localStorage.
 // Exists so the hooks can swap Supabase for this file with a single if, and nothing else in the app changes.
 import type { Lesson } from '../../lib/lessonSchema'
 import type { Phrase, StopRow, Trip } from '../../lib/types'
 import type { PickedPlace } from '../trip/usePlaceSearch'
-import { TEST_USER } from './testMode'
+import { DEMO_USER } from './demoMode'
 
 export interface StoredLesson {
   lesson: Lesson
   phrases: Phrase[]
   generatedBy: string
-  completed: boolean
 }
 
 interface LocalData {
@@ -18,14 +17,29 @@ interface LocalData {
   lessons: Record<string, StoredLesson>
 }
 
-const KEY = 'safari-njema-test-data'
+const KEY = 'safari-njema-demo-data'
+const SEEDED_KEY = 'safari-njema-demo-seeded'
 
-function emptyData(): LocalData {
-  return {
-    trip: { id: crypto.randomUUID(), user_id: TEST_USER.id, title: 'My trip to Kenya', start_date: null, end_date: null },
-    stops: [],
-    lessons: {},
-  }
+function isoDay(date: Date): string {
+  return date.toISOString().slice(0, 10)
+}
+
+// The demo trip starts two weeks from today and runs for a week, so the day chips have something to show.
+function newTrip(): Trip {
+  const start = new Date()
+  start.setDate(start.getDate() + 14)
+  const end = new Date(start)
+  end.setDate(end.getDate() + 6)
+  return { id: crypto.randomUUID(), user_id: DEMO_USER.id, title: 'My trip to Kenya', start_date: isoDay(start), end_date: isoDay(end) }
+}
+
+// The sample trip is added once per browser. This flag is separate from the data, because reading the trip creates the data.
+export function wasDemoSeeded(): boolean {
+  return localStorage.getItem(SEEDED_KEY) !== null
+}
+
+export function markDemoSeeded() {
+  localStorage.setItem(SEEDED_KEY, '1')
 }
 
 function read(): LocalData {
@@ -35,7 +49,7 @@ function read(): LocalData {
   } catch {
     // Unreadable data is replaced with a fresh trip below.
   }
-  const fresh = emptyData()
+  const fresh: LocalData = { trip: newTrip(), stops: [], lessons: {} }
   write(fresh)
   return fresh
 }
@@ -59,7 +73,7 @@ export function addLocalStop(place: PickedPlace, visitDate: string | null, activ
   const stop: StopRow = {
     id: crypto.randomUUID(),
     trip_id: data.trip.id,
-    user_id: TEST_USER.id,
+    user_id: DEMO_USER.id,
     place_id: placeId,
     visit_date: visitDate,
     activities,
@@ -88,7 +102,7 @@ export function attachLocalLesson(stopId: string, lesson: StoredLesson) {
   if (!stop) return
   const userLessonId = crypto.randomUUID()
   data.lessons[userLessonId] = lesson
-  stop.user_lessons = [{ id: userLessonId }]
+  stop.user_lessons = [{ id: userLessonId, status: 'ready' }]
   stop.lesson_status = 'ready'
   write(data)
 }
@@ -108,10 +122,16 @@ export function getLocalLesson(userLessonId: string): StoredLesson | null {
 
 export function completeLocalLesson(userLessonId: string) {
   const data = read()
-  if (data.lessons[userLessonId]) data.lessons[userLessonId].completed = true
+  for (const stop of data.stops) {
+    for (const userLesson of stop.user_lessons) {
+      if (userLesson.id === userLessonId) userLesson.status = 'completed'
+    }
+  }
   write(data)
 }
 
-export function resetLocalData() {
-  localStorage.removeItem(KEY)
+// Starting over leaves an empty trip behind, so the first stop flow, greetings included, can be tried from scratch.
+export function startEmptyTrip() {
+  markDemoSeeded()
+  write({ trip: newTrip(), stops: [], lessons: {} })
 }

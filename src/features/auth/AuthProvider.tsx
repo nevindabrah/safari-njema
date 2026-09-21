@@ -1,8 +1,8 @@
-// Holds the signed in user and keeps it in sync with Supabase auth. In test mode it holds the test user instead.
+// Holds the signed in user and keeps it in sync with Supabase auth. In demo mode it holds the demo user instead.
 // Exists so every screen reads the user from one context instead of asking Supabase again.
 import { createContext, useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../../lib/supabase'
-import { isTestMode, TEST_USER } from '../testmode/testMode'
+import { isDemoMode, DEMO_USER } from '../demo/demoMode'
 
 // The only parts of a user the app reads. A Supabase user fits this shape.
 export interface AppUser {
@@ -14,26 +14,26 @@ export interface AuthState {
   user: AppUser | null
   loading: boolean
   signOut: () => Promise<void>
-  signInAsTester: () => void
+  signInAsDemoUser: () => void
 }
 
 export const AuthContext = createContext<AuthState>({
   user: null,
   loading: true,
   signOut: async () => {},
-  signInAsTester: () => {},
+  signInAsDemoUser: () => {},
 })
 
-// Test mode remembers a sign out, so the public pages and the login screen can be tried too.
-const SIGNED_OUT_KEY = 'safari-njema-test-signed-out'
+// Demo visitors start signed out, so the landing page comes first. One tap on the demo button signs them in.
+const SIGNED_IN_KEY = 'safari-njema-demo-signed-in'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (isTestMode) {
-      setUser(localStorage.getItem(SIGNED_OUT_KEY) ? null : TEST_USER)
+    if (isDemoMode) {
+      setUser(localStorage.getItem(SIGNED_IN_KEY) ? DEMO_USER : null)
       setLoading(false)
       return
     }
@@ -48,19 +48,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   async function signOut() {
-    if (isTestMode) {
-      localStorage.setItem(SIGNED_OUT_KEY, '1')
+    if (isDemoMode) {
+      localStorage.removeItem(SIGNED_IN_KEY)
       setUser(null)
       return
     }
     await supabase.auth.signOut()
   }
 
-  function signInAsTester() {
-    if (!isTestMode) return
-    localStorage.removeItem(SIGNED_OUT_KEY)
-    setUser(TEST_USER)
+  function signInAsDemoUser() {
+    if (!isDemoMode) return
+    localStorage.setItem(SIGNED_IN_KEY, '1')
+    setUser(DEMO_USER)
   }
 
-  return <AuthContext.Provider value={{ user, loading, signOut, signInAsTester }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, loading, signOut, signInAsDemoUser }}>{children}</AuthContext.Provider>
 }

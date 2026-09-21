@@ -1,27 +1,27 @@
-// Shown on the login and sign up screens in test mode, in place of a form that has nowhere to send a password.
-// Exists so a fresh clone explains itself and still lets you in, as the test user.
+// Shown on the login and sign up screens in demo mode, in place of a form that has nowhere to send a password.
+// Exists so a visitor is never stuck at a login wall: one tap opens the demo account.
 import { useNavigate } from 'react-router'
 import { Button } from '../../components/Button'
-import { isTestMode } from '../testmode/testMode'
+import { isDemoMode } from '../demo/demoMode'
 import { useAuth } from './useAuth'
 
 export function SetupNotice() {
-  const { signInAsTester } = useAuth()
+  const { signInAsDemoUser } = useAuth()
   const navigate = useNavigate()
-  if (!isTestMode) return null
+  if (!isDemoMode) return null
 
   function enter() {
-    signInAsTester()
+    signInAsDemoUser()
     navigate('/trip', { replace: true })
   }
 
   return (
     <div className="bg-tint rounded-input p-4 mb-5 text-sm">
-      <p className="font-bold">Accounts are not connected yet.</p>
+      <p className="font-bold">This is the live demo.</p>
       <p className="text-muted mb-3">
-        Real sign up needs the Supabase values in .env. Until then, test mode gives you a ready-made account that lives in this browser.
+        Accounts are switched off here, so there is nothing to sign up for. The demo account has a ready-made trip and saves everything in your browser.
       </p>
-      <Button variant="accent" full onClick={enter}>Continue as the test user</Button>
+      <Button variant="accent" full onClick={enter}>Open the demo</Button>
     </div>
   )
 }

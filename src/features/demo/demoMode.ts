@@ -1,7 +1,7 @@
-// Test mode is on whenever Supabase is not configured. You are signed in as a test user and data stays in this browser.
-// Exists so the whole loop can be tried on a fresh clone, before any account or key is set up. It never runs on the live site.
+// Demo mode is on whenever Supabase is not configured. Visitors get a ready-made account that lives in their browser.
+// Exists so a recruiter or a fresh clone can try the whole product with no sign up, no keys and no server.
 import { isSupabaseConfigured } from '../../lib/supabase'
 
-export const isTestMode = !isSupabaseConfigured
+export const isDemoMode = !isSupabaseConfigured
 
-export const TEST_USER = { id: 'test-user', email: 'tester@safari-njema.test' }
+export const DEMO_USER = { id: 'demo-user', email: 'demo@safari-njema.app' }

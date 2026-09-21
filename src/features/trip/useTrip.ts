@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Trip } from '../../lib/types'
 import { useAuth } from '../auth/useAuth'
-import { isTestMode } from '../testmode/testMode'
-import { getLocalTrip } from '../testmode/localStore'
+import { isDemoMode } from '../demo/demoMode'
+import { getLocalTrip } from '../demo/localStore'
 
 export function useTrip() {
   const { user } = useAuth()
@@ -14,7 +14,7 @@ export function useTrip() {
 
   useEffect(() => {
     if (!user) return
-    if (isTestMode) {
+    if (isDemoMode) {
       setTrip(getLocalTrip())
       return
     }
