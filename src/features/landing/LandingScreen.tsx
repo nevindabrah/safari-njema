@@ -2,7 +2,7 @@
 // Exists as the first thing a visitor or a recruiter sees, so one tap must lead to the product.
 import { Link, Navigate, useNavigate } from 'react-router'
 import { Hero } from '../../components/Hero'
-import { Card } from '../../components/Card'
+import { Icon, type IconName } from '../../components/icons'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
 import { Footer } from '../../components/Footer'
@@ -13,10 +13,10 @@ import { BuiltSection } from './BuiltSection'
 import { HeroMap } from './HeroMap'
 import { FullVersionSection } from './FullVersionSection'
 
-const STEPS = [
-  { emoji: '🔍', title: 'Search', body: 'Find any place in Kenya on the map, from a beach to a market stall.' },
-  { emoji: '📌', title: 'Add', body: 'Put it on a day of your trip. It becomes a numbered pin on your map.' },
-  { emoji: '🗣️', title: 'Learn', body: 'A five minute lesson is made for that exact place: what to know, what to say, and a quiz.' },
+const STEPS: Array<{ icon: IconName; title: string; body: string }> = [
+  { icon: 'search', title: 'Search', body: 'Find any place in Kenya on the map, from a beach to a market stall.' },
+  { icon: 'other', title: 'Add', body: 'Put it on a day of your trip. It becomes a numbered pin on your map.' },
+  { icon: 'bolt', title: 'Learn', body: 'A lesson is made for that exact place, as long as you have time for: what to know, what to say, and practice.' },
 ]
 
 export function LandingScreen() {
@@ -52,16 +52,16 @@ export function LandingScreen() {
         </Hero>
 
         <section aria-labelledby="how-title">
-          <h2 id="how-title" className="text-3xl mb-5 px-1">How it works</h2>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <h2 id="how-title" className="sr-only">How it works</h2>
+          <ol className="grid sm:grid-cols-3 gap-x-8 gap-y-6 px-1">
             {STEPS.map((step, i) => (
-              <Card key={step.title}>
-                <p className="text-3xl mb-3" aria-hidden="true">{step.emoji}</p>
-                <h3 className="text-xl mb-1">{i + 1}. {step.title}</h3>
-                <p className="text-muted text-sm leading-relaxed">{step.body}</p>
-              </Card>
+              <li key={step.title} className="border-t-4 pt-4" style={{ borderColor: 'var(--hero)' }}>
+                <p className="flex items-center justify-between text-muted"><span className="font-display font-extrabold text-5xl text-text">{i + 1}</span><Icon name={step.icon} size={28} /></p>
+                <h3 className="text-2xl mt-2 mb-1">{step.title}</h3>
+                <p className="text-muted leading-relaxed">{step.body}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </section>
 
         <LessonShowcase />

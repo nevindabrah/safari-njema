@@ -1,9 +1,11 @@
-// One stop in the itinerary: its place, its day (which can be changed here), and its lesson button.
+// One stop in the itinerary: its photo, its day (which can be changed here), its lesson button and its pocket card.
 // Exists apart from ItineraryList so the list only groups and orders, and this file owns one row.
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
 import { Button } from '../../components/Button'
+import { Icon } from '../../components/icons'
 import type { StopRow } from '../../lib/types'
+import { PlacePhoto } from '../places/PlacePhoto'
 import { PLACE_TYPE_INFO } from './placeTypes'
 
 interface StopCardProps {
@@ -29,18 +31,20 @@ export function StopCard({ stop, number, highlighted, onSelect, onDelete, onRetr
   }, [highlighted])
 
   return (
-    <li ref={row} className="bg-surface rounded-card shadow-soft p-4 transition-shadow" style={highlighted ? { boxShadow: '0 0 0 3px var(--accent), var(--shadow-lift)' } : undefined}>
-      <div className="flex items-start gap-3">
-        <button type="button" onClick={onSelect} aria-label={`Show ${stop.place.name} on the map`} aria-pressed={highlighted}
-          className="w-12 h-12 shrink-0 rounded-input bg-tint text-2xl flex items-center justify-center cursor-pointer relative">
-          <span aria-hidden="true">{info.emoji}</span>
-          <span className="absolute -top-1 -left-1 w-5 h-5 rounded-pill text-on-accent text-[11px] font-bold flex items-center justify-center" style={{ background: completed ? 'var(--success)' : 'var(--accent)' }}>{completed ? '✓' : number}</span>
+    <li ref={row} className="bg-surface rounded-card shadow-soft p-3 transition-shadow" style={highlighted ? { boxShadow: '0 0 0 3px var(--accent), var(--shadow-lift)' } : undefined}>
+      <div className="flex items-stretch gap-3">
+        <button type="button" onClick={onSelect} aria-label={`Show ${stop.place.name} on the map`} aria-pressed={highlighted} className="relative shrink-0 cursor-pointer">
+          <PlacePhoto googlePlaceId={stop.place.google_place_id} placeType={stop.place.place_type} name={stop.place.name} size="small" className="w-20 h-20 rounded-input" />
+          <span className="absolute -top-1.5 -left-1.5 w-6 h-6 rounded-pill text-on-accent text-xs font-bold flex items-center justify-center" style={{ background: completed ? 'var(--success)' : 'var(--accent)', border: '2px solid var(--surface)' }}>
+            {completed ? <Icon name="check" size={13} /> : number}
+          </span>
         </button>
-        <div className="flex-1 min-w-0">
-          <p className="font-bold truncate">{stop.place.name}</p>
-          <p className="text-sm text-muted truncate">{info.label}{stop.activities.length > 0 && ` · ${stop.activities.join(', ')}`}</p>
+        <div className="flex-1 min-w-0 py-0.5">
+          <p className="font-display font-extrabold text-lg leading-tight truncate">{stop.place.name}</p>
+          <p className="text-sm text-muted truncate flex items-center gap-1.5 mt-0.5"><Icon name={stop.place.place_type} size={15} />{info.label}</p>
+          {stop.activities.length > 0 && <p className="text-xs text-muted truncate mt-0.5">{stop.activities.join(' · ')}</p>}
         </div>
-        <button type="button" onClick={onDelete} aria-label={`Remove ${stop.place.name}`} className="w-10 h-10 shrink-0 rounded-pill hover:bg-tint text-muted cursor-pointer">🗑</button>
+        <button type="button" onClick={onDelete} aria-label={`Remove ${stop.place.name}`} className="w-10 h-10 shrink-0 rounded-pill hover:bg-tint text-muted cursor-pointer flex items-center justify-center"><Icon name="trash" size={18} /></button>
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
@@ -53,15 +57,20 @@ export function StopCard({ stop, number, highlighted, onSelect, onDelete, onRetr
 
       <div className="mt-3">
         {stop.lesson_status === 'generating' && (
-          <p className="text-sm text-muted flex items-center gap-2">
+          <p className="text-sm text-muted flex items-center gap-2 min-h-[48px]">
             <span className="inline-block w-4 h-4 rounded-pill border-2 border-accent border-t-transparent animate-spin" aria-hidden="true" />
             Preparing your lesson
           </p>
         )}
         {stop.lesson_status === 'ready' && lessonId && (
-          <Link to={`/lesson/${lessonId}`} className="block">
-            <Button variant={completed ? 'soft' : 'accent'} full tabIndex={-1}>{completed ? 'Done. Review lesson' : 'Start lesson'}</Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link to={`/lesson/${lessonId}`} className="block flex-1">
+              <Button variant={completed ? 'soft' : 'accent'} full tabIndex={-1}>{completed ? 'Review lesson' : 'Start lesson'}</Button>
+            </Link>
+            <Link to={`/card/${lessonId}`} aria-label={`Pocket card for ${stop.place.name}`} title="Pocket card">
+              <Button variant="soft" tabIndex={-1} className="!px-4"><Icon name="card" size={20} /></Button>
+            </Link>
+          </div>
         )}
         {(stop.lesson_status === 'failed' || (stop.lesson_status === 'ready' && !lessonId)) && <Button variant="soft" full onClick={onRetry}>Try again</Button>}
       </div>

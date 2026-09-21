@@ -6,12 +6,13 @@ import { Hero } from '../../components/Hero'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
 import { Footer } from '../../components/Footer'
+import { allPhotos } from '../places/photoData'
 
 export function AboutScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-3xl px-4 py-6 flex flex-col gap-6">
+      <main className="mx-auto max-w-3xl px-4 pt-6 pb-28 sm:pb-6 flex flex-col gap-6">
         <Hero title="Kuhusu mimi">
           <p className="text-lg">About me, and why I built this.</p>
           <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-4 rounded-card px-4 py-3 bg-primary text-on-primary">
@@ -29,6 +30,15 @@ export function AboutScreen() {
           <div className="mt-2">
             <Link to="/signup"><Button variant="accent" tabIndex={-1}>Start the journey</Button></Link>
           </div>
+        </Card>
+        <Card>
+          <h2 className="text-xl mb-2">Photo credits</h2>
+          <p className="text-sm text-muted mb-3">Place photos come from Wikimedia Commons under Creative Commons licences. Thank you to the photographers.</p>
+          <ul className="text-xs text-muted flex flex-col gap-1">
+            {allPhotos().map(([id, photo]) => (
+              <li key={id}><a href={photo.filePage} target="_blank" rel="noreferrer" className="underline">{decodeURIComponent(photo.filePage.split('File:')[1] ?? id).replace(/_/g, ' ')}</a> by {photo.author}, {photo.licence}</li>
+            ))}
+          </ul>
         </Card>
         <Footer />
       </main>

@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { Button } from '../../components/Button'
 import { ACTIVITIES, type Trip } from '../../lib/types'
+import { Icon } from '../../components/icons'
+import { PlacePhoto, PhotoCredit } from '../places/PlacePhoto'
 import { PLACE_TYPE_INFO } from './placeTypes'
 import { REGION_LABEL } from './regions'
 import type { PickedPlace } from './usePlaceSearch'
@@ -48,15 +50,15 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
     `px-3 min-h-[40px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
 
   return (
-    <div className="bg-surface rounded-card shadow-lift p-5">
-      <div className="flex items-start gap-3">
-        <span className="text-2xl w-12 h-12 rounded-input bg-tint flex items-center justify-center" aria-hidden="true">{info.emoji}</span>
-        <div className="flex-1 min-w-0">
-          <h2 className="text-xl truncate">{place.name}</h2>
-          <p className="text-sm text-muted">{info.label}{place.county ? ` · ${place.county}` : ''} · {REGION_LABEL[place.region]}</p>
-        </div>
-        <button onClick={onClose} aria-label="Close" className="w-10 h-10 rounded-pill hover:bg-tint cursor-pointer">×</button>
+    <div className="bg-surface rounded-card shadow-lift overflow-hidden">
+      <div className="relative">
+        <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="large" className="w-full h-36" />
+        <button onClick={onClose} aria-label="Close" className="absolute top-3 right-3 w-10 h-10 rounded-pill bg-surface text-text shadow-soft cursor-pointer flex items-center justify-center"><Icon name="close" size={18} /></button>
       </div>
+      <div className="p-5">
+      <h2 className="text-2xl">{place.name}</h2>
+      <p className="text-sm text-muted flex items-center gap-1.5 mt-1"><Icon name={place.placeType} size={15} />{info.label}{place.county ? ` · ${place.county}` : ''} · {REGION_LABEL[place.region]}</p>
+      <PhotoCredit googlePlaceId={place.googlePlaceId} className="text-muted mt-1" />
 
       <p className="text-sm font-bold mt-4 mb-2">Which day?</p>
       <div className="flex gap-2 flex-wrap items-center">
@@ -82,6 +84,7 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
       <Button variant="accent" full silent className="mt-5" onClick={add} disabled={busy}>
         {busy ? 'Adding' : 'Add to itinerary'}
       </Button>
+      </div>
     </div>
   )
 }

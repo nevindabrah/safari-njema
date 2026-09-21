@@ -1,7 +1,7 @@
-// A short section for reviewers: the engineering decisions behind the product, in plain words.
+// A short section for reviewers: the engineering decisions behind the product, in plain words, as a numbered list.
 // Exists because this is also a portfolio piece, and the interesting parts are not visible from the UI.
-import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
+import { Icon } from '../../components/icons'
 import { GITHUB_URL } from '../../components/Footer'
 
 const POINTS = [
@@ -15,20 +15,24 @@ const POINTS = [
 
 export function BuiltSection() {
   return (
-    <section aria-labelledby="built-title">
-      <h2 id="built-title" className="text-3xl mb-2 px-1">How it is built</h2>
-      <p className="text-muted mb-5 px-1 max-w-2xl">React, TypeScript, Tailwind, Supabase with Postgres and Edge Functions, Google Maps Platform and the Claude API.</p>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {POINTS.map((point) => (
-          <Card key={point.title}>
-            <h3 className="text-lg mb-2">{point.title}</h3>
-            <p className="text-sm text-muted leading-relaxed">{point.body}</p>
-          </Card>
+    <section aria-labelledby="built-title" className="grid lg:grid-cols-[18rem_1fr] gap-8">
+      <div className="lg:sticky lg:top-24 self-start px-1">
+        <p className="text-sm font-bold uppercase tracking-wide text-accent">For reviewers</p>
+        <h2 id="built-title" className="text-3xl sm:text-4xl mb-3">How it is built</h2>
+        <p className="text-muted mb-5">React, TypeScript, Tailwind, Supabase with Postgres and Edge Functions, Google Maps Platform and the Claude API.</p>
+        <a href={GITHUB_URL} target="_blank" rel="noreferrer"><Button tabIndex={-1}>Read the code<Icon name="arrow" size={18} /></Button></a>
+      </div>
+      <ol className="flex flex-col">
+        {POINTS.map((point, i) => (
+          <li key={point.title} className="grid grid-cols-[3rem_1fr] gap-3 py-5 border-t" style={{ borderColor: 'var(--line)' }}>
+            <span className="font-display font-extrabold text-2xl text-accent">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 className="text-xl mb-1">{point.title}</h3>
+              <p className="text-muted leading-relaxed">{point.body}</p>
+            </div>
+          </li>
         ))}
-      </div>
-      <div className="mt-5 px-1">
-        <a href={GITHUB_URL} target="_blank" rel="noreferrer"><Button tabIndex={-1}>Read the code on GitHub</Button></a>
-      </div>
+      </ol>
     </section>
   )
 }

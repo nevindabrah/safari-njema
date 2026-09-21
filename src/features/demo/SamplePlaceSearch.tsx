@@ -1,7 +1,8 @@
 // Test mode's search box. It looks like the real one but searches the built-in list of places.
 // Exists because the real search needs a Google Maps key, and test mode must work without one.
 import { useState } from 'react'
-import { PLACE_TYPE_INFO } from '../trip/placeTypes'
+import { Icon } from '../../components/icons'
+import { PlacePhoto } from '../places/PlacePhoto'
 import type { PickedPlace } from '../trip/usePlaceSearch'
 import { searchSamplePlaces } from './samplePlaces'
 
@@ -33,10 +34,10 @@ export function SamplePlaceSearch({ onPick }: { onPick: (place: PickedPlace) => 
           {results.map((place) => (
             <li key={place.googlePlaceId}>
               <button type="button" onClick={() => choose(place)} className="w-full text-left px-5 py-3 min-h-[48px] hover:bg-tint cursor-pointer flex items-center gap-3">
-                <span aria-hidden="true">{PLACE_TYPE_INFO[place.placeType].emoji}</span>
+                <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="small" className="w-11 h-11 rounded-input shrink-0" />
                 <span>
                   <span className="block font-bold">{place.name}</span>
-                  <span className="block text-sm text-muted">{place.address}</span>
+                  <span className="text-sm text-muted flex items-center gap-1"><Icon name={place.placeType} size={13} />{place.address}</span>
                 </span>
               </button>
             </li>

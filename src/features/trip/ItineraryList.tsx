@@ -1,6 +1,7 @@
 // The itinerary: trip progress, then the stops grouped by day in visiting order.
 // Exists as the home screen's main content. Each row is a StopCard.
 import { ProgressBar } from '../../components/ProgressBar'
+import { Icon } from '../../components/icons'
 import { dayNumber } from '../../lib/orderStops'
 import type { StopRow, Trip } from '../../lib/types'
 import { StopCard } from './StopCard'
@@ -26,7 +27,7 @@ export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, 
   if (stops.length === 0) {
     return (
       <div className="bg-surface rounded-card shadow-soft p-6 text-center">
-        <p className="text-3xl mb-2" aria-hidden="true">🗺️</p>
+        <p className="flex justify-center mb-3 text-muted"><Icon name="map" size={40} /></p>
         <p className="font-bold">You have no stops yet.</p>
         <p className="text-muted text-sm">Search for the first place you are going and add it.</p>
       </div>

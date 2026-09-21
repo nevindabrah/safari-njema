@@ -136,6 +136,23 @@ export function getLocalLesson(userLessonId: string): StoredLesson | null {
   return read().lessons[userLessonId] ?? null
 }
 
+// The place a lesson belongs to, so the lesson screen can show its photo.
+export function getLocalLessonPlaceId(userLessonId: string): string | null {
+  const stop = read().stops.find((s) => s.user_lessons.some((l) => l.id === userLessonId))
+  return stop?.place.google_place_id ?? null
+}
+
+// One entry per lesson, in trip order, for the kanga shelf. A kanga is earned by finishing its lesson.
+export function listLocalKangas() {
+  const data = read()
+  return data.stops.flatMap((stop) => {
+    const userLesson = stop.user_lessons[0]
+    const kanga = userLesson && data.lessons[userLesson.id]?.lesson.kanga
+    if (!userLesson || !kanga) return []
+    return [{ userLessonId: userLesson.id, placeName: stop.place.name, googlePlaceId: stop.place.google_place_id, proverb: kanga.proverb, meaning: kanga.meaning, earned: userLesson.status === 'completed' }]
+  })
+}
+
 export function completeLocalLesson(userLessonId: string) {
   const data = read()
   for (const stop of data.stops) {
