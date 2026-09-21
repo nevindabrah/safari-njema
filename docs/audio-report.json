@@ -677,10 +677,11 @@
   {
     "file": "052.m4a",
     "swahili": "Mia tano",
-    "heard": "mea tano",
-    "score": 0.86,
+    "heard": "miatano",
+    "score": 1.0,
     "shipped": true,
     "take": {
+      "voice": "Mwau/waxal_swahili-tts-mms",
       "method": "alone",
       "seed": 7,
       "speed": 0.88,
@@ -850,10 +851,11 @@
   {
     "file": "065.m4a",
     "swahili": "Duma",
-    "heard": "dumat",
-    "score": 0.8,
+    "heard": "duma",
+    "score": 1.0,
     "shipped": true,
     "take": {
+      "voice": "mussacharles60/swahili-tts-female-voice",
       "method": "middle",
       "seed": 7,
       "speed": 0.88,
@@ -1012,12 +1014,13 @@
   {
     "file": "077.m4a",
     "swahili": "Pwani",
-    "heard": "pwanip",
-    "score": 0.83,
+    "heard": "pwani",
+    "score": 1.0,
     "shipped": true,
     "take": {
-      "method": "middle, quiet cut",
-      "seed": 21,
+      "voice": "Mwau/waxal_swahili-tts-mms",
+      "method": "alone",
+      "seed": 7,
       "speed": 0.88,
       "split_commas": true,
       "noise": 0.667
@@ -1238,13 +1241,14 @@
   {
     "file": "094.m4a",
     "swahili": "Unaongea Kiingereza?",
-    "heard": "unaomgia kiingereza",
-    "score": 0.89,
+    "heard": "unaongea kiingereza",
+    "score": 1.0,
     "shipped": true,
     "take": {
+      "voice": "Mwau/waxal_swahili-tts-mms",
       "method": "alone",
-      "seed": 21,
-      "speed": 0.78,
+      "seed": 7,
+      "speed": 0.88,
       "split_commas": true,
       "noise": 0.667
     }
