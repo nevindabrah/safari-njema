@@ -1,6 +1,6 @@
 // A multiple choice exercise: meaning, recall, sounds like, fill the gap, or true or false.
 // Exists as one of four exercise kinds. It shows the options, marks the answer, and reports right or wrong once.
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ChoiceExercise as Choice } from '../../../lib/quizChoice'
 
 interface ChoiceExerciseProps {
@@ -20,6 +20,16 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
     onAnswer(i === exercise.correctIndex)
   }
 
+  // Number keys pick an option, so a laptop user never has to reach for the mouse.
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      const i = Number(event.key) - 1
+      if (Number.isInteger(i) && i >= 0 && i < exercise.options.length) choose(i)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
   return (
     <div>
       <p lang={exercise.promptLang === 'none' ? undefined : exercise.promptLang} className="font-display font-extrabold text-3xl"
@@ -38,7 +48,7 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
               <button type="button" lang={exercise.optionLang} onClick={() => choose(i)} disabled={chosen !== null}
                 className="w-full text-left px-5 py-3 min-h-[52px] rounded-input font-bold cursor-pointer disabled:cursor-default"
                 style={{ background, color: marked ? 'var(--on-accent)' : 'var(--text)' }}>
-                {option}
+                <span className="hidden sm:inline-block w-6 text-xs opacity-50" aria-hidden="true">{i + 1}</span>{option}
               </button>
             </li>
           )

@@ -5,7 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { lessonSchema, type Lesson } from '../../lib/lessonSchema'
 import type { Phrase } from '../../lib/types'
 import { isDemoMode } from '../demo/demoMode'
-import { completeLocalLesson, getLocalLesson } from '../demo/localStore'
+import { completeLocalLesson, getLocalLesson, getLocalLessonPlaceId } from '../demo/localStore'
 import { loadSeedBank } from './seedBank'
 
 export interface LoadedLesson {
@@ -15,6 +15,8 @@ export interface LoadedLesson {
   phrases: Phrase[]
   // Extra phrases the quiz can use as wrong answers.
   pool: Phrase[]
+  // The Google place id of the stop, used to find its photo.
+  googlePlaceId: string | null
 }
 
 export function useLesson(userLessonId: string | undefined) {
@@ -29,7 +31,7 @@ export function useLesson(userLessonId: string | undefined) {
         setError('We could not find that lesson.')
         return
       }
-      loadSeedBank().then((bank) => bank.filter((p) => p.register !== 'sheng')).then((pool) => setData({ userLessonId, lesson: stored.lesson, generatedBy: stored.generatedBy, phrases: stored.phrases, pool }))
+      loadSeedBank().then((bank) => bank.filter((p) => p.register !== 'sheng')).then((pool) => setData({ userLessonId, lesson: stored.lesson, generatedBy: stored.generatedBy, phrases: stored.phrases, pool, googlePlaceId: getLocalLessonPlaceId(userLessonId) }))
       return
     }
     let cancelled = false
@@ -37,7 +39,7 @@ export function useLesson(userLessonId: string | undefined) {
     async function load() {
       const { data: row, error: readError } = await supabase
         .from('user_lessons')
-        .select('id, lesson:lessons(content, generated_by)')
+        .select('id, lesson:lessons(content, generated_by), trip_stop:trip_stops(place:places(google_place_id))')
         .eq('id', userLessonId!)
         .single()
       if (readError || !row) {
@@ -60,7 +62,7 @@ export function useLesson(userLessonId: string | undefined) {
       const phrases = ids.map((id) => byId.get(id)).filter((p): p is Phrase => Boolean(p))
       const { data: poolRows } = await supabase.from('phrases').select('id, swahili, pronunciation, english, tags, verified').neq('register', 'sheng').limit(100)
       if (!cancelled) {
-        setData({ userLessonId: row.id, lesson: parsed.data, generatedBy: lessonRow.generated_by, phrases, pool: (poolRows ?? []) as Phrase[] })
+        setData({ userLessonId: row.id, lesson: parsed.data, generatedBy: lessonRow.generated_by, phrases, pool: (poolRows ?? []) as Phrase[], googlePlaceId: (row.trip_stop as unknown as { place: { google_place_id: string } } | null)?.place.google_place_id ?? null })
       }
     }
 

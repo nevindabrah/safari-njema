@@ -8,10 +8,10 @@ import { buildTemplateLesson } from '../../../supabase/functions/_shared/templat
 import { LessonPlayer } from './LessonPlayer'
 
 // The three stops from the Phase 1 acceptance test.
-const SAMPLES: Array<{ name: string; ctx: CandidateContext }> = [
-  { name: 'Maasai Market', ctx: { placeType: 'market', activities: ['shopping'], region: 'nairobi', firstStop: true, level: 'none', knownIds: [] } },
-  { name: 'Diani Beach', ctx: { placeType: 'beach', activities: ['eating out'], region: 'coast', firstStop: false, level: 'none', knownIds: [] } },
-  { name: 'Maasai Mara National Reserve', ctx: { placeType: 'park', activities: ['game drive'], region: 'rift_valley_mara', firstStop: false, level: 'none', knownIds: [] } },
+const SAMPLES: Array<{ name: string; placeId: string; ctx: CandidateContext }> = [
+  { name: 'Maasai Market', placeId: 'sample-maasai-market', ctx: { placeType: 'market', activities: ['shopping'], region: 'nairobi', firstStop: true, level: 'none', knownIds: [] } },
+  { name: 'Diani Beach', placeId: 'sample-diani', ctx: { placeType: 'beach', activities: ['eating out'], region: 'coast', firstStop: false, level: 'none', knownIds: [] } },
+  { name: 'Maasai Mara National Reserve', placeId: 'sample-maasai-mara', ctx: { placeType: 'park', activities: ['game drive'], region: 'rift_valley_mara', firstStop: false, level: 'none', knownIds: [] } },
 ]
 
 export function PreviewLessonScreen() {
@@ -40,7 +40,7 @@ export function PreviewLessonScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-2xl px-4 pb-10">
+      <main className="mx-auto max-w-2xl px-4 pb-28 sm:pb-10">
         <p className="text-sm text-muted px-1 mb-2">Sample lessons. Pick a stop to see how the lesson changes.</p>
         <div className="flex gap-2 flex-wrap mb-5" role="tablist" aria-label="Sample stops">
           {SAMPLES.map((sample, i) => (
@@ -57,7 +57,7 @@ export function PreviewLessonScreen() {
           ))}
         </div>
         {built ? (
-          <LessonPlayer key={selected} lesson={built.lesson} phrases={built.phrases} pool={bank.filter((p) => p.register !== 'sheng')} generatedBy="template" backTo="/" backLabel="Back to the start" />
+          <LessonPlayer key={selected} googlePlaceId={SAMPLES[selected].placeId} lesson={built.lesson} phrases={built.phrases} pool={bank.filter((p) => p.register !== 'sheng')} generatedBy="template" backTo="/" backLabel="Back to the start" />
         ) : (
           <p className="p-8 text-center text-muted">Opening the sample lesson.</p>
         )}

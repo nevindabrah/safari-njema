@@ -1,10 +1,11 @@
 // Runs the practice: one exercise at a time, feedback after each, a streak, then a second chance at anything missed.
 // Exists as the practice step of a lesson. Only first tries count for the score. The exercises come from the pure buildQuiz.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../../components/Button'
 import { ProgressBar } from '../../components/ProgressBar'
 import { PART_TITLES, type Exercise } from '../../lib/quiz'
 import { playSound } from '../../lib/sounds'
+import { Icon } from '../../components/icons'
 import { ChoiceExercise } from './exercises/ChoiceExercise'
 import { MatchExercise } from './exercises/MatchExercise'
 import { BuildExercise } from './exercises/BuildExercise'
@@ -60,6 +61,15 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
     onFinish({ correct, total: exercises.length, missedPhraseIds })
   }
 
+  // Enter moves on once an answer has been given.
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === 'Enter' && outcome) next()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
   const moreToCome = index + 1 < queue.length || (!secondChance && missed.length > 0)
 
   return (
@@ -68,7 +78,7 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
         <p className="text-xs font-bold uppercase tracking-wide rounded-pill bg-tint px-3 py-1">
           {secondChance ? 'Second chance' : `Part ${exercise.part} of 3 · ${PART_TITLES[exercise.part]}`}
         </p>
-        {streak >= 3 && !secondChance && <p className="text-sm font-bold" aria-live="polite">🔥 {streak} in a row</p>}
+        {streak >= 3 && !secondChance && <p className="text-sm font-bold flex items-center gap-1 text-accent" aria-live="polite"><Icon name="bolt" size={16} />{streak} in a row</p>}
       </div>
       <ProgressBar value={index + 1} max={queue.length} label="Practice progress" />
       <p className="text-sm text-muted mt-4 mb-1">{exercise.instruction}</p>

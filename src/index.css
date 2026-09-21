@@ -32,6 +32,10 @@
   --hero-ghost-edge: rgba(21, 23, 58, 0.18);
   --on-hero-ghost: #15173a;
 
+  /* Text set over a photo is always light, on a dark fade, in both themes. */
+  --on-photo: #ffffff;
+  --photo-fade: linear-gradient(to top, rgba(10, 11, 30, 0.88) 0%, rgba(10, 11, 30, 0.45) 55%, rgba(10, 11, 30, 0.15) 100%);
+
   /* Soft backgrounds for the feedback panel after an answer. */
   --right-soft: #dff5ec;
   --wrong-soft: #fde3ec;
@@ -172,4 +176,34 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+}
+
+/* A short burst of confetti when a lesson is finished. Decoration only, and switched off for reduced motion. */
+.confetti {
+  position: absolute;
+  inset: -1.5rem 0 auto 0;
+  height: 0;
+  pointer-events: none;
+}
+.confetti span {
+  position: absolute;
+  top: 0;
+  width: 9px;
+  height: 14px;
+  border-radius: 3px;
+  opacity: 0;
+  animation: confetti-fall 1.4s ease-out forwards;
+}
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translateY(-10px) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(190px) rotate(320deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti { display: none; }
+}
+
+/* The pocket card prints as a clean page: no navigation, no buttons. */
+@media print {
+  header, .no-print { display: none !important; }
+  body { background: #ffffff; }
 }

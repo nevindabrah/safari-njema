@@ -13,7 +13,7 @@ export function LessonScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-2xl px-4 pb-10">
+      <main className="mx-auto max-w-2xl px-4 pb-28 sm:pb-10">
         {error && (
           <Card className="mt-6">
             <p className="mb-2">{error}</p>
@@ -26,6 +26,8 @@ export function LessonScreen() {
             lesson={data.lesson}
             phrases={data.phrases}
             pool={data.pool}
+            googlePlaceId={data.googlePlaceId}
+            userLessonId={data.userLessonId}
             generatedBy={data.generatedBy}
             backTo="/trip"
             backLabel="Back to my trip"
