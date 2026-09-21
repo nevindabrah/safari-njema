@@ -1,5 +1,6 @@
-// Chooses candidate phrases from the bank for a stop by matching tags to place type, activities and region.
-// Exists as a pure function shared by the template path and the model path, and tested with Vitest.
+// Chooses phrases from the bank for a stop. pickCandidates scores every phrase by its tags,
+// and pickTemplatePhrases fills the lesson's slots from those candidates. Pure functions, tested with Vitest.
+import { ACTIVITY_TAGS, PLACE_TYPE_TAGS, REGION_TAGS, buildSlotPlan } from './lessonPlan'
 
 export interface CandidatePhrase {
   id: string
@@ -7,6 +8,7 @@ export interface CandidatePhrase {
   pronunciation: string
   english: string
   tags: string[]
+  register?: string
 }
 
 export interface CandidateContext {
@@ -16,41 +18,13 @@ export interface CandidateContext {
   firstStop: boolean
   level: string
   knownIds: string[]
+  shengEnabled?: boolean
 }
 
-const PLACE_TYPE_TAGS: Record<string, string[]> = {
-  market: ['market', 'bargaining', 'numbers', 'money'],
-  restaurant: ['food', 'drink', 'numbers', 'money'],
-  hotel: ['hotel', 'help', 'polite'],
-  park: ['safari', 'animals', 'questions'],
-  beach: ['coast', 'beach', 'food'],
-  airport: ['airport', 'transport', 'help'],
-  station: ['transport', 'numbers', 'directions'],
-  city: ['directions', 'transport', 'city'],
-  religious_site: ['polite', 'questions'],
-  museum: ['questions', 'polite'],
-  other: ['help', 'questions'],
-}
-
-const ACTIVITY_TAGS: Record<string, string[]> = {
-  'eating out': ['food', 'drink'],
-  shopping: ['market', 'bargaining', 'numbers'],
-  'game drive': ['safari', 'animals'],
-  beach: ['coast', 'beach'],
-  nightlife: ['nightlife', 'drink'],
-  'meeting family': ['family', 'polite'],
-  'public transport': ['transport', 'numbers', 'directions'],
-  hiking: ['hiking', 'directions', 'help'],
-  'business meeting': ['business', 'polite', 'time'],
-}
-
-const REGION_TAGS: Record<string, string[]> = {
-  coast: ['coast', 'coastal'],
-  nairobi: ['city'],
-  rift_valley_mara: ['safari'],
-  central_mt_kenya: ['hiking'],
-  western_lake: [],
-  north: [],
+// A chosen phrase and the slot tag that chose it. The template uses the slot to say why the phrase is here.
+export interface PickedPhrase {
+  phrase: CandidatePhrase
+  slot: string
 }
 
 export function scorePhrase(phrase: CandidatePhrase, ctx: CandidateContext): number {
@@ -70,33 +44,38 @@ export function scorePhrase(phrase: CandidatePhrase, ctx: CandidateContext): num
   return score
 }
 
-function wordCount(text: string): number {
-  return text.trim().split(/\s+/).length
-}
-
-// Returns up to `limit` phrases, best match first. Phrases the user already knows are left out.
+// Returns up to `limit` phrases that fit the stop, best first. Ties keep the bank's order, which is v1's teaching order.
 export function pickCandidates(phrases: CandidatePhrase[], ctx: CandidateContext, limit = 40): CandidatePhrase[] {
   const known = new Set(ctx.knownIds)
-  const scored = phrases
+  return phrases
     .filter((p) => !known.has(p.id))
+    .filter((p) => ctx.shengEnabled || p.register !== 'sheng')
     .map((p, index) => ({ p, score: scorePhrase(p, ctx), index }))
-    .filter((x) => x.score > 0 || ctx.firstStop === false)
-    .sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score
-      // Beginners get shorter phrases first.
-      if (ctx.level === 'none') {
-        const lengthDiff = wordCount(a.p.swahili) - wordCount(b.p.swahili)
-        if (lengthDiff !== 0) return lengthDiff
-      }
-      return a.index - b.index
-    })
-  return scored.slice(0, limit).map((x) => x.p)
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, limit)
+    .map((x) => x.p)
 }
 
-// The template lesson takes the top six. On a first stop, two of them are greetings.
-export function pickTemplatePhrases(candidates: CandidatePhrase[], ctx: CandidateContext, count = 6): CandidatePhrase[] {
-  if (!ctx.firstStop) return candidates.slice(0, count)
-  const greetings = candidates.filter((p) => p.tags.includes('greeting')).slice(0, 2)
-  const rest = candidates.filter((p) => !greetings.includes(p))
-  return [...greetings, ...rest].slice(0, count)
+// Fills the slot plan in order. Each slot takes an unused candidate with that tag.
+// If slots run out before `count`, the best remaining candidates top it up.
+export function pickTemplatePhrases(candidates: CandidatePhrase[], ctx: CandidateContext, count = 6): PickedPhrase[] {
+  const picked: PickedPhrase[] = []
+  const used = new Set<string>()
+  for (const slot of buildSlotPlan(ctx.placeType, ctx.activities, ctx.firstStop)) {
+    if (picked.length >= count) break
+    // Within a slot, a phrase marked essential wins. Otherwise the best scoring one does.
+    const fits = candidates.filter((c) => !used.has(c.id) && c.tags.includes(slot))
+    const match = fits.find((c) => c.tags.includes('essential')) ?? fits[0]
+    if (!match) continue
+    used.add(match.id)
+    picked.push({ phrase: match, slot })
+  }
+  for (const candidate of candidates) {
+    if (picked.length >= count) break
+    if (used.has(candidate.id)) continue
+    used.add(candidate.id)
+    picked.push({ phrase: candidate, slot: candidate.tags[0] ?? 'basics' })
+  }
+  return picked
 }

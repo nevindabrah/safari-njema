@@ -3,6 +3,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { TopBar } from '../../components/TopBar'
 import type { Phrase } from '../../lib/types'
+
+// The seed rows also carry a register, which the picker uses to leave Sheng out.
+type BankPhrase = Phrase & { register: string }
 import { pickCandidates, pickTemplatePhrases, type CandidateContext } from '../../../supabase/functions/_shared/pickCandidates'
 import { buildTemplateLesson } from '../../../supabase/functions/_shared/template'
 import { LessonPlayer } from './LessonPlayer'
@@ -15,7 +18,7 @@ const SAMPLES: Array<{ name: string; ctx: CandidateContext }> = [
 ]
 
 export function PreviewLessonScreen() {
-  const [bank, setBank] = useState<Phrase[]>([])
+  const [bank, setBank] = useState<BankPhrase[]>([])
   const [selected, setSelected] = useState(0)
 
   // The seed is loaded only on this page so it stays out of the main bundle.
@@ -28,6 +31,7 @@ export function PreviewLessonScreen() {
           pronunciation: p.pronunciation,
           english: p.english,
           tags: p.tags,
+          register: p.register,
           verified: false,
         })),
       )
@@ -45,7 +49,7 @@ export function PreviewLessonScreen() {
       firstStop: sample.ctx.firstStop,
       phrases: chosen,
     })
-    const phrases = chosen.map((c) => bank.find((p) => p.id === c.id)!)
+    const phrases = chosen.map((c) => bank.find((p) => p.id === c.phrase.id)!)
     return { lesson, phrases }
   }, [bank, selected])
 

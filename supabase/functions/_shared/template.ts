@@ -1,14 +1,14 @@
 // Builds a lesson with no model call: a general brief for the kind of place, plus the top phrases.
 // Exists because the live site runs with the AI switch off, so this is the main path users see.
 import type { Lesson } from './lessonSchema'
-import type { CandidatePhrase } from './pickCandidates'
+import type { PickedPhrase } from './pickCandidates'
 
 export interface TemplateInput {
   placeName: string
   placeType: string
   region: string
   firstStop: boolean
-  phrases: CandidatePhrase[]
+  phrases: PickedPhrase[]
 }
 
 const BRIEFS: Record<string, { what: string; know: string[]; etiquette: string }> = {
@@ -78,29 +78,38 @@ const PRACTICAL: Record<string, string> = {
   north: 'Distances are long and services are sparse. Carry water, cash and a charged phone.',
 }
 
-const WHY: Array<[string, string]> = [
-  ['greeting', 'Say this first, before anything else.'],
-  ['bargaining', 'Use this when the first price feels high.'],
-  ['numbers', 'You will hear prices said out loud.'],
-  ['market', 'Useful with a seller.'],
-  ['food', 'Useful when ordering or asking about a dish.'],
-  ['drink', 'Useful when ordering something to drink.'],
-  ['safari', 'Useful with your guide on the drive.'],
-  ['animals', 'You will want to name what you see.'],
-  ['transport', 'Useful with a driver or conductor.'],
-  ['directions', 'Useful when you are not sure of the way.'],
-  ['hotel', 'Useful with the staff where you are staying.'],
-  ['help', 'Useful if you need a hand.'],
-  ['coast', 'Common on the coast.'],
-  ['coastal', 'Common on the coast.'],
-  ['polite', 'A polite phrase that fits almost anywhere.'],
-]
-
-function whyHere(phrase: CandidatePhrase): string {
-  for (const [tag, text] of WHY) {
-    if (phrase.tags.includes(tag)) return text
-  }
-  return 'Useful here.'
+// One line on when you would say the phrase, chosen by the slot that picked it.
+const WHY: Record<string, string> = {
+  greeting: 'Say this first, before anything else.',
+  core_greeting: 'Say this first, before anything else.',
+  coastal_greeting: 'A greeting you will hear on the coast.',
+  ordering: 'Useful when you order.',
+  coastal: 'A greeting you will hear on the coast.',
+  farewell: 'Say this when you leave.',
+  polite: 'A polite phrase that fits almost anywhere.',
+  introductions: 'Useful when you meet someone new.',
+  numbers: 'Prices are said out loud, so numbers come first.',
+  bargaining: 'Use this when you talk about the price.',
+  shopping: 'Useful while you look around a stall.',
+  price: 'Use this to ask what something costs.',
+  paying: 'Useful when it is time to pay.',
+  fare: 'Useful when you pay for a ride.',
+  cash: 'Useful when you need cash.',
+  respect: 'A respectful greeting for someone older than you.',
+  food: 'Useful when you order.',
+  drink: 'Useful when you order something to drink.',
+  animals: 'Your guide will call these out. Now you will know what they found.',
+  guide: 'Useful with your guide on the drive.',
+  safari: 'Useful on the drive.',
+  coast: 'A word you will hear on the coast.',
+  beach: 'A word you will hear at the beach.',
+  transport: 'Useful with a driver or conductor.',
+  directions: 'Useful when you are not sure of the way.',
+  airport: 'Useful on arrival.',
+  hotel: 'Useful where you are staying.',
+  help: 'Useful if you need a hand.',
+  emergency: 'Keep this one ready in case you need it.',
+  questions: 'A handy question to have ready.',
 }
 
 export function buildTemplateLesson(input: TemplateInput): Lesson {
@@ -115,7 +124,7 @@ export function buildTemplateLesson(input: TemplateInput): Lesson {
       etiquette: brief.etiquette,
       practical: PRACTICAL[input.region] ?? PRACTICAL.nairobi,
     },
-    phrases: input.phrases.map((p) => ({ phrase_id: p.id, why_here: whyHere(p) })),
+    phrases: input.phrases.map((p) => ({ phrase_id: p.phrase.id, why_here: WHY[p.slot] ?? 'Useful here.' })),
     new_phrases: [],
   }
 }

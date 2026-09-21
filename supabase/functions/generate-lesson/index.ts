@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
   const { data: progress } = await admin.from('phrase_progress').select('phrase_id').eq('user_id', user.id).gte('box', 4)
   const knownIds = (progress ?? []).map((p) => p.phrase_id as string)
 
-  const { data: bank } = await admin.from('phrases').select('id, swahili, pronunciation, english, tags').order('id')
+  const { data: bank } = await admin.from('phrases').select('id, swahili, pronunciation, english, tags, register').order('sort_order')
   const ctx = { placeType: place.place_type, activities: stop.activities ?? [], region: place.region, firstStop, level, knownIds }
   const candidates = pickCandidates((bank ?? []) as CandidatePhrase[], ctx)
   if (candidates.length === 0) {
