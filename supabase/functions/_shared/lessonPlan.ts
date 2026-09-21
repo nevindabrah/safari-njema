@@ -64,6 +64,24 @@ const ACTIVITY_SLOTS: Record<string, string[]> = {
   'business meeting': ['introductions', 'polite'],
 }
 
+// Which proverb theme suits each kind of place. Themes are the v1 chapters the proverbs came from.
+const PROVERB_THEME: Record<string, string> = {
+  market: 'market', restaurant: 'food', park: 'safari', beach: 'coast', airport: 'airport', hotel: 'airport',
+  station: 'transport', city: 'basics', religious_site: 'basics', museum: 'general', other: 'help',
+}
+
+export interface Proverb {
+  swahili: string
+  meaning: string
+  themes: string[]
+}
+
+// Picks the proverb for a lesson. Falls back to any general one, then to none.
+export function pickProverb(proverbs: Proverb[], placeType: string): Proverb | null {
+  const theme = PROVERB_THEME[placeType] ?? 'general'
+  return proverbs.find((p) => p.themes.includes(theme)) ?? proverbs.find((p) => p.themes.includes('general')) ?? null
+}
+
 // First stop: two greetings. Then the activities. Then the place type. The caller cuts this to six.
 export function buildSlotPlan(placeType: string, activities: string[], firstStop: boolean): string[] {
   const greetingSlots = firstStop ? ['core_greeting', 'core_greeting'] : []

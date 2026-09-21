@@ -1,6 +1,6 @@
 // Chooses phrases from the bank for a stop. pickCandidates scores every phrase by its tags,
 // and pickTemplatePhrases fills the lesson's slots from those candidates. Pure functions, tested with Vitest.
-import { ACTIVITY_TAGS, PLACE_TYPE_TAGS, REGION_TAGS, buildSlotPlan } from './lessonPlan'
+import { ACTIVITY_TAGS, PLACE_TYPE_TAGS, REGION_TAGS, buildSlotPlan } from './lessonPlan.ts'
 
 export interface CandidatePhrase {
   id: string

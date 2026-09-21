@@ -3,6 +3,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { pickCandidates, pickTemplatePhrases, type CandidatePhrase } from '../_shared/pickCandidates.ts'
 import { buildTemplateLesson } from '../_shared/template.ts'
+import { pickProverb, type Proverb } from '../_shared/lessonPlan.ts'
 import { generateWithClaude } from './claude.ts'
 import type { Lesson } from '../_shared/lessonSchema.ts'
 
@@ -103,8 +104,13 @@ Deno.serve(async (req) => {
     if (lesson) generatedBy = model
   }
 
+  const { data: proverbs } = await admin.from('proverbs').select('swahili, meaning, themes')
+  const proverb = pickProverb((proverbs ?? []) as Proverb[], place.place_type)
+  // The model never writes the proverb. It is added here from the seeded table.
+  if (lesson && !lesson.kanga && proverb) lesson.kanga = { proverb: proverb.swahili, meaning: proverb.meaning }
+
   if (!lesson) {
-    lesson = buildTemplateLesson({ placeName: place.name, placeType: place.place_type, region: place.region, firstStop, phrases: pickTemplatePhrases(candidates, ctx) })
+    lesson = buildTemplateLesson({ placeName: place.name, placeType: place.place_type, region: place.region, firstStop, phrases: pickTemplatePhrases(candidates, ctx), proverb })
     generatedBy = 'template'
   }
 

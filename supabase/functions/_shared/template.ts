@@ -1,7 +1,8 @@
 // Builds a lesson with no model call: a general brief for the kind of place, plus the top phrases.
 // Exists because the live site runs with the AI switch off, so this is the main path users see.
-import type { Lesson } from './lessonSchema'
-import type { PickedPhrase } from './pickCandidates'
+import type { Lesson } from './lessonSchema.ts'
+import type { PickedPhrase } from './pickCandidates.ts'
+import type { Proverb } from './lessonPlan.ts'
 
 export interface TemplateInput {
   placeName: string
@@ -9,6 +10,7 @@ export interface TemplateInput {
   region: string
   firstStop: boolean
   phrases: PickedPhrase[]
+  proverb?: Proverb | null
 }
 
 const BRIEFS: Record<string, { what: string; know: string[]; etiquette: string }> = {
@@ -126,5 +128,6 @@ export function buildTemplateLesson(input: TemplateInput): Lesson {
     },
     phrases: input.phrases.map((p) => ({ phrase_id: p.phrase.id, why_here: WHY[p.slot] ?? 'Useful here.' })),
     new_phrases: [],
+    kanga: input.proverb ? { proverb: input.proverb.swahili, meaning: input.proverb.meaning } : undefined,
   }
 }

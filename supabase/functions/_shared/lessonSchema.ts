@@ -28,6 +28,8 @@ export const lessonSchema = z.object({
     )
     .max(2)
     .default([]),
+  // A Swahili proverb for the lesson, as printed on a kanga. It comes from the proverbs table, never from the model.
+  kanga: z.object({ proverb: z.string(), meaning: z.string() }).optional(),
 })
 
 export type Lesson = z.infer<typeof lessonSchema>
