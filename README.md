@@ -36,9 +36,11 @@ The switch is automatic. With no keys the app is the demo. Add the Supabase valu
 - **Accessible colour, tested.** A test reads the real stylesheet and checks every text and background pairing in light, device dark and toggle dark against the 4.5 to 1 standard. It also fails if the two dark themes ever differ, which is the bug that once made answer feedback unreadable.
 - **Reviewed Swahili.** All 95 phrases have been reviewed by a Swahili teacher. Anything a model proposes later is marked unreviewed until someone checks it.
 - **A look that belongs to the subject.** Every finished lesson earns a kanga, the printed cloth that always carries a Swahili proverb, drawn in SVG from six colourways and four motifs. The icons are the app's own line set, not emoji. Light, dark or follow the device, with no flash on load.
-- **Real photos, properly credited.** A script resolves one freely licensed Wikimedia Commons photo per place in three batched requests, and saves the author and licence. Every photo is credited where it is shown and on the About page.
+- **Real photos, properly credited, served by the site itself.** A script resolves one freely licensed Wikimedia Commons photo per place, saves the author and licence, then downloads each photo once and keeps two compressed sizes. No page waits on a third party, and the landing page's photos went from 832 KB to about 90 KB. Every photo is credited where it is shown and on the About page.
 - **Tests that read the lessons.** 130 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
-- **Row Level Security on every table**, with a database function so users never need write access to shared tables.
+- **Row Level Security on every table, and tested.** `scripts/testDatabase.mjs` runs the real `setup.sql` in an in-process Postgres and proves that one user cannot read, change or write into another user's trip, stops or lessons, and that nobody can write to the shared phrase bank.
+- **Accounts that work before any server code is deployed.** If the Edge Function is absent, a signed in user's lesson is built in their browser by the same pure functions and saved into their own row. The function is only needed for lessons written by Claude.
+- **Fast first load.** The demo build drops the Supabase library entirely, since the bundler can see at build time that it is unused. Libraries are split into their own long-cached files, the next screens' code is fetched while the browser is idle, and a lesson's recordings are fetched as it opens so a tap plays at once.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 
 Try it in thirty seconds:
@@ -80,9 +82,9 @@ The pure parts of this (candidate picking, the template, the quiz) have Vitest t
 
 The app runs as the demo with no setup at all. To turn on accounts and server side lessons, follow **[docs/SETUP.md](docs/SETUP.md)**. In short:
 
-1. **Supabase.** Create a project, paste `supabase/setup.sql` into the SQL editor once, and put the project URL and anon key in `.env`. That one file holds every table, every Row Level Security policy, both database functions, and the 95 reviewed phrases and 10 proverbs.
+1. **Supabase.** Create a project, paste `supabase/setup.sql` into the SQL editor once, and put the project URL and anon key in `.env`. That alone is enough for people to create accounts. That one file holds every table, every Row Level Security policy, both database functions, and the 95 reviewed phrases and 10 proverbs.
 2. **Sign in.** Email and password works out of the box. For "Continue with Google", create an OAuth client in Google Cloud and paste its ID and secret into Supabase. The guide gives the exact redirect addresses.
-3. **Edge Function.** `npx supabase functions deploy generate-lesson`, then set `LESSON_AI_ENABLED` and, if it is on, `ANTHROPIC_API_KEY` as Supabase secrets.
+3. **Edge Function, optional.** Only for lessons written by Claude. `npx supabase functions deploy generate-lesson`, then set `LESSON_AI_ENABLED` and, if it is on, `ANTHROPIC_API_KEY` as Supabase secrets.
 4. **Check.** `npm run check:supabase` reads `.env` and reports, line by line, whether each table exists, whether Row Level Security hides rows from strangers, whether email and Google sign in are on, and whether the function is deployed.
 5. **Google Maps.** Optional at first. Without a Maps key the planner uses the sketch map and the built-in places, so accounts and lessons can be tested before Google Cloud is touched. With one, enable Maps JavaScript API and Places API (New), restrict the key to your domains, and create a Map ID.
 6. **Vercel.** Import the repo and add the `VITE_` values. `vercel.json` already rewrites every path to `index.html` for React Router.
