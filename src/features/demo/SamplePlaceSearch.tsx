@@ -1,47 +1,63 @@
-// Test mode's search box. It looks like the real one but searches the built-in list of places.
-// Exists because the real search needs a Google Maps key, and test mode must work without one.
+// The search box used when there is no Google Maps key. It searches the built-in catalogue by name or by what you want to do.
+// Exists because the real search needs a paid Google key. Quick ideas and a way into the full catalogue sit right under it.
 import { useState } from 'react'
 import { Icon } from '../../components/icons'
+import { searchPlaces } from '../../lib/placeSearch'
 import { PlacePhoto } from '../places/PlacePhoto'
+import { PLACE_TYPE_INFO } from '../trip/placeTypes'
 import type { PickedPlace } from '../trip/usePlaceSearch'
-import { searchSamplePlaces } from './samplePlaces'
+import { SAMPLE_PLACES } from './samplePlaces'
 
-export function SamplePlaceSearch({ onPick }: { onPick: (place: PickedPlace) => void }) {
+const IDEAS = ['food', 'safari', 'beach', 'markets', 'museums', 'Nairobi']
+
+interface SamplePlaceSearchProps {
+  onPick: (place: PickedPlace) => void
+  onBrowse: () => void
+}
+
+export function SamplePlaceSearch({ onPick, onBrowse }: SamplePlaceSearchProps) {
   const [query, setQuery] = useState('')
-  const results = searchSamplePlaces(query)
+  const typed = query.trim().length >= 2
+  const results = typed ? searchPlaces(SAMPLE_PLACES, query).slice(0, 8) : []
 
   function choose(place: PickedPlace) {
     setQuery('')
     onPick(place)
   }
 
+  const pill = 'shrink-0 px-3 min-h-[36px] rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap bg-surface shadow-soft'
+
   return (
     <div className="w-full">
       <label className="sr-only" htmlFor="sample-search">Search for a place in Kenya</label>
-      <input
-        id="sample-search"
-        type="search"
-        autoComplete="off"
-        placeholder="Try Diani, Mara, market, airport"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full min-h-[52px] px-5 rounded-pill bg-surface shadow-lift text-text placeholder:text-muted"
-      />
-      {query.trim().length >= 2 && (
+      <div className="relative">
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted"><Icon name="search" size={18} /></span>
+        <input id="sample-search" type="search" autoComplete="off" placeholder="A place, or food, safari, beach" value={query} onChange={(e) => setQuery(e.target.value)}
+          className="w-full min-h-[52px] pl-11 pr-5 rounded-pill bg-surface shadow-lift text-text placeholder:text-muted" />
+      </div>
+
+      {!typed && (
+        <div className="flex gap-2 overflow-x-auto mt-2 pb-1">
+          <button type="button" onClick={onBrowse} className={`${pill} bg-primary text-on-primary flex items-center gap-1.5`} style={{ background: 'var(--primary)', color: 'var(--on-primary)' }}><Icon name="map" size={15} />Browse all places</button>
+          {IDEAS.map((idea) => <button key={idea} type="button" onClick={() => setQuery(idea)} className={pill}>{idea}</button>)}
+        </div>
+      )}
+
+      {typed && (
         <ul className="mt-2 bg-surface rounded-card shadow-lift overflow-hidden max-h-72 overflow-y-auto" role="listbox">
-          {results.length === 0 && <li className="px-5 py-3 text-sm text-muted">No places found in Kenya.</li>}
-          <li className="px-5 py-2 text-xs text-muted bg-surface-2">The demo searches 21 built-in places. The full app uses Google Places search, limited to Kenya.</li>
+          {results.length === 0 && <li className="px-5 py-3 text-sm text-muted">Nothing in Kenya matches that. Try a kind of place, like food or beach.</li>}
           {results.map((place) => (
             <li key={place.googlePlaceId}>
-              <button type="button" onClick={() => choose(place)} className="w-full text-left px-5 py-3 min-h-[48px] hover:bg-tint cursor-pointer flex items-center gap-3">
+              <button type="button" onClick={() => choose(place)} className="w-full text-left px-4 py-2.5 min-h-[48px] hover:bg-tint cursor-pointer flex items-center gap-3">
                 <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="small" className="w-11 h-11 rounded-input shrink-0" />
-                <span>
-                  <span className="block font-bold">{place.name}</span>
-                  <span className="text-sm text-muted flex items-center gap-1"><Icon name={place.placeType} size={13} />{place.address}</span>
+                <span className="min-w-0">
+                  <span className="block font-bold truncate">{place.name}</span>
+                  <span className="text-sm text-muted flex items-center gap-1"><Icon name={place.placeType} size={13} />{PLACE_TYPE_INFO[place.placeType].label} · {place.address}</span>
                 </span>
               </button>
             </li>
           ))}
+          <li><button type="button" onClick={onBrowse} className="w-full text-left px-5 py-3 text-sm font-bold underline cursor-pointer bg-surface-2">Browse all {SAMPLE_PLACES.length} places</button></li>
         </ul>
       )}
     </div>

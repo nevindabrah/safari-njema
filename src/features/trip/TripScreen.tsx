@@ -15,6 +15,9 @@ import { DemoMap } from '../demo/DemoMap'
 import { SamplePlaceSearch } from '../demo/SamplePlaceSearch'
 import { playSound } from '../../lib/sounds'
 import { TripDates } from './TripDates'
+import { PlaceCatalog } from './PlaceCatalog'
+import { Button } from '../../components/Button'
+import { Icon } from '../../components/icons'
 
 export function TripScreen() {
   const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_KEY as string | undefined
@@ -22,6 +25,13 @@ export function TripScreen() {
   const { stops, loading, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
   const [preview, setPreview] = useState<PickedPlace | null>(null)
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
+  const [catalogOpen, setCatalogOpen] = useState(false)
+
+  function pickPlace(place: PickedPlace) {
+    setCatalogOpen(false)
+    setPreview(place)
+    setHighlightedId(null)
+  }
 
   // Picking a pin or a row selects it everywhere. Picking it again clears the selection.
   function selectStop(stopId: string) {
@@ -46,7 +56,7 @@ export function TripScreen() {
             <APIProvider apiKey={mapsKey} libraries={['places']}>
               <TripMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
               <div className="absolute top-4 left-4 right-4 z-10">
-                <PlaceSearch onPick={(place) => { setPreview(place); setHighlightedId(null) }} />
+                <PlaceSearch onPick={pickPlace} />
               </div>
               {preview && (
                 <div className="absolute bottom-4 left-4 right-4 z-10 max-h-[70%] overflow-y-auto">
@@ -58,7 +68,7 @@ export function TripScreen() {
             <>
               <DemoMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
               <div className="absolute top-4 left-4 right-4 z-30">
-                <SamplePlaceSearch onPick={(place) => { setPreview(place); setHighlightedId(null) }} />
+                <SamplePlaceSearch onPick={pickPlace} onBrowse={() => setCatalogOpen(true)} />
               </div>
               {preview && (
                 <div className="absolute bottom-4 left-4 right-4 z-30 max-h-[70%] overflow-y-auto">
@@ -76,6 +86,7 @@ export function TripScreen() {
         <section className="pt-2 min-w-0">
           <h2 className="text-2xl mb-3 px-2">{trip?.title ?? 'My trip'}</h2>
           {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} /></div>}
+          <div className="px-2 mb-5"><Button variant="soft" full onClick={() => setCatalogOpen(true)}><Icon name="map" size={18} />Browse places to add</Button></div>
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>
           ) : (
@@ -84,6 +95,7 @@ export function TripScreen() {
           <ReviewNote />
         </section>
       </main>
+      {catalogOpen && <PlaceCatalog addedIds={stops.map((s) => s.place.google_place_id)} onPick={pickPlace} onClose={() => setCatalogOpen(false)} />}
     </div>
   )
 }
