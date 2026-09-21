@@ -1,10 +1,36 @@
 # Safari Njema
 
-A travel companion for Kenya. Duolingo, but the curriculum is your itinerary.
+**A travel companion for Kenya. Duolingo, but the curriculum is your itinerary.**
 
-You search a place in Kenya on a map, add it to a day of your trip, and get a short Swahili lesson written for that place: a brief on what to know, the phrases you will need there, and a quick quiz.
+You add the places you are going. Each stop becomes a five minute Swahili lesson made for that place: a brief on what to know, the phrases you will need there, and a quiz. A market teaches prices and bargaining. A beach teaches coast words and ordering. A game reserve teaches the animals your guide will call out.
 
-Status: the 22 September cut is built. See "What is built" below. The product requirements are in `safari-njema-prd.md`.
+**Live demo:** add your Vercel URL here after deploying. No sign up is needed. The demo opens on a ready-made trip.
+
+![The landing page](docs/screenshots/landing.png)
+
+| The trip planner | A lesson | On a phone, dark mode |
+|---|---|---|
+| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![The brief step of a lesson](docs/screenshots/lesson.png) | ![The trip planner on a phone in dark mode](docs/screenshots/phone-dark.png) |
+
+## Why it is interesting
+
+- **Lessons come from a phrase bank, not free text.** Language models make mistakes in Swahili, so the model may only choose from 95 phrases, each tagged by hand. It picks and explains. It does not invent.
+- **An AI switch.** With it on, Claude writes the brief and picks phrases, and its JSON is validated with zod. With it off, a template builds the lesson from the same candidates. The live site runs with it off, so it costs nothing to host.
+- **One pipeline, two runtimes.** Scoring, the slot plan and the template are pure TypeScript. The same files run in a Supabase Edge Function and in the browser demo.
+- **Tests that read the lessons.** 40 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **Row Level Security on every table**, with a database function so users never need write access to shared tables.
+- **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
+
+Try it in thirty seconds:
+
+```
+git clone https://github.com/nevindabrah/safari-njema.git
+cd safari-njema
+npm install
+npm run dev
+```
+
+With no keys at all, this runs the full demo. The product requirements are in `safari-njema-prd.md`.
 
 ## Architecture in five sentences
 
@@ -40,18 +66,21 @@ Things only Nevin can do, before running the app:
 4. Edge Function: `supabase functions deploy generate-lesson`, then set secrets: `supabase secrets set LESSON_AI_ENABLED=false LESSON_MODEL=claude-opus-5 ANTHROPIC_API_KEY=...`. The key is only needed when the switch is on.
 5. Vercel: import the repo, set the four `VITE_` variables, deploy. `vercel.json` already rewrites every path to `index.html` for React Router.
 
-## Test mode: try everything with no accounts and no keys
+## Demo mode: the whole product with no accounts and no keys
 
-With no `.env`, the app runs in test mode. You are already signed in as a test user, and the whole loop works:
+When the Supabase values are missing, the app runs in demo mode. This is what the live demo link shows.
 
+- The landing page has one button, "Try the live demo". It opens a ready-made trip: Maasai Market, Diani Beach and the Maasai Mara, each with its own lesson.
 - Search a built-in list of 21 well known Kenyan places, one for every kind of place. Searching "Paris" finds nothing, like the real Kenya-only search.
-- Add a place to your trip with a day and activities. It appears as a numbered pin on a simple preview map and as a row in the itinerary, with the "Preparing your lesson" state.
-- Open the lesson. It is built in the browser by the same pure functions the Edge Function uses, from the same seed phrases, so the first stop teaches greetings and later stops do not.
-- Finish the quiz, delete stops, sign out and come back in from the login screen.
+- Add a place with a day and activities. It appears as a numbered pin on a sketch map of Kenya and as a row in the itinerary, with the "Preparing your lesson" state.
+- Lessons are built in the browser by the same pure functions the Edge Function uses, from the same seed phrases. The first stop teaches greetings and later stops do not. Each lesson carries a Swahili proverb from the seeded list, the kanga idea.
+- Finish a quiz and the stop turns green and the trip's progress bar moves. "Start with an empty trip" clears the sample so the first stop flow can be tried from scratch.
 
-Test data lives in this browser's localStorage. The yellow strip under the top bar says so and has a "Clear test data" button. Test mode is only ever on when the Supabase values are missing, so set them on Vercel and it never appears on the live site. The code is in `src/features/testmode/`, and each data hook switches to it with one `if (isTestMode)`.
+Demo data lives in the browser's localStorage. Demo mode is only ever on when the Supabase values are missing, so once they are set on Vercel the site becomes the real product with accounts. The code is in `src/features/demo/`, and each data hook switches to it with one `if (isDemoMode)`.
 
-What test mode cannot show: real sign up and login, the real Google map and search, and Claude written lessons. Those need the setup above.
+What demo mode cannot show: real sign up and login, the real Google map and search, and Claude written lessons. Those need the setup above.
+
+To put the demo online: go to vercel.com/new, import this repository and press deploy. No environment variables are needed. `vercel.json` already sends every path to `index.html`.
 
 Then locally:
 
@@ -83,9 +112,9 @@ Lesson generation with Claude is fully built in `supabase/functions/generate-les
 
 Still to do for this: run the AI path end to end once, record it, and pre-generate lessons for about 20 popular places (PRD 7.3a).
 
-## Demo login
+## Demo account on the real backend
 
-Not created yet. To create it: sign up an account on an address Nevin controls, add three stops, then in the SQL editor set `is_demo = true` on its `profiles` row so it cannot generate new lessons. Then print the email and password here and on the landing page.
+Not needed while the live site runs in demo mode. Once Supabase is connected, the PRD asks for a shared demo login. To create it: sign up an account on an address Nevin controls, add three stops, then in the SQL editor set `is_demo = true` on its `profiles` row so it cannot generate new lessons. Then print the email and password here and on the landing page.
 
 ## What is built
 
@@ -98,7 +127,7 @@ The 22 September cut, in the PRD's order:
 5. `generate-lesson` with the template path and the Claude path behind the switch, daily limit of ten, demo account blocked.
 6. The three step lesson: brief, phrases, quiz. The quiz builder is a pure function with tests.
 7. About page, the "not yet reviewed" note on the trip, lesson end and About screens, this README.
-8. Test mode, described above, so the full loop can be tried with no accounts or keys.
+8. Demo mode, described above: a seeded trip, a sketch map of Kenya, completion and progress, and a proverb on every lesson.
 9. A public sample lesson at `/preview` for the three acceptance-test stops, so a visitor can see a lesson without an account. The trip and lesson screens load on demand to keep the landing page small.
 
 Left for right after the deadline: Google sign in, the Today screen, onboarding, personalising beyond "first stop teaches greetings", theme toggle, pre-made Claude lessons, the demo account.
