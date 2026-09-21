@@ -5,10 +5,12 @@ import { Button } from '../../components/Button'
 
 interface AuthFormProps {
   submitLabel: string
+  // True on sign up, so password managers offer to make a new password instead of filling an old one.
+  newPassword?: boolean
   onSubmit: (email: string, password: string) => Promise<string | null>
 }
 
-export function AuthForm({ submitLabel, onSubmit }: AuthFormProps) {
+export function AuthForm({ submitLabel, newPassword = false, onSubmit }: AuthFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -33,7 +35,7 @@ export function AuthForm({ submitLabel, onSubmit }: AuthFormProps) {
       </label>
       <label className="flex flex-col gap-1 text-sm font-bold">
         Password
-        <input className={inputClass} type="password" autoComplete="current-password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input className={inputClass} type="password" autoComplete={newPassword ? 'new-password' : 'current-password'} required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       {error && <p role="alert" className="text-sm text-accent-text font-bold">{error}</p>}
       <Button type="submit" full disabled={busy} className="mt-2">

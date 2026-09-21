@@ -2,6 +2,7 @@
 // Exists because the PRD asks for Google sign in beside email and password. It is hidden in the demo, which has no accounts.
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
+import { plainAuthMessage } from '../../lib/authMessages'
 import { isDemoMode } from '../demo/demoMode'
 
 // Google's own mark, in Google's colours, as its sign in guidelines ask. It is a logo, so its colours are not theme tokens.
@@ -23,7 +24,7 @@ export function GoogleButton() {
   async function signIn() {
     setError(null)
     const { error: problem } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}/trip` } })
-    if (problem) setError(problem.message)
+    if (problem) setError(plainAuthMessage(problem.message))
   }
 
   return (

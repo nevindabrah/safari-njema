@@ -1,7 +1,8 @@
-// The log in screen. Email and password only for now.
+// The log in screen: Google, or email and password.
 // Exists as the front door for returning users.
 import { Link, useLocation, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
+import { plainAuthMessage } from '../../lib/authMessages'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
 import { AuthForm } from './AuthForm'
@@ -16,7 +17,7 @@ export function LoginScreen() {
 
   async function login(email: string, password: string) {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) return error.message
+    if (error) return plainAuthMessage(error.message)
     navigate(from, { replace: true })
     return null
   }

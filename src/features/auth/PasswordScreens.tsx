@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
+import { plainAuthMessage } from '../../lib/authMessages'
 import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
@@ -19,7 +20,7 @@ export function ForgotPasswordScreen() {
   async function send(event: FormEvent) {
     event.preventDefault()
     const { error: problem } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset` })
-    if (problem) setError(problem.message)
+    if (problem) setError(plainAuthMessage(problem.message))
     else setSent(true)
   }
 
@@ -59,7 +60,7 @@ export function ResetPasswordScreen() {
     event.preventDefault()
     // The emailed link has already signed the visitor in, so this simply changes their password.
     const { error: problem } = await supabase.auth.updateUser({ password })
-    if (problem) setError(problem.message)
+    if (problem) setError(plainAuthMessage(problem.message))
     else navigate('/trip', { replace: true })
   }
 

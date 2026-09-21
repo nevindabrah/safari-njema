@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
+import { isExistingAccount, plainAuthMessage } from '../../lib/authMessages'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
 import { AuthForm } from './AuthForm'
@@ -15,8 +16,10 @@ export function SignupScreen() {
   const [needsConfirm, setNeedsConfirm] = useState(false)
 
   async function signup(email: string, password: string) {
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    if (error) return error.message
+    // The confirmation email, if Supabase sends one, brings the visitor back to this same site and signs them in.
+    const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/trip` } })
+    if (error) return plainAuthMessage(error.message)
+    if (isExistingAccount(data.user)) return plainAuthMessage('User already registered')
     // If email confirmation is on in Supabase, there is no session yet.
     if (!data.session) {
       setNeedsConfirm(true)
@@ -34,7 +37,7 @@ export function SignupScreen() {
           {needsConfirm ? (
             <>
               <h1 className="text-3xl mb-2">Check your email</h1>
-              <p className="text-muted">We sent a confirmation link. Open it, then log in.</p>
+              <p className="text-muted">We sent a confirmation link. Open it on this device and your trip will open.</p>
             </>
           ) : (
             <>
@@ -42,7 +45,7 @@ export function SignupScreen() {
               <p className="text-muted mb-6">Your itinerary and lessons will live here.</p>
               <SetupNotice />
               {!isDemoMode && <GoogleButton />}
-              {!isDemoMode && <AuthForm submitLabel="Sign up" onSubmit={signup} />}
+              {!isDemoMode && <AuthForm submitLabel="Sign up" newPassword onSubmit={signup} />}
               <p className="text-sm text-muted mt-6 text-center">
                 Already have one? <Link to="/login" className="font-bold text-text underline">Log in</Link>
               </p>
