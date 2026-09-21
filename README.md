@@ -1,0 +1,101 @@
+# Safari Njema
+
+A travel companion for Kenya. Duolingo, but the curriculum is your itinerary.
+
+You search a place in Kenya on a map, add it to a day of your trip, and get a short Swahili lesson written for that place: a brief on what to know, the phrases you will need there, and a quick quiz.
+
+Status: the 22 September cut is built. See "What is built" below. The product requirements are in `safari-njema-prd.md`.
+
+## Architecture in five sentences
+
+The frontend is a Vite and React site deployed on Vercel, with every screen listed in `src/routes.tsx`. Supabase provides the database, email and password login, Row Level Security so users only see their own rows, and one Edge Function. When a stop is added, the browser calls the `generate-lesson` Edge Function, which picks candidate phrases from the phrase bank by matching tags to the place type, activities and region. If the AI switch is on, Claude writes the brief and chooses the phrases from those candidates; if it is off or anything fails, a template lesson is built from the same candidates with no model call. Lessons are cached in a shared `lessons` table and each user gets a `user_lessons` row pointing at one.
+
+## How a lesson is generated
+
+```
+browser                     generate-lesson (Edge Function)                     database
+-------                     -------------------------------                     --------
+add stop  ──rpc──────────▶  add_trip_stop upserts place, inserts stop  ──────▶  places, trip_stops
+invoke ───────────────────▶ 1. check the stop belongs to the caller
+                            2. load place type, region, activities, level  ◀──  profiles, trip_stops
+                            3. first stop of the trip? then greetings are in
+                            4. pick 40 candidate phrases by tags            ◀──  phrases
+                            5. cache check by place + activities + level    ◀──  lessons
+                            6. LESSON_AI_ENABLED=true? ask Claude for JSON,
+                               validate with zod, retry once
+                            7. otherwise build the template lesson
+                            8. save lesson, save user_lesson, mark ready   ──▶  lessons, user_lessons, trip_stops
+lesson ready ◀───────────── { user_lesson_id, lesson }
+```
+
+The pure parts of this (candidate picking, the template, the quiz) have Vitest tests and no network calls.
+
+## Setup
+
+Things only Nevin can do, before running the app:
+
+1. Google Cloud: create a project with billing, enable Maps JavaScript API and Places API (New), create an API key restricted to `http://localhost:5173/*` and the Vercel domain and to those two APIs, set a budget alert and daily quota caps, and create a Map ID with a custom style.
+2. Supabase: create a project. Run the three files in `supabase/migrations/` in order in the SQL editor, or `supabase db push` with the CLI. Under Authentication, turn off "Confirm email" for local testing or keep it on and use a real inbox.
+3. Phrase bank: put `safari-njema-design-reference.html` in the repo root, then run `node scripts/extractPhrases.ts` and `node scripts/buildSeedSql.ts`, and run the resulting `supabase/seed.sql` in the SQL editor. Lessons cannot be generated until the bank has rows.
+4. Edge Function: `supabase functions deploy generate-lesson`, then set secrets: `supabase secrets set LESSON_AI_ENABLED=false LESSON_MODEL=claude-opus-5 ANTHROPIC_API_KEY=...`. The key is only needed when the switch is on.
+5. Vercel: import the repo, set the four `VITE_` variables, deploy. `vercel.json` already rewrites every path to `index.html` for React Router.
+
+Then locally:
+
+```
+cp .env.example .env    # fill in the four VITE_ values
+npm install
+npm run dev             # http://localhost:5173
+npm test                # Vitest
+npm run build           # type check and production build
+```
+
+## Environment variables
+
+| Name | Where | What |
+|---|---|---|
+| `VITE_SUPABASE_URL` | `.env`, Vercel | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | `.env`, Vercel | Supabase anon key, safe in the browser because RLS is on |
+| `VITE_GOOGLE_MAPS_KEY` | `.env`, Vercel | Google Maps key, restricted by domain and API |
+| `VITE_GOOGLE_MAP_ID` | `.env`, Vercel | Map ID for the styled map and custom pins |
+| `LESSON_AI_ENABLED` | Supabase secret | `true` or `false`. The live site runs with `false` |
+| `LESSON_MODEL` | Supabase secret | Claude model name, default `claude-opus-5` |
+| `ANTHROPIC_API_KEY` | Supabase secret | Never in `.env`, never under `src/` |
+
+`.env` is git ignored. Only `VITE_` variables reach the browser.
+
+## The AI switch
+
+Lesson generation with Claude is fully built in `supabase/functions/generate-lesson/claude.ts`. On the live site `LESSON_AI_ENABLED` is `false`, so every lesson comes from the shared cache or from the template in `supabase/functions/_shared/template.ts`. The lesson screen says which kind it is: "Written for this place" or "General lesson for this kind of place". To demo live generation, set the switch to `true` with a key.
+
+Still to do for this: run the AI path end to end once, record it, and pre-generate lessons for about 20 popular places (PRD 7.3a).
+
+## Demo login
+
+Not created yet. To create it: sign up an account on an address Nevin controls, add three stops, then in the SQL editor set `is_demo = true` on its `profiles` row so it cannot generate new lessons. Then print the email and password here and on the landing page.
+
+## What is built
+
+The 22 September cut, in the PRD's order:
+
+1. Vite, React, TypeScript, Tailwind v4 with every colour, radius and shadow as a CSS variable in `src/index.css`. Light and dark follow the device.
+2. Supabase schema for every table in the PRD, RLS on all of them, email and password sign up and login.
+3. One trip is created automatically the first time a user opens the planner. No onboarding.
+4. The trip planner: Google map, Kenya-only search with session tokens, preview card with day and activity chips, numbered pins, a route line, the itinerary list, delete.
+5. `generate-lesson` with the template path and the Claude path behind the switch, daily limit of ten, demo account blocked.
+6. The three step lesson: brief, phrases, quiz. The quiz builder is a pure function with tests.
+7. About page, the "not yet reviewed" note on the trip, lesson end and About screens, this README.
+
+Left for right after the deadline: Google sign in, the Today screen, onboarding, personalising beyond "first stop teaches greetings", theme toggle, pre-made Claude lessons, the demo account, the About text from v1.
+
+## How it works, in plain language
+
+- `src/features/trip/usePlaceSearch.ts` talks to Google. It asks for suggestions limited to Kenya, and when you pick one it fetches only six fields. `placeTypes.ts` turns Google's types into our eleven, and `regions.ts` turns the county into one of six regions.
+- `add_trip_stop` in `supabase/migrations/0003_functions.sql` upserts the place and inserts the stop in one call, so the browser never needs write access to the shared `places` table.
+- `useStops.ts` then calls the Edge Function and waits. The list row shows "Preparing your lesson" until it returns.
+- `supabase/functions/_shared/pickCandidates.ts` scores every phrase in the bank by its tags. Greetings score high on the first stop and are dropped afterwards.
+- `LessonScreen.tsx` reads the lesson JSON, loads the phrase rows it points at, and builds the quiz with `src/lib/quiz.ts`.
+
+## Dependencies and why
+
+Everything is from section 5 of the PRD. Two notes: the Vite scaffold installed React 19 rather than 18, which changes nothing here, and `@types/google.maps` is a dev only type package for the Places API.
