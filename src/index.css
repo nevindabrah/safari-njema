@@ -1,6 +1,7 @@
 /* Design tokens and Tailwind setup. Every colour, radius and shadow in the app is a variable here,
    so theming later only has to rewrite this file's variables and no component needs to change. */
 @import "tailwindcss";
+@import "./fonts.css";
 
 :root {
   /* Kanga colourway from the v1 design reference: sun, ink, pink, green. */

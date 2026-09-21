@@ -22,7 +22,7 @@ const SECTIONS = [
   },
   {
     title: 'Other services this site talks to',
-    body: 'Fonts load from Google Fonts. Place photos load from Wikimedia Commons. When the full version is switched on, the map and place search come from Google Maps, and lesson text is written by Anthropic\'s Claude from the name and kind of a place, never from anything about you.',
+    body: 'The fonts, place photos and recordings are served from this site itself. When the full version is switched on, the map and place search come from Google Maps, and lesson text is written by Anthropic\'s Claude from the name and kind of a place, never from anything about you.',
   },
 ]
 
