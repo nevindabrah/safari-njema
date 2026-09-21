@@ -29,3 +29,6 @@ dist-ssr
 !.env.example
 supabase/.temp
 supabase/.branches
+
+# Deno writes a lock file when the Edge Function is type checked locally. Supabase resolves packages itself on deploy.
+supabase/functions/**/deno.lock

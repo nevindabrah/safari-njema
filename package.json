@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "seed:build": "node scripts/extractPhrases.ts && node scripts/buildSeedSql.ts && node scripts/buildSetupSql.ts",
+    "check:supabase": "node scripts/checkSupabase.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
