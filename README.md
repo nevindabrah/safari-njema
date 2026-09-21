@@ -91,7 +91,7 @@ The app runs as the demo with no setup at all. To turn on accounts and server si
 
 ## Demo mode: the whole product with no accounts and no keys
 
-When the Supabase values are missing, the app runs in demo mode. This is what the live demo link shows.
+The app runs in demo mode when the Supabase values are missing, and also when a visitor on a site with accounts presses "Try the demo, no sign up". This is what the live demo link shows.
 
 - The landing page has one button, "Try the live demo". It opens a ready-made trip: Maasai Market, Diani Beach and the Maasai Mara, each with its own lesson.
 - A built-in catalogue of 51 well known Kenyan places. Search it by name or by what you want to do: "food", "eating" or "hungry" finds restaurants, "animals" finds parks, "swim" finds beaches, "train" finds stations. Typos are forgiven, so "restaruants" works, and "Paris" still finds nothing.
@@ -110,7 +110,7 @@ When the Supabase values are missing, the app runs in demo mode. This is what th
 - Laptop users can answer with the number keys and move on with Enter. On a phone the main links sit in a floating tab bar within thumb reach.
 - Finish a quiz and the stop turns green and the trip's progress bar moves. "Start with an empty trip" clears the sample so the first stop flow can be tried from scratch.
 
-Demo data lives in the browser's localStorage. Demo mode is only ever on when the Supabase values are missing, so once they are set on Vercel the site becomes the real product with accounts. The code is in `src/features/demo/`, and each data hook switches to it with one `if (isDemoMode)`.
+Demo data lives in the browser's localStorage. Once the Supabase values are set on Vercel the site has real accounts, and the demo stays as a second way in: the choice is saved in the browser and read once when the page loads, and entering or leaving the demo reloads the page (`src/features/demo/demoMode.ts`). The code is in `src/features/demo/`, and each data hook switches to it with one `if (isDemoMode)`.
 
 What demo mode cannot show: real sign up and login, the real Google map and search, and Claude written lessons. Those need the setup above.
 
@@ -157,7 +157,7 @@ Still to do for this: run the AI path end to end once, record it, and pre-genera
 
 ## Demo account on the real backend
 
-Not needed while the live site runs in demo mode. Once Supabase is connected, the PRD asks for a shared demo login. To create it: sign up an account on an address Nevin controls, add three stops, then in the SQL editor set `is_demo = true` on its `profiles` row so it cannot generate new lessons. Then print the email and password here and on the landing page.
+The browser demo already gives visitors a no sign up way in, including once accounts are on. The PRD also asks for a shared demo login on the real backend, which is still to do. To create it: sign up an account on an address Nevin controls, add three stops, then in the SQL editor set `is_demo = true` on its `profiles` row so it cannot generate new lessons. Then print the email and password here and on the landing page.
 
 ## What is built
 

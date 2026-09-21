@@ -96,11 +96,11 @@ Then run `npm run dev`, sign up, and add a stop. With no Google Maps key the pla
 
 ## 7. Put the same values on Vercel
 
-In your Vercel project open **Settings, Environment Variables** and add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, plus `VITE_GOOGLE_MAPS_KEY` and `VITE_GOOGLE_MAP_ID` when you have them. Redeploy. The demo banner disappears and the site has accounts.
+In your Vercel project open **Settings, Environment Variables** and add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, plus `VITE_GOOGLE_MAPS_KEY` and `VITE_GOOGLE_MAP_ID` when you have them. Redeploy. The site now has accounts.
 
 Then tell Supabase where the site lives, so emailed links and Google sign in come back to the right place: open **Authentication, URL Configuration**, set **Site URL** to `https://safari-njema-rust.vercel.app`, and add `https://safari-njema-rust.vercel.app/**` and `http://localhost:5180/**` under **Redirect URLs**.
 
-If you want the public link to stay a no sign up demo for recruiters, leave these off the main deployment and make a second Vercel project for the real product.
+The demo does not go away. The landing page then offers both: "Create your account" for people who want their trip saved, and "Try the demo, no sign up" for a recruiter who wants to look around. The demo still lives only in the visitor's browser.
 
 ## What can go wrong
 
