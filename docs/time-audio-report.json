@@ -1,0 +1,2603 @@
+[
+  {
+    "file": "001.m4a",
+    "swahili": "Saa ngapi?",
+    "heard": "sangapi",
+    "score": 0.88,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "002.m4a",
+    "swahili": "saa sita usiku",
+    "heard": "saa sita usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "003.m4a",
+    "swahili": "saa sita na dakika tano usiku",
+    "heard": "saa sita na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "004.m4a",
+    "swahili": "saa sita na dakika kumi usiku",
+    "heard": "saa sita na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "005.m4a",
+    "swahili": "saa sita na robo usiku",
+    "heard": "saa sita na robo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "006.m4a",
+    "swahili": "saa sita na dakika ishirini usiku",
+    "heard": "saa sita na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "007.m4a",
+    "swahili": "saa sita na dakika ishirini na tano usiku",
+    "heard": "saa sita na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "008.m4a",
+    "swahili": "saa sita na nusu usiku",
+    "heard": "saa sitananusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "009.m4a",
+    "swahili": "saa saba kasoro dakika ishirini na tano usiku",
+    "heard": "saa saba kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "010.m4a",
+    "swahili": "saa saba kasoro dakika ishirini usiku",
+    "heard": "saa saba kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "011.m4a",
+    "swahili": "saa saba kasorobo usiku",
+    "heard": "saa saba kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "012.m4a",
+    "swahili": "saa saba kasoro dakika kumi usiku",
+    "heard": "saa saba kasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "013.m4a",
+    "swahili": "saa saba kasoro dakika tano usiku",
+    "heard": "saa saba kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "014.m4a",
+    "swahili": "saa saba usiku",
+    "heard": "saa saba usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "015.m4a",
+    "swahili": "saa saba na dakika tano usiku",
+    "heard": "saa saba na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "016.m4a",
+    "swahili": "saa saba na dakika kumi usiku",
+    "heard": "saa saba na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "017.m4a",
+    "swahili": "saa saba na robo usiku",
+    "heard": "saa saba na robo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "018.m4a",
+    "swahili": "saa saba na dakika ishirini usiku",
+    "heard": "saa saba na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "019.m4a",
+    "swahili": "saa saba na dakika ishirini na tano usiku",
+    "heard": "saa saba na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "020.m4a",
+    "swahili": "saa saba na nusu usiku",
+    "heard": "saa saba na nusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "021.m4a",
+    "swahili": "saa nane kasoro dakika ishirini na tano usiku",
+    "heard": "saa nane kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "022.m4a",
+    "swahili": "saa nane kasoro dakika ishirini usiku",
+    "heard": "saa nane kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "023.m4a",
+    "swahili": "saa nane kasorobo usiku",
+    "heard": "saa nane kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "024.m4a",
+    "swahili": "saa nane kasoro dakika kumi usiku",
+    "heard": "saa nane kasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "025.m4a",
+    "swahili": "saa nane kasoro dakika tano usiku",
+    "heard": "saa nane kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "026.m4a",
+    "swahili": "saa nane usiku",
+    "heard": "saa nane usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "027.m4a",
+    "swahili": "saa nane na dakika tano usiku",
+    "heard": "saa nane na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "028.m4a",
+    "swahili": "saa nane na dakika kumi usiku",
+    "heard": "saa nane na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "029.m4a",
+    "swahili": "saa nane na robo usiku",
+    "heard": "saa nane narobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "030.m4a",
+    "swahili": "saa nane na dakika ishirini usiku",
+    "heard": "saa nane na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "031.m4a",
+    "swahili": "saa nane na dakika ishirini na tano usiku",
+    "heard": "saa nane na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "032.m4a",
+    "swahili": "saa nane na nusu usiku",
+    "heard": "saa nane na nusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "033.m4a",
+    "swahili": "saa tisa kasoro dakika ishirini na tano usiku",
+    "heard": "saa tisa kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "034.m4a",
+    "swahili": "saa tisa kasoro dakika ishirini usiku",
+    "heard": "saa tisa kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "035.m4a",
+    "swahili": "saa tisa kasorobo usiku",
+    "heard": "saa tisa kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "036.m4a",
+    "swahili": "saa tisa kasoro dakika kumi usiku",
+    "heard": "saa tisa kasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "037.m4a",
+    "swahili": "saa tisa kasoro dakika tano usiku",
+    "heard": "saa tisa kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "038.m4a",
+    "swahili": "saa tisa usiku",
+    "heard": "saa tisa usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "039.m4a",
+    "swahili": "saa tisa na dakika tano usiku",
+    "heard": "saa tisa na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "040.m4a",
+    "swahili": "saa tisa na dakika kumi usiku",
+    "heard": "saa tisa na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "041.m4a",
+    "swahili": "saa tisa na robo usiku",
+    "heard": "saa tisa narobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "042.m4a",
+    "swahili": "saa tisa na dakika ishirini usiku",
+    "heard": "saa tisa na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "043.m4a",
+    "swahili": "saa tisa na dakika ishirini na tano usiku",
+    "heard": "saa tisa na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "044.m4a",
+    "swahili": "saa tisa na nusu usiku",
+    "heard": "saati sananusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "045.m4a",
+    "swahili": "saa kumi kasoro dakika ishirini na tano alfajiri",
+    "heard": "saa kumi kasoro dakika ishirini na tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "046.m4a",
+    "swahili": "saa kumi kasoro dakika ishirini alfajiri",
+    "heard": "saa kumi kasoro dakika ishirini alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "047.m4a",
+    "swahili": "saa kumi kasorobo alfajiri",
+    "heard": "saa kumi kasorobo alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "048.m4a",
+    "swahili": "saa kumi kasoro dakika kumi alfajiri",
+    "heard": "saa kumi kasoro dakika kumi anfajii",
+    "score": 0.94,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "049.m4a",
+    "swahili": "saa kumi kasoro dakika tano alfajiri",
+    "heard": "saa kumi kasoro dakika tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "050.m4a",
+    "swahili": "saa kumi alfajiri",
+    "heard": "saa kumi alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "051.m4a",
+    "swahili": "saa kumi na dakika tano alfajiri",
+    "heard": "saa kumi na dakika tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "052.m4a",
+    "swahili": "saa kumi na dakika kumi alfajiri",
+    "heard": "saa kumi na dakika kumi alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "053.m4a",
+    "swahili": "saa kumi na robo alfajiri",
+    "heard": "saa kumi na robo alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "054.m4a",
+    "swahili": "saa kumi na dakika ishirini alfajiri",
+    "heard": "saa kumi na dakika ishirini alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "055.m4a",
+    "swahili": "saa kumi na dakika ishirini na tano alfajiri",
+    "heard": "saa kumi na dakika ishirini na tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "056.m4a",
+    "swahili": "saa kumi na nusu alfajiri",
+    "heard": "saa kumi na nusu alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "057.m4a",
+    "swahili": "saa kumi na moja kasoro dakika ishirini na tano alfajiri",
+    "heard": "saa kumi na moja kasoro dakika ishirini na tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "058.m4a",
+    "swahili": "saa kumi na moja kasoro dakika ishirini alfajiri",
+    "heard": "saa kumi na moja kasoro dakika ishirini alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "059.m4a",
+    "swahili": "saa kumi na moja kasorobo alfajiri",
+    "heard": "saa kumi na moja kasorobo alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "060.m4a",
+    "swahili": "saa kumi na moja kasoro dakika kumi alfajiri",
+    "heard": "saa kumi na moja kasoro lakika kumi alfajiri",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "061.m4a",
+    "swahili": "saa kumi na moja kasoro dakika tano alfajiri",
+    "heard": "saa kumi na moja kasoro dakika tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "062.m4a",
+    "swahili": "saa kumi na moja alfajiri",
+    "heard": "saa kumi na moja alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "063.m4a",
+    "swahili": "saa kumi na moja na dakika tano alfajiri",
+    "heard": "saa kumi na moja na dakika tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "064.m4a",
+    "swahili": "saa kumi na moja na dakika kumi alfajiri",
+    "heard": "saa kumi na moja na dakika kumi alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "065.m4a",
+    "swahili": "saa kumi na moja na robo alfajiri",
+    "heard": "saa kumi na moja narobo alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "066.m4a",
+    "swahili": "saa kumi na moja na dakika ishirini alfajiri",
+    "heard": "saa kumi na moja na dakika ishirini alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "067.m4a",
+    "swahili": "saa kumi na moja na dakika ishirini na tano alfajiri",
+    "heard": "saa kumi na moja na dakika ishirini na tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "068.m4a",
+    "swahili": "saa kumi na moja na nusu alfajiri",
+    "heard": "saa kumi na moja na nusu alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "069.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika ishirini na tano alfajiri",
+    "heard": "saa kumi na mbili kasoro dakika ishirini na tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "070.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika ishirini alfajiri",
+    "heard": "saa kumi na mbili kasoro dakika ishirini amfajiri",
+    "score": 0.98,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "071.m4a",
+    "swahili": "saa kumi na mbili kasorobo alfajiri",
+    "heard": "saa kumi na mbili kasorobo alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "072.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika kumi alfajiri",
+    "heard": "saa kumi na mbili kasoro dakika kumi alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "073.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika tano alfajiri",
+    "heard": "saa kumi na mbili kasoro dakika tano alfajili",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "074.m4a",
+    "swahili": "saa kumi na mbili alfajiri",
+    "heard": "saa kumi na mbili alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "075.m4a",
+    "swahili": "saa kumi na mbili na dakika tano alfajiri",
+    "heard": "saa kumi na mbili na dakika tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "076.m4a",
+    "swahili": "saa kumi na mbili na dakika kumi alfajiri",
+    "heard": "saa kumi na mbili na dakika kumi alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "077.m4a",
+    "swahili": "saa kumi na mbili na robo alfajiri",
+    "heard": "saa kumi na mbili na robo alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "078.m4a",
+    "swahili": "saa kumi na mbili na dakika ishirini alfajiri",
+    "heard": "saa kumi na mbili na dakika ishirini alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "079.m4a",
+    "swahili": "saa kumi na mbili na dakika ishirini na tano alfajiri",
+    "heard": "saa kumi na mbili na dakika ishirini na tano alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "080.m4a",
+    "swahili": "saa kumi na mbili na nusu alfajiri",
+    "heard": "saa kumi na mbili na nusu alfajiri",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "081.m4a",
+    "swahili": "saa moja kasoro dakika ishirini na tano asubuhi",
+    "heard": "saa moja kasoro dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "082.m4a",
+    "swahili": "saa moja kasoro dakika ishirini asubuhi",
+    "heard": "saa moja kasoro dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "083.m4a",
+    "swahili": "saa moja kasorobo asubuhi",
+    "heard": "saa moja kasorobo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "084.m4a",
+    "swahili": "saa moja kasoro dakika kumi asubuhi",
+    "heard": "saa moja kasoro dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "085.m4a",
+    "swahili": "saa moja kasoro dakika tano asubuhi",
+    "heard": "saa moja kasoro dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "086.m4a",
+    "swahili": "saa moja asubuhi",
+    "heard": "saa moja asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "087.m4a",
+    "swahili": "saa moja na dakika tano asubuhi",
+    "heard": "saa moja na dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "088.m4a",
+    "swahili": "saa moja na dakika kumi asubuhi",
+    "heard": "saa moja na dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "089.m4a",
+    "swahili": "saa moja na robo asubuhi",
+    "heard": "saa moja na robo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "090.m4a",
+    "swahili": "saa moja na dakika ishirini asubuhi",
+    "heard": "saa moja na dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "091.m4a",
+    "swahili": "saa moja na dakika ishirini na tano asubuhi",
+    "heard": "saa moja na dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "092.m4a",
+    "swahili": "saa moja na nusu asubuhi",
+    "heard": "saa moja na nusu asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "093.m4a",
+    "swahili": "saa mbili kasoro dakika ishirini na tano asubuhi",
+    "heard": "saa mbili kasoro dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "094.m4a",
+    "swahili": "saa mbili kasoro dakika ishirini asubuhi",
+    "heard": "saa mbili kasoro dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "095.m4a",
+    "swahili": "saa mbili kasorobo asubuhi",
+    "heard": "saa mbili kasorobo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "096.m4a",
+    "swahili": "saa mbili kasoro dakika kumi asubuhi",
+    "heard": "saa mbili kasoro dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "097.m4a",
+    "swahili": "saa mbili kasoro dakika tano asubuhi",
+    "heard": "saa mbili kasoro dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "098.m4a",
+    "swahili": "saa mbili asubuhi",
+    "heard": "saa mbili asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "099.m4a",
+    "swahili": "saa mbili na dakika tano asubuhi",
+    "heard": "saa mbili na dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "100.m4a",
+    "swahili": "saa mbili na dakika kumi asubuhi",
+    "heard": "saa mbili na dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "101.m4a",
+    "swahili": "saa mbili na robo asubuhi",
+    "heard": "saa mbili na robo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "102.m4a",
+    "swahili": "saa mbili na dakika ishirini asubuhi",
+    "heard": "saa mbili na dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "103.m4a",
+    "swahili": "saa mbili na dakika ishirini na tano asubuhi",
+    "heard": "saa mbili na dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "104.m4a",
+    "swahili": "saa mbili na nusu asubuhi",
+    "heard": "saa mbili na nusu asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "105.m4a",
+    "swahili": "saa tatu kasoro dakika ishirini na tano asubuhi",
+    "heard": "saa tatu kasoro dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "106.m4a",
+    "swahili": "saa tatu kasoro dakika ishirini asubuhi",
+    "heard": "saa tatu kasoro dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "107.m4a",
+    "swahili": "saa tatu kasorobo asubuhi",
+    "heard": "saa tatu kasorobo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "108.m4a",
+    "swahili": "saa tatu kasoro dakika kumi asubuhi",
+    "heard": "saa tatu kasoro dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "109.m4a",
+    "swahili": "saa tatu kasoro dakika tano asubuhi",
+    "heard": "saa tatu kasoro dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "110.m4a",
+    "swahili": "saa tatu asubuhi",
+    "heard": "saatatu asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "111.m4a",
+    "swahili": "saa tatu na dakika tano asubuhi",
+    "heard": "saa tatu na dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "112.m4a",
+    "swahili": "saa tatu na dakika kumi asubuhi",
+    "heard": "saa tatu na dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "113.m4a",
+    "swahili": "saa tatu na robo asubuhi",
+    "heard": "saa tatu narobo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "114.m4a",
+    "swahili": "saa tatu na dakika ishirini asubuhi",
+    "heard": "saa tatu na dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "115.m4a",
+    "swahili": "saa tatu na dakika ishirini na tano asubuhi",
+    "heard": "saa tatu na dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "116.m4a",
+    "swahili": "saa tatu na nusu asubuhi",
+    "heard": "saa tatu na nusu asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "117.m4a",
+    "swahili": "saa nne kasoro dakika ishirini na tano asubuhi",
+    "heard": "saa nne kasoro dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "118.m4a",
+    "swahili": "saa nne kasoro dakika ishirini asubuhi",
+    "heard": "saa nekasoro dakika ishirini asubuhi",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "119.m4a",
+    "swahili": "saa nne kasorobo asubuhi",
+    "heard": "saa nne kasorobo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "120.m4a",
+    "swahili": "saa nne kasoro dakika kumi asubuhi",
+    "heard": "saa nne kasoro dakika kumi asubuhii",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "121.m4a",
+    "swahili": "saa nne kasoro dakika tano asubuhi",
+    "heard": "saa nne kasoro dakika tano asubu hii",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "122.m4a",
+    "swahili": "saa nne asubuhi",
+    "heard": "saa nne asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 5,
+    "speed": 0.72
+  },
+  {
+    "file": "123.m4a",
+    "swahili": "saa nne na dakika tano asubuhi",
+    "heard": "saa nne na dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "124.m4a",
+    "swahili": "saa nne na dakika kumi asubuhi",
+    "heard": "saa nne na dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "125.m4a",
+    "swahili": "saa nne na robo asubuhi",
+    "heard": "saa nne na robo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "126.m4a",
+    "swahili": "saa nne na dakika ishirini asubuhi",
+    "heard": "saa nne na dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "127.m4a",
+    "swahili": "saa nne na dakika ishirini na tano asubuhi",
+    "heard": "saa nne na dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "128.m4a",
+    "swahili": "saa nne na nusu asubuhi",
+    "heard": "sanne nanusu asubuhi",
+    "score": 0.95,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "129.m4a",
+    "swahili": "saa tano kasoro dakika ishirini na tano asubuhi",
+    "heard": "saa tano kasoro dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "130.m4a",
+    "swahili": "saa tano kasoro dakika ishirini asubuhi",
+    "heard": "saa tano kasoro dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "131.m4a",
+    "swahili": "saa tano kasorobo asubuhi",
+    "heard": "saa tano kasorobo asuburi",
+    "score": 0.95,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "132.m4a",
+    "swahili": "saa tano kasoro dakika kumi asubuhi",
+    "heard": "saatano kasoro dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "133.m4a",
+    "swahili": "saa tano kasoro dakika tano asubuhi",
+    "heard": "saa tano kasoro dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "134.m4a",
+    "swahili": "saa tano asubuhi",
+    "heard": "saa tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "135.m4a",
+    "swahili": "saa tano na dakika tano asubuhi",
+    "heard": "saa tano na dakika tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "136.m4a",
+    "swahili": "saa tano na dakika kumi asubuhi",
+    "heard": "saa tano na dakika kumi asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "137.m4a",
+    "swahili": "saa tano na robo asubuhi",
+    "heard": "saa tano narobo asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "138.m4a",
+    "swahili": "saa tano na dakika ishirini asubuhi",
+    "heard": "saa tano na dakika ishirini asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "139.m4a",
+    "swahili": "saa tano na dakika ishirini na tano asubuhi",
+    "heard": "saa tano na dakika ishirini na tano asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "140.m4a",
+    "swahili": "saa tano na nusu asubuhi",
+    "heard": "saa tano na nusu asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "141.m4a",
+    "swahili": "saa sita kasoro dakika ishirini na tano mchana",
+    "heard": "saa sita kasoro dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "142.m4a",
+    "swahili": "saa sita kasoro dakika ishirini mchana",
+    "heard": "saa sita kasoro dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "143.m4a",
+    "swahili": "saa sita kasorobo mchana",
+    "heard": "saa sitakasorobo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "144.m4a",
+    "swahili": "saa sita kasoro dakika kumi mchana",
+    "heard": "saa sitakasoro dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "145.m4a",
+    "swahili": "saa sita kasoro dakika tano mchana",
+    "heard": "saa sitakasoro dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "146.m4a",
+    "swahili": "saa sita mchana",
+    "heard": "saa sita mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "147.m4a",
+    "swahili": "saa sita na dakika tano mchana",
+    "heard": "sasita na dakika tano mchana",
+    "score": 0.96,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "148.m4a",
+    "swahili": "saa sita na dakika kumi mchana",
+    "heard": "saa sita na dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "149.m4a",
+    "swahili": "saa sita na robo mchana",
+    "heard": "saa sita narobo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "150.m4a",
+    "swahili": "saa sita na dakika ishirini mchana",
+    "heard": "saa sita na dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "151.m4a",
+    "swahili": "saa sita na dakika ishirini na tano mchana",
+    "heard": "saa sita na dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "152.m4a",
+    "swahili": "saa sita na nusu mchana",
+    "heard": "saa sita na nusu mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "153.m4a",
+    "swahili": "saa saba kasoro dakika ishirini na tano mchana",
+    "heard": "saa saba kasoro dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "154.m4a",
+    "swahili": "saa saba kasoro dakika ishirini mchana",
+    "heard": "saa saba kasoro dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "155.m4a",
+    "swahili": "saa saba kasorobo mchana",
+    "heard": "saa sabaka sorobo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "156.m4a",
+    "swahili": "saa saba kasoro dakika kumi mchana",
+    "heard": "saa saba kasoro dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "157.m4a",
+    "swahili": "saa saba kasoro dakika tano mchana",
+    "heard": "saa saba kasoro dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "158.m4a",
+    "swahili": "saa saba mchana",
+    "heard": "saa saba mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "159.m4a",
+    "swahili": "saa saba na dakika tano mchana",
+    "heard": "saa saba na dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "160.m4a",
+    "swahili": "saa saba na dakika kumi mchana",
+    "heard": "saa saba na dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "161.m4a",
+    "swahili": "saa saba na robo mchana",
+    "heard": "saa saba na robo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "162.m4a",
+    "swahili": "saa saba na dakika ishirini mchana",
+    "heard": "saasaba na dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "163.m4a",
+    "swahili": "saa saba na dakika ishirini na tano mchana",
+    "heard": "saa saba na dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "164.m4a",
+    "swahili": "saa saba na nusu mchana",
+    "heard": "saa saba na nusu mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "165.m4a",
+    "swahili": "saa nane kasoro dakika ishirini na tano mchana",
+    "heard": "saa nane kasoro dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "166.m4a",
+    "swahili": "saa nane kasoro dakika ishirini mchana",
+    "heard": "saa nane kasoro dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "167.m4a",
+    "swahili": "saa nane kasorobo mchana",
+    "heard": "saa nane kasorobo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "168.m4a",
+    "swahili": "saa nane kasoro dakika kumi mchana",
+    "heard": "saa nane kasoro dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "169.m4a",
+    "swahili": "saa nane kasoro dakika tano mchana",
+    "heard": "saanane kasoro dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "170.m4a",
+    "swahili": "saa nane mchana",
+    "heard": "saa nane mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "171.m4a",
+    "swahili": "saa nane na dakika tano mchana",
+    "heard": "saa nane na dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "172.m4a",
+    "swahili": "saa nane na dakika kumi mchana",
+    "heard": "saa nane na dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "173.m4a",
+    "swahili": "saa nane na robo mchana",
+    "heard": "saa nane na robo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "174.m4a",
+    "swahili": "saa nane na dakika ishirini mchana",
+    "heard": "saa nane na dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "175.m4a",
+    "swahili": "saa nane na dakika ishirini na tano mchana",
+    "heard": "saa nane na dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "176.m4a",
+    "swahili": "saa nane na nusu mchana",
+    "heard": "saa nane na nusu mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "177.m4a",
+    "swahili": "saa tisa kasoro dakika ishirini na tano mchana",
+    "heard": "saa tisa kasoro dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "178.m4a",
+    "swahili": "saa tisa kasoro dakika ishirini mchana",
+    "heard": "saa tisa kasoro dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "179.m4a",
+    "swahili": "saa tisa kasorobo mchana",
+    "heard": "saa tisa kasorobo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "180.m4a",
+    "swahili": "saa tisa kasoro dakika kumi mchana",
+    "heard": "saa tisa kasoro dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "181.m4a",
+    "swahili": "saa tisa kasoro dakika tano mchana",
+    "heard": "saa tisa kasoro dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "182.m4a",
+    "swahili": "saa tisa mchana",
+    "heard": "saa tisa mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "183.m4a",
+    "swahili": "saa tisa na dakika tano mchana",
+    "heard": "saa tisa na dakika tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "184.m4a",
+    "swahili": "saa tisa na dakika kumi mchana",
+    "heard": "saa tisa na dakika kumi mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "185.m4a",
+    "swahili": "saa tisa na robo mchana",
+    "heard": "saa tisa na robo mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "186.m4a",
+    "swahili": "saa tisa na dakika ishirini mchana",
+    "heard": "saa tisa na dakika ishirini mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "187.m4a",
+    "swahili": "saa tisa na dakika ishirini na tano mchana",
+    "heard": "saa tisa na dakika ishirini na tano mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "188.m4a",
+    "swahili": "saa tisa na nusu mchana",
+    "heard": "saa tisa na nusu mchana",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "189.m4a",
+    "swahili": "saa kumi kasoro dakika ishirini na tano jioni",
+    "heard": "saa kumi kasoro dakika ishirini na tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "190.m4a",
+    "swahili": "saa kumi kasoro dakika ishirini jioni",
+    "heard": "saa kumi kasoro dakika ishirini jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "191.m4a",
+    "swahili": "saa kumi kasorobo jioni",
+    "heard": "saa kumi kasorobo jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "192.m4a",
+    "swahili": "saa kumi kasoro dakika kumi jioni",
+    "heard": "saa kumi kasoro dakika kumi jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "193.m4a",
+    "swahili": "saa kumi kasoro dakika tano jioni",
+    "heard": "saa kumi kasoro dakika tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "194.m4a",
+    "swahili": "saa kumi jioni",
+    "heard": "saa kumi jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "195.m4a",
+    "swahili": "saa kumi na dakika tano jioni",
+    "heard": "saa kumi na dakika tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "196.m4a",
+    "swahili": "saa kumi na dakika kumi jioni",
+    "heard": "saa kumi na dakika kumi jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "197.m4a",
+    "swahili": "saa kumi na robo jioni",
+    "heard": "saa kumi narobojioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "198.m4a",
+    "swahili": "saa kumi na dakika ishirini jioni",
+    "heard": "saa kumi na dakika ishirini jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "199.m4a",
+    "swahili": "saa kumi na dakika ishirini na tano jioni",
+    "heard": "saa kumi na dakika ishirini na tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "200.m4a",
+    "swahili": "saa kumi na nusu jioni",
+    "heard": "saa kumi na nusu jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "201.m4a",
+    "swahili": "saa kumi na moja kasoro dakika ishirini na tano jioni",
+    "heard": "saa kumi na moja kasoro dakika ishirini na tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "202.m4a",
+    "swahili": "saa kumi na moja kasoro dakika ishirini jioni",
+    "heard": "saa kumi na moja kasoro dakika ishirini joni",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "203.m4a",
+    "swahili": "saa kumi na moja kasorobo jioni",
+    "heard": "saa kumi na moja kasorobo jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "204.m4a",
+    "swahili": "saa kumi na moja kasoro dakika kumi jioni",
+    "heard": "saa kumi na moja kasoro lakika kumi jioni",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "205.m4a",
+    "swahili": "saa kumi na moja kasoro dakika tano jioni",
+    "heard": "saa kumi na moja kasoro dakika tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "206.m4a",
+    "swahili": "saa kumi na moja jioni",
+    "heard": "saa kumi na moja jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "207.m4a",
+    "swahili": "saa kumi na moja na dakika tano jioni",
+    "heard": "saa kumi na moja na dakika tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "208.m4a",
+    "swahili": "saa kumi na moja na dakika kumi jioni",
+    "heard": "saa kumi na moja na dakika kumi jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "209.m4a",
+    "swahili": "saa kumi na moja na robo jioni",
+    "heard": "saa kumi na moja na robo jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "210.m4a",
+    "swahili": "saa kumi na moja na dakika ishirini jioni",
+    "heard": "saa kumi na moja na dakika ishirini jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "211.m4a",
+    "swahili": "saa kumi na moja na dakika ishirini na tano jioni",
+    "heard": "saa kumi na moja na dakika ishirini na tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "212.m4a",
+    "swahili": "saa kumi na moja na nusu jioni",
+    "heard": "saa kumi na moja na nusu jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "213.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika ishirini na tano jioni",
+    "heard": "saa kumi na mbili kasoro dakika ishirini na tano ajioni",
+    "score": 0.98,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "214.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika ishirini jioni",
+    "heard": "saa kumi na mbili kasoro dakika ishirini jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "215.m4a",
+    "swahili": "saa kumi na mbili kasorobo jioni",
+    "heard": "saa kumi na mbili kasorobo jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "216.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika kumi jioni",
+    "heard": "saa kumi na mbili kasoro dakika kumi jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "217.m4a",
+    "swahili": "saa kumi na mbili kasoro dakika tano jioni",
+    "heard": "saa kumi na mbili kasoro dakika tano joni",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "218.m4a",
+    "swahili": "saa kumi na mbili jioni",
+    "heard": "saa kumi na mbili jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "219.m4a",
+    "swahili": "saa kumi na mbili na dakika tano jioni",
+    "heard": "saa kumi na mbili na dakika tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "220.m4a",
+    "swahili": "saa kumi na mbili na dakika kumi jioni",
+    "heard": "saa kumi na mbili na dakika kumi jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "221.m4a",
+    "swahili": "saa kumi na mbili na robo jioni",
+    "heard": "saa kumi na mbili na robo jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "222.m4a",
+    "swahili": "saa kumi na mbili na dakika ishirini jioni",
+    "heard": "saa kumi na mbili na dakika ishirini jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "223.m4a",
+    "swahili": "saa kumi na mbili na dakika ishirini na tano jioni",
+    "heard": "saa kumi na mbili na dakika ishirini na tano jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "224.m4a",
+    "swahili": "saa kumi na mbili na nusu jioni",
+    "heard": "saa kumi na mbili na nusu jioni",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "225.m4a",
+    "swahili": "saa moja kasoro dakika ishirini na tano usiku",
+    "heard": "saa moja kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "226.m4a",
+    "swahili": "saa moja kasoro dakika ishirini usiku",
+    "heard": "saa moja kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "227.m4a",
+    "swahili": "saa moja kasorobo usiku",
+    "heard": "saa moja kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "228.m4a",
+    "swahili": "saa moja kasoro dakika kumi usiku",
+    "heard": "saa moja kasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "229.m4a",
+    "swahili": "saa moja kasoro dakika tano usiku",
+    "heard": "saa moja kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "230.m4a",
+    "swahili": "saa moja usiku",
+    "heard": "saa moja usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "231.m4a",
+    "swahili": "saa moja na dakika tano usiku",
+    "heard": "saa moja na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "232.m4a",
+    "swahili": "saa moja na dakika kumi usiku",
+    "heard": "saa moja na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "233.m4a",
+    "swahili": "saa moja na robo usiku",
+    "heard": "saa moja na robo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "234.m4a",
+    "swahili": "saa moja na dakika ishirini usiku",
+    "heard": "saa moja na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "235.m4a",
+    "swahili": "saa moja na dakika ishirini na tano usiku",
+    "heard": "saa moja na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "236.m4a",
+    "swahili": "saa moja na nusu usiku",
+    "heard": "saa moja na nusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "237.m4a",
+    "swahili": "saa mbili kasoro dakika ishirini na tano usiku",
+    "heard": "saa mbili kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "238.m4a",
+    "swahili": "saa mbili kasoro dakika ishirini usiku",
+    "heard": "saa mbili kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "239.m4a",
+    "swahili": "saa mbili kasorobo usiku",
+    "heard": "saa mbili kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "240.m4a",
+    "swahili": "saa mbili kasoro dakika kumi usiku",
+    "heard": "saambilikasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "241.m4a",
+    "swahili": "saa mbili kasoro dakika tano usiku",
+    "heard": "saa mbili kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "242.m4a",
+    "swahili": "saa mbili usiku",
+    "heard": "saa mbili usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "243.m4a",
+    "swahili": "saa mbili na dakika tano usiku",
+    "heard": "saa mbili na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "244.m4a",
+    "swahili": "saa mbili na dakika kumi usiku",
+    "heard": "saa mbili na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "245.m4a",
+    "swahili": "saa mbili na robo usiku",
+    "heard": "saa mbili na robo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "246.m4a",
+    "swahili": "saa mbili na dakika ishirini usiku",
+    "heard": "saa mbili na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "247.m4a",
+    "swahili": "saa mbili na dakika ishirini na tano usiku",
+    "heard": "saambili na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "248.m4a",
+    "swahili": "saa mbili na nusu usiku",
+    "heard": "saa mbili na nusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "249.m4a",
+    "swahili": "saa tatu kasoro dakika ishirini na tano usiku",
+    "heard": "saa tatu kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "250.m4a",
+    "swahili": "saa tatu kasoro dakika ishirini usiku",
+    "heard": "saa tatu kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "251.m4a",
+    "swahili": "saa tatu kasorobo usiku",
+    "heard": "saa tatu kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "252.m4a",
+    "swahili": "saa tatu kasoro dakika kumi usiku",
+    "heard": "saa tatu kasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "253.m4a",
+    "swahili": "saa tatu kasoro dakika tano usiku",
+    "heard": "saa tatu kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "254.m4a",
+    "swahili": "saa tatu usiku",
+    "heard": "saa tatu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "255.m4a",
+    "swahili": "saa tatu na dakika tano usiku",
+    "heard": "saa tatu na dhakika tano usiku",
+    "score": 0.96,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "256.m4a",
+    "swahili": "saa tatu na dakika kumi usiku",
+    "heard": "saa tatu na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "257.m4a",
+    "swahili": "saa tatu na robo usiku",
+    "heard": "saa tatu na robo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "258.m4a",
+    "swahili": "saa tatu na dakika ishirini usiku",
+    "heard": "saa tatu na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "259.m4a",
+    "swahili": "saa tatu na dakika ishirini na tano usiku",
+    "heard": "saa tatu na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "260.m4a",
+    "swahili": "saa tatu na nusu usiku",
+    "heard": "saa tatu na nusuku siku",
+    "score": 0.95,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "261.m4a",
+    "swahili": "saa nne kasoro dakika ishirini na tano usiku",
+    "heard": "saa nne kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "262.m4a",
+    "swahili": "saa nne kasoro dakika ishirini usiku",
+    "heard": "saa nekasoro dakika ishirini usiku",
+    "score": 0.97,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "263.m4a",
+    "swahili": "saa nne kasorobo usiku",
+    "heard": "saa nekasorobo usiku",
+    "score": 0.95,
+    "shipped": true,
+    "seed": 3,
+    "speed": 0.78
+  },
+  {
+    "file": "264.m4a",
+    "swahili": "saa nne kasoro dakika kumi usiku",
+    "heard": "saa nekasoro dakika kumi usiku",
+    "score": 0.96,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "265.m4a",
+    "swahili": "saa nne kasoro dakika tano usiku",
+    "heard": "saa nne kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "266.m4a",
+    "swahili": "saa nne usiku",
+    "heard": "saane usiku",
+    "score": 0.91,
+    "shipped": true,
+    "seed": 2,
+    "speed": 0.66
+  },
+  {
+    "file": "267.m4a",
+    "swahili": "saa nne na dakika tano usiku",
+    "heard": "saanne na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "268.m4a",
+    "swahili": "saa nne na dakika kumi usiku",
+    "heard": "saa nne na dhakika kumi usiku",
+    "score": 0.96,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "269.m4a",
+    "swahili": "saa nne na robo usiku",
+    "heard": "saa nne narobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "270.m4a",
+    "swahili": "saa nne na dakika ishirini usiku",
+    "heard": "saa nne na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "271.m4a",
+    "swahili": "saa nne na dakika ishirini na tano usiku",
+    "heard": "saa nne na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "272.m4a",
+    "swahili": "saa nne na nusu usiku",
+    "heard": "saane na nusu usiku",
+    "score": 0.94,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "273.m4a",
+    "swahili": "saa tano kasoro dakika ishirini na tano usiku",
+    "heard": "saa tano kasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "274.m4a",
+    "swahili": "saa tano kasoro dakika ishirini usiku",
+    "heard": "saatano kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "275.m4a",
+    "swahili": "saa tano kasorobo usiku",
+    "heard": "saa tano kasorobo usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "276.m4a",
+    "swahili": "saa tano kasoro dakika kumi usiku",
+    "heard": "saa tano kasoro dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "277.m4a",
+    "swahili": "saa tano kasoro dakika tano usiku",
+    "heard": "saa tano kasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "278.m4a",
+    "swahili": "saa tano usiku",
+    "heard": "saa tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "279.m4a",
+    "swahili": "saa tano na dakika tano usiku",
+    "heard": "saa tano na dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "280.m4a",
+    "swahili": "saa tano na dakika kumi usiku",
+    "heard": "saa tano na dakika kumi usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "281.m4a",
+    "swahili": "saa tano na robo usiku",
+    "heard": "saa tano na robu usiku",
+    "score": 0.94,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "282.m4a",
+    "swahili": "saa tano na dakika ishirini usiku",
+    "heard": "saa tano na dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88
+  },
+  {
+    "file": "283.m4a",
+    "swahili": "saa tano na dakika ishirini na tano usiku",
+    "heard": "saa tano na dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "284.m4a",
+    "swahili": "saa tano na nusu usiku",
+    "heard": "saa tano na nusu usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "285.m4a",
+    "swahili": "saa sita kasoro dakika ishirini na tano usiku",
+    "heard": "saasitakasoro dakika ishirini na tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "286.m4a",
+    "swahili": "saa sita kasoro dakika ishirini usiku",
+    "heard": "saa sita kasoro dakika ishirini usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "287.m4a",
+    "swahili": "saa sita kasorobo usiku",
+    "heard": "saa sita kasolobo usiku",
+    "score": 0.95,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  },
+  {
+    "file": "288.m4a",
+    "swahili": "saa sita kasoro dakika kumi usiku",
+    "heard": "saa sitakasolo dakika kumi usiku",
+    "score": 0.96,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.82
+  },
+  {
+    "file": "289.m4a",
+    "swahili": "saa sita kasoro dakika tano usiku",
+    "heard": "saasitakasoro dakika tano usiku",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88
+  }
+]
