@@ -40,7 +40,18 @@ Things only Nevin can do, before running the app:
 4. Edge Function: `supabase functions deploy generate-lesson`, then set secrets: `supabase secrets set LESSON_AI_ENABLED=false LESSON_MODEL=claude-opus-5 ANTHROPIC_API_KEY=...`. The key is only needed when the switch is on.
 5. Vercel: import the repo, set the four `VITE_` variables, deploy. `vercel.json` already rewrites every path to `index.html` for React Router.
 
-You can try the app before any of that is set up. With no `.env` it still boots: the landing page, the About page and a sample lesson at `/preview` all work, because the sample lesson is built in the browser from the seed phrases with the same code the Edge Function uses. Sign up, login and the trip planner need Supabase and the Google key.
+## Test mode: try everything with no accounts and no keys
+
+With no `.env`, the app runs in test mode. You are already signed in as a test user, and the whole loop works:
+
+- Search a built-in list of 21 well known Kenyan places, one for every kind of place. Searching "Paris" finds nothing, like the real Kenya-only search.
+- Add a place to your trip with a day and activities. It appears as a numbered pin on a simple preview map and as a row in the itinerary, with the "Preparing your lesson" state.
+- Open the lesson. It is built in the browser by the same pure functions the Edge Function uses, from the same seed phrases, so the first stop teaches greetings and later stops do not.
+- Finish the quiz, delete stops, sign out and come back in from the login screen.
+
+Test data lives in this browser's localStorage. The yellow strip under the top bar says so and has a "Clear test data" button. Test mode is only ever on when the Supabase values are missing, so set them on Vercel and it never appears on the live site. The code is in `src/features/testmode/`, and each data hook switches to it with one `if (isTestMode)`.
+
+What test mode cannot show: real sign up and login, the real Google map and search, and Claude written lessons. Those need the setup above.
 
 Then locally:
 
@@ -87,7 +98,8 @@ The 22 September cut, in the PRD's order:
 5. `generate-lesson` with the template path and the Claude path behind the switch, daily limit of ten, demo account blocked.
 6. The three step lesson: brief, phrases, quiz. The quiz builder is a pure function with tests.
 7. About page, the "not yet reviewed" note on the trip, lesson end and About screens, this README.
-8. A public sample lesson at `/preview` for the three acceptance-test stops, so a visitor can see a lesson without an account. The trip and lesson screens load on demand to keep the landing page small.
+8. Test mode, described above, so the full loop can be tried with no accounts or keys.
+9. A public sample lesson at `/preview` for the three acceptance-test stops, so a visitor can see a lesson without an account. The trip and lesson screens load on demand to keep the landing page small.
 
 Left for right after the deadline: Google sign in, the Today screen, onboarding, personalising beyond "first stop teaches greetings", theme toggle, pre-made Claude lessons, the demo account.
 

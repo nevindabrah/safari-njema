@@ -8,6 +8,9 @@ import { SignupScreen } from './features/auth/SignupScreen'
 import { RequireAuth } from './features/auth/RequireAuth'
 
 // The heavier screens are loaded only when visited, so the landing page stays small.
+// While one of them loads on a fresh page, this short message shows.
+const loading = <p className="p-8 text-center text-muted">Loading.</p>
+
 export const router = createBrowserRouter([
   { path: '/', element: <LandingScreen /> },
   { path: '/about', element: <AboutScreen /> },
@@ -15,10 +18,12 @@ export const router = createBrowserRouter([
   { path: '/signup', element: <SignupScreen /> },
   {
     path: '/preview',
+    hydrateFallbackElement: loading,
     lazy: async () => ({ Component: (await import('./features/lesson/PreviewLessonScreen')).PreviewLessonScreen }),
   },
   {
     element: <RequireAuth />,
+    hydrateFallbackElement: loading,
     children: [
       {
         path: '/trip',
