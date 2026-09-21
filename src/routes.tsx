@@ -7,13 +7,22 @@ import { LoginScreen } from './features/auth/LoginScreen'
 import { SignupScreen } from './features/auth/SignupScreen'
 import { ForgotPasswordScreen, ResetPasswordScreen } from './features/auth/PasswordScreens'
 import { RequireAuth } from './features/auth/RequireAuth'
+import { PrivacyScreen } from './features/landing/PrivacyScreen'
+import { NotFoundScreen } from './features/landing/NotFoundScreen'
 
 // The heavier screens are loaded only when visited, so the landing page stays small.
 // While one of them loads on a fresh page, this short message shows.
 const loading = <p className="p-8 text-center text-muted">Loading.</p>
 
 export const router = createBrowserRouter([
-  { path: '/', element: <LandingScreen /> },
+  { path: '/', element: <LandingScreen />, errorElement: <NotFoundScreen /> },
+  { path: '/privacy', element: <PrivacyScreen /> },
+  {
+    path: '/phrasebook',
+    hydrateFallbackElement: loading,
+    errorElement: <NotFoundScreen />,
+    lazy: async () => ({ Component: (await import('./features/phrasebook/PhrasebookScreen')).PhrasebookScreen }),
+  },
   { path: '/about', element: <AboutScreen /> },
   { path: '/login', element: <LoginScreen /> },
   { path: '/signup', element: <SignupScreen /> },
@@ -27,6 +36,7 @@ export const router = createBrowserRouter([
   {
     element: <RequireAuth />,
     hydrateFallbackElement: loading,
+    errorElement: <NotFoundScreen />,
     children: [
       {
         path: '/trip',
@@ -46,4 +56,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // Anything else.
+  { path: '*', element: <NotFoundScreen /> },
 ])

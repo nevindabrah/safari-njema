@@ -12,6 +12,10 @@ export function Footer() {
         Built by Nevin Dabrah.{' '}
         <Link to="/about" className="underline font-bold text-text">About</Link>
         {' · '}
+        <Link to="/phrasebook" className="underline font-bold text-text">Phrasebook</Link>
+        {' · '}
+        <Link to="/privacy" className="underline font-bold text-text">Privacy</Link>
+        {' · '}
         <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="underline font-bold text-text">Code on GitHub</a>
       </p>
       <ReviewNote />

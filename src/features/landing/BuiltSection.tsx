@@ -17,7 +17,7 @@ export function BuiltSection() {
   return (
     <section aria-labelledby="built-title" className="grid lg:grid-cols-[18rem_1fr] gap-8">
       <div className="lg:sticky lg:top-24 self-start px-1">
-        <p className="text-sm font-bold uppercase tracking-wide text-accent">For reviewers</p>
+        <p className="text-sm font-bold uppercase tracking-wide text-accent-text">For reviewers</p>
         <h2 id="built-title" className="text-3xl sm:text-4xl mb-3">How it is built</h2>
         <p className="text-muted mb-5">React, TypeScript, Tailwind, Supabase with Postgres and Edge Functions, Google Maps Platform and the Claude API.</p>
         <a href={GITHUB_URL} target="_blank" rel="noreferrer"><Button tabIndex={-1}>Read the code<Icon name="arrow" size={18} /></Button></a>
@@ -25,7 +25,7 @@ export function BuiltSection() {
       <ol className="flex flex-col">
         {POINTS.map((point, i) => (
           <li key={point.title} className="grid grid-cols-[3rem_1fr] gap-3 py-5 border-t" style={{ borderColor: 'var(--line)' }}>
-            <span className="font-display font-extrabold text-2xl text-accent">{String(i + 1).padStart(2, '0')}</span>
+            <span className="font-display font-extrabold text-2xl text-accent-text">{String(i + 1).padStart(2, '0')}</span>
             <div>
               <h3 className="text-xl mb-1">{point.title}</h3>
               <p className="text-muted leading-relaxed">{point.body}</p>

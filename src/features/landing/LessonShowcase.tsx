@@ -29,7 +29,7 @@ export function LessonShowcase() {
 
   return (
     <section aria-labelledby="showcase-title">
-      <p className="text-sm font-bold uppercase tracking-wide text-accent px-1">The idea</p>
+      <p className="text-sm font-bold uppercase tracking-wide text-accent-text px-1">The idea</p>
       <h2 id="showcase-title" className="text-3xl sm:text-4xl mb-2 px-1">Three stops, three different lessons</h2>
       <p className="text-muted mb-6 px-1 max-w-2xl">These are built right now in your browser, by the same code that runs on the server. Nothing below is a screenshot.</p>
       <div className="grid md:grid-cols-3 gap-5">

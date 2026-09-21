@@ -39,7 +39,7 @@ export function FullVersionSection() {
               <p className="text-sm leading-relaxed">{row.demo}</p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wide font-bold text-accent mb-1">With the keys switched on</p>
+              <p className="text-xs uppercase tracking-wide font-bold text-accent-text mb-1">With the keys switched on</p>
               <p className="text-sm leading-relaxed">{row.full}</p>
               <p className="text-xs text-muted mt-2">In the code: {row.code}</p>
             </div>

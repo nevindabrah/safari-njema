@@ -65,6 +65,14 @@ export function LandingScreen() {
         </section>
 
         <LessonShowcase />
+        <section aria-labelledby="help-title" className="rounded-card bg-tint p-6 sm:p-8 grid sm:grid-cols-[1fr_auto] gap-5 items-center">
+          <div>
+            <h2 id="help-title" className="text-2xl sm:text-3xl mb-2">Do you speak Swahili?</h2>
+            <p className="max-w-2xl">The phrasebook lists every phrase with its pronunciation guide and recording. If something could be said better, leave a note beside it and send your notes in one go. No account needed.</p>
+          </div>
+          <Link to="/phrasebook"><Button tabIndex={-1}>Open the phrasebook<Icon name="arrow" size={18} /></Button></Link>
+        </section>
+
         <FullVersionSection />
         <BuiltSection />
         <Footer />
