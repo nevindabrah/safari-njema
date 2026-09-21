@@ -13,7 +13,11 @@
 
   --bg: #f5f6fb;
   --surface: #ffffff;
-  --surface-2: #f5f6fb;
+  /* A panel set inside a white card. It was the same colour as the page, and so pale on white that panels and fields could not be seen. */
+  --surface-2: #eceef8;
+  /* Where you type. A field is filled and has an edge that reaches 3 to 1 against the card, so it reads as a box in both themes. */
+  --field: #f5f6fb;
+  --field-edge: #7c81a8;
   --text: #15173a;
   --muted: #62668a;
   --tint: #fff3cc;
@@ -72,6 +76,8 @@
     --bg: #0e1024;
     --surface: #181b38;
     --surface-2: #1f2347;
+    --field: #12142c;
+    --field-edge: #7d83b8;
     --text: #f2f2fb;
     --muted: #a3a7cc;
     --tint: #3a3114;
@@ -102,6 +108,8 @@
   --bg: #0e1024;
   --surface: #181b38;
   --surface-2: #1f2347;
+  --field: #12142c;
+  --field-edge: #7d83b8;
   --text: #f2f2fb;
   --muted: #a3a7cc;
   --tint: #3a3114;
@@ -133,6 +141,8 @@
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
+  --color-field: var(--field);
+  --color-field-edge: var(--field-edge);
   --color-text: var(--text);
   --color-muted: var(--muted);
   --color-tint: var(--tint);
@@ -193,6 +203,19 @@
     outline: 3px solid var(--accent);
     outline-offset: 3px;
     border-radius: var(--radius-input);
+  }
+}
+
+/* Every box you can type in. One look for all of them, so a field is recognisable anywhere and in either theme.
+   It is a border and not a shadow, so a search box that floats over the map can keep its shadow as well. */
+@layer components {
+  .field {
+    background: var(--field);
+    border: 1.5px solid var(--field-edge);
+  }
+
+  .field:focus {
+    border-color: var(--accent);
   }
 }
 

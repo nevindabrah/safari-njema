@@ -50,7 +50,7 @@ export function PhraseRow({ phrase, note, onNote }: PhraseRowProps) {
           <label className="sr-only" htmlFor={`${noteId}-box`}>Your note on {phrase.swahili}</label>
           <textarea id={`${noteId}-box`} value={note} onChange={(e) => onNote(e.target.value)} rows={2}
             placeholder="A correction, a better way to say it, a comment on the recording"
-            className="w-full rounded-input bg-surface-2 text-text placeholder:text-muted p-3" />
+            className="w-full rounded-input field text-text placeholder:text-muted p-3" />
         </div>
       )}
     </li>

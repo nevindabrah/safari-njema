@@ -25,7 +25,7 @@ export function AuthForm({ submitLabel, newPassword = false, onSubmit }: AuthFor
     setBusy(false)
   }
 
-  const inputClass = 'w-full min-h-[48px] px-4 rounded-input bg-surface-2 text-text placeholder:text-muted'
+  const inputClass = 'w-full min-h-[48px] px-4 rounded-input field text-text placeholder:text-muted'
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">

@@ -30,7 +30,7 @@ export function TypeExercise({ exercise, onAnswer }: TypeExerciseProps) {
         <input
           lang="sw" type="text" value={text} onChange={(e) => setText(e.target.value)} disabled={checked}
           autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false} placeholder="Type it in Swahili"
-          className="w-full min-h-[56px] px-5 rounded-input bg-surface-2 text-text text-lg font-bold placeholder:text-muted placeholder:font-normal"
+          className="w-full min-h-[56px] px-5 rounded-input field text-text text-lg font-bold placeholder:text-muted placeholder:font-normal"
         />
       </label>
       {!checked && <Button type="submit" full silent className="mt-5" disabled={text.trim() === ''}>Check</Button>}

@@ -21,8 +21,9 @@ export function SearchBox({ id, label, placeholder, value, onChange, inputRef, s
     <div className={`relative ${className}`}>
       <label className="sr-only" htmlFor={id}>{label}</label>
       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none"><Icon name="search" size={18} /></span>
+      {/* field gives the edge every typed box has. bg-surface keeps the fill white, because a search box often floats over the map. */}
       <input ref={inputRef} id={id} type="search" enterKeyHint="search" autoComplete="off" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}
-        className={`w-full min-h-[52px] pl-11 ${value === '' ? 'pr-5' : 'pr-14'} rounded-pill bg-surface text-text placeholder:text-muted ${shadow === 'lift' ? 'shadow-lift' : 'shadow-soft'}`} />
+        className={`field bg-surface w-full min-h-[52px] pl-11 ${value === '' ? 'pr-5' : 'pr-14'} rounded-pill text-text placeholder:text-muted ${shadow === 'lift' ? 'shadow-lift' : 'shadow-soft'}`} />
       {value !== '' && (
         <button type="button" onClick={() => onChange('')} aria-label="Clear the search" className="absolute right-1.5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-pill flex items-center justify-center text-muted hover:bg-tint cursor-pointer">
           <Icon name="close" size={16} />

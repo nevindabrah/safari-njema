@@ -36,6 +36,7 @@ const PAIRS: Array<[string, string]> = [
   ['--text', '--bg'], ['--text', '--surface'], ['--text', '--surface-2'], ['--text', '--tint'],
   ['--muted', '--bg'], ['--muted', '--surface'], ['--muted', '--surface-2'],
   ['--on-hero', '--hero'], ['--on-ink', '--ink'], ['--on-accent', '--accent'], ['--on-primary', '--primary'], ['--on-success', '--success'],
+  ['--text', '--field'], ['--muted', '--field'],
   ['--text', '--right-soft'], ['--text', '--wrong-soft'], ['--accent-text', '--surface'], ['--accent-text', '--bg'], ['--accent-text', '--tint'], ['--accent-text', '--surface-2'],
 ]
 
@@ -45,6 +46,9 @@ describe('the two dark themes', () => {
   })
 })
 
+// Things that are not text, like the edge of a box you type in, need 3 to 1 against what is around them.
+const EDGES: Array<[string, string]> = [['--field-edge', '--surface'], ['--field-edge', '--bg'], ['--field-edge', '--tint']]
+
 describe.each([
   ['light', light],
   ['dark from the device', { ...light, ...deviceDark }],
@@ -53,5 +57,10 @@ describe.each([
   it.each(PAIRS)('%s on %s is at least 4.5 to 1', (text, background) => {
     const ratio = contrastRatio(resolve(theme, text), resolve(theme, background))
     expect(ratio, `${text} ${resolve(theme, text)} on ${background} ${resolve(theme, background)} is ${ratio.toFixed(2)}`).toBeGreaterThanOrEqual(4.5)
+  })
+
+  it.each(EDGES)('%s against %s is at least 3 to 1', (edge, around) => {
+    const ratio = contrastRatio(resolve(theme, edge), resolve(theme, around))
+    expect(ratio, `${edge} against ${around} is ${ratio.toFixed(2)}`).toBeGreaterThanOrEqual(3)
   })
 })

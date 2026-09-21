@@ -11,7 +11,7 @@ import { LeaveButton } from '../../components/LeaveButton'
 import { SetupNotice } from './SetupNotice'
 import { isDemoMode } from '../demo/demoMode'
 
-const inputClass = 'w-full min-h-[48px] px-4 rounded-input bg-surface-2 text-text placeholder:text-muted'
+const inputClass = 'w-full min-h-[48px] px-4 rounded-input field text-text placeholder:text-muted'
 
 export function ForgotPasswordScreen() {
   const [email, setEmail] = useState('')
