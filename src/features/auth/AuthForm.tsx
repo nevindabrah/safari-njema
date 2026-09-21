@@ -35,7 +35,7 @@ export function AuthForm({ submitLabel, onSubmit }: AuthFormProps) {
         Password
         <input className={inputClass} type="password" autoComplete="current-password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      {error && <p role="alert" className="text-sm text-accent font-bold">{error}</p>}
+      {error && <p role="alert" className="text-sm text-accent-text font-bold">{error}</p>}
       <Button type="submit" full disabled={busy} className="mt-2">
         {busy ? 'One moment' : submitLabel}
       </Button>

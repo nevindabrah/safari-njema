@@ -31,7 +31,7 @@ export function GoogleButton() {
       <button type="button" onClick={signIn} className="w-full min-h-[48px] rounded-pill bg-surface-2 font-bold flex items-center justify-center gap-3 cursor-pointer" style={{ boxShadow: '0 4px 0 var(--line)' }}>
         <GoogleMark />Continue with Google
       </button>
-      {error && <p role="alert" className="text-sm text-accent font-bold mt-2">{error}</p>}
+      {error && <p role="alert" className="text-sm text-accent-text font-bold mt-2">{error}</p>}
       <p className="text-center text-xs text-muted mt-4">or use your email</p>
     </div>
   )

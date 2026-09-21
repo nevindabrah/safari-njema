@@ -11,7 +11,7 @@ export function BriefStep({ brief }: { brief: Lesson['brief'] }) {
         <ul className="flex flex-col gap-2">
           {brief.know_today.map((item, i) => (
             <li key={i} className="flex gap-3 bg-tint rounded-input px-4 py-3">
-              <span className="font-display font-extrabold text-accent">{i + 1}</span>
+              <span className="font-display font-extrabold text-accent-text">{i + 1}</span>
               <span>{item}</span>
             </li>
           ))}

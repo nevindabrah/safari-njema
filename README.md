@@ -32,10 +32,12 @@ The switch is automatic. With no keys the app is the demo. Add the Supabase valu
 - **An AI switch.** With it on, Claude writes the brief and picks phrases, and its JSON is validated with zod. With it off, a template builds the lesson from the same candidates. The live site runs with it off, so it costs nothing to host.
 - **One pipeline, two runtimes.** Scoring, the slot plan and the template are pure TypeScript. The same files run in a Supabase Edge Function and in the browser demo.
 - **A Swahili voice, checked by a machine that understands Swahili.** Every phrase is spoken by Meta's MMS text to speech model for Swahili. A script records up to twenty two takes of each phrase, a Swahili speech recogniser listens to every take, and the clearest one is kept. A clip the recogniser could not understand is held back, so that phrase has no speaker button instead of a wrong sound. What was heard for every clip is in `docs/audio-report.json`. No speech service and no key at run time.
+- **Built to be corrected.** A public phrasebook lists all 95 phrases with their pronunciation guide and recording, including the eight recordings held back from lessons, so a Swahili speaker can judge them by ear. They leave a note beside any phrase and send all their notes at once by email, copy or file. No account and no server.
+- **Accessible colour, tested.** A test reads the real stylesheet and checks every text and background pairing in light, device dark and toggle dark against the 4.5 to 1 standard. It also fails if the two dark themes ever differ, which is the bug that once made answer feedback unreadable.
 - **Reviewed Swahili.** All 95 phrases have been reviewed by a Swahili teacher. Anything a model proposes later is marked unreviewed until someone checks it.
 - **A look that belongs to the subject.** Every finished lesson earns a kanga, the printed cloth that always carries a Swahili proverb, drawn in SVG from six colourways and four motifs. The icons are the app's own line set, not emoji. Light, dark or follow the device, with no flash on load.
 - **Real photos, properly credited.** A script resolves one freely licensed Wikimedia Commons photo per place in three batched requests, and saves the author and licence. Every photo is credited where it is shown and on the About page.
-- **Tests that read the lessons.** 64 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **Tests that read the lessons.** 121 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
 - **Row Level Security on every table**, with a database function so users never need write access to shared tables.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 
@@ -98,6 +100,8 @@ When the Supabase values are missing, the app runs in demo mode. This is what th
 - Dates are free. Trip dates can be set, changed or cleared at any time. A stop can take any date, inside the trip or not, and can be moved to another day later. The list and the pin numbers follow the dates.
 - Sound effects for taps, right and wrong answers, a new stop and a finished lesson. They are made with Web Audio, so there are no audio files, and the speaker button in the top bar mutes them for good.
 - Every phrase can be played aloud: on the phrases step, on the pocket card, and automatically after each answer. Practice includes listening exercises, where you hear a phrase and pick what was said. The speaker button in the top bar turns the automatic playback off.
+- The phrasebook at `/phrasebook`, the privacy page at `/privacy`, and a friendly page for unknown addresses are all public.
+- During a lesson the tab bar and the demo strip step aside, and the feedback scrolls into view after each answer, so the Next button is never hidden on a phone.
 - Every stop has a pocket card: all its phrases with pronunciation, the three things to know, the etiquette note and Kenya's emergency numbers, on one page that prints cleanly.
 - The kanga shelf shows a cloth for every lesson. Unearned ones are veiled and keep their proverb hidden until the lesson is finished.
 - Laptop users can answer with the number keys and move on with Enter. On a phone the main links sit in a floating tab bar within thumb reach.
@@ -135,6 +139,7 @@ npm run build           # type check and production build
 | `VITE_SUPABASE_ANON_KEY` | `.env`, Vercel | Supabase anon key, safe in the browser because RLS is on |
 | `VITE_GOOGLE_MAPS_KEY` | `.env`, Vercel | Google Maps key, restricted by domain and API |
 | `VITE_GOOGLE_MAP_ID` | `.env`, Vercel | Map ID for the styled map and custom pins |
+| `VITE_FEEDBACK_EMAIL` | Vercel | Optional. Where phrasebook notes are emailed. Left unset, the email opens with no address |
 | `LESSON_AI_ENABLED` | Supabase secret | `true` or `false`. The live site runs with `false` |
 | `LESSON_MODEL` | Supabase secret | Claude model name, default `claude-opus-5` |
 | `ANTHROPIC_API_KEY` | Supabase secret | Never in `.env`, never under `src/` |

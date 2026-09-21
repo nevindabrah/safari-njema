@@ -32,7 +32,7 @@ export function PocketCardScreen() {
                 {data.phrases.map((phrase) => (
                   <li key={phrase.id} className="py-2.5 grid grid-cols-[auto_1fr_1fr] gap-3 items-center" style={{ borderColor: 'var(--line)' }}>
                     <span className="w-11 no-print"><SpeakButton swahili={phrase.swahili} /></span>
-                    <span><span lang="sw" className="font-display font-extrabold block">{phrase.swahili}</span><span className="text-xs text-accent font-bold">{phrase.pronunciation}</span></span>
+                    <span><span lang="sw" className="font-display font-extrabold block">{phrase.swahili}</span><span className="text-xs text-accent-text font-bold">{phrase.pronunciation}</span></span>
                     <span className="text-sm text-muted">{phrase.english}</span>
                   </li>
                 ))}
@@ -40,7 +40,7 @@ export function PocketCardScreen() {
 
               <h2 className="text-lg mt-6 mb-2">Know it</h2>
               <ul className="flex flex-col gap-1.5 text-sm">
-                {data.lesson.brief.know_today.map((item, i) => <li key={i} className="flex gap-2"><span className="font-bold text-accent">{i + 1}</span>{item}</li>)}
+                {data.lesson.brief.know_today.map((item, i) => <li key={i} className="flex gap-2"><span className="font-bold text-accent-text">{i + 1}</span>{item}</li>)}
               </ul>
               <p className="text-sm mt-3"><b>Etiquette.</b> {data.lesson.brief.etiquette}</p>
               <p className="text-sm mt-1"><b>Practical.</b> {data.lesson.brief.practical}</p>

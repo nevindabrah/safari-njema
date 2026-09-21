@@ -38,7 +38,7 @@ export function ForgotPasswordScreen() {
                 Email
                 <input className={inputClass} type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
               </label>
-              {error && <p role="alert" className="text-sm text-accent font-bold">{error}</p>}
+              {error && <p role="alert" className="text-sm text-accent-text font-bold">{error}</p>}
               <Button type="submit" full className="mt-2">Send the link</Button>
             </form>
           )}
@@ -73,7 +73,7 @@ export function ResetPasswordScreen() {
               New password
               <input className={inputClass} type="password" autoComplete="new-password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            {error && <p role="alert" className="text-sm text-accent font-bold">{error}</p>}
+            {error && <p role="alert" className="text-sm text-accent-text font-bold">{error}</p>}
             <Button type="submit" full className="mt-2">Save and continue</Button>
           </form>
         </Card>
