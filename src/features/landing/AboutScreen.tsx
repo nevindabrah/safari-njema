@@ -32,6 +32,12 @@ export function AboutScreen() {
           </div>
         </Card>
         <Card>
+          <h2 className="text-xl mb-2">The voice</h2>
+          <p className="text-sm text-muted mb-5">
+            The Swahili you hear is spoken by Meta's MMS text to speech model for Swahili, used under the{' '}
+            <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noreferrer" className="underline">CC BY-NC 4.0</a> licence.
+            Every clip was checked by a Swahili speech recogniser, and clips it could not understand were left out.
+          </p>
           <h2 className="text-xl mb-2">Photo credits</h2>
           <p className="text-sm text-muted mb-3">Place photos come from Wikimedia Commons under Creative Commons licences. Thank you to the photographers.</p>
           <ul className="text-xs text-muted flex flex-col gap-1">
