@@ -11,12 +11,12 @@ import { NotesBar } from './NotesBar'
 export function PhrasebookScreen() {
   const { phrases, notes, reviewer, saveNote, saveReviewer, clearNotes } = usePhrasebook()
   const [query, setQuery] = useState('')
-  const [heldOnly, setHeldOnly] = useState(false)
+  const [checkOnly, setCheckOnly] = useState(false)
 
   const q = query.trim().toLowerCase()
-  const shown = phrases.filter((p) => (!heldOnly || p.held) && (q === '' || `${p.swahili} ${p.english}`.toLowerCase().includes(q)))
+  const shown = phrases.filter((p) => (!checkOnly || p.held || p.unsure) && (q === '' || `${p.swahili} ${p.english}`.toLowerCase().includes(q)))
   const chapters = [...new Set(shown.map((p) => p.chapter))]
-  const heldCount = phrases.filter((p) => p.held).length
+  const checkCount = phrases.filter((p) => p.held || p.unsure).length
 
   return (
     <div className="min-h-dvh">
@@ -35,10 +35,10 @@ export function PhrasebookScreen() {
           <label className="sr-only" htmlFor="book-search">Search the phrasebook</label>
           <input id="book-search" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search Swahili or English"
             className="flex-1 min-w-[12rem] min-h-[48px] px-5 rounded-pill bg-surface shadow-soft" />
-          {heldCount > 0 && (
-            <button type="button" aria-pressed={heldOnly} onClick={() => setHeldOnly(!heldOnly)}
-              className={`px-4 min-h-[48px] rounded-pill text-sm font-bold cursor-pointer ${heldOnly ? 'bg-primary text-on-primary' : 'bg-surface shadow-soft'}`}>
-              {heldCount} recordings to check
+          {checkCount > 0 && (
+            <button type="button" aria-pressed={checkOnly} onClick={() => setCheckOnly(!checkOnly)}
+              className={`px-4 min-h-[48px] rounded-pill text-sm font-bold cursor-pointer ${checkOnly ? 'bg-primary text-on-primary' : 'bg-surface shadow-soft'}`}>
+              {checkCount} recordings to check
             </button>
           )}
         </div>

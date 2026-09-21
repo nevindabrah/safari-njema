@@ -29,6 +29,11 @@ export function PhraseRow({ phrase, note, onNote }: PhraseRowProps) {
           <p lang="sw" className="font-display font-extrabold text-xl leading-tight">{phrase.swahili}</p>
           <p className="text-sm font-bold text-accent-text">{phrase.pronunciation}</p>
           <p className="text-muted">{phrase.english}</p>
+          {phrase.unsure && (
+            <p className="text-xs mt-1 rounded-input inline-block px-2 py-1 bg-tint">
+              This recording is used in lessons, but a speech recogniser was not fully sure of it. Does it sound right to you?
+            </p>
+          )}
           {phrase.held && (
             <p className="text-xs mt-1 rounded-input inline-block px-2 py-1" style={{ background: 'var(--wrong-soft)' }}>
               This recording is not used in lessons yet. A speech recogniser could not make it out. Does it sound right to you?

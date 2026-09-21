@@ -10,6 +10,8 @@ export interface BookPhrase {
   // The recording's address, and whether it was held back from lessons because a speech recogniser could not understand it.
   clip: string | null
   held: boolean
+  // In lessons, but the recogniser was not fully sure of it. Worth a human ear.
+  unsure: boolean
 }
 
 const NOTES_KEY = 'safari-njema-phrase-notes'
@@ -43,6 +45,7 @@ export function usePhrasebook() {
           chapter: p.source.split(': ')[1] ?? 'Other',
           clip: clip ? `/audio/${clip.file}` : null,
           held: clip ? !clip.shipped : false,
+          unsure: clip ? clip.shipped && clip.score < 0.9 : false,
         }
       }))
     })
