@@ -1,4 +1,37 @@
 {
+  "sample-nanyuki": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Nanyuki_main_street.jpg/960px-Nanyuki_main_street.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "Christiaan Kooyman",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Nanyuki_main_street.jpg",
+    "article": "https://en.wikipedia.org/wiki/Nanyuki"
+  },
+  "sample-bomas": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/BomasLuoVillage.JPG",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "SteveRwanda",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "filePage": "https://commons.wikimedia.org/wiki/File:BomasLuoVillage.JPG",
+    "article": "https://en.wikipedia.org/wiki/Bomas_of_Kenya"
+  },
+  "sample-gedi": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Great_Mosque_of_Gede.jpg/960px-Great_Mosque_of_Gede.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "Mgiganteus",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Great_Mosque_of_Gede.jpg",
+    "article": "https://en.wikipedia.org/wiki/Ruins_of_Gedi"
+  },
   "sample-malindi": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Pillar_of_Vasco_da_Gama.jpg/960px-Pillar_of_Vasco_da_Gama.jpg",
     "illustrative": false,
@@ -9,6 +42,61 @@
     "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
     "filePage": "https://commons.wikimedia.org/wiki/File:Pillar_of_Vasco_da_Gama.jpg",
     "article": "https://en.wikipedia.org/wiki/Malindi"
+  },
+  "sample-kicc": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/KICC_nairobi_kenya.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 1280,
+    "author": "Original uploader was Mkimemia at en.wikipedia",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "filePage": "https://commons.wikimedia.org/wiki/File:KICC_nairobi_kenya.jpg",
+    "article": "https://en.wikipedia.org/wiki/Kenyatta_International_Convention_Centre"
+  },
+  "sample-naivasha-town": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Naivasha.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 623,
+    "author": "Rotsee2",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Naivasha.jpg",
+    "article": "https://en.wikipedia.org/wiki/Naivasha"
+  },
+  "sample-kakamega-forest": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Kakamega_forest_view.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 614,
+    "author": "Rotsee2",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Kakamega_forest_view.jpg",
+    "article": "https://en.wikipedia.org/wiki/Kakamega_Forest"
+  },
+  "sample-ol-pejeta": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Kenya_ol_pejeta.jpg/960px-Kenya_ol_pejeta.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 643,
+    "author": "mark nash",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Kenya_ol_pejeta.jpg",
+    "article": "https://en.wikipedia.org/wiki/Ol_Pejeta_Conservancy"
+  },
+  "sample-giraffe-manor": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Giraffe_Manor%2C_Nairobi%2C_Kenya.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 639,
+    "author": "Push the button",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Giraffe_Manor,_Nairobi,_Kenya.jpg",
+    "article": "https://en.wikipedia.org/wiki/Giraffe_Manor"
   },
   "sample-watamu": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Watamu_Beach%2C_Kenya.JPG/960px-Watamu_Beach%2C_Kenya.JPG",
@@ -37,11 +125,22 @@
     "illustrative": false,
     "width": 960,
     "height": 591,
-    "author": "Bjørn Christian Tørrissen",
+    "author": "Bj\u00f8rn Christian T\u00f8rrissen",
     "licence": "CC BY-SA 3.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "filePage": "https://commons.wikimedia.org/wiki/File:Lake-Nakuru-Baboon-Hill-View.JPG",
     "article": "https://en.wikipedia.org/wiki/Lake_Nakuru"
+  },
+  "sample-nyali": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Mt_Kenya_road.JPG/960px-Mt_Kenya_road.JPG",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "FredD",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Mt_Kenya_road.JPG",
+    "article": "https://en.wikipedia.org/wiki/Nyali"
   },
   "sample-jkia": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Jomo_Kenyatta_International_Airport_%28JKIA%29.jpg/960px-Jomo_Kenyatta_International_Airport_%28JKIA%29.jpg",
@@ -53,6 +152,39 @@
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "filePage": "https://commons.wikimedia.org/wiki/File:Jomo_Kenyatta_International_Airport_(JKIA).jpg",
     "article": "https://en.wikipedia.org/wiki/Jomo_Kenyatta_International_Airport"
+  },
+  "sample-samburu": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Samburu_National_Reserve%2C_Kenya-26December2012.jpg/960px-Samburu_National_Reserve%2C_Kenya-26December2012.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 572,
+    "author": "ninara",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Samburu_National_Reserve,_Kenya-26December2012.jpg",
+    "article": "https://en.wikipedia.org/wiki/Samburu_National_Reserve"
+  },
+  "sample-wilson-airport": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Aerial_view_of_Wilson_Airport_Nairobi.jpg/960px-Aerial_view_of_Wilson_Airport_Nairobi.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 620,
+    "author": "Kreuzschnabel",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Wilson_Airport_Nairobi.jpg",
+    "article": "https://en.wikipedia.org/wiki/Wilson_Airport"
+  },
+  "sample-lake-naivasha": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Naivasha_lake.jpg/960px-Naivasha_lake.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 448,
+    "author": "undeklinable from Espa\u00f1a",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Naivasha_lake.jpg",
+    "article": "https://en.wikipedia.org/wiki/Lake_Naivasha"
   },
   "sample-maasai-market": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Traditional_Maasai_Jewelry._Triangle_Curio_Market%2C_Nairobi%2C_Kenya_%282%29.jpg/960px-Traditional_Maasai_Jewelry._Triangle_Curio_Market%2C_Nairobi%2C_Kenya_%282%29.jpg",
@@ -109,6 +241,28 @@
     "filePage": "https://commons.wikimedia.org/wiki/File:Nairobi_Terminus.jpg",
     "article": "https://en.wikipedia.org/wiki/Nairobi_Terminus"
   },
+  "sample-bamburi": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Enjoying_at_sunday.jpg/960px-Enjoying_at_sunday.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 539,
+    "author": "Stavrosm63",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Enjoying_at_sunday.jpg",
+    "article": "https://en.wikipedia.org/wiki/Bamburi"
+  },
+  "sample-mombasa-terminus": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Mombasa_Terminus.jpg/960px-Mombasa_Terminus.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "Macabe5387",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Mombasa_Terminus.jpg",
+    "article": "https://en.wikipedia.org/wiki/Mombasa_Terminus"
+  },
   "sample-fort-jesus": {
     "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Fort_Jesus_at_the_Mombasa_Island.jpg",
     "illustrative": false,
@@ -164,6 +318,17 @@
     "filePage": "https://commons.wikimedia.org/wiki/File:Lamu_Old_Town.jpg",
     "article": "https://en.wikipedia.org/wiki/Lamu"
   },
+  "sample-nakuru": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Golden_life_mall%2C_Nakuru.jpg/960px-Golden_life_mall%2C_Nakuru.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 554,
+    "author": "Leo Hempstone",
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Golden_life_mall,_Nakuru.jpg",
+    "article": "https://en.wikipedia.org/wiki/Nakuru"
+  },
   "sample-kisumu": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Kisumu_rooftop.jpg/960px-Kisumu_rooftop.jpg",
     "illustrative": false,
@@ -175,6 +340,28 @@
     "filePage": "https://commons.wikimedia.org/wiki/File:Kisumu_rooftop.jpg",
     "article": "https://en.wikipedia.org/wiki/Kisumu"
   },
+  "sample-mombasa-old-town": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Mombasa_Island.jpg/960px-Mombasa_Island.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 494,
+    "author": "Leo Hempstone",
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Mombasa_Island.jpg",
+    "article": "https://en.wikipedia.org/wiki/Mombasa"
+  },
+  "sample-eldoret": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/City_of_Champions_Monument%2C_Eldoret.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 1280,
+    "author": "Alfredo Genza",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:City_of_Champions_Monument,_Eldoret.jpg",
+    "article": "https://en.wikipedia.org/wiki/Eldoret"
+  },
   "sample-giraffe-centre": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Giraffe_Centre_August_2025_04.jpg/960px-Giraffe_Centre_August_2025_04.jpg",
     "illustrative": false,
@@ -185,6 +372,17 @@
     "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
     "filePage": "https://commons.wikimedia.org/wiki/File:Giraffe_Centre_August_2025_04.jpg",
     "article": "https://en.wikipedia.org/wiki/Giraffe_Centre"
+  },
+  "sample-moi-airport": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Moi_International_Airport_terminal_building%2C_2025_%2801%29.jpg/960px-Moi_International_Airport_terminal_building%2C_2025_%2801%29.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 540,
+    "author": "Bahnfrend",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Moi_International_Airport_terminal_building,_2025_(01).jpg",
+    "article": "https://en.wikipedia.org/wiki/Moi_International_Airport"
   },
   "sample-nairobi-cbd": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Nairobi_skyline_from_Gem_Hotel.jpg/960px-Nairobi_skyline_from_Gem_Hotel.jpg",
@@ -208,6 +406,17 @@
     "filePage": "https://commons.wikimedia.org/wiki/File:Diani_Beach_Ukunda.jpg",
     "article": "https://en.wikipedia.org/wiki/Diani_Beach"
   },
+  "sample-national-museum": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/The_National_Museums_of_Kenya_-_Nairobi_02.jpg/960px-The_National_Museums_of_Kenya_-_Nairobi_02.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 540,
+    "author": "KeMang??",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:The_National_Museums_of_Kenya_-_Nairobi_02.jpg",
+    "article": "https://en.wikipedia.org/wiki/National_Museums_of_Kenya"
+  },
   "sample-jamia": {
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Jamia_Mosque_%28Nairobi%29%2C_2025_%2805%29.jpg/960px-Jamia_Mosque_%28Nairobi%29%2C_2025_%2805%29.jpg",
     "illustrative": false,
@@ -229,5 +438,104 @@
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "filePage": "https://commons.wikimedia.org/wiki/File:Sarova_Stanley,_2025_(01).jpg",
     "article": "https://en.wikipedia.org/wiki/Stanley_Hotel%2C_Nairobi"
+  },
+  "sample-mama-oliech": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Fried_Tilapia%2C_Ugali%2C_Sukuma_Wiki_and_Kachumbari_%28From_Kisumu%29.JPG/960px-Fried_Tilapia%2C_Ugali%2C_Sukuma_Wiki_and_Kachumbari_%28From_Kisumu%29.JPG",
+    "illustrative": true,
+    "width": 960,
+    "height": 720,
+    "author": "Napendakukula",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Fried_Tilapia,_Ugali,_Sukuma_Wiki_and_Kachumbari_(From_Kisumu).JPG",
+    "article": null
+  },
+  "sample-karen-blixen": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Karen_blixen_museum_in_nairobi_kenya_02.jpg/960px-Karen_blixen_museum_in_nairobi_kenya_02.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 638,
+    "author": "Alexander Leisser",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Karen_blixen_museum_in_nairobi_kenya_02.jpg",
+    "article": null
+  },
+  "sample-tsavo-east": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Leopard_on_mount_in_Tsavo_East_National_Park.jpg/960px-Leopard_on_mount_in_Tsavo_East_National_Park.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 641,
+    "author": "Byrdyak",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Leopard_on_mount_in_Tsavo_East_National_Park.jpg",
+    "article": null
+  },
+  "sample-tamarind": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Lunch_by_the_Seaside.jpg/960px-Lunch_by_the_Seaside.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 640,
+    "author": "9091Lww , Waigera L W",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Lunch_by_the_Seaside.jpg",
+    "article": null
+  },
+  "sample-mara-serena": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Maasai_Mara%2C_Kenya_%2833858577138%29.jpg/960px-Maasai_Mara%2C_Kenya_%2833858577138%29.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 640,
+    "author": "Nina R from Africa",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Maasai_Mara,_Kenya_(33858577138).jpg",
+    "article": null
+  },
+  "sample-sheldrick": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Baby_elephants_at_the_Sheldrick_Wildlife_Trust_nursery_in_Nairobi%2C_Kenya.jpg/960px-Baby_elephants_at_the_Sheldrick_Wildlife_Trust_nursery_in_Nairobi%2C_Kenya.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 1280,
+    "author": "CakeForBreakfast",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Baby_elephants_at_the_Sheldrick_Wildlife_Trust_nursery_in_Nairobi,_Kenya.jpg",
+    "article": null
+  },
+  "sample-city-market": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/City_Market_in_Nairobi.jpg/960px-City_Market_in_Nairobi.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 540,
+    "author": "Sam Wilson (taken with Samsung Galaxy S21 FE 5G)",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:City_Market_in_Nairobi.jpg",
+    "article": null
+  },
+  "sample-talisman": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Kenyan_breakfast%2C_Qaffee_Spot%2C_2025_%2801%29.jpg/960px-Kenyan_breakfast%2C_Qaffee_Spot%2C_2025_%2801%29.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 641,
+    "author": "Bahnfrend",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Kenyan_breakfast,_Qaffee_Spot,_2025_(01).jpg",
+    "article": null
+  },
+  "sample-village-market": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/The_Village_Market_%2878567%29.jpg/960px-The_Village_Market_%2878567%29.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 720,
+    "author": "Amr F.Nagy",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:The_Village_Market_(78567).jpg",
+    "article": null
   }
 }

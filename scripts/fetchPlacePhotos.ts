@@ -28,11 +28,46 @@ const ARTICLES: Record<string, string | null> = {
   'sample-carnivore': null,
   'sample-hotel': 'Stanley Hotel, Nairobi',
   'sample-jamia': 'Jamia Mosque (Kenya)',
+  'sample-tsavo-east': "Tsavo East National Park",
+  'sample-lake-naivasha': "Lake Naivasha",
+  'sample-ol-pejeta': "Ol Pejeta Conservancy",
+  'sample-samburu': "Samburu National Reserve",
+  'sample-sheldrick': "Sheldrick Wildlife Trust",
+  'sample-kakamega-forest': "Kakamega Forest",
+  'sample-mombasa-old-town': "Mombasa",
+  'sample-nanyuki': "Nanyuki",
+  'sample-nakuru': "Nakuru",
+  'sample-eldoret': "Eldoret",
+  'sample-naivasha-town': "Naivasha",
+  'sample-gedi': "Ruins of Gedi",
+  'sample-national-museum': "Nairobi National Museum",
+  'sample-bomas': "Bomas of Kenya",
+  'sample-karen-blixen': "Karen Blixen Museum",
+  'sample-kicc': "Kenyatta International Convention Centre",
+  'sample-village-market': "Village Market",
+  'sample-city-market': null,
+  'sample-moi-airport': "Moi International Airport",
+  'sample-wilson-airport': "Wilson Airport",
+  'sample-mombasa-terminus': "Mombasa Terminus",
+  'sample-nyali': "Nyali",
+  'sample-bamburi': "Bamburi",
+  'sample-tamarind': null,
+  'sample-mama-oliech': null,
+  'sample-ali-barbours': null,
+  'sample-talisman': null,
+  'sample-giraffe-manor': "Giraffe Manor",
+  'sample-mara-serena': null,
+  'sample-all-saints': "All Saints' Cathedral, Nairobi",
 }
 const COMMONS_SEARCH: Record<string, string> = {
   'sample-maasai-market': 'Maasai Market Nairobi beadwork',
   'sample-amboseli': 'Amboseli elephants Kilimanjaro',
   'sample-carnivore': 'nyama choma Kenya',
+  'sample-city-market': 'Nairobi City Market',
+  'sample-tamarind': 'Swahili seafood Mombasa',
+  'sample-mama-oliech': 'fried tilapia ugali Kenya',
+  'sample-talisman': 'Kenyan food plate Nairobi',
+  'sample-mara-serena': 'safari lodge Maasai Mara',
 }
 
 async function api(host: string, params: Record<string, string>) {
@@ -60,9 +95,13 @@ for (const [id, title] of Object.entries(ARTICLES)) {
   if (file) { fileById.set(id, file); articleById.set(id, finalTitle) }
 }
 
-// 2. One Commons search per place that has no article photo. Only real photographs: jpg files.
-for (const [id, search] of Object.entries(COMMONS_SEARCH)) {
-  if (fileById.has(id)) continue
+// 2. One Commons search per place that still has no photo: the listed search, or the article's own title. Only real photographs: jpg files.
+// Places where a search found nothing suitable. They show the place type icon instead of a photo that does not fit.
+const NO_PHOTO = new Set(['sample-ali-barbours'])
+const stillMissing = Object.keys(ARTICLES).filter((id) => !fileById.has(id) && !NO_PHOTO.has(id))
+for (const id of stillMissing) {
+  const search = COMMONS_SEARCH[id] ?? `${ARTICLES[id]} Kenya`
+  await new Promise((resolve) => setTimeout(resolve, 1200))
   const found = await api('commons.wikimedia.org', { action: 'query', list: 'search', srnamespace: '6', srsearch: `${search} filetype:bitmap`, srlimit: '5' })
   const hit = (found.query.search as Array<{ title: string }>).find((r) => /\.jpe?g$/i.test(r.title))
   if (hit) fileById.set(id, hit.title.replace(/^File:/, ''))
@@ -70,11 +109,16 @@ for (const [id, search] of Object.entries(COMMONS_SEARCH)) {
 
 // 3. One request: the image URL, author and licence of every file. Commons only hosts freely licensed files.
 const files = [...new Set(fileById.values())]
-const info = await api('commons.wikimedia.org', { action: 'query', titles: files.map((f) => 'File:' + f).join('|'), prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '960' })
-const normalised = new Map<string, string>((info.query.normalized ?? []).map((n: { from: string; to: string }) => [n.to, n.from]))
+const infoPages: any[] = []
+const normalised = new Map<string, string>()
+for (let i = 0; i < files.length; i += 40) {
+  const info = await api('commons.wikimedia.org', { action: 'query', titles: files.slice(i, i + 40).map((f) => 'File:' + f).join('|'), prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '960' })
+  infoPages.push(...info.query.pages)
+  for (const n of info.query.normalized ?? []) normalised.set(n.to, n.from)
+}
 
 const result: Record<string, unknown> = {}
-for (const page of info.query.pages) {
+for (const page of infoPages) {
   const image = page.imageinfo?.[0]
   const meta = image?.extmetadata
   const licence = meta?.LicenseShortName?.value as string | undefined
@@ -86,7 +130,7 @@ for (const page of info.query.pages) {
     result[id] = {
       url: String(image.thumburl).split('?')[0],
       // A photo found by search shows the kind of place, not always the exact spot, so the credit says so.
-      illustrative: id in COMMONS_SEARCH && !ARTICLES[id],
+      illustrative: !articleById.has(id),
       width: image.thumbwidth,
       height: image.thumbheight,
       author: stripTags(meta.Artist?.value ?? 'Unknown author').slice(0, 80),

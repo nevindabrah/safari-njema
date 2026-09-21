@@ -1,4 +1,4 @@
-// Well known places in Kenya for test mode's search, used only when there is no Google Maps key.
+// The built-in catalogue of well known places in Kenya. It is the whole search when there is no Google Maps key.
 // Exists so search, add and learn can be tried for every kind of place with no Google account. Coordinates are approximate.
 import type { PickedPlace } from '../trip/usePlaceSearch'
 
@@ -24,14 +24,34 @@ export const SAMPLE_PLACES: PickedPlace[] = [
   { googlePlaceId: 'sample-carnivore', name: 'Carnivore Restaurant', lat: -1.329, lng: 36.801, googleTypes: ['restaurant'], placeType: 'restaurant', region: 'nairobi', county: 'Nairobi County', address: 'Langata, Nairobi' },
   { googlePlaceId: 'sample-hotel', name: 'Sarova Stanley Hotel', lat: -1.2833, lng: 36.8219, googleTypes: ['lodging'], placeType: 'hotel', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
   { googlePlaceId: 'sample-jamia', name: 'Jamia Mosque', lat: -1.2835, lng: 36.8206, googleTypes: ['mosque'], placeType: 'religious_site', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
+  { googlePlaceId: 'sample-tsavo-east', name: 'Tsavo East National Park', lat: -2.78, lng: 38.77, googleTypes: ['national_park'], placeType: 'park', region: 'coast', county: 'Taita-Taveta County', address: 'Voi' },
+  { googlePlaceId: 'sample-lake-naivasha', name: 'Lake Naivasha', lat: -0.77, lng: 36.35, googleTypes: ['natural_feature'], placeType: 'park', region: 'rift_valley_mara', county: 'Nakuru County', address: 'Naivasha' },
+  { googlePlaceId: 'sample-ol-pejeta', name: 'Ol Pejeta Conservancy', lat: 0.0, lng: 36.9, googleTypes: ['wildlife_park'], placeType: 'park', region: 'central_mt_kenya', county: 'Laikipia County', address: 'Nanyuki' },
+  { googlePlaceId: 'sample-samburu', name: 'Samburu National Reserve', lat: 0.62, lng: 37.53, googleTypes: ['national_park'], placeType: 'park', region: 'north', county: 'Samburu County', address: 'Samburu' },
+  { googlePlaceId: 'sample-sheldrick', name: 'Sheldrick Wildlife Trust', lat: -1.3767, lng: 36.7745, googleTypes: ['zoo'], placeType: 'park', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
+  { googlePlaceId: 'sample-kakamega-forest', name: 'Kakamega Forest', lat: 0.29, lng: 34.86, googleTypes: ['park'], placeType: 'park', region: 'western_lake', county: 'Kakamega County', address: 'Kakamega' },
+  { googlePlaceId: 'sample-mombasa-old-town', name: 'Mombasa Old Town', lat: -4.062, lng: 39.678, googleTypes: ['neighborhood'], placeType: 'city', region: 'coast', county: 'Mombasa County', address: 'Mombasa' },
+  { googlePlaceId: 'sample-nanyuki', name: 'Nanyuki', lat: 0.0167, lng: 37.0667, googleTypes: ['locality'], placeType: 'city', region: 'central_mt_kenya', county: 'Laikipia County', address: 'Laikipia' },
+  { googlePlaceId: 'sample-nakuru', name: 'Nakuru', lat: -0.3031, lng: 36.08, googleTypes: ['locality'], placeType: 'city', region: 'rift_valley_mara', county: 'Nakuru County', address: 'Nakuru' },
+  { googlePlaceId: 'sample-eldoret', name: 'Eldoret', lat: 0.5143, lng: 35.2698, googleTypes: ['locality'], placeType: 'city', region: 'rift_valley_mara', county: 'Uasin Gishu County', address: 'Uasin Gishu' },
+  { googlePlaceId: 'sample-naivasha-town', name: 'Naivasha', lat: -0.7167, lng: 36.4333, googleTypes: ['locality'], placeType: 'city', region: 'rift_valley_mara', county: 'Nakuru County', address: 'Nakuru' },
+  { googlePlaceId: 'sample-gedi', name: 'Gedi Ruins', lat: -3.31, lng: 40.017, googleTypes: ['historical_landmark'], placeType: 'museum', region: 'coast', county: 'Kilifi County', address: 'Watamu' },
+  { googlePlaceId: 'sample-national-museum', name: 'Nairobi National Museum', lat: -1.2742, lng: 36.8144, googleTypes: ['museum'], placeType: 'museum', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
+  { googlePlaceId: 'sample-bomas', name: 'Bomas of Kenya', lat: -1.3414, lng: 36.7646, googleTypes: ['cultural_landmark'], placeType: 'museum', region: 'nairobi', county: 'Nairobi County', address: 'Langata, Nairobi' },
+  { googlePlaceId: 'sample-karen-blixen', name: 'Karen Blixen Museum', lat: -1.3525, lng: 36.712, googleTypes: ['museum'], placeType: 'museum', region: 'nairobi', county: 'Nairobi County', address: 'Karen, Nairobi' },
+  { googlePlaceId: 'sample-kicc', name: 'Kenyatta International Convention Centre', lat: -1.2886, lng: 36.8233, googleTypes: ['historical_landmark'], placeType: 'museum', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
+  { googlePlaceId: 'sample-village-market', name: 'Village Market', lat: -1.229, lng: 36.8045, googleTypes: ['shopping_mall'], placeType: 'market', region: 'nairobi', county: 'Nairobi County', address: 'Gigiri, Nairobi' },
+  { googlePlaceId: 'sample-city-market', name: 'Nairobi City Market', lat: -1.2833, lng: 36.8185, googleTypes: ['market'], placeType: 'market', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
+  { googlePlaceId: 'sample-moi-airport', name: 'Moi International Airport', lat: -4.0348, lng: 39.5942, googleTypes: ['airport'], placeType: 'airport', region: 'coast', county: 'Mombasa County', address: 'Mombasa' },
+  { googlePlaceId: 'sample-wilson-airport', name: 'Wilson Airport', lat: -1.3217, lng: 36.8148, googleTypes: ['airport'], placeType: 'airport', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
+  { googlePlaceId: 'sample-mombasa-terminus', name: 'Mombasa Terminus, Madaraka Express', lat: -4.0167, lng: 39.5833, googleTypes: ['train_station'], placeType: 'station', region: 'coast', county: 'Mombasa County', address: 'Miritini, Mombasa' },
+  { googlePlaceId: 'sample-nyali', name: 'Nyali Beach', lat: -4.03, lng: 39.72, googleTypes: ['beach'], placeType: 'beach', region: 'coast', county: 'Mombasa County', address: 'Mombasa' },
+  { googlePlaceId: 'sample-bamburi', name: 'Bamburi Beach', lat: -3.98, lng: 39.73, googleTypes: ['beach'], placeType: 'beach', region: 'coast', county: 'Mombasa County', address: 'Mombasa' },
+  { googlePlaceId: 'sample-tamarind', name: 'Tamarind Mombasa', lat: -4.053, lng: 39.685, googleTypes: ['restaurant'], placeType: 'restaurant', region: 'coast', county: 'Mombasa County', address: 'Nyali, Mombasa' },
+  { googlePlaceId: 'sample-mama-oliech', name: 'Mama Oliech Restaurant', lat: -1.2986, lng: 36.792, googleTypes: ['restaurant'], placeType: 'restaurant', region: 'nairobi', county: 'Nairobi County', address: 'Kilimani, Nairobi' },
+  { googlePlaceId: 'sample-ali-barbours', name: "Ali Barbour's Cave Restaurant", lat: -4.3, lng: 39.58, googleTypes: ['restaurant'], placeType: 'restaurant', region: 'coast', county: 'Kwale County', address: 'Diani' },
+  { googlePlaceId: 'sample-talisman', name: 'Talisman Restaurant', lat: -1.328, lng: 36.707, googleTypes: ['restaurant'], placeType: 'restaurant', region: 'nairobi', county: 'Nairobi County', address: 'Karen, Nairobi' },
+  { googlePlaceId: 'sample-giraffe-manor', name: 'Giraffe Manor', lat: -1.3755, lng: 36.744, googleTypes: ['lodging'], placeType: 'hotel', region: 'nairobi', county: 'Nairobi County', address: 'Langata, Nairobi' },
+  { googlePlaceId: 'sample-mara-serena', name: 'Mara Serena Safari Lodge', lat: -1.4, lng: 35.03, googleTypes: ['lodging'], placeType: 'hotel', region: 'rift_valley_mara', county: 'Narok County', address: 'Maasai Mara' },
+  { googlePlaceId: 'sample-all-saints', name: "All Saints' Cathedral", lat: -1.2867, lng: 36.8106, googleTypes: ['church'], placeType: 'religious_site', region: 'nairobi', county: 'Nairobi County', address: 'Nairobi' },
 ]
-
-// Matches the start of any word, so "mara" finds the Maasai Mara and "beach" finds both beaches.
-export function searchSamplePlaces(query: string): PickedPlace[] {
-  const q = query.trim().toLowerCase()
-  if (q.length < 2) return []
-  return SAMPLE_PLACES.filter((place) =>
-    `${place.name} ${place.address}`.toLowerCase().split(/[\s,]+/).some((word) => word.startsWith(q)) ||
-    place.name.toLowerCase().includes(q),
-  )
-}

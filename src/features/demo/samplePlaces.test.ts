@@ -1,7 +1,7 @@
 // Tests for test mode's sample places.
-// Exists so every sample is inside Kenya and search stays limited to the list, like the real Kenya-only search.
+// Exists so every place in the catalogue is inside Kenya and has its own id. Searching it is tested in lib/placeSearch.test.ts.
 import { describe, expect, it } from 'vitest'
-import { SAMPLE_PLACES, searchSamplePlaces } from './samplePlaces'
+import { SAMPLE_PLACES } from './samplePlaces'
 
 describe('sample places', () => {
   it('are all inside Kenya and have unique ids', () => {
@@ -19,12 +19,5 @@ describe('sample places', () => {
     for (const type of ['city', 'park', 'beach', 'market', 'restaurant', 'hotel', 'airport', 'station', 'religious_site', 'museum']) {
       expect(types.has(type as never), type).toBe(true)
     }
-  })
-
-  it('finds places by any word and returns nothing for Paris', () => {
-    expect(searchSamplePlaces('mara').map((p) => p.name)).toContain('Maasai Mara National Reserve')
-    expect(searchSamplePlaces('beach')).toHaveLength(2)
-    expect(searchSamplePlaces('Paris')).toEqual([])
-    expect(searchSamplePlaces('d')).toEqual([])
   })
 })
