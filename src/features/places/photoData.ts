@@ -3,7 +3,11 @@
 import saved from './placePhotos.json'
 
 export interface PlacePhotoInfo {
+  // Our own copies, served with the site: a large one for lesson headers and a small one for lists and cards.
   url: string
+  small: string
+  // Where the photo came from, kept for the credit.
+  source: string
   width: number
   height: number
   author: string
@@ -24,7 +28,7 @@ export function allPhotos(): Array<[string, PlacePhotoInfo]> {
   return Object.entries(PHOTOS)
 }
 
-// Wikimedia serves fixed thumbnail widths. A list row asks for a small one, so a phone is not sent 960 pixels for a 64 pixel square.
+// A list row asks for the small copy, so a phone is never sent a header sized photo for a 64 pixel square.
 export function photoUrl(photo: PlacePhotoInfo, size: 'small' | 'large'): string {
-  return size === 'small' ? photo.url.replace('/960px-', '/330px-') : photo.url
+  return size === 'small' ? photo.small : photo.url
 }

@@ -1,7 +1,10 @@
 // Finds a freely licensed photo for each built-in place, once, and saves it with the author and licence.
 // Exists so the site never depends on a live photo lookup, and every photo carries the credit its licence requires.
-// Run: node scripts/fetchPlacePhotos.ts   (two or three batched requests in total, to stay well inside Wikimedia's limits)
-import { writeFileSync } from 'node:fs'
+// It also downloads each photo once and saves two compressed sizes in public/places, so the site serves its own photos
+// from Vercel's network and never waits on a third party. The licences allow this as long as the credit stays, and it does.
+// Run: node scripts/fetchPlacePhotos.ts   (a few batched requests, then one slow download per photo. Needs macOS for sips.)
+import { execFileSync } from 'node:child_process'
+import { existsSync, mkdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 
 const USER_AGENT = 'SafariNjema/1.0 (student project; https://github.com/nevindabrah/safari-njema)'
 
@@ -128,7 +131,7 @@ for (const page of infoPages) {
   for (const [id, file] of fileById) {
     if (file.replace(/_/g, ' ') !== fileName.replace(/_/g, ' ')) continue
     result[id] = {
-      url: String(image.thumburl).split('?')[0],
+      source: String(image.thumburl).split('?')[0],
       // A photo found by search shows the kind of place, not always the exact spot, so the credit says so.
       illustrative: !articleById.has(id),
       width: image.thumbwidth,
@@ -140,6 +143,29 @@ for (const page of infoPages) {
       article: articleById.get(id) ? `https://en.wikipedia.org/wiki/${encodeURIComponent(articleById.get(id)!.replace(/ /g, '_'))}` : null,
     }
   }
+}
+
+// 4. Download each photo once and save two sizes: a small one for lists and cards, a large one for lesson headers.
+mkdirSync('public/places', { recursive: true })
+for (const [id, photo] of Object.entries(result) as Array<[string, any]>) {
+  const large = `public/places/${id}.jpg`
+  const small = `public/places/${id}-small.jpg`
+  if (!existsSync(large) || !existsSync(small)) {
+    await new Promise((resolve) => setTimeout(resolve, 900))
+    const response = await fetch(photo.source, { headers: { 'User-Agent': USER_AGENT } })
+    if (!response.ok) { console.log(`  could not download ${id}: ${response.status}`); delete result[id]; continue }
+    const original = `public/places/${id}-original.jpg`
+    writeFileSync(original, Buffer.from(await response.arrayBuffer()))
+    // sips ships with macOS. -Z sets the longest side, and formatOptions is the JPEG quality.
+    execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '62', '-Z', '960', original, '--out', large], { stdio: 'ignore' })
+    execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '60', '-Z', '420', original, '--out', small], { stdio: 'ignore' })
+    // Detailed photos, like beadwork, stay heavy at those settings. They get a second, firmer pass.
+    if (statSync(large).size > 170 * 1024) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '48', '-Z', '820', large, '--out', large], { stdio: 'ignore' })
+    if (statSync(small).size > 45 * 1024) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '48', '-Z', '400', small, '--out', small], { stdio: 'ignore' })
+    unlinkSync(original)
+  }
+  photo.url = `/places/${id}.jpg`
+  photo.small = `/places/${id}-small.jpg`
 }
 
 writeFileSync('src/features/places/placePhotos.json', JSON.stringify(result, null, 2) + '\n')

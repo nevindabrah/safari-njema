@@ -38,7 +38,7 @@ export function LessonShowcase() {
           return (
             <article key={stop.placeName} className="bg-surface rounded-card shadow-soft overflow-hidden flex flex-col">
               <div className="relative">
-                <PlacePhoto googlePlaceId={stop.placeId} placeType={stop.placeType as PlaceType} name={stop.placeName} size="large" className="w-full h-44" />
+                <PlacePhoto googlePlaceId={stop.placeId} placeType={stop.placeType as PlaceType} name={stop.placeName} size="small" className="w-full h-44" />
                 <span className="absolute top-3 left-3 w-9 h-9 rounded-pill bg-accent text-on-accent font-display font-extrabold flex items-center justify-center" style={{ border: '3px solid var(--surface)' }}>{i + 1}</span>
               </div>
               <div className="p-5 flex flex-col flex-1">
