@@ -22,7 +22,10 @@ const STEPS: Array<{ icon: IconName; title: string; body: string }> = [
 export function LandingScreen() {
   const { user, loading, signInAsDemoUser } = useAuth()
   const navigate = useNavigate()
-  if (!loading && user) return <Navigate to="/trip" replace />
+  // Opening the site while signed in goes straight to the trip. Arriving here by pressing the logo stays here.
+  // React Router numbers the screens visited in this tab, and zero means this is the first one.
+  const firstScreen = ((window.history.state as { idx?: number } | null)?.idx ?? 0) === 0
+  if (!loading && user && firstScreen) return <Navigate to="/trip" replace />
 
   function openDemo() {
     signInAsDemoUser()
@@ -38,7 +41,10 @@ export function LandingScreen() {
             Duolingo, but the curriculum is your itinerary. Add the places you are going, and each one becomes a short lesson made for that place.
           </p>
           <div className="mt-6 flex gap-3 flex-wrap">
-            {isDemoMode ? (
+            {/* The logo brings signed in people here too, so the first button takes them back to their trip. */}
+            {user ? (
+              <Link to="/trip"><Button variant="accent" tabIndex={-1}>Open my trip</Button></Link>
+            ) : isDemoMode ? (
               <Button variant="accent" onClick={openDemo}>Try the live demo</Button>
             ) : (
               <>
