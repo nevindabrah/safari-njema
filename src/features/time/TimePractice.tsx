@@ -2,47 +2,52 @@
 // Exists because reading the rule is not the same as using it. Getting "saa mbili" wrong here is cheaper than missing a bus.
 import { useState } from 'react'
 import { Button } from '../../components/Button'
-import { clockLabel, swahiliHour } from '../../lib/swahiliTime'
+import { clockLabel, swahiliTime } from '../../lib/swahiliTime'
 import { playSound } from '../../lib/sounds'
-import { sayHour } from './timeWords'
+import { sayTime } from './timeWords'
 
 interface TimePracticeProps {
-  // What the clock and the am or pm switch are set to right now, 0 to 23.
+  // What the clock and the am or pm switch are set to right now: 0 to 23, and 0 to 55 in fives.
   hour24: number
+  minute: number
 }
 
-function randomHour(not: number): number {
+// Minutes since midnight, in steps of five, and never the time the clock already shows.
+function randomTime(not: number): number {
   let next = not
-  while (next === not) next = Math.floor(Math.random() * 24)
+  while (next === not) next = Math.floor(Math.random() * 288) * 5
   return next
 }
 
-export function TimePractice({ hour24 }: TimePracticeProps) {
-  const [target, setTarget] = useState(() => randomHour(hour24))
+export function TimePractice({ hour24, minute }: TimePracticeProps) {
+  const set = hour24 * 60 + minute
+  const [target, setTarget] = useState(() => randomTime(set))
   const [outcome, setOutcome] = useState<'right' | 'wrong' | null>(null)
   const [streak, setStreak] = useState(0)
-  const asked = swahiliHour(target)
+  const targetHour = Math.floor(target / 60)
+  const targetMinute = target % 60
+  const asked = swahiliTime(targetHour, targetMinute)
 
   function check() {
-    const right = hour24 === target
+    const right = set === target
     setOutcome(right ? 'right' : 'wrong')
     setStreak(right ? streak + 1 : 0)
     playSound(right ? 'correct' : 'wrong')
   }
 
   function another() {
-    setTarget(randomHour(target))
+    setTarget(randomTime(target))
     setOutcome(null)
   }
 
   return (
     <div className="mt-3" aria-live="polite">
       <p className="text-xs font-bold text-muted">Set the clock to</p>
-      <p lang="sw" className="font-display font-extrabold text-2xl leading-tight">{sayHour(asked.hour, asked.part)}</p>
-      {outcome === null && <Button full className="mt-3" silent onClick={check}>Check {clockLabel(hour24)}</Button>}
+      <p lang="sw" className="font-display font-extrabold text-2xl leading-tight">{sayTime(asked)}</p>
+      {outcome === null && <Button full className="mt-3" silent onClick={check}>Check {clockLabel(hour24, minute)}</Button>}
       {outcome !== null && (
         <div className="mt-3 rounded-input p-3" style={{ background: outcome === 'right' ? 'var(--right-soft)' : 'var(--wrong-soft)' }}>
-          <p className="font-bold">{outcome === 'right' ? `Yes, that is ${clockLabel(target)}.` : `Not quite. It is ${clockLabel(target)}, six hours from hour ${asked.hour}.`}</p>
+          <p className="font-bold">{outcome === 'right' ? `Yes, that is ${clockLabel(targetHour, targetMinute)}.` : `Not quite. It is ${clockLabel(targetHour, targetMinute)}. Hour ${asked.hour} is six hours from the watch.`}</p>
           {streak >= 2 && <p className="text-sm">{streak} in a row.</p>}
           <Button full variant="soft" className="mt-2" onClick={another}>Try another</Button>
         </div>

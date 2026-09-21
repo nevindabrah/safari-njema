@@ -1,7 +1,7 @@
 // Tests for the six hour shift between a clock and Swahili time.
 // Exists because the whole point of the section is that 7 am is hour one, and an off by one would teach the wrong time.
 import { describe, expect, it } from 'vitest'
-import { clockLabel, hourFromPoint, partOfDay, swahiliHour, toHour24 } from './swahiliTime'
+import { clockLabel, hourFromPoint, minuteFromPoint, partOfDay, swahiliHour, swahiliTime, timeInWords, toHour24 } from './swahiliTime'
 
 describe('swahiliHour', () => {
   it('counts the first hour of daylight, 7 am, as hour one', () => {
@@ -33,7 +33,7 @@ describe('partOfDay and clockLabel', () => {
   })
 
   it('writes clock hours the usual way', () => {
-    expect([0, 7, 12, 19].map(clockLabel)).toEqual(['12:00 am', '7:00 am', '12:00 pm', '7:00 pm'])
+    expect([0, 7, 12, 19].map((hour) => clockLabel(hour))).toEqual(['12:00 am', '7:00 am', '12:00 pm', '7:00 pm'])
   })
 })
 
@@ -50,5 +50,38 @@ describe('the clock face', () => {
 
   it('joins a watch hour and am or pm into a 24 hour value', () => {
     expect([toHour24(12, false), toHour24(7, false), toHour24(12, true), toHour24(7, true)]).toEqual([0, 7, 12, 19])
+  })
+})
+
+describe('swahiliTime, with minutes', () => {
+  it('adds the minutes to the hour up to half past', () => {
+    expect(swahiliTime(8, 0)).toEqual({ hour: 2, part: 'asubuhi', kind: 'exact', minutes: 0 })
+    expect(swahiliTime(8, 10)).toMatchObject({ hour: 2, kind: 'past', minutes: 10 })
+    expect(swahiliTime(8, 15)).toMatchObject({ hour: 2, kind: 'quarter' })
+    expect(swahiliTime(8, 30)).toMatchObject({ hour: 2, kind: 'half' })
+  })
+
+  it('counts down to the next hour after half past', () => {
+    expect(swahiliTime(8, 45)).toMatchObject({ hour: 3, kind: 'quarterTo' })
+    expect(swahiliTime(8, 50)).toMatchObject({ hour: 3, kind: 'to', minutes: 10 })
+  })
+
+  it('names the coming hour and its part of the day across sunset and midnight', () => {
+    expect(swahiliTime(18, 45)).toMatchObject({ hour: 1, part: 'usiku' })
+    expect(swahiliTime(23, 40)).toMatchObject({ hour: 6, part: 'usiku', minutes: 20 })
+    expect(swahiliTime(6, 55)).toMatchObject({ hour: 1, part: 'asubuhi', minutes: 5 })
+  })
+
+  it('explains itself in English', () => {
+    expect(timeInWords(swahiliTime(8, 0))).toBe('hour 2')
+    expect(timeInWords(swahiliTime(8, 25))).toBe('hour 2 and 25 minutes')
+    expect(timeInWords(swahiliTime(8, 30))).toBe('hour 2 and a half')
+    expect(timeInWords(swahiliTime(8, 45))).toBe('a quarter to hour 3')
+    expect(timeInWords(swahiliTime(8, 55))).toBe('5 minutes to hour 3')
+  })
+
+  it('writes minutes with two digits and reads the minute hand in fives', () => {
+    expect(clockLabel(8, 5)).toBe('8:05 am')
+    expect([minuteFromPoint(0, -50), minuteFromPoint(50, 0), minuteFromPoint(0, 50), minuteFromPoint(-50, 0)]).toEqual([0, 15, 30, 45])
   })
 })

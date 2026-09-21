@@ -24,10 +24,36 @@ export function partOfDay(hour24: number): PartOfDay {
   return 'usiku'
 }
 
-// "7:00 am", for showing the clock side of the pair.
-export function clockLabel(hour24: number): string {
+// "7:05 am", for showing the clock side of the pair.
+export function clockLabel(hour24: number, minute = 0): string {
   const clock12 = hour24 % 12 === 0 ? 12 : hour24 % 12
-  return `${clock12}:00 ${hour24 < 12 ? 'am' : 'pm'}`
+  return `${clock12}:${String(minute).padStart(2, '0')} ${hour24 < 12 ? 'am' : 'pm'}`
+}
+
+// How the minutes are said. Up to half past, they are added to the hour. After that, they are taken away from the next hour.
+export type MinuteKind = 'exact' | 'past' | 'quarter' | 'half' | 'quarterTo' | 'to'
+
+export interface SwahiliTime extends SwahiliHour {
+  kind: MinuteKind
+  // The minutes that are said out loud: 10 for both 8:10 and 8:50.
+  minutes: number
+}
+
+// minute is 0 to 59. The clock in the app moves in steps of five.
+export function swahiliTime(hour24: number, minute: number): SwahiliTime {
+  // From 35 past, the time is named after the hour that is coming, and so is the part of the day.
+  const named = minute > 30 ? (hour24 + 1) % 24 : hour24
+  const kind: MinuteKind = minute === 0 ? 'exact' : minute === 15 ? 'quarter' : minute === 30 ? 'half' : minute === 45 ? 'quarterTo' : minute < 30 ? 'past' : 'to'
+  return { ...swahiliHour(named), kind, minutes: minute > 30 ? 60 - minute : minute }
+}
+
+// The same thing in plain English, shown under the Swahili as a check: "10 minutes to hour 3".
+export function timeInWords({ hour, kind, minutes }: SwahiliTime): string {
+  if (kind === 'exact') return `hour ${hour}`
+  if (kind === 'quarter') return `hour ${hour} and a quarter`
+  if (kind === 'half') return `hour ${hour} and a half`
+  if (kind === 'quarterTo') return `a quarter to hour ${hour}`
+  return kind === 'past' ? `hour ${hour} and ${minutes} minutes` : `${minutes} minutes to hour ${hour}`
 }
 
 // Which hour of a clock face a touch is nearest to. dx and dy are measured from the centre, with y growing downwards as on a screen.
@@ -41,4 +67,9 @@ export function hourFromPoint(dx: number, dy: number): number {
 // Puts a watch hour (1 to 12) and a morning or afternoon choice back together as 0 to 23.
 export function toHour24(clock12: number, pm: boolean): number {
   return (clock12 % 12) + (pm ? 12 : 0)
+}
+
+// The minute a touch on the clock face is nearest to, in steps of five. Twelve o'clock is zero.
+export function minuteFromPoint(dx: number, dy: number): number {
+  return (hourFromPoint(dx, dy) % 12) * 5
 }
