@@ -13,9 +13,12 @@ import { PLACE_TYPE_INFO } from '../trip/placeTypes'
 import { BriefStep } from './BriefStep'
 import { PhrasesStep } from './PhrasesStep'
 import { QuizStep, type QuizResult } from './QuizStep'
+import { LengthPicker } from './LengthPicker'
+import { LESSON_LENGTHS, saveLessonLength, savedLessonLength, type LessonLength } from '../../lib/lessonLength'
+import { isDemoMode } from '../demo/demoMode'
 import { playSound } from '../../lib/sounds'
 
-const STEPS = ['The brief', 'The phrases', 'Quiz']
+const STEPS = ['The brief', 'The phrases', 'Practice']
 
 interface LessonPlayerProps {
   lesson: Lesson
@@ -29,10 +32,26 @@ interface LessonPlayerProps {
 }
 
 export function LessonPlayer({ lesson, phrases, pool, generatedBy, backTo, backLabel, onComplete }: LessonPlayerProps) {
-  const [step, setStep] = useState(0)
+  // Step -1 is the length picker. Then 0 the brief, 1 the phrases, 2 the practice, 3 the end.
+  const [step, setStep] = useState(-1)
+  const [length, setLength] = useState<LessonLength>(savedLessonLength)
   const [result, setResult] = useState<QuizResult | null>(null)
   const [startedAt] = useState(() => Date.now())
-  const questions = useMemo(() => buildQuiz(phrases, pool ?? phrases), [phrases, pool])
+  // A lesson holds up to eight phrases, most needed first. The length decides how many of them are studied.
+  const studied = useMemo(() => phrases.slice(0, LESSON_LENGTHS[length].phrases), [phrases, length])
+  const exercises = useMemo(() => buildQuiz(studied, pool ?? phrases), [studied, pool, phrases])
+  const sizes = useMemo(() => {
+    const sizeOf = (l: LessonLength) => {
+      const some = phrases.slice(0, LESSON_LENGTHS[l].phrases)
+      return { phrases: some.length, exercises: buildQuiz(some, pool ?? phrases).length }
+    }
+    return { quick: sizeOf('quick'), standard: sizeOf('standard'), deep: sizeOf('deep') }
+  }, [phrases, pool])
+
+  function chooseLength(next: LessonLength) {
+    setLength(next)
+    saveLessonLength(next)
+  }
 
   function finishQuiz(quizResult: QuizResult) {
     setResult(quizResult)
@@ -57,12 +76,12 @@ export function LessonPlayer({ lesson, phrases, pool, generatedBy, backTo, backL
             </p>
           )}
           <p className="text-xs mt-3 opacity-80">
-            {generatedBy === 'template' ? 'General lesson for this kind of place' : 'Written for this place'}
+            {generatedBy !== 'template' ? 'Written for this place' : isDemoMode ? 'Demo lesson built from the phrase bank. With the Claude API on, the brief is written for this exact place.' : 'General lesson for this kind of place'}
           </p>
         </div>
       </section>
 
-      {step < 3 && (
+      {step >= 0 && step < 3 && (
         <div className="mb-5 px-1">
           <ProgressBar value={step + 1} max={STEPS.length} label="Lesson progress" />
           <p className="text-sm font-bold mt-2">{STEPS[step]}</p>
@@ -70,19 +89,20 @@ export function LessonPlayer({ lesson, phrases, pool, generatedBy, backTo, backL
       )}
 
       <Card>
+        {step === -1 && <LengthPicker selected={length} sizes={sizes} onSelect={chooseLength} onStart={() => setStep(0)} />}
         {step === 0 && <BriefStep brief={lesson.brief} />}
-        {step === 1 && <PhrasesStep phrases={phrases} lessonPhrases={lesson.phrases} />}
-        {step === 2 && <QuizStep questions={questions} onFinish={finishQuiz} />}
+        {step === 1 && <PhrasesStep phrases={studied} lessonPhrases={lesson.phrases} />}
+        {step === 2 && <QuizStep exercises={exercises} onFinish={finishQuiz} />}
         {step === 3 && (
           <div className="text-center">
             <p className="text-4xl mb-2" aria-hidden="true">🎉</p>
             <h2 className="text-3xl mb-2">Safari njema</h2>
-            <p className="text-muted">You got {result?.correct} of {result?.total} right on the first try and met {phrases.length} phrases.</p>
+            <p className="text-muted">You got {result?.correct} of {result?.total} right on the first try and met {studied.length} phrases.</p>
             {result && result.missedPhraseIds.length > 0 && (
               <div className="mt-6 text-left">
                 <p className="text-xs uppercase tracking-wide font-bold text-muted mb-2">Worth another look</p>
                 <ul className="flex flex-col gap-2">
-                  {phrases.filter((p) => result.missedPhraseIds.includes(p.id)).map((p) => (
+                  {studied.filter((p) => result.missedPhraseIds.includes(p.id)).map((p) => (
                     <li key={p.id} className="bg-surface-2 rounded-input px-4 py-2">
                       <span lang="sw" className="font-display font-extrabold">{p.swahili}</span>
                       <span className="text-muted"> · {p.english}</span>
@@ -101,9 +121,9 @@ export function LessonPlayer({ lesson, phrases, pool, generatedBy, backTo, backL
             <Link to={backTo} className="block mt-6"><Button full tabIndex={-1}>{backLabel}</Button></Link>
           </div>
         )}
-        {step < 2 && (
+        {step >= 0 && step < 2 && (
           <div className="mt-6 flex gap-3">
-            {step > 0 && <Button variant="soft" onClick={() => setStep(step - 1)}>Back</Button>}
+            <Button variant="soft" onClick={() => setStep(step - 1)}>Back</Button>
             <Button className="flex-1" onClick={() => setStep(step + 1)}>Continue</Button>
           </div>
         )}

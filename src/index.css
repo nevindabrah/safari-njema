@@ -32,6 +32,10 @@
   --hero-ghost-edge: rgba(21, 23, 58, 0.18);
   --on-hero-ghost: #15173a;
 
+  /* Soft backgrounds for the feedback panel after an answer. */
+  --right-soft: #dff5ec;
+  --wrong-soft: #fde3ec;
+
   /* The demo's sketch map. */
   --map-ground: #eef0f7;
   --map-land: #fff6da;
@@ -59,7 +63,11 @@
     --tint: #3a3114;
     --tint-2: #123428;
     --line: #2a2e58;
-    --map-ground: #12142b;
+    --right-soft: #123428;
+    --wrong-soft: #3a2230;
+    --right-soft: #123428;
+  --wrong-soft: #3a2230;
+  --map-ground: #12142b;
     --map-land: #2a2745;
     --map-border: #5a4a1e;
     --map-water: #16324a;
