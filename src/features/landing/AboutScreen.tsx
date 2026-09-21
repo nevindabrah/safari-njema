@@ -68,6 +68,9 @@ export function AboutScreen() {
           <p className="text-sm text-muted mb-5">
             The Swahili you hear is spoken by Meta's MMS text to speech model for Swahili, used under the{' '}
             <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noreferrer" className="underline">CC BY-NC 4.0</a> licence.
+            Four words that voice could not say clearly come from two community voices built on it:{' '}
+            <a href="https://huggingface.co/Mwau/waxal_swahili-tts-mms" target="_blank" rel="noreferrer" className="underline">Waxal Swahili</a> by Mwau, under the same licence, and the{' '}
+            <a href="https://huggingface.co/mussacharles60/swahili-tts-female-voice" target="_blank" rel="noreferrer" className="underline">Swahili female voice</a> by Mussa Charles, under the MIT licence.
             Every clip was checked by a Swahili speech recogniser, and clips it could not understand were left out.
           </p>
           <h2 className="text-xl mb-2">Photo credits</h2>
