@@ -9,6 +9,7 @@ import { Footer } from '../../components/Footer'
 import { useAuth } from '../auth/useAuth'
 import { isDemoMode, enterDemo } from '../demo/demoMode'
 import { LessonShowcase } from './LessonShowcase'
+import { TimeTeaser } from '../time/TimeTeaser'
 import { BuiltSection } from './BuiltSection'
 import { HeroMap } from './HeroMap'
 import { FullVersionSection } from './FullVersionSection'
@@ -74,6 +75,7 @@ export function LandingScreen() {
         </section>
 
         <LessonShowcase />
+        <TimeTeaser />
         <section aria-labelledby="help-title" className="rounded-card bg-tint p-6 sm:p-8 grid sm:grid-cols-[1fr_auto] gap-5 items-center">
           <div>
             <h2 id="help-title" className="text-2xl sm:text-3xl mb-2">Do you speak Swahili?</h2>

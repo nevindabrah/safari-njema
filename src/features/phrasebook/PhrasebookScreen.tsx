@@ -9,7 +9,7 @@ import { countNotes } from '../../lib/phraseNotes'
 import { usePhrasebook } from './usePhrasebook'
 import { PhraseRow } from './PhraseRow'
 import { NotesBar } from './NotesBar'
-import { SwahiliTimeSection } from '../time/SwahiliTimeSection'
+import { TimeTeaser } from '../time/TimeTeaser'
 
 export function PhrasebookScreen() {
   const { phrases, notes, reviewer, saveNote, saveReviewer, clearNotes } = usePhrasebook()
@@ -35,7 +35,7 @@ export function PhrasebookScreen() {
           <p className="mt-1">Tap the speaker to hear a phrase. If a phrase, a meaning or a recording is off, press "Add a note" beside it. Your notes stay on this device until you press "Send my notes" at the bottom.</p>
         </div>
 
-        <SwahiliTimeSection />
+        <div className="mt-5"><TimeTeaser /></div>
 
         <div className="mt-5 flex flex-wrap gap-2 items-center">
           <SearchBox id="book-search" label="Search the phrasebook" placeholder="Search Swahili or English" value={query} onChange={setQuery} className="flex-1 min-w-[12rem]" />

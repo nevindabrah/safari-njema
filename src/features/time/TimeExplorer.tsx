@@ -25,7 +25,7 @@ export function TimeExplorer() {
   const tab = (active: boolean) => `flex-1 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'text-text'}`
 
   return (
-    <div className="mt-5 rounded-input bg-tint p-4">
+    <div className="mt-5 rounded-card bg-tint p-4 sm:p-6">
       <div className="flex gap-1 p-1 rounded-pill bg-surface mb-4" role="group" aria-label="Explore or practise">
         <button type="button" aria-pressed={!practising} onClick={() => setPractising(false)} className={tab(!practising)}>Explore</button>
         <button type="button" aria-pressed={practising} onClick={() => setPractising(true)} className={tab(practising)}>Practise</button>

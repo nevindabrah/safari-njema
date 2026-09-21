@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 export type IconName =
   | 'city' | 'park' | 'beach' | 'market' | 'restaurant' | 'hotel' | 'airport' | 'station' | 'religious_site' | 'museum' | 'other'
-  | 'search' | 'trash' | 'sound' | 'mute' | 'sun' | 'moon' | 'system' | 'check' | 'bolt' | 'card' | 'cloth' | 'arrow' | 'back' | 'print' | 'map' | 'close' | 'calendar'
+  | 'search' | 'trash' | 'sound' | 'mute' | 'sun' | 'moon' | 'system' | 'check' | 'bolt' | 'card' | 'cloth' | 'arrow' | 'back' | 'print' | 'map' | 'close' | 'calendar' | 'clock'
 
 const PATHS: Record<IconName, ReactNode> = {
   city: <><path d="M3 20h18M5 20V10l4-2v12M9 20V5l6 2.5V20M15 20v-7l4 1.5V20" /><path d="M11.5 10v.01M11.5 13.5v.01M11.5 17v.01" /></>,
@@ -34,6 +34,7 @@ const PATHS: Record<IconName, ReactNode> = {
   map: <><path d="m3 6.5 6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5V6.5Z" /><path d="M9 4v13.5M15 6.5V20" /></>,
   back: <path d="M19.5 12h-15M10.5 6l-6 6 6 6" />,
   calendar: <><rect x="3.5" y="5" width="17" height="15" rx="3" /><path d="M3.5 10h17M8 3v4M16 3v4" /></>,
+  clock: <><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></>,
   close: <path d="m6 6 12 12M18 6 6 18" />,
 }
 

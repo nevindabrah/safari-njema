@@ -21,6 +21,7 @@ export function TopBar() {
           <nav className="flex items-center gap-1 text-sm font-bold whitespace-nowrap" aria-label="Main">
             {user && <span className="hidden sm:flex items-center gap-1"><NavLink to="/trip" className={link}>My trip</NavLink><NavLink to="/kangas" className={link}>Kangas</NavLink></span>}
             <NavLink to="/phrasebook" className={(state) => `${link(state)} hidden sm:inline-block`}>Phrasebook</NavLink>
+            <NavLink to="/time" className={(state) => `${link(state)} hidden sm:inline-block`}>Time</NavLink>
             {/* On a phone the bar holds the logo and the controls. About is in the footer of every public page. */}
             <NavLink to="/about" className={(state) => `${link(state)} hidden sm:inline-block`}>About</NavLink>
             <SoundToggle />
