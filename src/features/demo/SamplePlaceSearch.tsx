@@ -29,6 +29,7 @@ export function SamplePlaceSearch({ onPick }: { onPick: (place: PickedPlace) => 
       {query.trim().length >= 2 && (
         <ul className="mt-2 bg-surface rounded-card shadow-lift overflow-hidden max-h-72 overflow-y-auto" role="listbox">
           {results.length === 0 && <li className="px-5 py-3 text-sm text-muted">No places found in Kenya.</li>}
+          <li className="px-5 py-2 text-xs text-muted bg-surface-2">The demo searches 21 built-in places. The full app uses Google Places search, limited to Kenya.</li>
           {results.map((place) => (
             <li key={place.googlePlaceId}>
               <button type="button" onClick={() => choose(place)} className="w-full text-left px-5 py-3 min-h-[48px] hover:bg-tint cursor-pointer flex items-center gap-3">

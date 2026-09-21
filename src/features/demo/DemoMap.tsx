@@ -88,7 +88,7 @@ export function DemoMap({ stops, preview, highlightedId, onPinClick }: DemoMapPr
         {preview && <circle cx={preview.lng} cy={-preview.lat} r="0.26" fill="var(--hero)" stroke="var(--surface)" strokeWidth="0.09" className="animate-pulse" style={{ pointerEvents: 'none' }} />}
       </svg>
       <p className="absolute bottom-3 left-4 right-4 text-xs text-muted text-center pointer-events-none">
-        Sketch map for the demo. With a Google Maps key this panel is the real map with live place search.
+        A sketch for the demo. The full app shows Google Maps here, with live search of every place in Kenya.
       </p>
     </div>
   )

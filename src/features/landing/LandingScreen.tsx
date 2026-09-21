@@ -11,6 +11,7 @@ import { isDemoMode } from '../demo/demoMode'
 import { LessonShowcase } from './LessonShowcase'
 import { BuiltSection } from './BuiltSection'
 import { HeroMap } from './HeroMap'
+import { FullVersionSection } from './FullVersionSection'
 
 const STEPS = [
   { emoji: '🔍', title: 'Search', body: 'Find any place in Kenya on the map, from a beach to a market stall.' },
@@ -64,6 +65,7 @@ export function LandingScreen() {
         </section>
 
         <LessonShowcase />
+        <FullVersionSection />
         <BuiltSection />
         <Footer />
       </main>

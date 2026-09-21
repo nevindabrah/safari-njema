@@ -8,16 +8,28 @@ You add the places you are going. Each stop becomes a five minute Swahili lesson
 
 ![The landing page](docs/screenshots/landing.png)
 
-| The trip planner | A quiz round | On a phone, dark mode |
+| The trip planner | Practice | Word tiles on a phone, dark mode |
 |---|---|---|
-| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![Round three of a quiz, matching a pronunciation to its phrase](docs/screenshots/lesson.png) | ![The trip planner on a phone in dark mode](docs/screenshots/phone-dark.png) |
+| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![A practice exercise matching a pronunciation to its phrase](docs/screenshots/lesson.png) | ![Building a Swahili sentence from word tiles, on a phone in dark mode](docs/screenshots/phone-dark.png) |
+
+## The demo and the full product
+
+Safari Njema is designed around **Google Maps Platform** and the **Claude API**. The public demo runs without API keys so it costs nothing to keep online, and it stands in for them like this:
+
+| Part | In the demo | With the keys switched on | Where the code is |
+|---|---|---|---|
+| Map and search | A sketch of Kenya and 21 built-in places | Google Maps JavaScript API for the map and pins. Places Autocomplete, limited to Kenya, with session tokens and only six billed fields | `src/features/trip/TripMap.tsx`, `usePlaceSearch.ts` |
+| Lessons | A template picks phrases from the bank and adds a general brief | The Claude API writes the brief for the exact place and chooses phrases from the bank. JSON is validated with zod, retried once, then falls back to the template | `supabase/functions/generate-lesson/claude.ts` |
+| Accounts and data | One demo account in the browser | Supabase Auth, Postgres with Row Level Security, and an Edge Function that keeps the Anthropic key on the server | `supabase/migrations/`, `generate-lesson/index.ts` |
+
+The switch is automatic. With no keys the app is the demo. Add the Supabase values and it becomes the real product with accounts, add a Google Maps key and the sketch becomes Google Maps, set `LESSON_AI_ENABLED=true` with an Anthropic key and Claude writes the lessons.
 
 ## Why it is interesting
 
 - **Lessons come from a phrase bank, not free text.** Language models make mistakes in Swahili, so the model may only choose from 95 phrases, each tagged by hand. It picks and explains. It does not invent.
 - **An AI switch.** With it on, Claude writes the brief and picks phrases, and its JSON is validated with zod. With it off, a template builds the lesson from the same candidates. The live site runs with it off, so it costs nothing to host.
 - **One pipeline, two runtimes.** Scoring, the slot plan and the template are pure TypeScript. The same files run in a Supabase Edge Function and in the browser demo.
-- **Tests that read the lessons.** 52 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **Tests that read the lessons.** 60 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
 - **Row Level Security on every table**, with a database function so users never need write access to shared tables.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 
@@ -74,7 +86,8 @@ When the Supabase values are missing, the app runs in demo mode. This is what th
 - Search a built-in list of 21 well known Kenyan places, one for every kind of place. Searching "Paris" finds nothing, like the real Kenya-only search.
 - Add a place with a day and activities. It appears as a numbered pin on a sketch map of Kenya and as a row in the itinerary, with the "Preparing your lesson" state. Stops in the same town fan out into a ring so each pin can be clicked, and picking a pin shows its name and rings its row.
 - Lessons are built in the browser by the same pure functions the Edge Function uses, from the same seed phrases. The first stop teaches greetings and later stops do not. Each lesson carries a Swahili proverb from the seeded list, the kanga idea.
-- Quizzes run four rounds: what it means, say it in Swahili, sounds like, and fill the gap. Wrong answers are drawn from the whole phrase bank, and anything missed comes back once in a second chance round. About twenty questions a lesson, and only first tries count.
+- Every lesson starts by asking how long you have: Quick (3 minutes, 4 phrases), Standard (5 minutes, 6 phrases) or Deep (10 minutes, 8 phrases). A lesson holds eight phrases in priority order, so a shorter one studies the first few. The choice is remembered.
+- Practice mixes eight kinds of exercise in three parts that get harder: recognise (meaning, true or false, match the pairs), recall (English to Swahili, sounds like), and produce (build the sentence from word tiles, fill the gap, type the answer with one typo forgiven). Wrong answers come from the whole phrase bank, a streak counter rewards runs, and anything missed comes back once in a second chance round. Only first tries count.
 - Dates are free. Trip dates can be set, changed or cleared at any time. A stop can take any date, inside the trip or not, and can be moved to another day later. The list and the pin numbers follow the dates.
 - Sound effects for taps, right and wrong answers, a new stop and a finished lesson. They are made with Web Audio, so there are no audio files, and the speaker button in the top bar mutes them for good.
 - Finish a quiz and the stop turns green and the trip's progress bar moves. "Start with an empty trip" clears the sample so the first stop flow can be tried from scratch.
@@ -142,7 +155,7 @@ Left for right after the deadline: Google sign in, the Today screen, onboarding,
 - `useStops.ts` then calls the Edge Function and waits. The list row shows "Preparing your lesson" until it returns.
 - `supabase/functions/_shared/pickCandidates.ts` scores every phrase in the bank by its tags. Greetings score high on the first stop and are dropped afterwards. Sheng is left out by default.
 - `supabase/functions/_shared/lessonPlan.ts` holds the tables: which tags matter for each kind of place, activity and region, and the six ordered slots a template lesson fills. A market is price, numbers, bargaining, numbers, shopping, bargaining. Each phrase's "why here" line comes from the slot that chose it.
-- `LessonScreen.tsx` reads the lesson JSON and loads the phrase rows it points at. `src/lib/quiz.ts` builds the four quiz rounds as a pure function. Fill the gap only ever blanks a word that is already in the bank, and takes its wrong words from the same position in other phrases.
+- `LessonScreen.tsx` reads the lesson JSON and loads the phrase rows it points at. `src/lib/quiz.ts` builds the practice as a pure function, with the multiple choice kinds in `quizChoice.ts` and the hands-on kinds in `quizProduce.ts`. Word tiles and gaps only ever use words that are already in the bank. `checkTyped.ts` marks typed answers, and `lessonLength.ts` holds the three lengths.
 - `src/lib/orderStops.ts` sorts stops by date and works out "Day 3". `src/lib/spreadPins.ts` fans out pins that would overlap. `src/lib/sounds.ts` plays the sound effects. All three are small and the first two are tested.
 
 ## Dependencies and why
