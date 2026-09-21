@@ -2,6 +2,7 @@
 // Exists because sound should always be the user's choice. The choice is saved by lib/sounds.
 import { useState } from 'react'
 import { isSoundOn, playSound, setSoundOn } from '../lib/sounds'
+import { Icon } from './icons'
 
 export function SoundToggle() {
   const [on, setOn] = useState(isSoundOn)
@@ -20,9 +21,9 @@ export function SoundToggle() {
       aria-pressed={on}
       aria-label={on ? 'Turn sound off' : 'Turn sound on'}
       title={on ? 'Sound is on' : 'Sound is off'}
-      className="w-10 h-10 rounded-pill hover:bg-tint cursor-pointer text-base"
+      className="w-10 h-10 rounded-pill hover:bg-tint cursor-pointer flex items-center justify-center"
     >
-      <span aria-hidden="true">{on ? '🔊' : '🔇'}</span>
+      <Icon name={on ? 'sound' : 'mute'} size={20} />
     </button>
   )
 }

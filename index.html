@@ -19,6 +19,10 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap"
       rel="stylesheet"
     />
+    <!-- Applies a saved light or dark choice before the app loads, so the page never flashes the wrong theme. -->
+    <script>
+      try { var t = localStorage.getItem('safari-njema-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

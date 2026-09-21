@@ -1,4 +1,4 @@
-// Maps Google's place types to our short list of eleven, plus a label and icon for each.
+// Maps Google's place types to our short list of eleven, plus a label for each. The icon for a place type is drawn by components/icons.
 // Exists so the lesson generator and the UI agree on what kind of place a stop is.
 import type { PlaceType } from '../../lib/types'
 
@@ -23,16 +23,16 @@ export function toPlaceType(googleTypes: string[]): PlaceType {
   return 'other'
 }
 
-export const PLACE_TYPE_INFO: Record<PlaceType, { label: string; emoji: string }> = {
-  city: { label: 'City or town', emoji: '🏙️' },
-  park: { label: 'Park or reserve', emoji: '🦒' },
-  beach: { label: 'Beach', emoji: '🏖️' },
-  market: { label: 'Market or shop', emoji: '🧺' },
-  restaurant: { label: 'Restaurant or cafe', emoji: '🍽️' },
-  hotel: { label: 'Hotel or lodge', emoji: '🛏️' },
-  airport: { label: 'Airport', emoji: '✈️' },
-  station: { label: 'Station', emoji: '🚌' },
-  religious_site: { label: 'Place of worship', emoji: '🕌' },
-  museum: { label: 'Museum or landmark', emoji: '🏛️' },
-  other: { label: 'Place', emoji: '📍' },
+export const PLACE_TYPE_INFO: Record<PlaceType, { label: string }> = {
+  city: { label: 'City or town' },
+  park: { label: 'Park or reserve' },
+  beach: { label: 'Beach' },
+  market: { label: 'Market or shop' },
+  restaurant: { label: 'Restaurant or cafe' },
+  hotel: { label: 'Hotel or lodge' },
+  airport: { label: 'Airport' },
+  station: { label: 'Station' },
+  religious_site: { label: 'Place of worship' },
+  museum: { label: 'Museum or landmark' },
+  other: { label: 'Place' },
 }
