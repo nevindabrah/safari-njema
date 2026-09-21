@@ -108,30 +108,33 @@
   --font-body: var(--font-body);
 }
 
-html {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
+/* Element defaults live in the base layer. Unlayered CSS would beat Tailwind's utilities, and margins like mb-4 on a heading would be ignored. */
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
 
-body {
-  margin: 0;
-  min-height: 100dvh;
-}
+  body {
+    margin: 0;
+    min-height: 100dvh;
+  }
 
-h1, h2, h3 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin: 0;
-}
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 0;
+  }
 
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: var(--radius-input);
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-input);
+  }
 }
 
 /* The kanga dot pattern that fades into one corner of a hero. */

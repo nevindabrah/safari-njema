@@ -2,18 +2,20 @@
 // Exists so every screen has the same way to get around.
 import { Link } from 'react-router'
 import { useAuth } from '../features/auth/useAuth'
+import { TestModeBanner } from '../features/testmode/TestModeBanner'
 
 export function TopBar() {
   const { user, signOut } = useAuth()
   return (
     <header className="sticky top-0 z-20 backdrop-blur-md" style={{ background: 'color-mix(in srgb, var(--bg) 80%, transparent)' }}>
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between gap-4">
-        <Link to={user ? '/trip' : '/'} className="font-display font-extrabold text-xl tracking-tight">
+        <Link to={user ? '/trip' : '/'} className="font-display font-extrabold text-lg sm:text-xl tracking-tight whitespace-nowrap">
           Safari Njema
         </Link>
-        <nav className="flex items-center gap-2 text-sm font-bold">
+        <nav className="flex items-center gap-1 sm:gap-2 text-sm font-bold whitespace-nowrap">
           {user && <Link to="/trip" className="px-3 py-2 rounded-pill hover:bg-tint">My trip</Link>}
-          <Link to="/about" className="px-3 py-2 rounded-pill hover:bg-tint">About</Link>
+          {/* On a phone the signed in bar has room for two links, so About stays on the public pages there. */}
+          <Link to="/about" className={`px-3 py-2 rounded-pill hover:bg-tint ${user ? 'hidden sm:inline-block' : ''}`}>About</Link>
           {user ? (
             <button onClick={signOut} className="px-3 py-2 rounded-pill hover:bg-tint cursor-pointer">Sign out</button>
           ) : (
@@ -21,6 +23,7 @@ export function TopBar() {
           )}
         </nav>
       </div>
+      <TestModeBanner />
     </header>
   )
 }
