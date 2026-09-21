@@ -1,0 +1,124 @@
+/* Design tokens and Tailwind setup. Every colour, radius and shadow in the app is a variable here,
+   so theming later only has to rewrite this file's variables and no component needs to change. */
+@import "tailwindcss";
+
+:root {
+  /* Kanga colourway: marigold, deep ink, hibiscus pink. */
+  --marigold: #f2a900;
+  --ink: #1b1b2f;
+  --hibiscus: #e5397b;
+  --leaf: #2e9e6b;
+
+  --bg: #fbf7f0;
+  --surface: #ffffff;
+  --surface-2: #fff7e6;
+  --text: #1b1b2f;
+  --muted: #6b6b7b;
+  --tint: #fff1cf;
+  --tint-2: #fde3ec;
+  --line: rgba(27, 27, 47, 0.08);
+
+  --hero: var(--marigold);
+  --on-hero: var(--ink);
+  --accent: var(--hibiscus);
+  --accent-edge: #b8245c;
+  --on-accent: #ffffff;
+  --primary: var(--ink);
+  --primary-edge: #0b0b1a;
+  --on-primary: #ffffff;
+  --success: var(--leaf);
+
+  --radius-card: 28px;
+  --radius-input: 16px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 12px 40px rgba(27, 27, 47, 0.08);
+  --shadow-lift: 0 18px 50px rgba(27, 27, 47, 0.14);
+
+  --font-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14141f;
+    --surface: #1f1f2e;
+    --surface-2: #2a2438;
+    --text: #f5f1ea;
+    --muted: #a5a3b5;
+    --tint: #2f2a1c;
+    --tint-2: #3a2230;
+    --line: rgba(255, 255, 255, 0.08);
+    --primary: #f5f1ea;
+    --primary-edge: #c9c4ba;
+    --on-primary: #1b1b2f;
+    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --shadow-lift: 0 18px 50px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Tailwind reads the variables, so classes like bg-surface and text-muted are available. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-tint: var(--tint);
+  --color-tint-2: var(--tint-2);
+  --color-line: var(--line);
+  --color-hero: var(--hero);
+  --color-on-hero: var(--on-hero);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-success: var(--success);
+  --radius-card: var(--radius-card);
+  --radius-input: var(--radius-input);
+  --radius-pill: var(--radius-pill);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-input);
+}
+
+/* The kanga dot pattern that fades into one corner of a hero. */
+.kanga-dots {
+  background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);
+  background-size: 14px 14px;
+  mask-image: radial-gradient(circle at 100% 0%, black 0%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, black 0%, transparent 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
