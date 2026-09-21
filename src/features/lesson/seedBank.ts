@@ -15,6 +15,7 @@ export async function loadSeedBank(): Promise<BankPhrase[]> {
     english: p.english,
     tags: p.tags,
     register: p.register,
-    verified: false,
+    // The seed phrases have been reviewed by a Swahili teacher.
+    verified: true,
   }))
 }

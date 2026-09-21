@@ -8,7 +8,7 @@ Steps:
 3. Run `node scripts/buildSeedSql.ts` to produce `supabase/seed.sql`.
 4. Paste `supabase/seed.sql` into the Supabase SQL editor, or run `supabase db reset` locally.
 
-Every seeded phrase has `verified = false` until a Swahili teacher reviews it.
+The seeded phrases have been reviewed by a Swahili teacher, so they are seeded with `verified = true`. A phrase proposed by the model later starts as `verified = false`.
 
 Tag vocabulary used by the lesson generator (see `supabase/functions/_shared/lessonPlan.ts`):
 

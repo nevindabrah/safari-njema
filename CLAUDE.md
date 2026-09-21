@@ -39,7 +39,7 @@ Phone and laptop matter equally. Check every screen at 390 px and 1280 px wide b
 
 ## Swahili content
 - Seed phrases come from the `CHAPTERS` array in the design reference file. Do not invent, correct or translate Swahili yourself. If something looks wrong, flag it to Nevin.
-- All phrases are `verified = false` for now, and the "not yet reviewed" note stays visible.
+- The seed phrases were reviewed by a Swahili teacher in September 2026 and are seeded with `verified = true`. Any phrase a model proposes later is `verified = false` and shows a "not yet reviewed" label until someone checks it.
 
 ## Google Maps
 The Places API changed recently. Check the current official documentation for function and field names before writing map code. Do not rely on memory. Request only the fields listed in the PRD to keep costs down.
