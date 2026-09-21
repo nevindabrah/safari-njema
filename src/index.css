@@ -6,7 +6,8 @@
   /* Kanga colourway from the v1 design reference: sun, ink, pink, green. */
   --marigold: #ffc83d;
   --ink: #15173a;
-  --hibiscus: #e5386d;
+  /* v1's pink was #e5386d. It is a touch darker here so white button text reaches 4.5 to 1 contrast. */
+  --hibiscus: #d92b61;
   --leaf: #12a06f;
 
   --bg: #f5f6fb;
@@ -23,10 +24,13 @@
   --accent: var(--hibiscus);
   --accent-edge: #b3224f;
   --on-accent: #ffffff;
+  /* Pink used as a text colour needs to be darker than pink used as a button. */
+  --accent-text: #b3224f;
   --primary: var(--ink);
   --primary-edge: #090a1e;
   --on-primary: #ffffff;
   --success: var(--leaf);
+  --on-success: #15173a;
   /* The ghost button on the hero keeps the same look in light and dark, because the hero is always marigold. */
   --hero-ghost: rgba(255, 255, 255, 0.6);
   --hero-ghost-edge: rgba(21, 23, 58, 0.18);
@@ -56,7 +60,10 @@
   --font-body: "DM Sans", system-ui, sans-serif;
 }
 
-/* Dark values from v1. The data-theme attribute is honoured now so a toggle can be added later without touching this. */
+/* The dark theme, written twice because CSS gives no way to share one block between a media query and an attribute.
+   The first copy applies when the device is dark and the visitor has not chosen light. The second applies when the
+   visitor picks dark with the toggle. They must stay identical: src/lib/theme.test.ts fails the build if they differ,
+   after a colour added to only one copy made answer feedback unreadable. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0e1024;
@@ -67,29 +74,28 @@
     --tint: #3a3114;
     --tint-2: #123428;
     --line: #2a2e58;
-    --right-soft: #123428;
-    --wrong-soft: #3a2230;
-    --right-soft: #123428;
-  --wrong-soft: #3a2230;
-  --map-ground: #12142b;
-    --map-land: #2a2745;
-    --map-border: #5a4a1e;
-    --map-water: #16324a;
     --hibiscus: #ff5c8d;
     --accent-edge: #c23562;
     --leaf: #3fd29c;
+    /* On the lighter dark mode pink, dark ink text is far more readable than white. */
+    --on-accent: #15173a;
+    --accent-text: #ff8fb1;
     --primary: #f2f2fb;
     --primary-edge: #b9bbe0;
     --on-primary: #15173a;
+    /* The feedback panel after an answer. */
+    --right-soft: #123428;
+    --wrong-soft: #3a2230;
+    /* The demo's sketch map. */
+    --map-ground: #12142b;
+    --map-land: #2a2745;
+    --map-border: #5a4a1e;
+    --map-water: #16324a;
     --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 36px -16px rgba(0, 0, 0, 0.6);
     --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
   }
 }
 :root[data-theme="dark"] {
-  --map-ground: #12142b;
-  --map-land: #2a2745;
-  --map-border: #5a4a1e;
-  --map-water: #16324a;
   --bg: #0e1024;
   --surface: #181b38;
   --surface-2: #1f2347;
@@ -101,9 +107,20 @@
   --hibiscus: #ff5c8d;
   --accent-edge: #c23562;
   --leaf: #3fd29c;
+  /* On the lighter dark mode pink, dark ink text is far more readable than white. */
+  --on-accent: #15173a;
+  --accent-text: #ff8fb1;
   --primary: #f2f2fb;
   --primary-edge: #b9bbe0;
   --on-primary: #15173a;
+  /* The feedback panel after an answer. */
+  --right-soft: #123428;
+  --wrong-soft: #3a2230;
+  /* The demo's sketch map. */
+  --map-ground: #12142b;
+  --map-land: #2a2745;
+  --map-border: #5a4a1e;
+  --map-water: #16324a;
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 36px -16px rgba(0, 0, 0, 0.6);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
 }
@@ -122,6 +139,8 @@
   --color-on-hero: var(--on-hero);
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);
+  --color-accent-text: var(--accent-text);
+  --color-on-success: var(--on-success);
   --color-primary: var(--primary);
   --color-on-primary: var(--on-primary);
   --color-success: var(--success);
