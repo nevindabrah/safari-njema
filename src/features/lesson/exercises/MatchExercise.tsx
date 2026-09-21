@@ -34,7 +34,7 @@ export function MatchExercise({ exercise, onAnswer }: MatchExerciseProps) {
   }
 
   function cardStyle(phraseId: string, side: 'sw' | 'en') {
-    if (matched.includes(phraseId)) return { background: 'var(--success)', color: 'var(--on-accent)', opacity: 0.55 }
+    if (matched.includes(phraseId)) return { background: 'var(--success)', color: 'var(--on-success)', opacity: 0.6 }
     if (wrongPair && wrongPair[side === 'sw' ? 0 : 1] === phraseId) return { background: 'var(--accent)', color: 'var(--on-accent)' }
     if (side === 'sw' && selected === phraseId) return { background: 'var(--primary)', color: 'var(--on-primary)' }
     return { background: 'var(--tint)', color: 'var(--text)' }

@@ -46,7 +46,7 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
         </div>
       )}
       <p lang={exercise.promptLang === 'none' ? undefined : exercise.promptLang} className="font-display font-extrabold text-3xl"
-        style={exercise.variant === 'sounds_like' ? { color: 'var(--accent)' } : undefined}>
+        style={exercise.variant === 'sounds_like' ? { color: 'var(--accent-text)' } : undefined}>
         {exercise.prompt}
       </p>
       {exercise.hint && <p className={exercise.variant === 'true_false' ? 'mt-3 text-xl font-bold' : 'mt-1 text-muted'}>{exercise.variant === 'true_false' ? `“${exercise.hint}”` : exercise.hint}</p>}
@@ -55,12 +55,14 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
           let background = 'var(--tint)'
           if (chosen !== null && i === exercise.correctIndex) background = 'var(--success)'
           else if (chosen === i) background = 'var(--accent)'
-          const marked = chosen !== null && (i === exercise.correctIndex || i === chosen)
+          let color = 'var(--text)'
+          if (chosen !== null && i === exercise.correctIndex) color = 'var(--on-success)'
+          else if (chosen === i) color = 'var(--on-accent)'
           return (
             <li key={option}>
               <button type="button" lang={exercise.optionLang} onClick={() => choose(i)} disabled={chosen !== null}
                 className="w-full text-left px-5 py-3 min-h-[52px] rounded-input font-bold cursor-pointer disabled:cursor-default"
-                style={{ background, color: marked ? 'var(--on-accent)' : 'var(--text)' }}>
+                style={{ background, color }}>
                 <span className="hidden sm:inline-block w-6 text-xs opacity-50" aria-hidden="true">{i + 1}</span>{option}
               </button>
             </li>

@@ -35,7 +35,7 @@ export function StopCard({ stop, number, highlighted, onSelect, onDelete, onRetr
       <div className="flex items-stretch gap-3">
         <button type="button" onClick={onSelect} aria-label={`Show ${stop.place.name} on the map`} aria-pressed={highlighted} className="relative shrink-0 cursor-pointer">
           <PlacePhoto googlePlaceId={stop.place.google_place_id} placeType={stop.place.place_type} name={stop.place.name} size="small" className="w-20 h-20 rounded-input" />
-          <span className="absolute -top-1.5 -left-1.5 w-6 h-6 rounded-pill text-on-accent text-xs font-bold flex items-center justify-center" style={{ background: completed ? 'var(--success)' : 'var(--accent)', border: '2px solid var(--surface)' }}>
+          <span className="absolute -top-1.5 -left-1.5 w-6 h-6 rounded-pill text-xs font-bold flex items-center justify-center" style={{ background: completed ? 'var(--success)' : 'var(--accent)', color: completed ? 'var(--on-success)' : 'var(--on-accent)', border: '2px solid var(--surface)' }}>
             {completed ? <Icon name="check" size={13} /> : number}
           </span>
         </button>
