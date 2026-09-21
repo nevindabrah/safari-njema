@@ -1,6 +1,8 @@
 # Turning on accounts: Supabase and Google sign in
 
-Without these steps the site runs as the demo. With them it becomes the real product: accounts, saved trips, and lessons made on the server. About thirty minutes, all in the browser except step 5.
+Without these steps the site runs as the demo. With them it becomes the real product: accounts and saved trips.
+
+**The short version: steps 1, 2 and 3 are all you need for people to create accounts. About ten minutes, all in the browser.** Google sign in (step 4) and the Edge Function (step 5) are optional extras you can add any time.
 
 Keep one rule in mind. Only the four `VITE_` values ever go in `.env` or on Vercel. The Anthropic key and the Google client secret never go anywhere near the repo.
 
@@ -23,6 +25,8 @@ The anon key is safe in the browser. Row Level Security is what protects the dat
 2. Open `supabase/setup.sql` from this repo, copy all of it, paste it in, and press **Run**.
 
 That one file creates every table, every Row Level Security policy, the two database functions, and the 95 reviewed phrases and 10 proverbs. It is meant for a new project and should be run once.
+
+This exact file has been run in a real Postgres by `scripts/testDatabase.mjs`, which also checks that one user can never read or change another user's trip, stops or lessons.
 
 ## 3. Email sign in
 
@@ -53,9 +57,9 @@ This has two halves: Google gives you a client ID and secret, and Supabase is to
 
 If Google sign in sends you back to the wrong place, or to localhost from the live site, this URL Configuration page is almost always the cause.
 
-## 5. Deploy the Edge Function
+## 5. Optional: deploy the Edge Function, for lessons written by Claude
 
-This is the one step that needs a terminal. It puts `generate-lesson` on Supabase's servers.
+You can skip this. Without the function, a signed in user's lesson is built in their browser from the phrase bank, by the same code, and saved to their own account. Deploy the function only when you want Claude to write the brief for each exact place. It is the one step that needs a terminal.
 
 ```
 npx supabase login
@@ -78,7 +82,7 @@ The function's code has been type checked with Deno, the runtime Supabase uses, 
 npm run check:supabase
 ```
 
-It reads `.env` and reports, line by line, whether each table exists, whether Row Level Security is hiding rows from strangers, whether email and Google sign in are on, and whether the Edge Function is deployed. Fix anything marked FIX and run it again.
+It reads `.env` and reports, line by line, whether each table exists, whether Row Level Security is hiding rows from strangers, whether email and Google sign in are on, and whether the Edge Function is deployed (it does not have to be). Fix anything marked FIX and run it again.
 
 Then run `npm run dev`, sign up, and add a stop. With no Google Maps key the planner uses the sketch map and the built-in places, so you can test accounts and lessons before touching Google Maps.
 
@@ -94,7 +98,7 @@ If you want the public link to stay a no sign up demo for recruiters, leave thes
 |---|---|
 | "Invalid API key" on sign up | The anon key in `.env` was copied with a space or a line break |
 | Sign up works but the trip never appears | `setup.sql` was not run, or only partly. Run `npm run check:supabase` |
-| "Preparing your lesson" then "Try again" | The Edge Function is not deployed, or the phrases were not seeded |
+| "Preparing your lesson" then "Try again" | The phrases were not seeded, or migration 0005 is missing. Run `npm run check:supabase` |
 | Google shows "redirect_uri_mismatch" | The redirect URI in Google Cloud is not exactly the Supabase callback URL |
 | Google sign in returns to localhost on the live site | Site URL in Supabase is still localhost |
 | Google says the app is not verified | Normal while the consent screen is in Testing. Add yourself as a test user |
