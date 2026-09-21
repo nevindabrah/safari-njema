@@ -7,7 +7,7 @@ import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
 import { Footer } from '../../components/Footer'
 import { useAuth } from '../auth/useAuth'
-import { isDemoMode } from '../demo/demoMode'
+import { isDemoMode, enterDemo } from '../demo/demoMode'
 import { LessonShowcase } from './LessonShowcase'
 import { BuiltSection } from './BuiltSection'
 import { HeroMap } from './HeroMap'
@@ -41,7 +41,10 @@ export function LandingScreen() {
             {isDemoMode ? (
               <Button variant="accent" onClick={openDemo}>Try the live demo</Button>
             ) : (
-              <Link to="/signup"><Button variant="accent" tabIndex={-1}>Start your trip</Button></Link>
+              <>
+                <Link to="/signup"><Button variant="accent" tabIndex={-1}>Create your account</Button></Link>
+                <Button variant="onHero" onClick={enterDemo}>Try the demo, no sign up</Button>
+              </>
             )}
             <Link to="/preview"><Button variant="onHero" tabIndex={-1}>See a sample lesson</Button></Link>
           </div>

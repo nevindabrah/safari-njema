@@ -2,7 +2,7 @@
 // Exists so every screen reads the user from one context instead of asking Supabase again.
 import { createContext, useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../../lib/supabase'
-import { isDemoMode, DEMO_USER } from '../demo/demoMode'
+import { isDemoMode, accountsAvailable, leaveDemo, DEMO_USER, DEMO_SIGNED_IN_KEY } from '../demo/demoMode'
 
 // The only parts of a user the app reads. A Supabase user fits this shape.
 export interface AppUser {
@@ -25,7 +25,7 @@ export const AuthContext = createContext<AuthState>({
 })
 
 // Demo visitors start signed out, so the landing page comes first. One tap on the demo button signs them in.
-const SIGNED_IN_KEY = 'safari-njema-demo-signed-in'
+const SIGNED_IN_KEY = DEMO_SIGNED_IN_KEY
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null)
@@ -49,6 +49,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signOut() {
     if (isDemoMode) {
+      // Where real accounts exist, leaving the demo reloads the page so the log in and sign up forms come back.
+      if (accountsAvailable) return leaveDemo()
       localStorage.removeItem(SIGNED_IN_KEY)
       setUser(null)
       return
