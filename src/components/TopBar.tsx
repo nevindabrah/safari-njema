@@ -3,6 +3,7 @@
 import { Link } from 'react-router'
 import { useAuth } from '../features/auth/useAuth'
 import { DemoBanner } from '../features/demo/DemoBanner'
+import { SoundToggle } from './SoundToggle'
 
 export function TopBar() {
   const { user, signOut } = useAuth()
@@ -16,6 +17,7 @@ export function TopBar() {
           {user && <Link to="/trip" className="px-3 py-2 rounded-pill hover:bg-tint">My trip</Link>}
           {/* On a phone the signed in bar has room for two links, so About stays on the public pages there. */}
           <Link to="/about" className={`px-3 py-2 rounded-pill hover:bg-tint ${user ? 'hidden sm:inline-block' : ''}`}>About</Link>
+          <SoundToggle />
           {user ? (
             <button onClick={signOut} className="px-3 py-2 rounded-pill hover:bg-tint cursor-pointer">Sign out</button>
           ) : (
