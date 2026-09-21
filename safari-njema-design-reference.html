@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Safari Njema: Swahili for your trip to Kenya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f6fb; --surface:#ffffff; --ink:#15173a; --muted:#62668a; --line:#e4e6f2;
+  --sun:#ffc83d; --sun-soft:#fff3cc; --on-sun:#15173a; --pink:#e5386d; --pink-deep:#b3224f; --green:#12a06f; --green-soft:#dff5ec;
+  --shadow:0 1px 2px rgba(21,23,58,.05),0 16px 36px -16px rgba(21,23,58,.22);
+  --display:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+  --body:"DM Sans","Segoe UI",Verdana,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0e1024;--surface:#181b38;--ink:#f2f2fb;--muted:#a3a7cc;--line:#2a2e58;--sun-soft:#3a3114;--green:#3fd29c;--green-soft:#123428;--pink:#ff5c8d;--pink-deep:#c23562;--shadow:0 1px 2px rgba(0,0,0,.3),0 16px 36px -16px rgba(0,0,0,.6)}
+}
+:root[data-theme="dark"]{--bg:#0e1024;--surface:#181b38;--ink:#f2f2fb;--muted:#a3a7cc;--line:#2a2e58;--sun-soft:#3a3114;--green:#3fd29c;--green-soft:#123428;--pink:#ff5c8d;--pink-deep:#c23562;--shadow:0 1px 2px rgba(0,0,0,.3),0 16px 36px -16px rgba(0,0,0,.6)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:.5rem}
+.wrap{max-width:64rem;margin:0 auto;padding:0 1.25rem 6rem}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:.75rem;padding:.85rem 0;margin-bottom:.75rem;
+  background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.brand{font-family:var(--display);font-weight:800;font-size:1.2rem;background:none;border:0;padding:0;margin-right:auto;display:flex;align-items:center;gap:.5rem}
+.brand i{width:1.9rem;height:1.9rem;border-radius:.65rem;background:var(--sun);display:grid;place-items:center;font-style:normal;font-size:1.05rem}
+.tabs{display:flex;gap:.25rem;background:var(--surface);border-radius:999px;padding:.3rem;box-shadow:var(--shadow)}
+.tab{background:none;border:0;border-radius:999px;padding:.45rem 1rem;font-weight:600;font-size:.95rem;color:var(--muted)}
+.tab[aria-current="page"]{background:var(--ink);color:var(--bg)}
+.mode{width:2.5rem;height:2.5rem;border-radius:50%;border:0;background:var(--surface);box-shadow:var(--shadow);font-size:1.05rem}
+@media(max-width:40rem){
+  .tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:20}
+  .tab{padding:.6rem 1.1rem}
+}
+.hero{position:relative;overflow:hidden;border-radius:2rem;background:var(--sun);color:var(--on-sun);padding:clamp(1.75rem,6vw,4rem)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(21,23,58,.55) 0 .16rem,transparent .18rem) 0 0/1.15rem 1.15rem;
+  -webkit-mask-image:radial-gradient(circle at 100% 0,#000 0,transparent 55%);mask-image:radial-gradient(circle at 100% 0,#000 0,transparent 55%)}
+.hero>*{position:relative;z-index:1}
+.hero .icon{width:3.5rem;height:3.5rem;border-radius:1.1rem;background:rgba(255,255,255,.55);display:grid;place-items:center;font-size:1.8rem;margin-bottom:1rem}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,9vw,6rem);line-height:.95;letter-spacing:-.035em;margin:0}
+.hero.small h1{font-size:clamp(2.3rem,6vw,3.75rem)}
+.hero .sub{max-width:34rem;margin:1rem 0 1.75rem;font-size:1.15rem}
+.proverb{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .7rem;background:#15173a;color:#fff;border-radius:1.25rem;padding:.7rem 1.1rem;max-width:100%}
+.proverb b{font-family:var(--display);font-weight:800}
+.proverb span{opacity:.75;font-size:.95rem}
+h2{font-family:var(--display);font-weight:800;font-size:1.75rem;line-height:1.15;letter-spacing:-.015em;margin:3rem 0 .75rem}
+h3{font-family:var(--display);font-weight:800;font-size:1.15rem;margin:0 0 .6rem}
+p{max-width:40rem}
+.muted{color:var(--muted)}
+.card{background:var(--surface);border-radius:1.5rem;padding:1.5rem;box-shadow:var(--shadow)}
+.summary{display:flex;align-items:center;gap:1rem;margin-top:1.25rem}
+.meter{flex:1;max-width:22rem;height:.65rem;background:var(--line);border-radius:999px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:999px;background:var(--green)}
+.stops{list-style:none;margin:1.25rem 0 0;padding:0;display:grid;gap:1rem}
+@media(min-width:44rem){.stops{grid-template-columns:1fr 1fr}}
+.stop{width:100%;height:100%;text-align:left;border:0;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;
+  background:var(--surface);border-radius:1.5rem;padding:1.1rem 1.25rem;box-shadow:var(--shadow);transition:transform .15s ease}
+.stop:hover{transform:translateY(-2px)}
+.tile{width:3.25rem;height:3.25rem;border-radius:1rem;background:var(--sun-soft);display:grid;place-items:center;font-size:1.55rem}
+.stop small{display:block;color:var(--muted);font-size:.85rem;line-height:1.35}
+.stop strong{font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.2;display:block}
+.ring{--p:0;width:2.9rem;height:2.9rem;border-radius:50%;display:grid;place-items:center;font-size:.75rem;font-weight:700;
+  background:radial-gradient(closest-side,var(--surface) 76%,transparent 78%),conic-gradient(var(--green) calc(var(--p)*1%),var(--line) 0)}
+.ring.full{background:var(--green);color:#fff;font-size:1.1rem}
+.cols{display:grid;gap:1rem;margin-top:1.5rem}
+@media(min-width:48rem){.cols{grid-template-columns:1fr 1fr}}
+.cols ul{padding-left:1.1rem;margin:0}
+.cols li{margin-bottom:.55rem}
+.cols li::marker{color:var(--pink)}
+.phrases{padding:.4rem 1.25rem}
+.phrase{display:grid;grid-template-columns:auto 1fr auto;gap:0 1rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--line)}
+.phrase:last-child{border-bottom:0}
+.phrase .sw{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.25}
+.phrase .ph{color:var(--pink);font-size:.9rem;font-weight:600}
+.phrase .en{color:var(--muted)}
+.say{width:2.75rem;height:2.75rem;border-radius:50%;border:0;background:var(--sun);color:var(--on-sun);font-size:1rem}
+.known{background:var(--green-soft);color:var(--green);font-weight:700;font-size:.8rem;border-radius:999px;padding:.25rem .7rem}
+.btn{display:inline-block;background:var(--pink);color:#fff;border:0;border-radius:999px;padding:.85rem 1.6rem;font-weight:700;
+  box-shadow:0 4px 0 var(--pink-deep);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:none}
+.btn.ghost{background:var(--surface);color:var(--ink);box-shadow:0 4px 0 var(--line)}
+.hero .btn.ghost{background:rgba(255,255,255,.6);color:#15173a;box-shadow:0 4px 0 rgba(21,23,58,.18)}
+.row{display:flex;flex-wrap:wrap;gap:.85rem;margin:2rem 0 0}
+.quiz{max-width:36rem;border-radius:1.75rem;padding:1.75rem}
+.quiz .ask{font-family:var(--display);font-weight:800;font-size:1.7rem;line-height:1.2;margin:.25rem 0 1.25rem}
+.opt{display:block;width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-bottom-width:4px;border-radius:1rem;padding:.85rem 1.1rem;margin-bottom:.65rem;font-weight:500}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt.wrong{border-color:var(--pink)}
+select{font:inherit;padding:.6rem 1rem;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink)}
+.prose p{font-size:1.1rem}
+footer{margin:4rem 0 0;color:var(--muted);font-size:.9rem}
+footer button{background:none;border:0;padding:0;text-decoration:underline;color:inherit}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <button class="brand" data-go="home"><i>🦒</i>Safari Njema</button>
+    <div class="tabs">
+      <button class="tab" data-go="home">Journey</button>
+      <button class="tab" data-go="practice">Practice</button>
+      <button class="tab" data-go="about">About</button>
+    </div>
+    <button class="mode" id="mode" aria-label="Switch between light and dark mode">◐</button>
+  </nav>
+  <main id="app"></main>
+  <footer>
+    Built by Nevin Dabrah. Phrases are standard Kenyan Swahili with a little Nairobi slang where it helps.
+    Your progress is saved in this browser only. <button id="reset">Clear my progress</button>
+  </footer>
+</div>
+
+<script>
+/* Each phrase: [Swahili, how to say it, English] */
+const CHAPTERS=[
+{id:"salamu",sw:"Salamu",en:"Greetings first",place:"Everywhere, before anything else",
+ jina:["Heshima si utumwa","Respect is not servitude. Being polite costs you nothing."],
+ intro:"In Kenya you greet before you ask. Walking up to someone and going straight to your question feels abrupt. A quick greeting, a reply, then your request. This one habit will change how people respond to you more than any vocabulary list.",
+ todo:["Greet the driver, the guard, the shopkeeper. Every time.","Use Shikamoo with people clearly older than you. They will answer Marahaba and usually smile.","Try Sheng, Nairobi's street slang, with people your age: Sasa? Poa."],
+ tips:["Jambo is what tourists say. Habari is what people actually use.","Handshakes are long and unhurried. Do not pull away fast.","Stress almost always falls on the second to last syllable. Vowels are always a, e, i, o, u as in Spanish."],
+ phrases:[
+ ["Habari?","ha-BA-ri","How are you? (literally: news?)"],
+ ["Nzuri","n-ZU-ri","Good. The standard reply to Habari"],
+ ["Sasa? / Poa","SA-sa / PO-a","What's up? / Cool (Nairobi slang)"],
+ ["Shikamoo / Marahaba","shi-ka-MO / ma-ra-HA-ba","Respectful greeting to an elder / the elder's reply"],
+ ["Asante sana","a-SAN-te SA-na","Thank you very much"],
+ ["Karibu","ka-RI-bu","Welcome. Also: you're welcome"],
+ ["Tafadhali","ta-fa-DHA-li","Please"],
+ ["Samahani","sa-ma-HA-ni","Excuse me, sorry"],
+ ["Ndiyo / Hapana","n-DI-yo / ha-PA-na","Yes / No"],
+ ["Sawa","SA-wa","Okay"],
+ ["Jina langu ni Sam","JI-na LAN-gu ni","My name is Sam"],
+ ["Unaitwa nani?","u-na-IT-wa NA-ni","What is your name?"],
+ ["Ninajifunza Kiswahili","ni-na-ji-FUN-za ki-swa-HI-li","I am learning Swahili"],
+ ["Sema polepole, tafadhali","SE-ma po-le-PO-le","Speak slowly, please"],
+ ["Sielewi","si-e-LE-wi","I don't understand"],
+ ["Kwaheri","kwa-HE-ri","Goodbye"]]},
+{id:"uwanja",sw:"Uwanja wa ndege",en:"At the airport",place:"Jomo Kenyatta International, Nairobi",
+ jina:["Mgeni njoo, mwenyeji apone","Let the guest come, so the host may be well."],
+ intro:"Most trips start at JKIA in Nairobi. Immigration officers speak English, but a Swahili greeting at the desk sets the tone for the whole trip. Sort out three things before you leave the terminal: cash, a SIM card, and your ride.",
+ todo:["Apply for Kenya's electronic travel authorisation (eTA) online before you fly. Check the official government site for current rules.","Buy a Safaricom SIM in arrivals and set up M-Pesa. Mobile money is how Kenya pays for almost everything.","Book your ride through an app or the official taxi desk instead of accepting offers in the arrivals hall."],
+ tips:["Single-use plastic bags are banned in Kenya. Leave them out of your luggage.","The currency is the Kenyan shilling. People say bob for shillings.","Traffic into the city can be heavy. The expressway is a toll road and usually worth it."],
+ phrases:[
+ ["Pasipoti","pa-si-PO-ti","Passport"],
+ ["Nimekuja kwa utalii","ni-me-KU-ja kwa u-ta-LI-i","I have come for tourism"],
+ ["Nitakaa wiki mbili","ni-ta-KA-a WI-ki m-BI-li","I will stay two weeks"],
+ ["Mizigo yangu iko wapi?","mi-ZI-go YAN-gu I-ko WA-pi","Where is my luggage?"],
+ ["Choo kiko wapi?","CHO-o KI-ko WA-pi","Where is the toilet?"],
+ ["Ninahitaji teksi","ni-na-hi-TA-ji TEK-si","I need a taxi"],
+ ["Ninahitaji laini ya simu","ni-na-hi-TA-ji la-I-ni ya SI-mu","I need a SIM card"],
+ ["Naweza kubadilisha pesa wapi?","na-WE-za ku-ba-di-LI-sha PE-sa WA-pi","Where can I change money?"],
+ ["Nipeleke hotelini, tafadhali","ni-pe-LE-ke ho-te-LI-ni","Take me to the hotel, please"],
+ ["Ni shilingi ngapi?","ni shi-LIN-gi n-GA-pi","How many shillings is it?"]]},
+{id:"usafiri",sw:"Usafiri",en:"Getting around",place:"Matatus, boda bodas and the Madaraka Express",
+ jina:["Pole pole ndio mwendo","Slowly, slowly is the way to travel."],
+ intro:"The matatu is Kenya's public transport and a moving art gallery: painted minibuses with loud music, a driver, and a conductor who hangs out the door calling the route. Boda bodas are motorcycle taxis. Between cities, the SGR train from Nairobi to Mombasa crosses Tsavo and you can spot elephants from your seat.",
+ todo:["Ride a matatu at least once, in daylight, on a short known route. Ask a local which number to take.","Book the Madaraka Express to Mombasa a few days ahead. Morning trains give you the wildlife views.","Use ride apps at night."],
+ tips:["Pay the conductor, not the driver. Ask the fare before you sit down.","Fares go up when it rains and at rush hour. That is normal.","On a boda boda, ask for a helmet and agree on the price first."],
+ phrases:[
+ ["Nauli ni ngapi?","na-U-li ni n-GA-pi","How much is the fare?"],
+ ["Unaenda mjini?","u-na-EN-da m-JI-ni","Are you going to town?"],
+ ["Nishushe hapa, tafadhali","ni-SHU-she HA-pa","Drop me here, please"],
+ ["Simama hapa","si-MA-ma HA-pa","Stop here"],
+ ["Twende","TWEN-de","Let's go"],
+ ["Polepole, tafadhali","po-le-PO-le","Slowly, please"],
+ ["Kushoto / Kulia","ku-SHO-to / ku-LI-a","Left / Right"],
+ ["Moja kwa moja","MO-ja kwa MO-ja","Straight ahead"],
+ ["Ni mbali?","ni m-BA-li","Is it far?"],
+ ["Naomba chenji yangu","na-OM-ba CHEN-ji YAN-gu","My change, please"],
+ ["Kituo cha treni kiko wapi?","ki-TU-o cha TRE-ni KI-ko WA-pi","Where is the train station?"]]},
+{id:"chakula",sw:"Chakula",en:"Eating out",place:"Nyama choma joints, kibandas and chai stops",
+ jina:["Haraka haraka haina baraka","Hurry, hurry has no blessing."],
+ intro:"The national meal is nyama choma, roasted goat or beef ordered by the kilo, with ugali, sukuma wiki and kachumbari. It takes an hour to arrive and that is the point. You sit, you talk, you wait. For everyday food, find a kibanda, a small roadside kitchen, and eat what the people next to you are eating.",
+ todo:["Order nyama choma with ugali and kachumbari, and eat it with your right hand.","Have chai and a mandazi for breakfast. Kenyan tea is milky, sweet and spiced.","Try pilau and biryani at the coast, and tilapia if you get near Lake Victoria."],
+ tips:["Someone may bring warm water to wash your hands at the table. That is the signal that food is close.","A tip of around ten percent is appreciated, not required.","Many small places take M-Pesa and no cards."],
+ phrases:[
+ ["Naomba menyu","na-OM-ba MEN-yu","May I have the menu"],
+ ["Naomba maji","na-OM-ba MA-ji","Water, please"],
+ ["Ningependa nyama choma na ugali","nin-ge-PEN-da NYA-ma CHO-ma na u-GA-li","I would like roast meat and ugali"],
+ ["Nusu kilo","NU-su KI-lo","Half a kilo"],
+ ["Bila pilipili","BI-la pi-li-PI-li","Without chili"],
+ ["Sili nyama","SI-li NYA-ma","I don't eat meat"],
+ ["Baridi / Moto","ba-RI-di / MO-to","Cold / Hot"],
+ ["Chakula ni kitamu sana","cha-KU-la ni ki-TA-mu SA-na","The food is very tasty"],
+ ["Nimeshiba","ni-me-SHI-ba","I am full"],
+ ["Naomba bili","na-OM-ba BI-li","The bill, please"],
+ ["Naweza kulipa na M-Pesa?","na-WE-za ku-LI-pa na em-PE-sa","Can I pay with M-Pesa?"]]},
+{id:"sokoni",sw:"Sokoni",en:"At the market",place:"The Maasai Market, Nairobi",
+ jina:["Kizuri chajiuza, kibaya chajitembeza","A good thing sells itself. A bad thing has to advertise."],
+ intro:"The Maasai Market is an open-air craft market that moves to a different Nairobi location each day of the week. Beadwork, kiondo baskets, carved soapstone, and kangas, the printed cloths that always carry a Swahili proverb. Bargaining is expected and it is meant to be friendly. Knowing your numbers in Swahili is worth real money here.",
+ todo:["Ask your hotel where the market is today before you go.","Buy a kanga and ask the seller to explain the proverb printed on it.","Bring your own cloth bag and small notes."],
+ tips:["A fair opening counter is around half the first price. Smile, take your time, and be willing to walk.","Brokers may offer to guide you. A polite Sitaki, asante is enough.","Do not bargain hard over small amounts. That margin matters more to the seller than to you."],
+ phrases:[
+ ["Moja, mbili, tatu, nne, tano","MO-ja, m-BI-li, TA-tu, N-ne, TA-no","One, two, three, four, five"],
+ ["Sita, saba, nane, tisa, kumi","SI-ta, SA-ba, NA-ne, TI-sa, KU-mi","Six, seven, eight, nine, ten"],
+ ["Mia / Elfu","MI-a / EL-fu","Hundred / Thousand"],
+ ["Mia tano","MI-a TA-no","Five hundred"],
+ ["Hii ni bei gani?","HI-i ni BE-i GA-ni","What is the price of this?"],
+ ["Ni ghali sana","ni GHA-li SA-na","It is too expensive"],
+ ["Punguza bei, tafadhali","pun-GU-za BE-i","Lower the price, please"],
+ ["Bei ya mwisho ni ngapi?","BE-i ya m-WI-sho ni n-GA-pi","What is your last price?"],
+ ["Naangalia tu","na-an-ga-LI-a tu","I am just looking"],
+ ["Una rangi nyingine?","U-na RAN-gi nyin-GI-ne","Do you have another colour?"],
+ ["Nitachukua hii","ni-ta-chu-KU-a HI-i","I will take this one"],
+ ["Sitaki, asante","si-TA-ki, a-SAN-te","I don't want it, thank you"]]},
+{id:"safari",sw:"Safari",en:"On safari",place:"The Maasai Mara",
+ jina:["Kuishi kwingi ni kuona mengi","To live long is to see much."],
+ intro:"Safari is a Swahili word. It just means journey. The Serengeti itself is across the border in Tanzania, but it is one ecosystem, and the Kenyan side is the Maasai Mara. From roughly July to October the wildebeest migration crosses into the Mara. Your guide will almost certainly speak Swahili on the radio to other guides, and if you know the animal names you will know what they found before they tell you.",
+ todo:["Go out at dawn. The cats are active and the light is best.","Learn the Big Five in Swahili: simba, tembo, nyati, chui, kifaru.","Short on time? Nairobi National Park has lions with the city skyline behind them. Amboseli has elephants under Kilimanjaro."],
+ tips:["Always ask before photographing people, especially in Maasai villages.","Stay in the vehicle and keep your voice down at sightings.","Hakuna matata is real Swahili, but Kenyans more often say Hakuna shida."],
+ phrases:[
+ ["Simba","SIM-ba","Lion"],
+ ["Tembo / Ndovu","TEM-bo / n-DO-vu","Elephant"],
+ ["Twiga","TWI-ga","Giraffe"],
+ ["Chui","CHU-i","Leopard"],
+ ["Duma","DU-ma","Cheetah"],
+ ["Kifaru","ki-FA-ru","Rhino"],
+ ["Nyati","NYA-ti","Buffalo"],
+ ["Punda milia","PUN-da mi-LI-a","Zebra (striped donkey)"],
+ ["Kiboko","ki-BO-ko","Hippo"],
+ ["Nyumbu","NYUM-bu","Wildebeest"],
+ ["Angalia!","an-ga-LI-a","Look!"],
+ ["Ni mnyama gani huyo?","ni m-NYA-ma GA-ni HU-yo","What animal is that?"],
+ ["Tunaweza kusimama hapa?","tu-na-WE-za ku-si-MA-ma HA-pa","Can we stop here?"],
+ ["Naweza kupiga picha?","na-WE-za ku-PI-ga PI-cha","May I take a photo?"],
+ ["Hakuna shida","ha-KU-na SHI-da","No problem"]]},
+{id:"pwani",sw:"Pwani",en:"The coast",place:"Mombasa, Lamu and Diani",
+ jina:["Maji ya kifuu ni bahari ya chungu","Water in a coconut shell is an ocean to an ant."],
+ intro:"Swahili was born on this coast, out of centuries of trade between East Africa, Arabia and India. Inland it is a second language for most people. Here it is the mother tongue, and you will hear it spoken slower, fuller and with longer greetings. Mombasa's Old Town and Lamu are the places to hear it at its best.",
+ todo:["Walk Mombasa Old Town and Fort Jesus in the morning before the heat.","Take a dhow out at sunset in Lamu, where there are no cars, only donkeys and boats.","Drink madafu, fresh coconut water, straight from the shell on Diani beach."],
+ tips:["The coast is largely Muslim. Cover shoulders and knees away from the beach.","It is hot and humid all year. Plan slow middays.","Greetings here run several rounds. Go along with it."],
+ phrases:[
+ ["Bahari","ba-HA-ri","Ocean"],
+ ["Pwani","PWA-ni","Coast, beach"],
+ ["Jahazi","ja-HA-zi","Dhow"],
+ ["Samaki","sa-MA-ki","Fish"],
+ ["Madafu","ma-DA-fu","Fresh coconut water"],
+ ["Kuna joto sana leo","KU-na JO-to SA-na LE-o","It is very hot today"],
+ ["Naweza kuogelea hapa?","na-WE-za ku-o-ge-LE-a HA-pa","Can I swim here?"],
+ ["Hujambo? / Sijambo","hu-JAM-bo / si-JAM-bo","Are you well? / I am well"],
+ ["Habari za asubuhi?","ha-BA-ri za a-su-BU-hi","How is your morning?"],
+ ["Salama","sa-LA-ma","Peaceful, all is well"],
+ ["Tutaonana","tu-ta-o-NA-na","We will see each other again"]]},
+{id:"msaada",sw:"Msaada",en:"When you need help",place:"Keep these on your phone",
+ jina:["Kuuliza si ujinga","To ask is not foolishness."],
+ intro:"Kenyans are generous with directions and help, and asking in Swahili makes people go out of their way for you. Emergency numbers in Kenya are 999 and 112.",
+ todo:["Save your hotel's number and address before you head out.","Carry a copy of your passport and leave the original locked up."],
+ tips:["Pharmacies are called chemists and are easy to find in any town.","Pole is what you say when anything bad happens to someone, from a stubbed toe to a lost bag."],
+ phrases:[
+ ["Nisaidie, tafadhali","ni-sa-i-DI-e","Help me, please"],
+ ["Nimepotea","ni-me-po-TE-a","I am lost"],
+ ["Ninaumwa","ni-na-UM-wa","I am sick"],
+ ["Hospitali iko wapi?","hos-pi-TA-li I-ko WA-pi","Where is the hospital?"],
+ ["Ninahitaji daktari","ni-na-hi-TA-ji dak-TA-ri","I need a doctor"],
+ ["Dawa","DA-wa","Medicine"],
+ ["Simu yangu imepotea","SI-mu YAN-gu i-me-po-TE-a","My phone is lost"],
+ ["Unaongea Kiingereza?","u-na-on-GE-a ki-in-ge-RE-za","Do you speak English?"],
+ ["Pole","PO-le","Sorry (for what happened to you)"]]}
+];
+
+/* ---------- saved progress (per browser) ---------- */
+const KEY="safari-njema-known";
+let known={};
+try{known=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){known={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(known))}catch(e){}}
+const pid=(c,i)=>c.id+":"+i;
+const total=CHAPTERS.reduce((n,c)=>n+c.phrases.length,0);
+const knownIn=c=>c.phrases.filter((_,i)=>known[pid(c,i)]).length;
+
+/* ---------- speech: only offered if the device has a Swahili voice ---------- */
+let swVoice=null;
+function findVoice(){ if(!("speechSynthesis" in window))return;
+  swVoice=speechSynthesis.getVoices().find(v=>/^sw/i.test(v.lang))||null; }
+if("speechSynthesis" in window){findVoice();speechSynthesis.onvoiceschanged=()=>{const had=!!swVoice;findVoice();if(!had&&swVoice)render()}}
+function say(t){if(!swVoice)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/\s\/\s/g,". "));u.voice=swVoice;u.lang=swVoice.lang;u.rate=.85;speechSynthesis.speak(u)}
+
+/* ---------- views ---------- */
+const app=document.getElementById("app");
+let view={name:"home"}, quiz=null;
+const esc=s=>s.replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+
+const ICONS={salamu:"👋",uwanja:"✈️",usafiri:"🚐",chakula:"🍲",sokoni:"🧺",safari:"🦁",pwani:"🌊",msaada:"🧭"};
+function kanga(title,sub,jina,small,icon,extra){return `
+ <section class="hero${small?" small":""}">
+   ${icon?`<div class="icon" aria-hidden="true">${icon}</div>`:""}
+   <h1>${esc(title)}</h1><p class="sub">${esc(sub)}</p>
+   <div class="proverb"><b lang="sw">${esc(jina[0])}</b><span>${esc(jina[1])}</span></div>
+   ${extra||""}
+ </section>`}
+
+function home(){
+ const k=Object.keys(known).length, pct=Math.round(k/total*100);
+ return kanga("Safari Njema","Learn the Swahili you will actually use in Kenya, in the order you will need it, from the arrivals hall to the Indian Ocean.",
+   ["Haba na haba hujaza kibaba","Little by little fills the measure."],false,"",
+   `<div class="row"><button class="btn" data-ch="salamu">Start the journey</button><button class="btn ghost" data-go="practice">Practise</button></div>`)+`
+ <h2>Your journey</h2>
+ <p class="muted">Eight stops. Each has what to do there, what to know, and the phrases for that place.</p>
+ <div class="summary"><div class="meter" role="img" aria-label="${pct} percent learned"><i style="width:${pct}%"></i></div><span class="muted">${k} of ${total} phrases</span></div>
+ <ol class="stops">${CHAPTERS.map((c,n)=>{const d=knownIn(c),p=Math.round(d/c.phrases.length*100);return `
+  <li><button class="stop" data-ch="${c.id}">
+   <span class="tile" aria-hidden="true">${ICONS[c.id]}</span>
+   <span><small>Stop ${n+1}</small><strong lang="sw">${esc(c.sw)}</strong><small>${esc(c.en)}. ${esc(c.place)}</small></span>
+   <span class="ring${p===100?" full":""}" style="--p:${p}" aria-label="${d} of ${c.phrases.length} learned">${p===100?"✓":d+"/"+c.phrases.length}</span>
+  </button></li>`}).join("")}
+ </ol>`}
+
+function chapter(c){
+ const i=CHAPTERS.indexOf(c), next=CHAPTERS[i+1];
+ return kanga(c.sw,c.en+". "+c.place,c.jina,true,ICONS[c.id])+`
+ <p style="margin-top:2rem;font-size:1.12rem">${esc(c.intro)}</p>
+ <div class="cols">
+  <div class="card"><h3>Do this</h3><ul>${c.todo.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
+  <div class="card"><h3>Good to know</h3><ul>${c.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
+ </div>
+ <h2>Phrases for this stop</h2>
+ <div class="card phrases">${c.phrases.map((p,j)=>`
+  <div class="phrase">
+   ${swVoice?`<button class="say" data-say="${esc(p[0])}" aria-label="Listen to ${esc(p[0])}">▶</button>`:"<span></span>"}
+   <div><div class="sw" lang="sw">${esc(p[0])}</div><div class="ph">${esc(p[1])}</div><div class="en">${esc(p[2])}</div></div>
+   ${known[pid(c,j)]?'<span class="known">Learned</span>':"<span></span>"}</div>`).join("")}</div>
+ <div class="row"><button class="btn" data-quiz="${c.id}">Practise these phrases</button>
+  ${next?`<button class="btn ghost" data-ch="${next.id}">Next stop: ${esc(next.sw)}</button>`:`<button class="btn ghost" data-go="home">Back to the journey</button>`}</div>`}
+
+/* quiz: pick the matching phrase. A correct answer marks the phrase as learned. */
+function pool(id){return (id==="all"?CHAPTERS:CHAPTERS.filter(c=>c.id===id)).flatMap(c=>c.phrases.map((p,i)=>({c,i,p})))}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startQuiz(id){
+ const items=pool(id), unknown=items.filter(x=>!known[pid(x.c,x.i)]);
+ const queue=shuffle((unknown.length>=4?unknown:items).slice()).slice(0,8);
+ quiz={id,queue,n:0,score:0,picked:null};nextQ();view={name:"practice"};render()}
+function nextQ(){
+ const q=quiz.queue[quiz.n]; if(!q)return;
+ quiz.toEn=Math.random()<.5;
+ const all=pool("all").filter(x=>x.p[0]!==q.p[0]);
+ quiz.opts=shuffle([q,...shuffle(all).slice(0,3)]);quiz.picked=null}
+function practice(){
+ const picker=`<p><label>Practise <select id="pick"><option value="all">the whole journey</option>${CHAPTERS.map(c=>`<option value="${c.id}"${quiz&&quiz.id===c.id?" selected":""}>${esc(c.sw)}: ${esc(c.en)}</option>`).join("")}</select></label></p>`;
+ if(!quiz) return `<h2>Practice</h2><p>Eight questions at a time. Each phrase you get right is marked as learned on your journey. Phrases you have not learned yet come up first.</p>${picker}<div class="row"><button class="btn" id="go">Start practising</button></div>`;
+ if(quiz.n>=quiz.queue.length) return `<h2>${quiz.score} of ${quiz.queue.length} correct</h2>
+   <p>${quiz.score===quiz.queue.length?"Safi sana. That means very clean, which is how Kenyans say well done.":"Haba na haba. The ones you missed will come back next round."}</p>
+   ${picker}<div class="row"><button class="btn" id="go">Practise again</button><button class="btn ghost" data-go="home">Back to the journey</button></div>`;
+ const q=quiz.queue[quiz.n], a=quiz.toEn?0:2, b=quiz.toEn?2:0;
+ return `<h2>Practice</h2><div class="quiz card">
+  <p class="muted" style="margin:0">Question ${quiz.n+1} of ${quiz.queue.length}. ${quiz.toEn?"What does this mean?":"How do you say this in Swahili?"}</p>
+  <p class="ask"${quiz.toEn?' lang="sw"':""}>${esc(q.p[a])}</p>
+  ${quiz.opts.map((o,k)=>{let cls="";if(quiz.picked!==null){if(o===q)cls=" right";else if(k===quiz.picked)cls=" wrong"}
+    return `<button class="opt${cls}" data-opt="${k}"${quiz.picked!==null?" disabled":""}>${esc(o.p[b])}</button>`}).join("")}
+  ${quiz.picked!==null?`<p><strong lang="sw">${esc(q.p[0])}</strong> <span class="ph" style="color:var(--pink)">(${esc(q.p[1])})</span><br>${esc(q.p[2])}</p><button class="btn" id="nextq">${quiz.n+1===quiz.queue.length?"See my score":"Next question"}</button>`:""}
+ </div>`}
+
+function about(){return kanga("Kuhusu mimi","About me, and why I built this.",["Mtu ni watu","A person is people. We are who we are because of others."],true,"👤")+`<div class="prose">
+ <h2>Why I made Safari Njema</h2>
+ <p>My name is Nevin Dabrah. I was born in Kenya. My dad worked there for many years, so Kenya is part of my family's story even though I grew up elsewhere. It is the first place I ever lived, and I have always wanted to know it better than a birth certificate lets me.</p>
+ <p>That is why I take Swahili classes at Yale. Learning the language as a student has shown me how much of a place is locked inside its words. Safari just means journey. A kanga is not only a cloth, it is a proverb you wear. When you know that, you see the country differently.</p>
+ <p>On campus I spend a lot of my time in Yale's African student organizations, including the Yale African Students Association and the Yale Africa Innovation Symposium. A big part of that work is helping people connect with the continent as it actually is, not as a postcard.</p>
+ <p>Most travel guides tell you where to go. Most language apps teach you sentences you will never say. I wanted one thing that does both, in the order a traveller needs it: the airport, the ride into town, the first meal, the market, the Mara, the coast. If you can greet someone properly and ask the price of a kanga in Swahili, you stop being a spectator on your own trip. People open up. That feeling of connection is what I want visitors to Kenya to have.</p>
+ <p>I am still a learner myself. If you spot a mistake or know a better way to say something, I would like to hear it.</p>
+ <div class="row"><button class="btn" data-go="home">Start the journey</button></div></div>`}
+
+function render(){
+ let h;
+ if(view.name==="chapter")h=chapter(CHAPTERS.find(c=>c.id===view.id));
+ else if(view.name==="practice")h=practice();
+ else if(view.name==="about")h=about();
+ else h=home();
+ app.innerHTML=h;
+ document.querySelectorAll(".nav .tab").forEach(t=>{
+   const on=t.dataset.go===view.name||(t.dataset.go==="home"&&view.name==="chapter");
+   on?t.setAttribute("aria-current","page"):t.removeAttribute("aria-current")});
+}
+function go(v){view=v;render();window.scrollTo(0,0)}
+
+document.addEventListener("click",e=>{
+ const t=e.target.closest("button");if(!t)return;
+ if(t.dataset.go){if(t.dataset.go==="practice")quiz=null;go({name:t.dataset.go})}
+ else if(t.dataset.ch)go({name:"chapter",id:t.dataset.ch})
+ else if(t.dataset.quiz){startQuiz(t.dataset.quiz);window.scrollTo(0,0)}
+ else if(t.dataset.say)say(t.dataset.say)
+ else if(t.id==="go")startQuiz(document.getElementById("pick").value)
+ else if(t.id==="nextq"){quiz.n++;nextQ();render()}
+ else if(t.dataset.opt!==undefined&&quiz&&quiz.picked===null){
+   const k=+t.dataset.opt,q=quiz.queue[quiz.n];quiz.picked=k;
+   if(quiz.opts[k]===q){quiz.score++;known[pid(q.c,q.i)]=1;save()}
+   render();const n=document.getElementById("nextq");if(n)n.focus()}
+ else if(t.id==="mode"){
+   const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+   r.dataset.theme=dark?"light":"dark";try{localStorage.setItem("safari-njema-theme",r.dataset.theme)}catch(e){}}
+ else if(t.id==="reset"){known={};save();quiz=null;go({name:"home"})}
+});
+try{const th=localStorage.getItem("safari-njema-theme");if(th)document.documentElement.dataset.theme=th}catch(e){}
+render();
+</script>
+</body>
+</html>
