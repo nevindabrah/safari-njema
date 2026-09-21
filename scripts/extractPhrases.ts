@@ -1,42 +1,52 @@
-// Reads the CHAPTERS array out of the v1 HTML file and writes supabase/seed/phrases.json.
-// Exists so the phrase bank comes from v1 unchanged instead of being typed in by hand.
+// Reads the CHAPTERS array out of the v1 HTML file and writes phrases.json and proverbs.json.
+// Exists so the phrase bank and the proverbs come from v1 unchanged instead of being typed in by hand.
 // Run: node scripts/extractPhrases.ts [path-to-html]
 import { readFileSync, writeFileSync } from 'node:fs'
 
 const htmlPath = process.argv[2] ?? 'safari-njema-design-reference.html'
-const outPath = 'supabase/seed/phrases.json'
 
-// Keywords in a chapter title map to lesson tags. Adjust after checking the real titles.
-const CHAPTER_TAGS: Array<[RegExp, string[]]> = [
-  [/greet|hello|basics|polite|essential/i, ['greeting', 'polite']],
-  [/number|count|price|money|pay/i, ['numbers', 'money']],
-  [/market|shop|bargain|buy/i, ['market', 'bargaining', 'numbers']],
-  [/food|eat|restaurant|drink|menu/i, ['food', 'drink']],
-  [/safari|animal|wild|park|game/i, ['safari', 'animals']],
-  [/transport|matatu|taxi|bus|direction|travel|road/i, ['transport', 'directions']],
-  [/hotel|lodge|stay|room/i, ['hotel']],
-  [/help|emergency|health|doctor|police|safe/i, ['help', 'emergency']],
-  [/airport|arriv|flight/i, ['airport', 'transport']],
-  [/coast|beach|mombasa|lamu|diani/i, ['coast', 'coastal']],
-  [/family|home|people|friend/i, ['family', 'polite']],
-  [/time|day|week|when/i, ['time']],
-  [/question|ask|what|where/i, ['questions']],
-]
-
-function tagsForTitle(title: string): string[] {
-  const tags = new Set<string>()
-  for (const [pattern, list] of CHAPTER_TAGS) {
-    if (pattern.test(title)) list.forEach((t) => tags.add(t))
-  }
-  return tags.size > 0 ? [...tags] : ['questions']
+// In v1 every chapter has an id, and every phrase is [Swahili, how to say it, English].
+interface Chapter {
+  id: string
+  sw: string
+  en: string
+  jina: [string, string]
+  phrases: Array<[string, string, string]>
 }
 
-function firstString(obj: Record<string, unknown>, keys: string[]): string {
-  for (const key of keys) {
-    const value = obj[key]
-    if (typeof value === 'string' && value.trim()) return value.trim()
-  }
-  return ''
+// Lesson tags for each v1 chapter. These are metadata for phrase selection, not changes to the Swahili.
+const CHAPTER_TAGS: Record<string, string[]> = {
+  salamu: ['greeting', 'polite'],
+  uwanja: ['airport', 'transport', 'help'],
+  usafiri: ['transport', 'directions', 'numbers'],
+  chakula: ['food', 'drink'],
+  sokoni: ['market', 'bargaining', 'numbers', 'money'],
+  safari: ['safari', 'animals', 'questions'],
+  pwani: ['coast', 'beach'],
+  msaada: ['help', 'emergency'],
+}
+
+// A few phrases carry an extra tag or a different register. Keyed by the exact Swahili text.
+const EXTRA_TAGS: Record<string, string[]> = {
+  'Hujambo? / Sijambo': ['greeting', 'coastal'],
+  'Habari za asubuhi?': ['greeting', 'coastal'],
+  'Salama': ['greeting', 'coastal'],
+  'Tutaonana': ['greeting', 'coastal'],
+  'Naomba bili': ['money'],
+  'Naweza kulipa na M-Pesa?': ['money'],
+  'Ni shilingi ngapi?': ['numbers', 'money'],
+  'Nauli ni ngapi?': ['money'],
+  'Naomba chenji yangu': ['money'],
+  'Naweza kupiga picha?': ['polite'],
+  'Hakuna shida': ['polite'],
+  'Pole': ['polite'],
+}
+const REGISTER: Record<string, string> = {
+  'Sasa? / Poa': 'sheng',
+  'Hujambo? / Sijambo': 'coastal',
+  'Habari za asubuhi?': 'coastal',
+  'Salama': 'coastal',
+  'Tutaonana': 'coastal',
 }
 
 const html = readFileSync(htmlPath, 'utf8')
@@ -73,27 +83,27 @@ if (end < 0) {
 }
 
 // The array is a JavaScript literal, so evaluate just that literal.
-const chapters = new Function('return ' + html.slice(start, end + 1))() as Array<Record<string, unknown>>
+const chapters = new Function('return ' + html.slice(start, end + 1))() as Chapter[]
 
-const phrases: Array<Record<string, unknown>> = []
-for (const chapter of chapters) {
-  const title = firstString(chapter, ['title', 'name', 'heading'])
-  const items = (chapter.phrases ?? chapter.items ?? chapter.entries ?? chapter.cards ?? []) as Array<Record<string, unknown>>
-  for (const item of items) {
-    const swahili = firstString(item, ['sw', 'swahili', 'phrase', 'kiswahili'])
-    const english = firstString(item, ['en', 'english', 'meaning', 'translation'])
-    if (!swahili || !english) continue
-    phrases.push({
-      swahili,
-      pronunciation: firstString(item, ['pron', 'pronunciation', 'say', 'sounds']),
-      english,
-      tags: tagsForTitle(title),
-      register: 'standard',
-      accepted_variants: [],
-      source: `v1 chapter: ${title}`,
-    })
-  }
+const phrases = chapters.flatMap((chapter) =>
+  chapter.phrases.map(([swahili, pronunciation, english]) => ({
+    swahili,
+    pronunciation,
+    english,
+    tags: [...new Set([...(CHAPTER_TAGS[chapter.id] ?? ['questions']), ...(EXTRA_TAGS[swahili] ?? [])])],
+    register: REGISTER[swahili] ?? 'standard',
+    accepted_variants: [],
+    source: `v1 chapter ${chapter.id}: ${chapter.en}`,
+  })),
+)
+
+// Proverbs: one per chapter, plus the two used on the v1 home and About screens.
+const proverbs = chapters.map((chapter) => ({ swahili: chapter.jina[0], meaning: chapter.jina[1], themes: CHAPTER_TAGS[chapter.id] ?? [] }))
+for (const swahili of ['Haba na haba hujaza kibaba', 'Mtu ni watu']) {
+  const match = html.match(new RegExp(`"${swahili}","([^"]+)"`))
+  if (match) proverbs.push({ swahili, meaning: match[1], themes: ['general'] })
 }
 
-writeFileSync(outPath, JSON.stringify(phrases, null, 2) + '\n')
-console.log(`Wrote ${phrases.length} phrases from ${chapters.length} chapters to ${outPath}`)
+writeFileSync('supabase/seed/phrases.json', JSON.stringify(phrases, null, 2) + '\n')
+writeFileSync('supabase/seed/proverbs.json', JSON.stringify(proverbs, null, 2) + '\n')
+console.log(`Wrote ${phrases.length} phrases and ${proverbs.length} proverbs from ${chapters.length} chapters`)

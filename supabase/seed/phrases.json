@@ -1,1 +1,1219 @@
-[]
+[
+  {
+    "swahili": "Habari?",
+    "pronunciation": "ha-BA-ri",
+    "english": "How are you? (literally: news?)",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Nzuri",
+    "pronunciation": "n-ZU-ri",
+    "english": "Good. The standard reply to Habari",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Sasa? / Poa",
+    "pronunciation": "SA-sa / PO-a",
+    "english": "What's up? / Cool (Nairobi slang)",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "sheng",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Shikamoo / Marahaba",
+    "pronunciation": "shi-ka-MO / ma-ra-HA-ba",
+    "english": "Respectful greeting to an elder / the elder's reply",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Asante sana",
+    "pronunciation": "a-SAN-te SA-na",
+    "english": "Thank you very much",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Karibu",
+    "pronunciation": "ka-RI-bu",
+    "english": "Welcome. Also: you're welcome",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Tafadhali",
+    "pronunciation": "ta-fa-DHA-li",
+    "english": "Please",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Samahani",
+    "pronunciation": "sa-ma-HA-ni",
+    "english": "Excuse me, sorry",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Ndiyo / Hapana",
+    "pronunciation": "n-DI-yo / ha-PA-na",
+    "english": "Yes / No",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Sawa",
+    "pronunciation": "SA-wa",
+    "english": "Okay",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Jina langu ni Sam",
+    "pronunciation": "JI-na LAN-gu ni",
+    "english": "My name is Sam",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Unaitwa nani?",
+    "pronunciation": "u-na-IT-wa NA-ni",
+    "english": "What is your name?",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Ninajifunza Kiswahili",
+    "pronunciation": "ni-na-ji-FUN-za ki-swa-HI-li",
+    "english": "I am learning Swahili",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Sema polepole, tafadhali",
+    "pronunciation": "SE-ma po-le-PO-le",
+    "english": "Speak slowly, please",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Sielewi",
+    "pronunciation": "si-e-LE-wi",
+    "english": "I don't understand",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Kwaheri",
+    "pronunciation": "kwa-HE-ri",
+    "english": "Goodbye",
+    "tags": [
+      "greeting",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter salamu: Greetings first"
+  },
+  {
+    "swahili": "Pasipoti",
+    "pronunciation": "pa-si-PO-ti",
+    "english": "Passport",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Nimekuja kwa utalii",
+    "pronunciation": "ni-me-KU-ja kwa u-ta-LI-i",
+    "english": "I have come for tourism",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Nitakaa wiki mbili",
+    "pronunciation": "ni-ta-KA-a WI-ki m-BI-li",
+    "english": "I will stay two weeks",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Mizigo yangu iko wapi?",
+    "pronunciation": "mi-ZI-go YAN-gu I-ko WA-pi",
+    "english": "Where is my luggage?",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Choo kiko wapi?",
+    "pronunciation": "CHO-o KI-ko WA-pi",
+    "english": "Where is the toilet?",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Ninahitaji teksi",
+    "pronunciation": "ni-na-hi-TA-ji TEK-si",
+    "english": "I need a taxi",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Ninahitaji laini ya simu",
+    "pronunciation": "ni-na-hi-TA-ji la-I-ni ya SI-mu",
+    "english": "I need a SIM card",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Naweza kubadilisha pesa wapi?",
+    "pronunciation": "na-WE-za ku-ba-di-LI-sha PE-sa WA-pi",
+    "english": "Where can I change money?",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Nipeleke hotelini, tafadhali",
+    "pronunciation": "ni-pe-LE-ke ho-te-LI-ni",
+    "english": "Take me to the hotel, please",
+    "tags": [
+      "airport",
+      "transport",
+      "help"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Ni shilingi ngapi?",
+    "pronunciation": "ni shi-LIN-gi n-GA-pi",
+    "english": "How many shillings is it?",
+    "tags": [
+      "airport",
+      "transport",
+      "help",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter uwanja: At the airport"
+  },
+  {
+    "swahili": "Nauli ni ngapi?",
+    "pronunciation": "na-U-li ni n-GA-pi",
+    "english": "How much is the fare?",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Unaenda mjini?",
+    "pronunciation": "u-na-EN-da m-JI-ni",
+    "english": "Are you going to town?",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Nishushe hapa, tafadhali",
+    "pronunciation": "ni-SHU-she HA-pa",
+    "english": "Drop me here, please",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Simama hapa",
+    "pronunciation": "si-MA-ma HA-pa",
+    "english": "Stop here",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Twende",
+    "pronunciation": "TWEN-de",
+    "english": "Let's go",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Polepole, tafadhali",
+    "pronunciation": "po-le-PO-le",
+    "english": "Slowly, please",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Kushoto / Kulia",
+    "pronunciation": "ku-SHO-to / ku-LI-a",
+    "english": "Left / Right",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Moja kwa moja",
+    "pronunciation": "MO-ja kwa MO-ja",
+    "english": "Straight ahead",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Ni mbali?",
+    "pronunciation": "ni m-BA-li",
+    "english": "Is it far?",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Naomba chenji yangu",
+    "pronunciation": "na-OM-ba CHEN-ji YAN-gu",
+    "english": "My change, please",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Kituo cha treni kiko wapi?",
+    "pronunciation": "ki-TU-o cha TRE-ni KI-ko WA-pi",
+    "english": "Where is the train station?",
+    "tags": [
+      "transport",
+      "directions",
+      "numbers"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter usafiri: Getting around"
+  },
+  {
+    "swahili": "Naomba menyu",
+    "pronunciation": "na-OM-ba MEN-yu",
+    "english": "May I have the menu",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Naomba maji",
+    "pronunciation": "na-OM-ba MA-ji",
+    "english": "Water, please",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Ningependa nyama choma na ugali",
+    "pronunciation": "nin-ge-PEN-da NYA-ma CHO-ma na u-GA-li",
+    "english": "I would like roast meat and ugali",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Nusu kilo",
+    "pronunciation": "NU-su KI-lo",
+    "english": "Half a kilo",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Bila pilipili",
+    "pronunciation": "BI-la pi-li-PI-li",
+    "english": "Without chili",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Sili nyama",
+    "pronunciation": "SI-li NYA-ma",
+    "english": "I don't eat meat",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Baridi / Moto",
+    "pronunciation": "ba-RI-di / MO-to",
+    "english": "Cold / Hot",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Chakula ni kitamu sana",
+    "pronunciation": "cha-KU-la ni ki-TA-mu SA-na",
+    "english": "The food is very tasty",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Nimeshiba",
+    "pronunciation": "ni-me-SHI-ba",
+    "english": "I am full",
+    "tags": [
+      "food",
+      "drink"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Naomba bili",
+    "pronunciation": "na-OM-ba BI-li",
+    "english": "The bill, please",
+    "tags": [
+      "food",
+      "drink",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Naweza kulipa na M-Pesa?",
+    "pronunciation": "na-WE-za ku-LI-pa na em-PE-sa",
+    "english": "Can I pay with M-Pesa?",
+    "tags": [
+      "food",
+      "drink",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter chakula: Eating out"
+  },
+  {
+    "swahili": "Moja, mbili, tatu, nne, tano",
+    "pronunciation": "MO-ja, m-BI-li, TA-tu, N-ne, TA-no",
+    "english": "One, two, three, four, five",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Sita, saba, nane, tisa, kumi",
+    "pronunciation": "SI-ta, SA-ba, NA-ne, TI-sa, KU-mi",
+    "english": "Six, seven, eight, nine, ten",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Mia / Elfu",
+    "pronunciation": "MI-a / EL-fu",
+    "english": "Hundred / Thousand",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Mia tano",
+    "pronunciation": "MI-a TA-no",
+    "english": "Five hundred",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Hii ni bei gani?",
+    "pronunciation": "HI-i ni BE-i GA-ni",
+    "english": "What is the price of this?",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Ni ghali sana",
+    "pronunciation": "ni GHA-li SA-na",
+    "english": "It is too expensive",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Punguza bei, tafadhali",
+    "pronunciation": "pun-GU-za BE-i",
+    "english": "Lower the price, please",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Bei ya mwisho ni ngapi?",
+    "pronunciation": "BE-i ya m-WI-sho ni n-GA-pi",
+    "english": "What is your last price?",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Naangalia tu",
+    "pronunciation": "na-an-ga-LI-a tu",
+    "english": "I am just looking",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Una rangi nyingine?",
+    "pronunciation": "U-na RAN-gi nyin-GI-ne",
+    "english": "Do you have another colour?",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Nitachukua hii",
+    "pronunciation": "ni-ta-chu-KU-a HI-i",
+    "english": "I will take this one",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Sitaki, asante",
+    "pronunciation": "si-TA-ki, a-SAN-te",
+    "english": "I don't want it, thank you",
+    "tags": [
+      "market",
+      "bargaining",
+      "numbers",
+      "money"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter sokoni: At the market"
+  },
+  {
+    "swahili": "Simba",
+    "pronunciation": "SIM-ba",
+    "english": "Lion",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Tembo / Ndovu",
+    "pronunciation": "TEM-bo / n-DO-vu",
+    "english": "Elephant",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Twiga",
+    "pronunciation": "TWI-ga",
+    "english": "Giraffe",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Chui",
+    "pronunciation": "CHU-i",
+    "english": "Leopard",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Duma",
+    "pronunciation": "DU-ma",
+    "english": "Cheetah",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Kifaru",
+    "pronunciation": "ki-FA-ru",
+    "english": "Rhino",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Nyati",
+    "pronunciation": "NYA-ti",
+    "english": "Buffalo",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Punda milia",
+    "pronunciation": "PUN-da mi-LI-a",
+    "english": "Zebra (striped donkey)",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Kiboko",
+    "pronunciation": "ki-BO-ko",
+    "english": "Hippo",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Nyumbu",
+    "pronunciation": "NYUM-bu",
+    "english": "Wildebeest",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Angalia!",
+    "pronunciation": "an-ga-LI-a",
+    "english": "Look!",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Ni mnyama gani huyo?",
+    "pronunciation": "ni m-NYA-ma GA-ni HU-yo",
+    "english": "What animal is that?",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Tunaweza kusimama hapa?",
+    "pronunciation": "tu-na-WE-za ku-si-MA-ma HA-pa",
+    "english": "Can we stop here?",
+    "tags": [
+      "safari",
+      "animals",
+      "questions"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Naweza kupiga picha?",
+    "pronunciation": "na-WE-za ku-PI-ga PI-cha",
+    "english": "May I take a photo?",
+    "tags": [
+      "safari",
+      "animals",
+      "questions",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Hakuna shida",
+    "pronunciation": "ha-KU-na SHI-da",
+    "english": "No problem",
+    "tags": [
+      "safari",
+      "animals",
+      "questions",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter safari: On safari"
+  },
+  {
+    "swahili": "Bahari",
+    "pronunciation": "ba-HA-ri",
+    "english": "Ocean",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Pwani",
+    "pronunciation": "PWA-ni",
+    "english": "Coast, beach",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Jahazi",
+    "pronunciation": "ja-HA-zi",
+    "english": "Dhow",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Samaki",
+    "pronunciation": "sa-MA-ki",
+    "english": "Fish",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Madafu",
+    "pronunciation": "ma-DA-fu",
+    "english": "Fresh coconut water",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Kuna joto sana leo",
+    "pronunciation": "KU-na JO-to SA-na LE-o",
+    "english": "It is very hot today",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Naweza kuogelea hapa?",
+    "pronunciation": "na-WE-za ku-o-ge-LE-a HA-pa",
+    "english": "Can I swim here?",
+    "tags": [
+      "coast",
+      "beach"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Hujambo? / Sijambo",
+    "pronunciation": "hu-JAM-bo / si-JAM-bo",
+    "english": "Are you well? / I am well",
+    "tags": [
+      "coast",
+      "beach",
+      "greeting",
+      "coastal"
+    ],
+    "register": "coastal",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Habari za asubuhi?",
+    "pronunciation": "ha-BA-ri za a-su-BU-hi",
+    "english": "How is your morning?",
+    "tags": [
+      "coast",
+      "beach",
+      "greeting",
+      "coastal"
+    ],
+    "register": "coastal",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Salama",
+    "pronunciation": "sa-LA-ma",
+    "english": "Peaceful, all is well",
+    "tags": [
+      "coast",
+      "beach",
+      "greeting",
+      "coastal"
+    ],
+    "register": "coastal",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Tutaonana",
+    "pronunciation": "tu-ta-o-NA-na",
+    "english": "We will see each other again",
+    "tags": [
+      "coast",
+      "beach",
+      "greeting",
+      "coastal"
+    ],
+    "register": "coastal",
+    "accepted_variants": [],
+    "source": "v1 chapter pwani: The coast"
+  },
+  {
+    "swahili": "Nisaidie, tafadhali",
+    "pronunciation": "ni-sa-i-DI-e",
+    "english": "Help me, please",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Nimepotea",
+    "pronunciation": "ni-me-po-TE-a",
+    "english": "I am lost",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Ninaumwa",
+    "pronunciation": "ni-na-UM-wa",
+    "english": "I am sick",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Hospitali iko wapi?",
+    "pronunciation": "hos-pi-TA-li I-ko WA-pi",
+    "english": "Where is the hospital?",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Ninahitaji daktari",
+    "pronunciation": "ni-na-hi-TA-ji dak-TA-ri",
+    "english": "I need a doctor",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Dawa",
+    "pronunciation": "DA-wa",
+    "english": "Medicine",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Simu yangu imepotea",
+    "pronunciation": "SI-mu YAN-gu i-me-po-TE-a",
+    "english": "My phone is lost",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Unaongea Kiingereza?",
+    "pronunciation": "u-na-on-GE-a ki-in-ge-RE-za",
+    "english": "Do you speak English?",
+    "tags": [
+      "help",
+      "emergency"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  },
+  {
+    "swahili": "Pole",
+    "pronunciation": "PO-le",
+    "english": "Sorry (for what happened to you)",
+    "tags": [
+      "help",
+      "emergency",
+      "polite"
+    ],
+    "register": "standard",
+    "accepted_variants": [],
+    "source": "v1 chapter msaada: When you need help"
+  }
+]
