@@ -2,6 +2,7 @@
 // Exists as the home screen's main content for this cut.
 import { Link } from 'react-router'
 import { Button } from '../../components/Button'
+import { ProgressBar } from '../../components/ProgressBar'
 import { PLACE_TYPE_INFO } from './placeTypes'
 import type { StopRow } from '../../lib/types'
 
@@ -37,8 +38,14 @@ export function ItineraryList({ stops, highlightedId, onSelect, onDelete, onRetr
     else groups.push({ date: stop.visit_date, stops: [stop] })
   }
 
+  const completedCount = stops.filter((s) => s.user_lessons[0]?.status === 'completed').length
+
   return (
     <div className="flex flex-col gap-5">
+      <div className="px-2">
+        <p className="text-sm font-bold mb-2">{completedCount === stops.length ? 'Every lesson done. Safari njema.' : 'Lessons done'}</p>
+        <ProgressBar value={completedCount} max={stops.length} label="Lessons done" />
+      </div>
       {groups.map((group) => (
         <section key={group.date ?? 'none'}>
           <h3 className="text-sm uppercase tracking-wide text-muted font-bold mb-2 px-2">{dayLabel(group.date)}</h3>
@@ -47,6 +54,7 @@ export function ItineraryList({ stops, highlightedId, onSelect, onDelete, onRetr
               const info = PLACE_TYPE_INFO[stop.place.place_type]
               const number = stops.indexOf(stop) + 1
               const lessonId = stop.user_lessons[0]?.id
+              const completed = stop.user_lessons[0]?.status === 'completed'
               const highlighted = stop.id === highlightedId
               return (
                 <li key={stop.id} className={`bg-surface rounded-card shadow-soft p-4 transition-shadow ${highlighted ? 'shadow-lift' : ''}`}>
@@ -58,7 +66,7 @@ export function ItineraryList({ stops, highlightedId, onSelect, onDelete, onRetr
                       aria-label={`Show ${stop.place.name} on the map`}
                     >
                       <span aria-hidden="true">{info.emoji}</span>
-                      <span className="absolute -top-1 -left-1 w-5 h-5 rounded-pill bg-accent text-on-accent text-[11px] font-bold flex items-center justify-center">{number}</span>
+                      <span className="absolute -top-1 -left-1 w-5 h-5 rounded-pill text-on-accent text-[11px] font-bold flex items-center justify-center" style={{ background: completed ? 'var(--success)' : 'var(--accent)' }}>{completed ? '✓' : number}</span>
                     </button>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold truncate">{stop.place.name}</p>
@@ -79,7 +87,7 @@ export function ItineraryList({ stops, highlightedId, onSelect, onDelete, onRetr
                     )}
                     {stop.lesson_status === 'ready' && lessonId && (
                       <Link to={`/lesson/${lessonId}`} className="block">
-                        <Button variant="accent" full tabIndex={-1}>Start lesson</Button>
+                        <Button variant={completed ? 'soft' : 'accent'} full tabIndex={-1}>{completed ? 'Done. Review lesson' : 'Start lesson'}</Button>
                       </Link>
                     )}
                     {(stop.lesson_status === 'failed' || (stop.lesson_status === 'ready' && !lessonId)) && (

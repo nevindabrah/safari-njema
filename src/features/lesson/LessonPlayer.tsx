@@ -47,6 +47,11 @@ export function LessonPlayer({ lesson, phrases, generatedBy, backTo, backLabel, 
         <div className="relative">
           <p className="text-sm font-bold opacity-80">{info.emoji} {info.label}</p>
           <h1 className="text-3xl sm:text-5xl mt-1">{lesson.place.name}</h1>
+          {lesson.kanga && (
+            <p className="inline-flex flex-wrap items-baseline gap-x-2 mt-4 rounded-input px-3 py-2 text-sm" style={{ background: 'var(--ink)', color: 'var(--on-accent)' }}>
+              <b lang="sw" className="font-display">{lesson.kanga.proverb}</b>
+            </p>
+          )}
           <p className="text-xs mt-3 opacity-80">
             {generatedBy === 'template' ? 'General lesson for this kind of place' : 'Written for this place'}
           </p>
@@ -69,6 +74,13 @@ export function LessonPlayer({ lesson, phrases, generatedBy, backTo, backLabel, 
             <p className="text-4xl mb-2" aria-hidden="true">🎉</p>
             <h2 className="text-3xl mb-2">Safari njema</h2>
             <p className="text-muted">You got {score} of {questions.length} right and met {phrases.length} phrases.</p>
+            {lesson.kanga && (
+              <div className="mt-6 bg-tint rounded-card p-5">
+                <p className="text-xs uppercase tracking-wide font-bold text-muted mb-1">Your kanga proverb</p>
+                <p lang="sw" className="font-display font-extrabold text-xl">{lesson.kanga.proverb}</p>
+                <p className="text-muted mt-1">{lesson.kanga.meaning}</p>
+              </div>
+            )}
             <Link to={backTo} className="block mt-6"><Button full tabIndex={-1}>{backLabel}</Button></Link>
           </div>
         )}
