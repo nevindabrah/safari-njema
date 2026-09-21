@@ -8,16 +8,16 @@ You add the places you are going. Each stop becomes a five minute Swahili lesson
 
 ![The landing page](docs/screenshots/landing.png)
 
-| The trip planner | A lesson | On a phone, dark mode |
+| The trip planner | A quiz round | On a phone, dark mode |
 |---|---|---|
-| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![The brief step of a lesson](docs/screenshots/lesson.png) | ![The trip planner on a phone in dark mode](docs/screenshots/phone-dark.png) |
+| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![Round three of a quiz, matching a pronunciation to its phrase](docs/screenshots/lesson.png) | ![The trip planner on a phone in dark mode](docs/screenshots/phone-dark.png) |
 
 ## Why it is interesting
 
 - **Lessons come from a phrase bank, not free text.** Language models make mistakes in Swahili, so the model may only choose from 95 phrases, each tagged by hand. It picks and explains. It does not invent.
 - **An AI switch.** With it on, Claude writes the brief and picks phrases, and its JSON is validated with zod. With it off, a template builds the lesson from the same candidates. The live site runs with it off, so it costs nothing to host.
 - **One pipeline, two runtimes.** Scoring, the slot plan and the template are pure TypeScript. The same files run in a Supabase Edge Function and in the browser demo.
-- **Tests that read the lessons.** 40 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **Tests that read the lessons.** 52 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
 - **Row Level Security on every table**, with a database function so users never need write access to shared tables.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 
@@ -72,8 +72,11 @@ When the Supabase values are missing, the app runs in demo mode. This is what th
 
 - The landing page has one button, "Try the live demo". It opens a ready-made trip: Maasai Market, Diani Beach and the Maasai Mara, each with its own lesson.
 - Search a built-in list of 21 well known Kenyan places, one for every kind of place. Searching "Paris" finds nothing, like the real Kenya-only search.
-- Add a place with a day and activities. It appears as a numbered pin on a sketch map of Kenya and as a row in the itinerary, with the "Preparing your lesson" state.
+- Add a place with a day and activities. It appears as a numbered pin on a sketch map of Kenya and as a row in the itinerary, with the "Preparing your lesson" state. Stops in the same town fan out into a ring so each pin can be clicked, and picking a pin shows its name and rings its row.
 - Lessons are built in the browser by the same pure functions the Edge Function uses, from the same seed phrases. The first stop teaches greetings and later stops do not. Each lesson carries a Swahili proverb from the seeded list, the kanga idea.
+- Quizzes run four rounds: what it means, say it in Swahili, sounds like, and fill the gap. Wrong answers are drawn from the whole phrase bank, and anything missed comes back once in a second chance round. About twenty questions a lesson, and only first tries count.
+- Dates are free. Trip dates can be set, changed or cleared at any time. A stop can take any date, inside the trip or not, and can be moved to another day later. The list and the pin numbers follow the dates.
+- Sound effects for taps, right and wrong answers, a new stop and a finished lesson. They are made with Web Audio, so there are no audio files, and the speaker button in the top bar mutes them for good.
 - Finish a quiz and the stop turns green and the trip's progress bar moves. "Start with an empty trip" clears the sample so the first stop flow can be tried from scratch.
 
 Demo data lives in the browser's localStorage. Demo mode is only ever on when the Supabase values are missing, so once they are set on Vercel the site becomes the real product with accounts. The code is in `src/features/demo/`, and each data hook switches to it with one `if (isDemoMode)`.
@@ -139,7 +142,8 @@ Left for right after the deadline: Google sign in, the Today screen, onboarding,
 - `useStops.ts` then calls the Edge Function and waits. The list row shows "Preparing your lesson" until it returns.
 - `supabase/functions/_shared/pickCandidates.ts` scores every phrase in the bank by its tags. Greetings score high on the first stop and are dropped afterwards. Sheng is left out by default.
 - `supabase/functions/_shared/lessonPlan.ts` holds the tables: which tags matter for each kind of place, activity and region, and the six ordered slots a template lesson fills. A market is price, numbers, bargaining, numbers, shopping, bargaining. Each phrase's "why here" line comes from the slot that chose it.
-- `LessonScreen.tsx` reads the lesson JSON, loads the phrase rows it points at, and builds the quiz with `src/lib/quiz.ts`.
+- `LessonScreen.tsx` reads the lesson JSON and loads the phrase rows it points at. `src/lib/quiz.ts` builds the four quiz rounds as a pure function. Fill the gap only ever blanks a word that is already in the bank, and takes its wrong words from the same position in other phrases.
+- `src/lib/orderStops.ts` sorts stops by date and works out "Day 3". `src/lib/spreadPins.ts` fans out pins that would overlap. `src/lib/sounds.ts` plays the sound effects. All three are small and the first two are tested.
 
 ## Dependencies and why
 
