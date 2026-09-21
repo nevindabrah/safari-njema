@@ -57,7 +57,7 @@ export function PreviewLessonScreen() {
           ))}
         </div>
         {built ? (
-          <LessonPlayer key={selected} lesson={built.lesson} phrases={built.phrases} generatedBy="template" backTo="/" backLabel="Back to the start" />
+          <LessonPlayer key={selected} lesson={built.lesson} phrases={built.phrases} pool={bank.filter((p) => p.register !== 'sheng')} generatedBy="template" backTo="/" backLabel="Back to the start" />
         ) : (
           <p className="p-8 text-center text-muted">Opening the sample lesson.</p>
         )}

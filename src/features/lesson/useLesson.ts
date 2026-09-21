@@ -6,12 +6,15 @@ import { lessonSchema, type Lesson } from '../../lib/lessonSchema'
 import type { Phrase } from '../../lib/types'
 import { isDemoMode } from '../demo/demoMode'
 import { completeLocalLesson, getLocalLesson } from '../demo/localStore'
+import { loadSeedBank } from './seedBank'
 
 export interface LoadedLesson {
   userLessonId: string
   lesson: Lesson
   generatedBy: string
   phrases: Phrase[]
+  // Extra phrases the quiz can use as wrong answers.
+  pool: Phrase[]
 }
 
 export function useLesson(userLessonId: string | undefined) {
@@ -22,8 +25,11 @@ export function useLesson(userLessonId: string | undefined) {
     if (!userLessonId) return
     if (isDemoMode) {
       const stored = getLocalLesson(userLessonId)
-      if (stored) setData({ userLessonId, lesson: stored.lesson, generatedBy: stored.generatedBy, phrases: stored.phrases })
-      else setError('We could not find that lesson.')
+      if (!stored) {
+        setError('We could not find that lesson.')
+        return
+      }
+      loadSeedBank().then((bank) => bank.filter((p) => p.register !== 'sheng')).then((pool) => setData({ userLessonId, lesson: stored.lesson, generatedBy: stored.generatedBy, phrases: stored.phrases, pool }))
       return
     }
     let cancelled = false
@@ -52,8 +58,9 @@ export function useLesson(userLessonId: string | undefined) {
       // Keep the lesson's order, not the database's.
       const byId = new Map((phraseRows ?? []).map((p) => [p.id, p as Phrase]))
       const phrases = ids.map((id) => byId.get(id)).filter((p): p is Phrase => Boolean(p))
+      const { data: poolRows } = await supabase.from('phrases').select('id, swahili, pronunciation, english, tags, verified').neq('register', 'sheng').limit(100)
       if (!cancelled) {
-        setData({ userLessonId: row.id, lesson: parsed.data, generatedBy: lessonRow.generated_by, phrases })
+        setData({ userLessonId: row.id, lesson: parsed.data, generatedBy: lessonRow.generated_by, phrases, pool: (poolRows ?? []) as Phrase[] })
       }
     }
 

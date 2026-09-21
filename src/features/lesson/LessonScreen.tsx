@@ -25,6 +25,7 @@ export function LessonScreen() {
           <LessonPlayer
             lesson={data.lesson}
             phrases={data.phrases}
+            pool={data.pool}
             generatedBy={data.generatedBy}
             backTo="/trip"
             backLabel="Back to my trip"

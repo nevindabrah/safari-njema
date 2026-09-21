@@ -12,29 +12,33 @@ import type { Phrase, PlaceType } from '../../lib/types'
 import { PLACE_TYPE_INFO } from '../trip/placeTypes'
 import { BriefStep } from './BriefStep'
 import { PhrasesStep } from './PhrasesStep'
-import { QuizStep } from './QuizStep'
+import { QuizStep, type QuizResult } from './QuizStep'
+import { playSound } from '../../lib/sounds'
 
 const STEPS = ['The brief', 'The phrases', 'Quiz']
 
 interface LessonPlayerProps {
   lesson: Lesson
   phrases: Phrase[]
+  // Where the quiz finds wrong answers. The whole bank makes guessing harder than the six lesson phrases alone.
+  pool?: Phrase[]
   generatedBy: string
   backTo: string
   backLabel: string
   onComplete?: (score: number, durationSeconds: number) => void
 }
 
-export function LessonPlayer({ lesson, phrases, generatedBy, backTo, backLabel, onComplete }: LessonPlayerProps) {
+export function LessonPlayer({ lesson, phrases, pool, generatedBy, backTo, backLabel, onComplete }: LessonPlayerProps) {
   const [step, setStep] = useState(0)
-  const [score, setScore] = useState<number | null>(null)
+  const [result, setResult] = useState<QuizResult | null>(null)
   const [startedAt] = useState(() => Date.now())
-  const questions = useMemo(() => buildQuiz(phrases), [phrases])
+  const questions = useMemo(() => buildQuiz(phrases, pool ?? phrases), [phrases, pool])
 
-  function finishQuiz(correct: number) {
-    setScore(correct)
+  function finishQuiz(quizResult: QuizResult) {
+    setResult(quizResult)
     setStep(3)
-    onComplete?.(correct, Math.round((Date.now() - startedAt) / 1000))
+    playSound('complete')
+    onComplete?.(quizResult.correct, Math.round((Date.now() - startedAt) / 1000))
   }
 
   const type = lesson.place.type as PlaceType
@@ -73,7 +77,20 @@ export function LessonPlayer({ lesson, phrases, generatedBy, backTo, backLabel, 
           <div className="text-center">
             <p className="text-4xl mb-2" aria-hidden="true">🎉</p>
             <h2 className="text-3xl mb-2">Safari njema</h2>
-            <p className="text-muted">You got {score} of {questions.length} right and met {phrases.length} phrases.</p>
+            <p className="text-muted">You got {result?.correct} of {result?.total} right on the first try and met {phrases.length} phrases.</p>
+            {result && result.missedPhraseIds.length > 0 && (
+              <div className="mt-6 text-left">
+                <p className="text-xs uppercase tracking-wide font-bold text-muted mb-2">Worth another look</p>
+                <ul className="flex flex-col gap-2">
+                  {phrases.filter((p) => result.missedPhraseIds.includes(p.id)).map((p) => (
+                    <li key={p.id} className="bg-surface-2 rounded-input px-4 py-2">
+                      <span lang="sw" className="font-display font-extrabold">{p.swahili}</span>
+                      <span className="text-muted"> · {p.english}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {lesson.kanga && (
               <div className="mt-6 bg-tint rounded-card p-5">
                 <p className="text-xs uppercase tracking-wide font-bold text-muted mb-1">Your kanga proverb</p>
