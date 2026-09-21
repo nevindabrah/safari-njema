@@ -59,15 +59,17 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
       </div>
 
       <p className="text-sm font-bold mt-4 mb-2">Which day?</p>
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap items-center">
         <button type="button" className={chip(visitDate === null)} onClick={() => setVisitDate(null)}>No date yet</button>
-        {days.map((d, i) => (
+        {days.slice(0, 14).map((d, i) => (
           <button key={d} type="button" className={chip(visitDate === d)} onClick={() => setVisitDate(d)}>Day {i + 1}</button>
         ))}
-        {days.length === 0 && (
-          <input type="date" aria-label="Pick a date" value={visitDate ?? ''} onChange={(e) => setVisitDate(e.target.value || null)}
-            className="px-3 min-h-[40px] rounded-pill bg-tint text-sm font-bold" />
-        )}
+        {/* Any date at all, inside the trip or not. Trip dates are a guide, never a limit. */}
+        <label className="flex items-center gap-2 text-sm font-bold text-muted">
+          {days.length > 0 ? 'or' : ''}
+          <input type="date" aria-label="Pick any date" value={visitDate ?? ''} onChange={(e) => setVisitDate(e.target.value || null)}
+            className={`px-3 min-h-[40px] rounded-pill text-sm font-bold ${visitDate && !days.slice(0, 14).includes(visitDate) ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`} />
+        </label>
       </div>
 
       <p className="text-sm font-bold mt-4 mb-2">What will you do there? Optional</p>
@@ -77,7 +79,7 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
         ))}
       </div>
 
-      <Button variant="accent" full className="mt-5" onClick={add} disabled={busy}>
+      <Button variant="accent" full silent className="mt-5" onClick={add} disabled={busy}>
         {busy ? 'Adding' : 'Add to itinerary'}
       </Button>
     </div>

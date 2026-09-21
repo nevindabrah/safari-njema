@@ -14,18 +14,27 @@ import type { PickedPlace } from './usePlaceSearch'
 import { isDemoMode } from '../demo/demoMode'
 import { DemoMap } from '../demo/DemoMap'
 import { SamplePlaceSearch } from '../demo/SamplePlaceSearch'
+import { playSound } from '../../lib/sounds'
+import { TripDates } from './TripDates'
 
 export function TripScreen() {
   const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_KEY as string | undefined
-  const { trip, error } = useTrip()
-  const { stops, loading, addStop, deleteStop, retryLesson } = useStops(trip?.id ?? null)
+  const { trip, error, updateDates } = useTrip()
+  const { stops, loading, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
   const [preview, setPreview] = useState<PickedPlace | null>(null)
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
+
+  // Picking a pin or a row selects it everywhere. Picking it again clears the selection.
+  function selectStop(stopId: string) {
+    playSound('select')
+    setHighlightedId((current) => (current === stopId ? null : stopId))
+  }
 
   async function handleAdd(visitDate: string | null, activities: string[]) {
     if (!preview) return
     const place = preview
     setPreview(null)
+    playSound('added')
     await addStop(place, visitDate, activities)
   }
 
@@ -36,7 +45,7 @@ export function TripScreen() {
         <section className="relative isolate min-w-0 h-[55dvh] lg:h-[calc(100dvh-6rem)] lg:sticky lg:top-20 rounded-card overflow-hidden shadow-soft bg-tint">
           {mapsKey && trip ? (
             <APIProvider apiKey={mapsKey} libraries={['places']}>
-              <TripMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={setHighlightedId} />
+              <TripMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
               <div className="absolute top-4 left-4 right-4 z-10">
                 <PlaceSearch onPick={(place) => { setPreview(place); setHighlightedId(null) }} />
               </div>
@@ -48,7 +57,7 @@ export function TripScreen() {
             </APIProvider>
           ) : isDemoMode && trip ? (
             <>
-              <DemoMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={setHighlightedId} />
+              <DemoMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
               <div className="absolute top-4 left-4 right-4 z-30">
                 <SamplePlaceSearch onPick={(place) => { setPreview(place); setHighlightedId(null) }} />
               </div>
@@ -66,11 +75,12 @@ export function TripScreen() {
         </section>
 
         <section className="pt-2 min-w-0">
-          <h2 className="text-2xl mb-4 px-2">{trip?.title ?? 'My trip'}</h2>
+          <h2 className="text-2xl mb-3 px-2">{trip?.title ?? 'My trip'}</h2>
+          {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} /></div>}
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>
           ) : (
-            <ItineraryList stops={stops} highlightedId={highlightedId} onSelect={setHighlightedId} onDelete={deleteStop} onRetry={retryLesson} />
+            trip && <ItineraryList trip={trip} stops={stops} highlightedId={highlightedId} onSelect={selectStop} onDelete={deleteStop} onRetry={retryLesson} onMove={moveStop} />
           )}
           <ReviewNote />
         </section>

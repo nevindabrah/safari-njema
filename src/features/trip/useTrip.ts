@@ -5,7 +5,7 @@ import { supabase } from '../../lib/supabase'
 import type { Trip } from '../../lib/types'
 import { useAuth } from '../auth/useAuth'
 import { isDemoMode } from '../demo/demoMode'
-import { getLocalTrip } from '../demo/localStore'
+import { getLocalTrip, updateLocalTripDates } from '../demo/localStore'
 
 export function useTrip() {
   const { user } = useAuth()
@@ -53,5 +53,17 @@ export function useTrip() {
     }
   }, [user])
 
-  return { trip, error }
+  // Either date can be empty. An end before the start is moved up to the start, so the range always makes sense.
+  async function updateDates(startDate: string | null, endDate: string | null) {
+    if (!trip) return
+    const end = startDate && endDate && endDate < startDate ? startDate : endDate
+    if (isDemoMode) {
+      setTrip({ ...updateLocalTripDates(startDate, end) })
+      return
+    }
+    setTrip({ ...trip, start_date: startDate, end_date: end })
+    await supabase.from('trips').update({ start_date: startDate, end_date: end }).eq('id', trip.id)
+  }
+
+  return { trip, error, updateDates }
 }

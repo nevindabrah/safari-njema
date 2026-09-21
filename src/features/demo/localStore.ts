@@ -116,6 +116,21 @@ export function deleteLocalStop(stopId: string) {
   write(data)
 }
 
+export function updateLocalStopDate(stopId: string, visitDate: string | null) {
+  const data = read()
+  const stop = data.stops.find((s) => s.id === stopId)
+  if (stop) stop.visit_date = visitDate
+  write(data)
+}
+
+export function updateLocalTripDates(startDate: string | null, endDate: string | null): Trip {
+  const data = read()
+  data.trip.start_date = startDate
+  data.trip.end_date = endDate
+  write(data)
+  return data.trip
+}
+
 export function getLocalLesson(userLessonId: string): StoredLesson | null {
   return read().lessons[userLessonId] ?? null
 }

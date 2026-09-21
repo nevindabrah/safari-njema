@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { StopRow } from '../../lib/types'
+import { orderStops } from '../../lib/orderStops'
 import { isDemoMode } from '../demo/demoMode'
-import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops } from '../demo/localStore'
+import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops, updateLocalStopDate } from '../demo/localStore'
 import { buildLocalLesson } from '../demo/localLessons'
 import { ensureDemoTrip } from '../demo/demoTrip'
 import type { PickedPlace } from './usePlaceSearch'
@@ -19,12 +20,12 @@ export function useStops(tripId: string | null) {
     if (!tripId) return
     if (isDemoMode) {
       await ensureDemoTrip()
-      setStops(listLocalStops())
+      setStops(orderStops(listLocalStops()))
       setLoading(false)
       return
     }
     const { data } = await supabase.from('trip_stops').select(STOP_SELECT).eq('trip_id', tripId).order('position')
-    setStops((data ?? []) as unknown as StopRow[])
+    setStops(orderStops((data ?? []) as unknown as StopRow[]))
     setLoading(false)
   }, [tripId])
 
@@ -81,11 +82,21 @@ export function useStops(tripId: string | null) {
     await reload()
   }
 
+  // Moves a stop to another day, or to no day. The list and the pin numbers follow.
+  async function moveStop(stopId: string, visitDate: string | null) {
+    setStops((list) => orderStops(list.map((s) => (s.id === stopId ? { ...s, visit_date: visitDate } : s))))
+    if (isDemoMode) {
+      updateLocalStopDate(stopId, visitDate)
+      return
+    }
+    await supabase.from('trip_stops').update({ visit_date: visitDate }).eq('id', stopId)
+  }
+
   async function retryLesson(stopId: string) {
     await supabase.from('trip_stops').update({ lesson_status: 'generating' }).eq('id', stopId)
     await reload()
     await generateLesson(stopId)
   }
 
-  return { stops, loading, addStop, deleteStop, retryLesson }
+  return { stops, loading, addStop, deleteStop, retryLesson, moveStop }
 }
