@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Button } from '../../components/Button'
 import { clockLabel, swahiliTime } from '../../lib/swahiliTime'
 import { playSound } from '../../lib/sounds'
-import { sayTime } from './timeWords'
+import { pronounce, sayTime } from './timeWords'
+import { TimeSpeakButton } from './TimeSpeakButton'
 
 interface TimePracticeProps {
   // What the clock and the am or pm switch are set to right now: 0 to 23, and 0 to 55 in fives.
@@ -42,8 +43,14 @@ export function TimePractice({ hour24, minute }: TimePracticeProps) {
 
   return (
     <div className="mt-3" aria-live="polite">
-      <p className="text-xs font-bold text-muted">Set the clock to</p>
-      <p lang="sw" className="font-display font-extrabold text-2xl leading-tight">{sayTime(asked)}</p>
+      <div className="flex items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-bold text-muted">Set the clock to</p>
+          <p lang="sw" className="font-display font-extrabold text-2xl leading-tight">{sayTime(asked)}</p>
+          <p className="text-sm font-bold text-accent-text mt-0.5">{pronounce(sayTime(asked))}</p>
+        </div>
+        <TimeSpeakButton swahili={sayTime(asked)} />
+      </div>
       {outcome === null && <Button full className="mt-3" silent onClick={check}>Check {clockLabel(hour24, minute)}</Button>}
       {outcome !== null && (
         <div className="mt-3 rounded-input p-3" style={{ background: outcome === 'right' ? 'var(--right-soft)' : 'var(--wrong-soft)' }}>

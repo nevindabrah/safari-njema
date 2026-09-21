@@ -4,8 +4,9 @@ import { TopBar } from '../../components/TopBar'
 import { Footer } from '../../components/Footer'
 import { Card } from '../../components/Card'
 import { LeaveButton } from '../../components/LeaveButton'
-import { ASK_THE_TIME } from './timeWords'
+import { ASK_THE_TIME, pronounce } from './timeWords'
 import { TimeExplorer } from './TimeExplorer'
+import { TimeSpeakButton } from './TimeSpeakButton'
 
 export function TimeScreen() {
   return (
@@ -30,7 +31,7 @@ export function TimeScreen() {
               So when you agree a pickup time, check which way you both mean. Hour two in the morning is 8 am, not 2.
             </p>
             <p className="mt-3 leading-relaxed">On a real watch there is a shortcut: read the number straight across the face from the hour hand. Across from 8 is 2.</p>
-            <p className="mt-4 text-sm">To ask: <b lang="sw">{ASK_THE_TIME.swahili}</b> <span className="text-muted">{ASK_THE_TIME.english}</span></p>
+            <div className="mt-4 flex items-center gap-3"><TimeSpeakButton swahili={ASK_THE_TIME.swahili} /><p className="text-sm">To ask: <b lang="sw">{ASK_THE_TIME.swahili}</b> <span className="font-bold text-accent-text">{pronounce(ASK_THE_TIME.swahili)}</span> <span className="text-muted">{ASK_THE_TIME.english}</span></p></div>
             <p className="mt-3 text-xs text-muted">
               <span className="inline-block rounded-pill bg-tint text-text font-bold px-2 py-0.5 mr-1">Not yet reviewed</span>
               The time words here were added after the teacher's review of the phrasebook and are waiting for a check. Where one part of the day ends and the next begins also varies from speaker to speaker.

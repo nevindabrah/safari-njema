@@ -11,8 +11,6 @@ interface SwahiliClockProps {
   moving: 'hour' | 'minute'
   onHour: (clock12: number) => void
   onMinute: (minute: number) => void
-  // Night turns the face dark, as a reminder that the Swahili count starts again at sunset.
-  night: boolean
   // Practice hides the Swahili ring, because working it out is the exercise.
   showSwahili: boolean
 }
@@ -21,10 +19,10 @@ const HOURS = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 // A point on the face, from an angle in degrees clockwise from twelve and a distance from the centre.
 const at = (degrees: number, radius: number) => ({ x: Math.sin((degrees * Math.PI) / 180) * radius, y: -Math.cos((degrees * Math.PI) / 180) * radius })
 
-export function SwahiliClock({ clock12, minute, moving, onHour, onMinute, night, showSwahili }: SwahiliClockProps) {
+export function SwahiliClock({ clock12, minute, moving, onHour, onMinute, showSwahili }: SwahiliClockProps) {
   const face = useRef<SVGSVGElement>(null)
   const [focused, setFocused] = useState<number | null>(null)
-  const ink = night ? 'var(--on-ink)' : 'var(--text)'
+  const ink = 'var(--text)'
   // As on a real clock, the hour hand creeps towards the next number as the minutes pass.
   const hourAngle = (clock12 % 12) * 30 + minute / 2
   const minuteAngle = minute * 6
@@ -48,7 +46,7 @@ export function SwahiliClock({ clock12, minute, moving, onHour, onMinute, night,
 
   return (
     <svg ref={face} viewBox="-110 -110 220 220" className="w-full max-w-[19rem] mx-auto block select-none" role="group" aria-label={`Clock face. Choose the ${moving}`}>
-      <circle r="106" fill={night ? 'var(--ink)' : 'var(--surface)'} stroke="var(--hero)" strokeWidth="5" />
+      <circle r="106" fill="var(--surface)" stroke="var(--hero)" strokeWidth="5" />
       {/* The hands are drawn under the numbers, so a number is never hidden by a hand lying across it. */}
       <line x1="0" y1="0" x2={minuteTip.x} y2={minuteTip.y} stroke="var(--accent)" strokeWidth="3.5" strokeLinecap="round" opacity={moving === 'minute' ? 1 : 0.55} />
       <line x1="0" y1="0" x2={hourTip.x} y2={hourTip.y} stroke={ink} strokeWidth="6.5" strokeLinecap="round" opacity={moving === 'hour' ? 1 : 0.55} />
@@ -70,13 +68,13 @@ export function SwahiliClock({ clock12, minute, moving, onHour, onMinute, night,
             {chosen && moving === 'hour' && <circle cx={outer.x} cy={outer.y} r="13" fill="var(--hero)" />}
             <text x={outer.x} y={outer.y + 6} textAnchor="middle" fontSize="17" fontWeight="800" fill={chosen && moving === 'hour' ? 'var(--on-hero)' : ink} className="font-display">{position}</text>
             {chosen && innerText && <circle cx={inner.x} cy={inner.y} r="11" fill="var(--accent)" />}
-            <text x={inner.x} y={inner.y + 4.5} textAnchor="middle" fontSize="12.5" fontWeight="800" fill={chosen ? 'var(--on-accent)' : night ? 'var(--hero)' : 'var(--accent-text)'}>{innerText}</text>
+            <text x={inner.x} y={inner.y + 4.5} textAnchor="middle" fontSize="12.5" fontWeight="800" fill={chosen ? 'var(--on-accent)' : 'var(--accent-text)'}>{innerText}</text>
           </g>
         )
       })}
       <circle r="6" fill={ink} style={{ pointerEvents: 'none' }} />
       {/* The knob on the live hand. touch-action none lets a finger drag it without scrolling the page. The rest of the face still scrolls. */}
-      <circle cx={knob.x} cy={knob.y} r="11" fill={moving === 'hour' ? ink : 'var(--accent)'} stroke={moving === 'hour' ? 'var(--accent)' : night ? 'var(--ink)' : 'var(--surface)'} strokeWidth="3.5" className="cursor-grab" style={{ touchAction: 'none' }}
+      <circle cx={knob.x} cy={knob.y} r="11" fill={moving === 'hour' ? ink : 'var(--accent)'} stroke={moving === 'hour' ? 'var(--accent)' : 'var(--surface)'} strokeWidth="3.5" className="cursor-grab" style={{ touchAction: 'none' }}
         onPointerDown={(e) => e.currentTarget.setPointerCapture(e.pointerId)} onPointerMove={(e) => { if (e.currentTarget.hasPointerCapture(e.pointerId)) drag(e) }} />
     </svg>
   )

@@ -32,3 +32,16 @@ export function sayTime({ hour, part, kind, minutes }: SwahiliTime): string {
   }[kind]
   return `${base}${middle} ${part}`
 }
+
+// How to say each word, in the phrasebook's style: syllables split by hyphens, the stressed one in capitals.
+// Swahili stresses the second to last syllable. The guides for one to ten, nusu, ngapi and asubuhi are the teacher reviewed ones from the seed phrases.
+const SAY: Record<string, string> = {
+  saa: 'SA-a', na: 'na', dakika: 'da-KI-ka', robo: 'RO-bo', nusu: 'NU-su', kasorobo: 'ka-so-RO-bo', kasoro: 'ka-SO-ro', ngapi: 'n-GA-pi',
+  moja: 'MO-ja', mbili: 'm-BI-li', tatu: 'TA-tu', nne: 'N-ne', tano: 'TA-no', sita: 'SI-ta', saba: 'SA-ba', nane: 'NA-ne', tisa: 'TI-sa', kumi: 'KU-mi', ishirini: 'i-shi-RI-ni',
+  alfajiri: 'al-fa-JI-ri', asubuhi: 'a-su-BU-hi', mchana: 'm-CHA-na', jioni: 'ji-O-ni', usiku: 'u-SI-ku',
+}
+
+// "SA-a m-BI-li na RO-bo a-su-BU-hi". A word with no guide is left as it is written, so nothing is ever dropped.
+export function pronounce(swahili: string): string {
+  return swahili.split(' ').map((word) => SAY[word.toLowerCase().replace(/[?.,]/g, '')] ?? word).join(' ')
+}

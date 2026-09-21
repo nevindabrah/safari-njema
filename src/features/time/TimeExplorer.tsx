@@ -5,7 +5,8 @@ import { Icon } from '../../components/icons'
 import { clockLabel, swahiliTime, timeInWords, toHour24 } from '../../lib/swahiliTime'
 import { SwahiliClock } from './SwahiliClock'
 import { TimePractice } from './TimePractice'
-import { PART_WORDS, sayTime } from './timeWords'
+import { TimeSpeakButton } from './TimeSpeakButton'
+import { PART_WORDS, pronounce, sayTime } from './timeWords'
 
 export function TimeExplorer() {
   const [clock12, setClock12] = useState(8)
@@ -15,8 +16,6 @@ export function TimeExplorer() {
   const [practising, setPractising] = useState(false)
   const hour24 = toHour24(clock12, pm)
   const said = swahiliTime(hour24, minute)
-  // Dark from seven in the evening until the hour before sunrise.
-  const night = hour24 >= 19 || hour24 < 6
 
   function setToNow() {
     const now = new Date()
@@ -36,7 +35,7 @@ export function TimeExplorer() {
         <button type="button" aria-pressed={practising} onClick={() => setPractising(true)} className={tab(practising)}>Practise</button>
       </div>
 
-      <SwahiliClock clock12={clock12} minute={minute} moving={moving} onHour={setClock12} onMinute={setMinute} night={night} showSwahili={!practising} />
+      <SwahiliClock clock12={clock12} minute={minute} moving={moving} onHour={setClock12} onMinute={setMinute} showSwahili={!practising} />
 
       <div className={`${group} mt-3`} role="group" aria-label="Which hand to move">
         <button type="button" aria-pressed={moving === 'hour'} onClick={() => setMoving('hour')} className={tab(moving === 'hour')}>Hour hand</button>
@@ -55,13 +54,17 @@ export function TimeExplorer() {
       </div>
 
       {practising ? <TimePractice hour24={hour24} minute={minute} /> : (
-        <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1 mt-4" aria-live="polite">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-[auto_1fr] gap-x-5 gap-y-2 mt-4" aria-live="polite">
           <p><span className="block text-xs font-bold text-muted">On a watch</span><span className="font-display font-extrabold text-2xl whitespace-nowrap">{clockLabel(hour24, minute)}</span></p>
-          <p>
-            <span className="block text-xs font-bold text-muted">In Swahili</span>
-            <span lang="sw" className="font-display font-extrabold text-2xl leading-tight block">{sayTime(said)}</span>
-            <span className="text-sm text-muted">{timeInWords(said)}, {PART_WORDS[said.part]}</span>
-          </p>
+          <div className="flex items-start gap-3">
+            <p className="flex-1 min-w-0">
+              <span className="block text-xs font-bold text-muted">In Swahili</span>
+              <span lang="sw" className="font-display font-extrabold text-2xl leading-tight block">{sayTime(said)}</span>
+              <span className="block text-sm font-bold text-accent-text mt-0.5">{pronounce(sayTime(said))}</span>
+              <span className="text-sm text-muted">{timeInWords(said)}, {PART_WORDS[said.part]}</span>
+            </p>
+            <TimeSpeakButton swahili={sayTime(said)} />
+          </div>
         </div>
       )}
     </div>
