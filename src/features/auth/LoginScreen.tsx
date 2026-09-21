@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
 import { AuthForm } from './AuthForm'
+import { SetupNotice } from './SetupNotice'
 
 export function LoginScreen() {
   const navigate = useNavigate()
@@ -25,6 +26,7 @@ export function LoginScreen() {
         <Card>
           <h1 className="text-3xl mb-1">Welcome back</h1>
           <p className="text-muted mb-6">Log in to open your trip.</p>
+          <SetupNotice />
           <AuthForm submitLabel="Log in" onSubmit={login} />
           <p className="text-sm text-muted mt-6 text-center">
             New here? <Link to="/signup" className="font-bold text-text underline">Create an account</Link>

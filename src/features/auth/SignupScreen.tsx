@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
 import { AuthForm } from './AuthForm'
+import { SetupNotice } from './SetupNotice'
 
 export function SignupScreen() {
   const navigate = useNavigate()
@@ -37,6 +38,7 @@ export function SignupScreen() {
             <>
               <h1 className="text-3xl mb-1">Create your account</h1>
               <p className="text-muted mb-6">Your itinerary and lessons will live here.</p>
+              <SetupNotice />
               <AuthForm submitLabel="Sign up" onSubmit={signup} />
               <p className="text-sm text-muted mt-6 text-center">
                 Already have one? <Link to="/login" className="font-bold text-text underline">Log in</Link>
