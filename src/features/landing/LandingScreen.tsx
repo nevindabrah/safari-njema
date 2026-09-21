@@ -22,7 +22,7 @@ export function LandingScreen() {
           </p>
           <div className="mt-6 flex gap-3 flex-wrap">
             <Link to="/signup"><Button variant="accent" tabIndex={-1}>Start your trip</Button></Link>
-            <Link to="/login"><Button variant="soft" tabIndex={-1}>Log in</Button></Link>
+            <Link to="/preview"><Button variant="onHero" tabIndex={-1}>Try a sample lesson</Button></Link>
           </div>
         </Hero>
 
