@@ -20,7 +20,7 @@ Safari Njema is designed around **Google Maps Platform** and the **Claude API**.
 
 | Part | In the demo | With the keys switched on | Where the code is |
 |---|---|---|---|
-| Map and search | A sketch of Kenya and 21 built-in places | Google Maps JavaScript API for the map and pins. Places Autocomplete, limited to Kenya, with session tokens and only six billed fields | `src/features/trip/TripMap.tsx`, `usePlaceSearch.ts` |
+| Map and search | A sketch of Kenya and a catalogue of 51 built-in places, searchable by intent | Google Maps JavaScript API for the map and pins. Places Autocomplete, limited to Kenya, with session tokens and only six billed fields | `src/features/trip/TripMap.tsx`, `usePlaceSearch.ts` |
 | Lessons | A template picks phrases from the bank and adds a general brief | The Claude API writes the brief for the exact place and chooses phrases from the bank. JSON is validated with zod, retried once, then falls back to the template | `supabase/functions/generate-lesson/claude.ts` |
 | Accounts and data | One demo account in the browser | Supabase Auth, Postgres with Row Level Security, and an Edge Function that keeps the Anthropic key on the server | `supabase/migrations/`, `generate-lesson/index.ts` |
 
@@ -31,13 +31,13 @@ The switch is automatic. With no keys the app is the demo. Add the Supabase valu
 - **Lessons come from a phrase bank, not free text.** Language models make mistakes in Swahili, so the model may only choose from 95 phrases, each tagged by hand. It picks and explains. It does not invent.
 - **An AI switch.** With it on, Claude writes the brief and picks phrases, and its JSON is validated with zod. With it off, a template builds the lesson from the same candidates. The live site runs with it off, so it costs nothing to host.
 - **One pipeline, two runtimes.** Scoring, the slot plan and the template are pure TypeScript. The same files run in a Supabase Edge Function and in the browser demo.
-- **A Swahili voice, checked by a machine that understands Swahili.** Every phrase is spoken by Meta's MMS text to speech model for Swahili. A script records up to twenty two takes of each phrase, a Swahili speech recogniser listens to every take, and the clearest one is kept. A clip the recogniser could not understand is held back, so that phrase has no speaker button instead of a wrong sound. What was heard for every clip is in `docs/audio-report.json`. No speech service and no key at run time.
+- **A Swahili voice, checked by a machine that understands Swahili.** Every phrase is spoken by Meta's MMS text to speech model for Swahili. A script records many takes of each phrase, a Swahili speech recogniser listens to every take, and the clearest one is kept. Short words are the hard case, because the voice was trained on sentences. For those the word is spoken three times and the middle one is cut out using the model's own timing, which rescued words like Bahari and Kiboko. A clip the recogniser still could not understand is held back, so that phrase has no speaker button instead of a wrong sound. What was heard for every clip is in `docs/audio-report.json`. No speech service and no key at run time.
 - **Built to be corrected.** A public phrasebook lists all 95 phrases with their pronunciation guide and recording, including the eight recordings held back from lessons, so a Swahili speaker can judge them by ear. They leave a note beside any phrase and send all their notes at once by email, copy or file. No account and no server.
 - **Accessible colour, tested.** A test reads the real stylesheet and checks every text and background pairing in light, device dark and toggle dark against the 4.5 to 1 standard. It also fails if the two dark themes ever differ, which is the bug that once made answer feedback unreadable.
 - **Reviewed Swahili.** All 95 phrases have been reviewed by a Swahili teacher. Anything a model proposes later is marked unreviewed until someone checks it.
 - **A look that belongs to the subject.** Every finished lesson earns a kanga, the printed cloth that always carries a Swahili proverb, drawn in SVG from six colourways and four motifs. The icons are the app's own line set, not emoji. Light, dark or follow the device, with no flash on load.
 - **Real photos, properly credited.** A script resolves one freely licensed Wikimedia Commons photo per place in three batched requests, and saves the author and licence. Every photo is credited where it is shown and on the About page.
-- **Tests that read the lessons.** 124 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **Tests that read the lessons.** 130 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
 - **Row Level Security on every table**, with a database function so users never need write access to shared tables.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 
@@ -92,7 +92,8 @@ The app runs as the demo with no setup at all. To turn on accounts and server si
 When the Supabase values are missing, the app runs in demo mode. This is what the live demo link shows.
 
 - The landing page has one button, "Try the live demo". It opens a ready-made trip: Maasai Market, Diani Beach and the Maasai Mara, each with its own lesson.
-- Search a built-in list of 21 well known Kenyan places, one for every kind of place. Searching "Paris" finds nothing, like the real Kenya-only search.
+- A built-in catalogue of 51 well known Kenyan places. Search it by name or by what you want to do: "food", "eating" or "hungry" finds restaurants, "animals" finds parks, "swim" finds beaches, "train" finds stations. Typos are forgiven, so "restaruants" works, and "Paris" still finds nothing.
+- Or skip typing. "Browse places" opens the whole catalogue as photo cards, grouped into safari and nature, beaches, food, markets, towns, culture, places to stay and getting around. Places already on the trip are marked.
 - Add a place with a day and activities. It appears as a numbered pin on a sketch map of Kenya and as a row in the itinerary, with the "Preparing your lesson" state. Stops in the same town fan out into a ring so each pin can be clicked, and picking a pin shows its name and rings its row.
 - Lessons are built in the browser by the same pure functions the Edge Function uses, from the same seed phrases. The first stop teaches greetings and later stops do not. Each lesson carries a Swahili proverb from the seeded list, the kanga idea.
 - Every lesson starts by asking how long you have: Quick (3 minutes, 4 phrases), Standard (5 minutes, 6 phrases) or Deep (10 minutes, 8 phrases). A lesson holds eight phrases in priority order, so a shorter one studies the first few. The choice is remembered.
@@ -180,7 +181,7 @@ Built since the deadline: Google sign in and password reset, the theme toggle, a
 - `supabase/functions/_shared/pickCandidates.ts` scores every phrase in the bank by its tags. Greetings score high on the first stop and are dropped afterwards. Sheng is left out by default.
 - `supabase/functions/_shared/lessonPlan.ts` holds the tables: which tags matter for each kind of place, activity and region, and the six ordered slots a template lesson fills. A market is price, numbers, bargaining, numbers, shopping, bargaining. Each phrase's "why here" line comes from the slot that chose it.
 - `LessonScreen.tsx` reads the lesson JSON and loads the phrase rows it points at. `src/lib/quiz.ts` builds the practice as a pure function, with the multiple choice kinds in `quizChoice.ts` and the hands-on kinds in `quizProduce.ts`. Word tiles and gaps only ever use words that are already in the bank. `checkTyped.ts` marks typed answers, and `lessonLength.ts` holds the three lengths.
-- `src/lib/orderStops.ts` sorts stops by date and works out "Day 3". `src/lib/spreadPins.ts` fans out pins that would overlap. `src/lib/sounds.ts` plays the sound effects. All three are small and the first two are tested.
+- `src/lib/placeSearch.ts` searches the catalogue by intent with typo forgiveness, and is tested against the real catalogue. `src/lib/orderStops.ts` sorts stops by date and works out "Day 3". `src/lib/spreadPins.ts` fans out pins that would overlap. `src/lib/sounds.ts` plays the sound effects. All three are small and the first two are tested.
 
 ## Dependencies and why
 

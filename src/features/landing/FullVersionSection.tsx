@@ -5,7 +5,7 @@ import { Card } from '../../components/Card'
 const ROWS = [
   {
     part: 'Map and search',
-    demo: 'A sketch of Kenya and a built-in list of 21 places.',
+    demo: 'A sketch of Kenya and a built-in catalogue of 51 places, searchable by name or by what you want to do.',
     full: 'Google Maps Platform. The Maps JavaScript API draws the map with numbered pins, and Places Autocomplete, limited to Kenya, finds any hotel, market, park or beach.',
     code: 'TripMap.tsx, usePlaceSearch.ts',
   },
