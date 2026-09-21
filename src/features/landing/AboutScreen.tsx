@@ -5,7 +5,7 @@ import { Card } from '../../components/Card'
 import { Hero } from '../../components/Hero'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
-import { ReviewNote } from '../../components/ReviewNote'
+import { Footer } from '../../components/Footer'
 
 export function AboutScreen() {
   return (
@@ -30,7 +30,7 @@ export function AboutScreen() {
             <Link to="/signup"><Button variant="accent" tabIndex={-1}>Start the journey</Button></Link>
           </div>
         </Card>
-        <ReviewNote />
+        <Footer />
       </main>
     </div>
   )
