@@ -39,14 +39,16 @@ export function useLesson(userLessonId: string | undefined) {
     async function load() {
       const { data: row, error: readError } = await supabase
         .from('user_lessons')
-        .select('id, lesson:lessons(content, generated_by), trip_stop:trip_stops(place:places(google_place_id))')
+        .select('id, content, generated_by, lesson:lessons(content, generated_by), trip_stop:trip_stops(place:places(google_place_id))')
         .eq('id', userLessonId!)
         .single()
       if (readError || !row) {
         if (!cancelled) setError('We could not find that lesson.')
         return
       }
-      const lessonRow = row.lesson as unknown as { content: unknown; generated_by: string }
+      // A lesson comes from the shared table, or from the user's own row when it was built in the browser.
+      const shared = row.lesson as unknown as { content: unknown; generated_by: string } | null
+      const lessonRow = shared ?? { content: row.content, generated_by: (row.generated_by as string | null) ?? 'template' }
       const parsed = lessonSchema.safeParse(lessonRow.content)
       if (!parsed.success) {
         if (!cancelled) setError('This lesson is in a shape we do not understand.')

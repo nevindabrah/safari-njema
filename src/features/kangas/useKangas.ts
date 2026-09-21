@@ -18,6 +18,7 @@ export interface ShelfKanga {
 interface LessonRow {
   id: string
   status: string
+  content: { kanga?: { proverb: string; meaning: string } } | null
   lesson: { content: { kanga?: { proverb: string; meaning: string } } } | null
   trip_stop: { position: number; place: { name: string; google_place_id: string } } | null
 }
@@ -33,16 +34,18 @@ export function useKangas() {
         if (!cancelled) setKangas(listLocalKangas())
         return
       }
-      const { data } = await supabase.from('user_lessons').select('id, status, lesson:lessons(content), trip_stop:trip_stops(position, place:places(name, google_place_id))')
-      const rows = ((data ?? []) as unknown as LessonRow[]).filter((r) => r.lesson?.content.kanga && r.trip_stop)
+      const { data } = await supabase.from('user_lessons').select('id, status, content, lesson:lessons(content), trip_stop:trip_stops(position, place:places(name, google_place_id))')
+      // The lesson lives in the shared table, or in the user's own row when it was built in the browser.
+      const kangaOf = (r: LessonRow) => r.lesson?.content.kanga ?? r.content?.kanga
+      const rows = ((data ?? []) as unknown as LessonRow[]).filter((r) => kangaOf(r) && r.trip_stop)
       rows.sort((a, b) => a.trip_stop!.position - b.trip_stop!.position)
       if (!cancelled) {
         setKangas(rows.map((r) => ({
           userLessonId: r.id,
           placeName: r.trip_stop!.place.name,
           googlePlaceId: r.trip_stop!.place.google_place_id,
-          proverb: r.lesson!.content.kanga!.proverb,
-          meaning: r.lesson!.content.kanga!.meaning,
+          proverb: kangaOf(r)!.proverb,
+          meaning: kangaOf(r)!.meaning,
           earned: r.status === 'completed',
         })))
       }
