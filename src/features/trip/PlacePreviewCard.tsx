@@ -2,6 +2,7 @@
 // Exists so adding a stop is one tap with two optional choices.
 import { useState } from 'react'
 import { Button } from '../../components/Button'
+import { DatePicker } from '../../components/DatePicker'
 import { ACTIVITIES, type Trip } from '../../lib/types'
 import { Icon } from '../../components/icons'
 import { PlacePhoto, PhotoCredit } from '../places/PlacePhoto'
@@ -68,11 +69,9 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
           <button key={d} type="button" className={chip(visitDate === d)} onClick={() => setVisitDate(d)}>Day {i + 1}</button>
         ))}
         {/* Any date at all, inside the trip or not. Trip dates are a guide, never a limit. */}
-        <label className="flex items-center gap-2 text-sm font-bold text-muted">
-          {days.length > 0 ? 'or' : ''}
-          <input type="date" aria-label="Pick any date" value={visitDate ?? ''} onChange={(e) => setVisitDate(e.target.value || null)}
-            className={`px-3 min-h-[44px] rounded-pill font-bold ${visitDate && !days.slice(0, 14).includes(visitDate) ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`} />
-        </label>
+        {days.length > 0 && <span className="text-sm font-bold text-muted">or</span>}
+        <DatePicker label="Pick any date" placeholder="Any date" value={visitDate && !days.slice(0, 14).includes(visitDate) ? visitDate : null} active={Boolean(visitDate && !days.slice(0, 14).includes(visitDate))}
+          tripStart={trip.start_date} tripEnd={trip.end_date} onChange={setVisitDate} />
       </div>
 
       <p className="text-sm font-bold mt-4 mb-2">What will you do there? Optional</p>

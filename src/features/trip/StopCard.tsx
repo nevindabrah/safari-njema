@@ -6,11 +6,15 @@ import { Button } from '../../components/Button'
 import { Icon } from '../../components/icons'
 import type { StopRow } from '../../lib/types'
 import { PlacePhoto } from '../places/PlacePhoto'
+import { DatePicker } from '../../components/DatePicker'
 import { PLACE_TYPE_INFO } from './placeTypes'
 
 interface StopCardProps {
   stop: StopRow
   number: number
+  // The trip's dates, so the calendar can open on the right month and tint the trip's days.
+  tripStart: string | null
+  tripEnd: string | null
   highlighted: boolean
   onSelect: () => void
   onDelete: () => void
@@ -18,7 +22,7 @@ interface StopCardProps {
   onMove: (visitDate: string | null) => void
 }
 
-export function StopCard({ stop, number, highlighted, onSelect, onDelete, onRetry, onMove }: StopCardProps) {
+export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSelect, onDelete, onRetry, onMove }: StopCardProps) {
   const info = PLACE_TYPE_INFO[stop.place.place_type]
   const lessonId = stop.user_lessons[0]?.id
   const completed = stop.user_lessons[0]?.status === 'completed'
@@ -48,11 +52,8 @@ export function StopCard({ stop, number, highlighted, onSelect, onDelete, onRetr
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-        <label className="flex items-center gap-2">
-          <span className="text-muted font-bold">Day</span>
-          <input type="date" aria-label={`Day for ${stop.place.name}`} value={stop.visit_date ?? ''} onChange={(e) => onMove(e.target.value || null)} className="min-h-[44px] text-base px-3 rounded-pill bg-tint font-bold" />
-        </label>
-        {stop.visit_date && <button type="button" onClick={() => onMove(null)} className="underline font-bold text-muted min-h-[44px] px-2 cursor-pointer">No date</button>}
+        <span className="text-muted font-bold">Day</span>
+        <DatePicker label={`Day for ${stop.place.name}`} placeholder="No date yet" value={stop.visit_date} tripStart={tripStart} tripEnd={tripEnd} onChange={onMove} />
       </div>
 
       <div className="mt-3">

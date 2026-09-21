@@ -1,5 +1,6 @@
 // The trip's start and end dates, editable at any time and both optional.
 // Exists so day chips and "Day 3" labels follow the real trip, and so a trip with no dates still works.
+import { DatePicker } from '../../components/DatePicker'
 import type { Trip } from '../../lib/types'
 
 interface TripDatesProps {
@@ -8,19 +9,15 @@ interface TripDatesProps {
 }
 
 export function TripDates({ trip, onChange }: TripDatesProps) {
-  const inputClass = 'min-h-[44px] px-3 rounded-pill bg-tint text-base font-bold'
   return (
     <div className="flex flex-wrap items-center gap-2 text-sm">
-      <label className="flex items-center gap-2">
-        <span className="text-muted font-bold">From</span>
-        <input type="date" className={inputClass} value={trip.start_date ?? ''} onChange={(e) => onChange(e.target.value || null, trip.end_date)} />
-      </label>
-      <label className="flex items-center gap-2">
-        <span className="text-muted font-bold">to</span>
-        <input type="date" className={inputClass} value={trip.end_date ?? ''} min={trip.start_date ?? undefined} onChange={(e) => onChange(trip.start_date, e.target.value || null)} />
-      </label>
+      <span className="text-muted font-bold">From</span>
+      <DatePicker label="First day of the trip" placeholder="First day" value={trip.start_date} tripStart={trip.start_date} tripEnd={trip.end_date} onChange={(day) => onChange(day, trip.end_date)} />
+      <span className="text-muted font-bold">to</span>
+      {/* An end before the start is moved up to the start by useTrip, so any day can be picked here. */}
+      <DatePicker label="Last day of the trip" placeholder="Last day" value={trip.end_date} tripStart={trip.start_date} tripEnd={trip.end_date} onChange={(day) => onChange(trip.start_date, day)} />
       {(trip.start_date || trip.end_date) && (
-        <button type="button" onClick={() => onChange(null, null)} className="underline font-bold text-muted min-h-[40px] px-1 cursor-pointer">No dates yet</button>
+        <button type="button" onClick={() => onChange(null, null)} className="underline font-bold text-muted min-h-[44px] px-1 cursor-pointer">No dates yet</button>
       )}
     </div>
   )

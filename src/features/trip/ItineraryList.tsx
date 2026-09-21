@@ -58,6 +58,8 @@ export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, 
                 key={stop.id}
                 stop={stop}
                 number={stops.indexOf(stop) + 1}
+                tripStart={trip.start_date}
+                tripEnd={trip.end_date}
                 highlighted={stop.id === highlightedId}
                 onSelect={() => onSelect(stop.id)}
                 onDelete={() => onDelete(stop.id)}
