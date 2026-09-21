@@ -14,33 +14,84 @@ interface Chapter {
   phrases: Array<[string, string, string]>
 }
 
-// Lesson tags for each v1 chapter. These are metadata for phrase selection, not changes to the Swahili.
-const CHAPTER_TAGS: Record<string, string[]> = {
-  salamu: ['greeting', 'polite'],
-  uwanja: ['airport', 'transport', 'help'],
-  usafiri: ['transport', 'directions', 'numbers'],
-  chakula: ['food', 'drink'],
-  sokoni: ['market', 'bargaining', 'numbers', 'money'],
-  safari: ['safari', 'animals', 'questions'],
-  pwani: ['coast', 'beach'],
-  msaada: ['help', 'emergency'],
+// Every phrase gets its chapter's base tag, plus the per phrase tags below.
+// Tags are metadata for choosing phrases. The Swahili, pronunciation and English are never changed.
+const CHAPTER_BASE: Record<string, string> = {
+  salamu: 'basics', uwanja: 'airport', usafiri: 'transport', chakula: 'food',
+  sokoni: 'market', safari: 'safari', pwani: 'coast', msaada: 'help',
 }
 
-// A few phrases carry an extra tag or a different register. Keyed by the exact Swahili text.
-const EXTRA_TAGS: Record<string, string[]> = {
-  'Hujambo? / Sijambo': ['greeting', 'coastal'],
-  'Habari za asubuhi?': ['greeting', 'coastal'],
-  'Salama': ['greeting', 'coastal'],
-  'Tutaonana': ['greeting', 'coastal'],
-  'Naomba bili': ['money'],
-  'Naweza kulipa na M-Pesa?': ['money'],
-  'Ni shilingi ngapi?': ['numbers', 'money'],
-  'Nauli ni ngapi?': ['money'],
-  'Naomba chenji yangu': ['money'],
-  'Naweza kupiga picha?': ['polite'],
+// Keyed by the exact Swahili text in v1. The script stops if a key here matches no phrase, so a typo cannot slip through.
+const PHRASE_TAGS: Record<string, string[]> = {
+  'Habari?': ['greeting', 'core_greeting', 'essential'],
+  'Nzuri': ['greeting', 'core_greeting', 'essential'],
+  'Sasa? / Poa': ['greeting'],
+  'Shikamoo / Marahaba': ['greeting', 'respect'],
+  'Asante sana': ['polite', 'essential'],
+  'Karibu': ['polite'],
+  'Tafadhali': ['polite'],
+  'Samahani': ['polite'],
+  'Jina langu ni Sam': ['introductions'],
+  'Unaitwa nani?': ['introductions', 'questions'],
+  'Ninajifunza Kiswahili': ['introductions'],
+  'Sema polepole, tafadhali': ['help'],
+  'Sielewi': ['help'],
+  'Kwaheri': ['farewell'],
+  'Mizigo yangu iko wapi?': ['questions'],
+  'Choo kiko wapi?': ['help', 'questions'],
+  'Ninahitaji teksi': ['transport'],
+  'Naweza kubadilisha pesa wapi?': ['cash'],
+  'Nipeleke hotelini, tafadhali': ['transport', 'hotel'],
+  'Ni shilingi ngapi?': ['price'],
+  'Nauli ni ngapi?': ['fare', 'essential'],
+  'Naomba chenji yangu': ['fare'],
+  'Kushoto / Kulia': ['directions'],
+  'Moja kwa moja': ['directions'],
+  'Ni mbali?': ['directions'],
+  'Kituo cha treni kiko wapi?': ['directions'],
+  'Naomba menyu': ['ordering', 'essential'],
+  'Naomba maji': ['ordering', 'drink'],
+  'Ningependa nyama choma na ugali': ['ordering'],
+  'Baridi / Moto': ['drink'],
+  'Naomba bili': ['ordering', 'paying'],
+  'Naweza kulipa na M-Pesa?': ['paying'],
+  'Moja, mbili, tatu, nne, tano': ['numbers'],
+  'Sita, saba, nane, tisa, kumi': ['numbers'],
+  'Mia / Elfu': ['numbers'],
+  'Mia tano': ['numbers'],
+  'Hii ni bei gani?': ['bargaining', 'price', 'essential'],
+  'Ni ghali sana': ['bargaining'],
+  'Punguza bei, tafadhali': ['bargaining', 'essential'],
+  'Bei ya mwisho ni ngapi?': ['bargaining'],
+  'Naangalia tu': ['shopping'],
+  'Una rangi nyingine?': ['shopping'],
+  'Nitachukua hii': ['shopping'],
+  'Sitaki, asante': ['shopping'],
+  'Simba': ['animals'], 'Tembo / Ndovu': ['animals'], 'Twiga': ['animals'], 'Chui': ['animals'], 'Duma': ['animals'],
+  'Kifaru': ['animals'], 'Nyati': ['animals'], 'Punda milia': ['animals'], 'Kiboko': ['animals'], 'Nyumbu': ['animals'],
+  'Angalia!': ['guide'],
+  'Ni mnyama gani huyo?': ['guide', 'essential'],
+  'Tunaweza kusimama hapa?': ['guide'],
+  'Naweza kupiga picha?': ['guide', 'polite', 'questions'],
   'Hakuna shida': ['polite'],
+  'Bahari': ['beach'], 'Pwani': ['beach'], 'Jahazi': ['beach'],
+  'Samaki': ['food'],
+  'Madafu': ['drink', 'food'],
+  'Kuna joto sana leo': ['smalltalk'],
+  'Naweza kuogelea hapa?': ['beach'],
+  'Nisaidie, tafadhali': ['essential'],
+  'Hujambo? / Sijambo': ['greeting', 'coastal_greeting', 'coastal'],
+  'Habari za asubuhi?': ['greeting', 'coastal_greeting', 'coastal'],
+  'Salama': ['greeting', 'coastal_greeting', 'coastal'],
+  'Tutaonana': ['farewell', 'coastal'],
+  'Ninaumwa': ['emergency'], 'Hospitali iko wapi?': ['emergency'], 'Ninahitaji daktari': ['emergency'], 'Dawa': ['emergency'],
+  'Unaongea Kiingereza?': ['questions'],
   'Pole': ['polite'],
 }
+// These phrases sit in a chapter but are not that chapter's kind of phrase, so they skip its base tag.
+// Coastal greetings are not coast vocabulary, and Pole is sympathy, not a request for help.
+const NO_BASE_TAG = new Set(['Hujambo? / Sijambo', 'Habari za asubuhi?', 'Salama', 'Tutaonana', 'Pole'])
+
 const REGISTER: Record<string, string> = {
   'Sasa? / Poa': 'sheng',
   'Hujambo? / Sijambo': 'coastal',
@@ -90,15 +141,22 @@ const phrases = chapters.flatMap((chapter) =>
     swahili,
     pronunciation,
     english,
-    tags: [...new Set([...(CHAPTER_TAGS[chapter.id] ?? ['questions']), ...(EXTRA_TAGS[swahili] ?? [])])],
+    tags: [...new Set([...(NO_BASE_TAG.has(swahili) ? [] : [CHAPTER_BASE[chapter.id] ?? 'basics']), ...(PHRASE_TAGS[swahili] ?? [])])],
     register: REGISTER[swahili] ?? 'standard',
     accepted_variants: [],
     source: `v1 chapter ${chapter.id}: ${chapter.en}`,
   })),
 )
 
+const allSwahili = new Set(phrases.map((p) => p.swahili))
+const unmatched = [...Object.keys(PHRASE_TAGS), ...Object.keys(REGISTER)].filter((key) => !allSwahili.has(key))
+if (unmatched.length > 0) {
+  console.error('These tag keys match no phrase in v1:', unmatched)
+  process.exit(1)
+}
+
 // Proverbs: one per chapter, plus the two used on the v1 home and About screens.
-const proverbs = chapters.map((chapter) => ({ swahili: chapter.jina[0], meaning: chapter.jina[1], themes: CHAPTER_TAGS[chapter.id] ?? [] }))
+const proverbs = chapters.map((chapter) => ({ swahili: chapter.jina[0], meaning: chapter.jina[1], themes: [CHAPTER_BASE[chapter.id] ?? 'general'] }))
 for (const swahili of ['Haba na haba hujaza kibaba', 'Mtu ni watu']) {
   const match = html.match(new RegExp(`"${swahili}","([^"]+)"`))
   if (match) proverbs.push({ swahili, meaning: match[1], themes: ['general'] })

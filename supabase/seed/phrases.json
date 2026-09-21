@@ -4,8 +4,10 @@
     "pronunciation": "ha-BA-ri",
     "english": "How are you? (literally: news?)",
     "tags": [
+      "basics",
       "greeting",
-      "polite"
+      "core_greeting",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -16,8 +18,10 @@
     "pronunciation": "n-ZU-ri",
     "english": "Good. The standard reply to Habari",
     "tags": [
+      "basics",
       "greeting",
-      "polite"
+      "core_greeting",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -28,8 +32,8 @@
     "pronunciation": "SA-sa / PO-a",
     "english": "What's up? / Cool (Nairobi slang)",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "greeting"
     ],
     "register": "sheng",
     "accepted_variants": [],
@@ -40,8 +44,9 @@
     "pronunciation": "shi-ka-MO / ma-ra-HA-ba",
     "english": "Respectful greeting to an elder / the elder's reply",
     "tags": [
+      "basics",
       "greeting",
-      "polite"
+      "respect"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -52,8 +57,9 @@
     "pronunciation": "a-SAN-te SA-na",
     "english": "Thank you very much",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "polite",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -64,7 +70,7 @@
     "pronunciation": "ka-RI-bu",
     "english": "Welcome. Also: you're welcome",
     "tags": [
-      "greeting",
+      "basics",
       "polite"
     ],
     "register": "standard",
@@ -76,7 +82,7 @@
     "pronunciation": "ta-fa-DHA-li",
     "english": "Please",
     "tags": [
-      "greeting",
+      "basics",
       "polite"
     ],
     "register": "standard",
@@ -88,7 +94,7 @@
     "pronunciation": "sa-ma-HA-ni",
     "english": "Excuse me, sorry",
     "tags": [
-      "greeting",
+      "basics",
       "polite"
     ],
     "register": "standard",
@@ -100,8 +106,7 @@
     "pronunciation": "n-DI-yo / ha-PA-na",
     "english": "Yes / No",
     "tags": [
-      "greeting",
-      "polite"
+      "basics"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -112,8 +117,7 @@
     "pronunciation": "SA-wa",
     "english": "Okay",
     "tags": [
-      "greeting",
-      "polite"
+      "basics"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -124,8 +128,8 @@
     "pronunciation": "JI-na LAN-gu ni",
     "english": "My name is Sam",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "introductions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -136,8 +140,9 @@
     "pronunciation": "u-na-IT-wa NA-ni",
     "english": "What is your name?",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "introductions",
+      "questions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -148,8 +153,8 @@
     "pronunciation": "ni-na-ji-FUN-za ki-swa-HI-li",
     "english": "I am learning Swahili",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "introductions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -160,8 +165,8 @@
     "pronunciation": "SE-ma po-le-PO-le",
     "english": "Speak slowly, please",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "help"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -172,8 +177,8 @@
     "pronunciation": "si-e-LE-wi",
     "english": "I don't understand",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "help"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -184,8 +189,8 @@
     "pronunciation": "kwa-HE-ri",
     "english": "Goodbye",
     "tags": [
-      "greeting",
-      "polite"
+      "basics",
+      "farewell"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -196,9 +201,7 @@
     "pronunciation": "pa-si-PO-ti",
     "english": "Passport",
     "tags": [
-      "airport",
-      "transport",
-      "help"
+      "airport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -209,9 +212,7 @@
     "pronunciation": "ni-me-KU-ja kwa u-ta-LI-i",
     "english": "I have come for tourism",
     "tags": [
-      "airport",
-      "transport",
-      "help"
+      "airport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -222,9 +223,7 @@
     "pronunciation": "ni-ta-KA-a WI-ki m-BI-li",
     "english": "I will stay two weeks",
     "tags": [
-      "airport",
-      "transport",
-      "help"
+      "airport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -236,8 +235,7 @@
     "english": "Where is my luggage?",
     "tags": [
       "airport",
-      "transport",
-      "help"
+      "questions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -249,8 +247,8 @@
     "english": "Where is the toilet?",
     "tags": [
       "airport",
-      "transport",
-      "help"
+      "help",
+      "questions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -262,8 +260,7 @@
     "english": "I need a taxi",
     "tags": [
       "airport",
-      "transport",
-      "help"
+      "transport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -274,9 +271,7 @@
     "pronunciation": "ni-na-hi-TA-ji la-I-ni ya SI-mu",
     "english": "I need a SIM card",
     "tags": [
-      "airport",
-      "transport",
-      "help"
+      "airport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -288,8 +283,7 @@
     "english": "Where can I change money?",
     "tags": [
       "airport",
-      "transport",
-      "help"
+      "cash"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -302,7 +296,7 @@
     "tags": [
       "airport",
       "transport",
-      "help"
+      "hotel"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -314,10 +308,7 @@
     "english": "How many shillings is it?",
     "tags": [
       "airport",
-      "transport",
-      "help",
-      "numbers",
-      "money"
+      "price"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -329,9 +320,8 @@
     "english": "How much is the fare?",
     "tags": [
       "transport",
-      "directions",
-      "numbers",
-      "money"
+      "fare",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -342,9 +332,7 @@
     "pronunciation": "u-na-EN-da m-JI-ni",
     "english": "Are you going to town?",
     "tags": [
-      "transport",
-      "directions",
-      "numbers"
+      "transport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -355,9 +343,7 @@
     "pronunciation": "ni-SHU-she HA-pa",
     "english": "Drop me here, please",
     "tags": [
-      "transport",
-      "directions",
-      "numbers"
+      "transport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -368,9 +354,7 @@
     "pronunciation": "si-MA-ma HA-pa",
     "english": "Stop here",
     "tags": [
-      "transport",
-      "directions",
-      "numbers"
+      "transport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -381,9 +365,7 @@
     "pronunciation": "TWEN-de",
     "english": "Let's go",
     "tags": [
-      "transport",
-      "directions",
-      "numbers"
+      "transport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -394,9 +376,7 @@
     "pronunciation": "po-le-PO-le",
     "english": "Slowly, please",
     "tags": [
-      "transport",
-      "directions",
-      "numbers"
+      "transport"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -408,8 +388,7 @@
     "english": "Left / Right",
     "tags": [
       "transport",
-      "directions",
-      "numbers"
+      "directions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -421,8 +400,7 @@
     "english": "Straight ahead",
     "tags": [
       "transport",
-      "directions",
-      "numbers"
+      "directions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -434,8 +412,7 @@
     "english": "Is it far?",
     "tags": [
       "transport",
-      "directions",
-      "numbers"
+      "directions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -447,9 +424,7 @@
     "english": "My change, please",
     "tags": [
       "transport",
-      "directions",
-      "numbers",
-      "money"
+      "fare"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -461,8 +436,7 @@
     "english": "Where is the train station?",
     "tags": [
       "transport",
-      "directions",
-      "numbers"
+      "directions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -474,7 +448,8 @@
     "english": "May I have the menu",
     "tags": [
       "food",
-      "drink"
+      "ordering",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -486,6 +461,7 @@
     "english": "Water, please",
     "tags": [
       "food",
+      "ordering",
       "drink"
     ],
     "register": "standard",
@@ -498,7 +474,7 @@
     "english": "I would like roast meat and ugali",
     "tags": [
       "food",
-      "drink"
+      "ordering"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -509,8 +485,7 @@
     "pronunciation": "NU-su KI-lo",
     "english": "Half a kilo",
     "tags": [
-      "food",
-      "drink"
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -521,8 +496,7 @@
     "pronunciation": "BI-la pi-li-PI-li",
     "english": "Without chili",
     "tags": [
-      "food",
-      "drink"
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -533,8 +507,7 @@
     "pronunciation": "SI-li NYA-ma",
     "english": "I don't eat meat",
     "tags": [
-      "food",
-      "drink"
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -557,8 +530,7 @@
     "pronunciation": "cha-KU-la ni ki-TA-mu SA-na",
     "english": "The food is very tasty",
     "tags": [
-      "food",
-      "drink"
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -569,8 +541,7 @@
     "pronunciation": "ni-me-SHI-ba",
     "english": "I am full",
     "tags": [
-      "food",
-      "drink"
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -582,8 +553,8 @@
     "english": "The bill, please",
     "tags": [
       "food",
-      "drink",
-      "money"
+      "ordering",
+      "paying"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -595,8 +566,7 @@
     "english": "Can I pay with M-Pesa?",
     "tags": [
       "food",
-      "drink",
-      "money"
+      "paying"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -608,9 +578,7 @@
     "english": "One, two, three, four, five",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "numbers"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -622,9 +590,7 @@
     "english": "Six, seven, eight, nine, ten",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "numbers"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -636,9 +602,7 @@
     "english": "Hundred / Thousand",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "numbers"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -650,9 +614,7 @@
     "english": "Five hundred",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "numbers"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -665,8 +627,8 @@
     "tags": [
       "market",
       "bargaining",
-      "numbers",
-      "money"
+      "price",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -678,9 +640,7 @@
     "english": "It is too expensive",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "bargaining"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -693,8 +653,7 @@
     "tags": [
       "market",
       "bargaining",
-      "numbers",
-      "money"
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -706,9 +665,7 @@
     "english": "What is your last price?",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "bargaining"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -720,9 +677,7 @@
     "english": "I am just looking",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "shopping"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -734,9 +689,7 @@
     "english": "Do you have another colour?",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "shopping"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -748,9 +701,7 @@
     "english": "I will take this one",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "shopping"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -762,9 +713,7 @@
     "english": "I don't want it, thank you",
     "tags": [
       "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "shopping"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -776,8 +725,7 @@
     "english": "Lion",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -789,8 +737,7 @@
     "english": "Elephant",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -802,8 +749,7 @@
     "english": "Giraffe",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -815,8 +761,7 @@
     "english": "Leopard",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -828,8 +773,7 @@
     "english": "Cheetah",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -841,8 +785,7 @@
     "english": "Rhino",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -854,8 +797,7 @@
     "english": "Buffalo",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -867,8 +809,7 @@
     "english": "Zebra (striped donkey)",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -880,8 +821,7 @@
     "english": "Hippo",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -893,8 +833,7 @@
     "english": "Wildebeest",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "animals"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -906,8 +845,7 @@
     "english": "Look!",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "guide"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -919,8 +857,8 @@
     "english": "What animal is that?",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "guide",
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -932,8 +870,7 @@
     "english": "Can we stop here?",
     "tags": [
       "safari",
-      "animals",
-      "questions"
+      "guide"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -945,9 +882,9 @@
     "english": "May I take a photo?",
     "tags": [
       "safari",
-      "animals",
-      "questions",
-      "polite"
+      "guide",
+      "polite",
+      "questions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -959,8 +896,6 @@
     "english": "No problem",
     "tags": [
       "safari",
-      "animals",
-      "questions",
       "polite"
     ],
     "register": "standard",
@@ -1009,7 +944,7 @@
     "english": "Fish",
     "tags": [
       "coast",
-      "beach"
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1021,7 +956,8 @@
     "english": "Fresh coconut water",
     "tags": [
       "coast",
-      "beach"
+      "drink",
+      "food"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1033,7 +969,7 @@
     "english": "It is very hot today",
     "tags": [
       "coast",
-      "beach"
+      "smalltalk"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1056,9 +992,8 @@
     "pronunciation": "hu-JAM-bo / si-JAM-bo",
     "english": "Are you well? / I am well",
     "tags": [
-      "coast",
-      "beach",
       "greeting",
+      "coastal_greeting",
       "coastal"
     ],
     "register": "coastal",
@@ -1070,9 +1005,8 @@
     "pronunciation": "ha-BA-ri za a-su-BU-hi",
     "english": "How is your morning?",
     "tags": [
-      "coast",
-      "beach",
       "greeting",
+      "coastal_greeting",
       "coastal"
     ],
     "register": "coastal",
@@ -1084,9 +1018,8 @@
     "pronunciation": "sa-LA-ma",
     "english": "Peaceful, all is well",
     "tags": [
-      "coast",
-      "beach",
       "greeting",
+      "coastal_greeting",
       "coastal"
     ],
     "register": "coastal",
@@ -1098,9 +1031,7 @@
     "pronunciation": "tu-ta-o-NA-na",
     "english": "We will see each other again",
     "tags": [
-      "coast",
-      "beach",
-      "greeting",
+      "farewell",
       "coastal"
     ],
     "register": "coastal",
@@ -1113,7 +1044,7 @@
     "english": "Help me, please",
     "tags": [
       "help",
-      "emergency"
+      "essential"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1124,8 +1055,7 @@
     "pronunciation": "ni-me-po-TE-a",
     "english": "I am lost",
     "tags": [
-      "help",
-      "emergency"
+      "help"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1184,8 +1114,7 @@
     "pronunciation": "SI-mu YAN-gu i-me-po-TE-a",
     "english": "My phone is lost",
     "tags": [
-      "help",
-      "emergency"
+      "help"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1197,7 +1126,7 @@
     "english": "Do you speak English?",
     "tags": [
       "help",
-      "emergency"
+      "questions"
     ],
     "register": "standard",
     "accepted_variants": [],
@@ -1208,8 +1137,6 @@
     "pronunciation": "PO-le",
     "english": "Sorry (for what happened to you)",
     "tags": [
-      "help",
-      "emergency",
       "polite"
     ],
     "register": "standard",

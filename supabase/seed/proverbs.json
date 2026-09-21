@@ -3,69 +3,56 @@
     "swahili": "Heshima si utumwa",
     "meaning": "Respect is not servitude. Being polite costs you nothing.",
     "themes": [
-      "greeting",
-      "polite"
+      "basics"
     ]
   },
   {
     "swahili": "Mgeni njoo, mwenyeji apone",
     "meaning": "Let the guest come, so the host may be well.",
     "themes": [
-      "airport",
-      "transport",
-      "help"
+      "airport"
     ]
   },
   {
     "swahili": "Pole pole ndio mwendo",
     "meaning": "Slowly, slowly is the way to travel.",
     "themes": [
-      "transport",
-      "directions",
-      "numbers"
+      "transport"
     ]
   },
   {
     "swahili": "Haraka haraka haina baraka",
     "meaning": "Hurry, hurry has no blessing.",
     "themes": [
-      "food",
-      "drink"
+      "food"
     ]
   },
   {
     "swahili": "Kizuri chajiuza, kibaya chajitembeza",
     "meaning": "A good thing sells itself. A bad thing has to advertise.",
     "themes": [
-      "market",
-      "bargaining",
-      "numbers",
-      "money"
+      "market"
     ]
   },
   {
     "swahili": "Kuishi kwingi ni kuona mengi",
     "meaning": "To live long is to see much.",
     "themes": [
-      "safari",
-      "animals",
-      "questions"
+      "safari"
     ]
   },
   {
     "swahili": "Maji ya kifuu ni bahari ya chungu",
     "meaning": "Water in a coconut shell is an ocean to an ant.",
     "themes": [
-      "coast",
-      "beach"
+      "coast"
     ]
   },
   {
     "swahili": "Kuuliza si ujinga",
     "meaning": "To ask is not foolishness.",
     "themes": [
-      "help",
-      "emergency"
+      "help"
     ]
   },
   {
