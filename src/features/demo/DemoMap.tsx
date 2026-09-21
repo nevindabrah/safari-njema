@@ -1,7 +1,9 @@
 // The demo's stand-in for the Google map: a sketch of Kenya with numbered pins and a route line, all in one SVG.
 // Exists so pins, order and highlighting can be shown with no Maps key. Longitude is x and latitude is y, flipped.
+import { useState } from 'react'
 import type { StopRow } from '../../lib/types'
 import type { PickedPlace } from '../trip/usePlaceSearch'
+import { spreadPins } from '../../lib/spreadPins'
 import { CITY_LABELS, KENYA, LAKE_TURKANA, LAKE_VICTORIA, OCEAN } from './kenyaOutline'
 
 // SVG y grows downwards, so latitude is negated. This close to the equator one degree is about the same both ways.
@@ -18,8 +20,16 @@ interface DemoMapProps {
 
 export function DemoMap({ stops, preview, highlightedId, onPinClick }: DemoMapProps) {
   // A city label is hidden when a pin sits on top of it.
+  // Which pin has keyboard focus. The ring is drawn inside the SVG, because a CSS outline here is scaled up by the map
+  // and a 3 pixel ring becomes a blob that covers half of Kenya.
+  const [focusedId, setFocusedId] = useState<string | null>(null)
   const labels = CITY_LABELS.filter((city) => !stops.some((s) => Math.abs(Number(s.place.lat) - city.lat) < 0.8 && Math.abs(Number(s.place.lng) - city.lng) < 1.6))
-  const route = stops.map((s) => `${Number(s.place.lng)},${-Number(s.place.lat)}`).join(' ')
+  const real = stops.map((s) => ({ x: Number(s.place.lng), y: -Number(s.place.lat) }))
+  // Stops in the same town would land on one spot, where only the top pin could be clicked. They fan out into a ring instead.
+  const shown = spreadPins(real, 0.84)
+  const route = shown.map((p) => `${p.x},${p.y}`).join(' ')
+  // SVG draws later things on top, so the selected pin goes last.
+  const drawOrder = stops.map((_, i) => i).sort((a, b) => Number(stops[a].id === highlightedId) - Number(stops[b].id === highlightedId))
 
   return (
     <div className="absolute inset-0" style={{ background: 'var(--map-ground)' }}>
@@ -39,28 +49,45 @@ export function DemoMap({ stops, preview, highlightedId, onPinClick }: DemoMapPr
 
         {stops.length > 1 && <polyline points={route} fill="none" stroke="var(--accent)" strokeWidth="0.08" strokeLinejoin="round" strokeLinecap="round" strokeDasharray="0.02 0.2" />}
 
-        {stops.map((stop, index) => {
+        {/* A pin that was moved keeps a small dot and a line back to where the place really is. */}
+        {stops.map((stop, i) => Math.hypot(shown[i].x - real[i].x, shown[i].y - real[i].y) > 0.05 && (
+          <g key={`anchor-${stop.id}`} aria-hidden="true">
+            <line x1={real[i].x} y1={real[i].y} x2={shown[i].x} y2={shown[i].y} stroke="var(--muted)" strokeWidth="0.04" />
+            <circle cx={real[i].x} cy={real[i].y} r="0.08" fill="var(--muted)" />
+          </g>
+        ))}
+
+        {drawOrder.map((i) => {
+          const stop = stops[i]
           const highlighted = stop.id === highlightedId
           return (
             <g
               key={stop.id}
               role="button"
               tabIndex={0}
-              aria-label={`Stop ${index + 1}, ${stop.place.name}`}
+              aria-label={`Stop ${i + 1}, ${stop.place.name}`}
+              aria-pressed={highlighted}
               onClick={() => onPinClick(stop.id)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onPinClick(stop.id) }}
-              style={{ cursor: 'pointer' }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPinClick(stop.id) } }}
+              onFocus={() => setFocusedId(stop.id)}
+              onBlur={() => setFocusedId(null)}
+              style={{ cursor: 'pointer', outline: 'none' }}
             >
               <title>{stop.place.name}</title>
-              <circle cx={Number(stop.place.lng)} cy={-Number(stop.place.lat)} r={highlighted ? 0.46 : 0.38} fill={highlighted ? 'var(--primary)' : 'var(--accent)'} stroke="var(--surface)" strokeWidth="0.09" />
-              <text x={Number(stop.place.lng)} y={-Number(stop.place.lat) + 0.13} fontSize="0.38" fontWeight="800" textAnchor="middle" fill={highlighted ? 'var(--on-primary)' : 'var(--on-accent)'}>{index + 1}</text>
+              {/* An invisible larger circle, so the pin is easy to hit with a finger. */}
+              <circle cx={shown[i].x} cy={shown[i].y} r="0.6" fill="transparent" stroke={focusedId === stop.id ? 'var(--text)' : 'none'} strokeWidth="0.06" strokeDasharray="0.14 0.1" />
+              <circle cx={shown[i].x} cy={shown[i].y} r={highlighted ? 0.46 : 0.38} fill={highlighted ? 'var(--primary)' : 'var(--accent)'} stroke="var(--surface)" strokeWidth="0.09" />
+              <text x={shown[i].x} y={shown[i].y + 0.13} fontSize="0.38" fontWeight="800" textAnchor="middle" fill={highlighted ? 'var(--on-primary)' : 'var(--on-accent)'} style={{ pointerEvents: 'none' }}>{i + 1}</text>
+              {highlighted && (
+                <text x={shown[i].x} y={shown[i].y - 0.68} fontSize="0.36" fontWeight="800" textAnchor="middle" fill="var(--text)" stroke="var(--surface)" strokeWidth="0.14" paintOrder="stroke" style={{ pointerEvents: 'none' }}>{stop.place.name}</text>
+              )}
             </g>
           )
         })}
 
-        {preview && <circle cx={preview.lng} cy={-preview.lat} r="0.26" fill="var(--hero)" stroke="var(--surface)" strokeWidth="0.09" className="animate-pulse" />}
+        {preview && <circle cx={preview.lng} cy={-preview.lat} r="0.26" fill="var(--hero)" stroke="var(--surface)" strokeWidth="0.09" className="animate-pulse" style={{ pointerEvents: 'none' }} />}
       </svg>
-      <p className="absolute bottom-3 left-4 right-4 text-xs text-muted text-center">
+      <p className="absolute bottom-3 left-4 right-4 text-xs text-muted text-center pointer-events-none">
         Sketch map for the demo. With a Google Maps key this panel is the real map with live place search.
       </p>
     </div>
