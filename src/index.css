@@ -3,57 +3,79 @@
 @import "tailwindcss";
 
 :root {
-  /* Kanga colourway: marigold, deep ink, hibiscus pink. */
-  --marigold: #f2a900;
-  --ink: #1b1b2f;
-  --hibiscus: #e5397b;
-  --leaf: #2e9e6b;
+  /* Kanga colourway from the v1 design reference: sun, ink, pink, green. */
+  --marigold: #ffc83d;
+  --ink: #15173a;
+  --hibiscus: #e5386d;
+  --leaf: #12a06f;
 
-  --bg: #fbf7f0;
+  --bg: #f5f6fb;
   --surface: #ffffff;
-  --surface-2: #fff7e6;
-  --text: #1b1b2f;
-  --muted: #6b6b7b;
-  --tint: #fff1cf;
-  --tint-2: #fde3ec;
-  --line: rgba(27, 27, 47, 0.08);
+  --surface-2: #f5f6fb;
+  --text: #15173a;
+  --muted: #62668a;
+  --tint: #fff3cc;
+  --tint-2: #dff5ec;
+  --line: #e4e6f2;
 
   --hero: var(--marigold);
   --on-hero: var(--ink);
   --accent: var(--hibiscus);
-  --accent-edge: #b8245c;
+  --accent-edge: #b3224f;
   --on-accent: #ffffff;
   --primary: var(--ink);
-  --primary-edge: #0b0b1a;
+  --primary-edge: #090a1e;
   --on-primary: #ffffff;
   --success: var(--leaf);
 
   --radius-card: 28px;
   --radius-input: 16px;
   --radius-pill: 999px;
-  --shadow-soft: 0 12px 40px rgba(27, 27, 47, 0.08);
-  --shadow-lift: 0 18px 50px rgba(27, 27, 47, 0.14);
+  --shadow-soft: 0 1px 2px rgba(21, 23, 58, 0.05), 0 16px 36px -16px rgba(21, 23, 58, 0.22);
+  --shadow-lift: 0 2px 4px rgba(21, 23, 58, 0.06), 0 24px 48px -16px rgba(21, 23, 58, 0.3);
 
   --font-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
 }
 
+/* Dark values from v1. The data-theme attribute is honoured now so a toggle can be added later without touching this. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14141f;
-    --surface: #1f1f2e;
-    --surface-2: #2a2438;
-    --text: #f5f1ea;
-    --muted: #a5a3b5;
-    --tint: #2f2a1c;
-    --tint-2: #3a2230;
-    --line: rgba(255, 255, 255, 0.08);
-    --primary: #f5f1ea;
-    --primary-edge: #c9c4ba;
-    --on-primary: #1b1b2f;
-    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.4);
-    --shadow-lift: 0 18px 50px rgba(0, 0, 0, 0.5);
+  :root:not([data-theme="light"]) {
+    --bg: #0e1024;
+    --surface: #181b38;
+    --surface-2: #1f2347;
+    --text: #f2f2fb;
+    --muted: #a3a7cc;
+    --tint: #3a3114;
+    --tint-2: #123428;
+    --line: #2a2e58;
+    --hibiscus: #ff5c8d;
+    --accent-edge: #c23562;
+    --leaf: #3fd29c;
+    --primary: #f2f2fb;
+    --primary-edge: #b9bbe0;
+    --on-primary: #15173a;
+    --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 36px -16px rgba(0, 0, 0, 0.6);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
   }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1024;
+  --surface: #181b38;
+  --surface-2: #1f2347;
+  --text: #f2f2fb;
+  --muted: #a3a7cc;
+  --tint: #3a3114;
+  --tint-2: #123428;
+  --line: #2a2e58;
+  --hibiscus: #ff5c8d;
+  --accent-edge: #c23562;
+  --leaf: #3fd29c;
+  --primary: #f2f2fb;
+  --primary-edge: #b9bbe0;
+  --on-primary: #15173a;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 36px -16px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
 }
 
 /* Tailwind reads the variables, so classes like bg-surface and text-muted are available. */
