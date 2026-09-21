@@ -8,6 +8,7 @@ import { isDemoMode } from '../demo/demoMode'
 import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops, updateLocalStopDate } from '../demo/localStore'
 import { buildLocalLesson } from '../demo/localLessons'
 import { ensureDemoTrip } from '../demo/demoTrip'
+import { buildLessonInBrowser } from './buildLessonInBrowser'
 import type { PickedPlace } from './usePlaceSearch'
 
 const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, position, lesson_status, place:places(*), user_lessons(id, status)'
@@ -34,10 +35,15 @@ export function useStops(tripId: string | null) {
   }, [reload])
 
   // Calls the Edge Function and waits for it. No realtime subscriptions.
+  // If the function is not deployed, or fails, the lesson is built here in the browser and saved to the user's own account.
   async function generateLesson(stopId: string) {
     const { error } = await supabase.functions.invoke('generate-lesson', { body: { trip_stop_id: stopId } })
     if (error) {
-      await supabase.from('trip_stops').update({ lesson_status: 'failed' }).eq('id', stopId)
+      const { data } = await supabase.from('trip_stops').select(STOP_SELECT).eq('id', stopId).single()
+      const stop = data as unknown as StopRow | null
+      const { count } = await supabase.from('trip_stops').select('id', { count: 'exact', head: true }).eq('trip_id', tripId).lt('position', stop?.position ?? 0)
+      const built = stop ? await buildLessonInBrowser(stop, (count ?? 0) === 0) : false
+      if (!built) await supabase.from('trip_stops').update({ lesson_status: 'failed' }).eq('id', stopId)
     }
     await reload()
   }
@@ -47,7 +53,7 @@ export function useStops(tripId: string | null) {
     const stop = addLocalStop(place, visitDate, activities)
     await reload()
     // A short wait so the "Preparing your lesson" state can be seen, as it would be with a real server.
-    await new Promise((resolve) => setTimeout(resolve, 900))
+    await new Promise((resolve) => setTimeout(resolve, 300))
     const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, activities, firstStop: stop.position === 1 })
     attachLocalLesson(stop.id, lesson)
     await reload()

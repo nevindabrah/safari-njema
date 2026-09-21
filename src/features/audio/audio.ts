@@ -9,6 +9,17 @@ export function audioUrlFor(swahili: string): string | null {
   return CLIPS[swahili] ?? null
 }
 
+// Asks the browser to fetch these phrases' clips now and keep them, so playing one later does not wait on the network.
+const warmed = new Set<string>()
+export function preloadPhrases(swahili: string[]) {
+  for (const phrase of swahili) {
+    const url = audioUrlFor(phrase)
+    if (!url || warmed.has(url)) continue
+    warmed.add(url)
+    fetch(url).catch(() => warmed.delete(url))
+  }
+}
+
 // Plays any clip by its address. The phrasebook uses this for recordings that were held back from lessons.
 export function playClip(url: string) {
   if (!player) player = new Audio()

@@ -1,6 +1,6 @@
 // The three step lesson itself: brief, phrases, quiz, then a short end screen. It only renders what it is given.
 // Exists apart from LessonScreen so the same player runs a saved lesson and the sample lesson.
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
 import { ProgressBar } from '../../components/ProgressBar'
@@ -16,7 +16,7 @@ import { LessonHero } from './LessonHero'
 import { LessonEnd } from './LessonEnd'
 import { LESSON_LENGTHS, saveLessonLength, savedLessonLength, type LessonLength } from '../../lib/lessonLength'
 import { isDemoMode } from '../demo/demoMode'
-import { audioUrlFor } from '../audio/audio'
+import { audioUrlFor, preloadPhrases } from '../audio/audio'
 import { playSound } from '../../lib/sounds'
 
 const STEPS = ['The brief', 'The phrases', 'Practice']
@@ -52,6 +52,11 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
     }
     return { quick: sizeOf('quick'), standard: sizeOf('standard'), deep: sizeOf('deep') }
   }, [phrases, pool])
+
+  // Fetch this lesson's recordings while the learner reads the brief, so every tap plays at once.
+  useEffect(() => {
+    preloadPhrases(studied.map((p) => p.swahili))
+  }, [studied])
 
   function chooseLength(next: LessonLength) {
     setLength(next)
