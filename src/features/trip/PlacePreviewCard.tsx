@@ -47,13 +47,14 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
   }
 
   const chip = (active: boolean) =>
-    `px-3 min-h-[40px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
+    `px-3.5 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
 
   return (
-    <div className="bg-surface rounded-card shadow-lift overflow-hidden">
+    // overflow-clip rounds the photo like overflow-hidden would, but still lets the Add button below stick while the card scrolls.
+    <div className="bg-surface rounded-card shadow-lift overflow-clip">
       <div className="relative">
         <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="large" className="w-full h-36" />
-        <button onClick={onClose} aria-label="Close" className="absolute top-3 right-3 w-10 h-10 rounded-pill bg-surface text-text shadow-soft cursor-pointer flex items-center justify-center"><Icon name="close" size={18} /></button>
+        <button onClick={onClose} aria-label="Close this place" className="absolute top-3 right-3 w-11 h-11 rounded-pill bg-surface text-text shadow-soft cursor-pointer flex items-center justify-center"><Icon name="close" size={18} /></button>
       </div>
       <div className="p-5">
       <h2 className="text-2xl">{place.name}</h2>
@@ -70,7 +71,7 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
         <label className="flex items-center gap-2 text-sm font-bold text-muted">
           {days.length > 0 ? 'or' : ''}
           <input type="date" aria-label="Pick any date" value={visitDate ?? ''} onChange={(e) => setVisitDate(e.target.value || null)}
-            className={`px-3 min-h-[40px] rounded-pill text-sm font-bold ${visitDate && !days.slice(0, 14).includes(visitDate) ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`} />
+            className={`px-3 min-h-[44px] rounded-pill font-bold ${visitDate && !days.slice(0, 14).includes(visitDate) ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`} />
         </label>
       </div>
 
@@ -81,9 +82,12 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
         ))}
       </div>
 
-      <Button variant="accent" full silent className="mt-5" onClick={add} disabled={busy}>
-        {busy ? 'Adding' : 'Add to itinerary'}
-      </Button>
+      {/* Stays in view at the bottom of the card, so adding never needs a scroll on a small screen. */}
+      <div className="sticky bottom-0 bg-surface pt-3 pb-4 -mb-5 mt-2">
+        <Button variant="accent" full silent onClick={add} disabled={busy}>
+          {busy ? 'Adding' : 'Add to itinerary'}
+        </Button>
+      </div>
       </div>
     </div>
   )

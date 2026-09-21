@@ -50,9 +50,9 @@ export function StopCard({ stop, number, highlighted, onSelect, onDelete, onRetr
       <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
         <label className="flex items-center gap-2">
           <span className="text-muted font-bold">Day</span>
-          <input type="date" aria-label={`Day for ${stop.place.name}`} value={stop.visit_date ?? ''} onChange={(e) => onMove(e.target.value || null)} className="min-h-[36px] px-3 rounded-pill bg-tint font-bold" />
+          <input type="date" aria-label={`Day for ${stop.place.name}`} value={stop.visit_date ?? ''} onChange={(e) => onMove(e.target.value || null)} className="min-h-[44px] text-base px-3 rounded-pill bg-tint font-bold" />
         </label>
-        {stop.visit_date && <button type="button" onClick={() => onMove(null)} className="underline font-bold text-muted min-h-[36px] px-1 cursor-pointer">No date</button>}
+        {stop.visit_date && <button type="button" onClick={() => onMove(null)} className="underline font-bold text-muted min-h-[44px] px-2 cursor-pointer">No date</button>}
       </div>
 
       <div className="mt-3">

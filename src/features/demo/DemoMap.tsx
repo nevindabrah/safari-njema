@@ -75,7 +75,7 @@ export function DemoMap({ stops, preview, highlightedId, onPinClick }: DemoMapPr
             >
               <title>{stop.place.name}</title>
               {/* An invisible larger circle, so the pin is easy to hit with a finger. */}
-              <circle cx={shown[i].x} cy={shown[i].y} r="0.6" fill="transparent" stroke={focusedId === stop.id ? 'var(--text)' : 'none'} strokeWidth="0.06" strokeDasharray="0.14 0.1" />
+              <circle cx={shown[i].x} cy={shown[i].y} r="0.68" fill="transparent" stroke={focusedId === stop.id ? 'var(--text)' : 'none'} strokeWidth="0.06" strokeDasharray="0.14 0.1" />
               <circle cx={shown[i].x} cy={shown[i].y} r={highlighted ? 0.46 : 0.38} fill={highlighted ? 'var(--primary)' : 'var(--accent)'} stroke="var(--surface)" strokeWidth="0.09" />
               <text x={shown[i].x} y={shown[i].y + 0.13} fontSize="0.38" fontWeight="800" textAnchor="middle" fill={highlighted ? 'var(--on-primary)' : 'var(--on-accent)'} style={{ pointerEvents: 'none' }}>{i + 1}</text>
               {highlighted && (

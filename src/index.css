@@ -178,6 +178,17 @@
     margin: 0;
   }
 
+  /* iPhones zoom the whole page in when a focused field's text is under 16px, and do not zoom back out. */
+  input, select, textarea {
+    font-size: max(1rem, 16px);
+  }
+
+  /* SearchBox draws its own clear button, so the browser's small grey one is hidden. */
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
   :focus-visible {
     outline: 3px solid var(--accent);
     outline-offset: 3px;

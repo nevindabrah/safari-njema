@@ -12,27 +12,31 @@ interface LessonHeroProps {
   placeType: PlaceType
   googlePlaceId: string | null
   note: string
+  // Once the lesson is under way, a phone shows only a slim strip with the place name, so the lesson itself fits on screen.
+  compact?: boolean
 }
 
-export function LessonHero({ lesson, placeType, googlePlaceId, note }: LessonHeroProps) {
+export function LessonHero({ lesson, placeType, googlePlaceId, note, compact = false }: LessonHeroProps) {
   const photo = googlePlaceId ? photoFor(googlePlaceId) : null
   const onPhoto = Boolean(photo)
+  // Extra detail that a compact hero hides on a phone and keeps on a wider screen.
+  const detail = compact ? 'hidden sm:block' : ''
 
   return (
-    <section className={`relative overflow-hidden rounded-card mb-5 ${onPhoto ? 'min-h-[260px] sm:min-h-[320px] flex items-end' : 'bg-hero text-on-hero'}`} style={onPhoto ? { color: 'var(--on-photo)' } : undefined}>
+    <section className={`relative overflow-hidden rounded-card mb-5 ${onPhoto ? `${compact ? 'min-h-[84px]' : 'min-h-[260px]'} sm:min-h-[320px] flex items-end` : 'bg-hero text-on-hero'}`} style={onPhoto ? { color: 'var(--on-photo)' } : undefined}>
       {photo && <img src={photoUrl(photo, 'large')} alt="" className="absolute inset-0 w-full h-full object-cover" />}
       {photo && <div className="absolute inset-0" style={{ background: 'var(--photo-fade)' }} />}
       {!photo && <div className="kanga-dots absolute inset-0 opacity-30 pointer-events-none" aria-hidden="true" />}
-      <div className="relative p-6 sm:p-8 w-full">
-        <p className="text-sm font-bold opacity-90 flex items-center gap-1.5"><Icon name={placeType} size={16} />{PLACE_TYPE_INFO[placeType].label}</p>
-        <h1 className="text-3xl sm:text-5xl mt-1">{lesson.place.name}</h1>
+      <div className={`relative w-full sm:p-8 ${compact ? 'py-4 pl-5 pr-16' : 'p-6'}`}>
+        <p className={`text-sm font-bold opacity-90 flex items-center gap-1.5 ${compact ? 'hidden sm:flex' : ''}`}><Icon name={placeType} size={16} />{PLACE_TYPE_INFO[placeType].label}</p>
+        <h1 className={`sm:text-5xl sm:mt-1 ${compact ? 'text-xl' : 'text-3xl mt-1'}`}>{lesson.place.name}</h1>
         {lesson.kanga && (
-          <p className="inline-flex mt-4 rounded-input px-3 py-2 text-sm" style={{ background: onPhoto ? 'var(--hero)' : 'var(--ink)', color: onPhoto ? 'var(--on-hero)' : 'var(--on-ink)' }}>
+          <p className={`mt-4 rounded-input px-3 py-2 text-sm ${compact ? 'hidden sm:inline-flex' : 'inline-flex'}`} style={{ background: onPhoto ? 'var(--hero)' : 'var(--ink)', color: onPhoto ? 'var(--on-hero)' : 'var(--on-ink)' }}>
             <b lang="sw" className="font-display">{lesson.kanga.proverb}</b>
           </p>
         )}
-        <p className="text-xs mt-3 opacity-80 max-w-md">{note}</p>
-        {googlePlaceId && <PhotoCredit googlePlaceId={googlePlaceId} className="opacity-70 mt-1" />}
+        <p className={`text-xs mt-3 opacity-80 max-w-md ${detail}`}>{note}</p>
+        {googlePlaceId && <PhotoCredit googlePlaceId={googlePlaceId} className={`opacity-70 mt-1 ${detail}`} />}
       </div>
     </section>
   )

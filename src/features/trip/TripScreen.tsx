@@ -9,6 +9,7 @@ import { useStops } from './useStops'
 import { TripMap } from './TripMap'
 import { PlaceSearch } from './PlaceSearch'
 import { PlacePreviewCard } from './PlacePreviewCard'
+import { PreviewSheet } from './PreviewSheet'
 import { ItineraryList } from './ItineraryList'
 import type { PickedPlace } from './usePlaceSearch'
 import { DemoMap } from '../demo/DemoMap'
@@ -47,6 +48,9 @@ export function TripScreen() {
     await addStop(place, visitDate, activities)
   }
 
+  // On a laptop the preview card sits over the map. On a phone the map is too small for it, so it opens as a sheet.
+  const wide = window.matchMedia('(min-width: 1024px)').matches
+
   return (
     <div className="min-h-dvh flex flex-col">
       <TopBar />
@@ -58,7 +62,7 @@ export function TripScreen() {
               <div className="absolute top-4 left-4 right-4 z-10">
                 <PlaceSearch onPick={pickPlace} />
               </div>
-              {preview && (
+              {preview && wide && (
                 <div className="absolute bottom-4 left-4 right-4 z-10 max-h-[70%] overflow-y-auto">
                   <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} onAdd={handleAdd} onClose={() => setPreview(null)} />
                 </div>
@@ -70,7 +74,7 @@ export function TripScreen() {
               <div className="absolute top-4 left-4 right-4 z-30">
                 <SamplePlaceSearch onPick={pickPlace} onBrowse={() => setCatalogOpen(true)} />
               </div>
-              {preview && (
+              {preview && wide && (
                 <div className="absolute bottom-4 left-4 right-4 z-30 max-h-[70%] overflow-y-auto">
                   <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} onAdd={handleAdd} onClose={() => setPreview(null)} />
                 </div>
@@ -95,6 +99,11 @@ export function TripScreen() {
           <ReviewNote />
         </section>
       </main>
+      {preview && trip && !wide && (
+        <PreviewSheet onClose={() => setPreview(null)}>
+          <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} onAdd={handleAdd} onClose={() => setPreview(null)} />
+        </PreviewSheet>
+      )}
       {catalogOpen && <PlaceCatalog addedIds={stops.map((s) => s.place.google_place_id)} onPick={pickPlace} onClose={() => setCatalogOpen(false)} />}
     </div>
   )

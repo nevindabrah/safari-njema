@@ -8,7 +8,7 @@ interface TripDatesProps {
 }
 
 export function TripDates({ trip, onChange }: TripDatesProps) {
-  const inputClass = 'min-h-[40px] px-3 rounded-pill bg-tint text-sm font-bold'
+  const inputClass = 'min-h-[44px] px-3 rounded-pill bg-tint text-base font-bold'
   return (
     <div className="flex flex-wrap items-center gap-2 text-sm">
       <label className="flex items-center gap-2">
