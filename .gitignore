@@ -32,3 +32,6 @@ supabase/.branches
 
 # Deno writes a lock file when the Edge Function is type checked locally. Supabase resolves packages itself on deploy.
 supabase/functions/**/deno.lock
+
+# Python leftovers from the audio scripts
+__pycache__/

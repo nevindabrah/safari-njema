@@ -2,7 +2,7 @@
 
 Without these steps the site runs as the demo. With them it becomes the real product: accounts and saved trips.
 
-**The short version: steps 1, 2 and 3 are all you need for people to create accounts. About ten minutes, all in the browser.** Google sign in (step 4) and the Edge Function (step 5) are optional extras you can add any time.
+**The short version: steps 1, 2, 3 and 7 are all you need for people to create accounts on the live site. About ten minutes, all in the browser.** Real email (step 3b), Google sign in (step 4) and the Edge Function (step 5) are optional extras you can add any time.
 
 Keep one rule in mind. Only the four `VITE_` values ever go in `.env` or on Vercel. The Anthropic key and the Google client secret never go anywhere near the repo.
 
@@ -32,7 +32,15 @@ This exact file has been run in a real Postgres by `scripts/testDatabase.mjs`, w
 
 Open **Authentication, Sign In / Providers, Email**. Email is on by default.
 
-For testing, turn **Confirm email** off, so signing up logs you straight in. Turn it back on before real users arrive. With it on, the app already shows "Check your email" after sign up.
+**Turn "Confirm email" off, and leave it off while friends and classmates are testing.** This matters more than it looks. Supabase's built-in email sender is only for trying things out: it sends at most 2 emails an hour, and only to the addresses of people in your own Supabase team. With "Confirm email" on, a friend who signs up would be waiting for an email that Supabase refuses to send. With it off, signing up sends no email at all and logs them straight in.
+
+The same limit applies to "Forgot your password". Until step 3b is done, a reset link only reaches your own address. Google sign in (step 4) sends no email, so it is not affected.
+
+### 3b. Later: real email, so password reset works for everyone
+
+1. Make a free account with an email service. Resend is the simplest, and Brevo, Postmark and AWS SES also work. Verify a domain you own, or use the sender address they give you for testing.
+2. In Supabase open **Project Settings, Authentication, SMTP Settings**, turn on **Enable custom SMTP**, and paste in the host, port, user and password the email service shows you. That password is a secret: it goes in the Supabase dashboard only, never in this repo.
+3. You can now turn "Confirm email" back on if you want it. The app already shows "Check your email" after sign up, and the link in the email brings the visitor back to the site signed in.
 
 ## 4. Google sign in
 
@@ -44,7 +52,7 @@ This has two halves: Google gives you a client ID and secret, and Supabase is to
 2. Open **APIs and Services, Credentials, Create credentials, OAuth client ID**. Choose **Web application**.
 3. Under **Authorized JavaScript origins** add:
    - `http://localhost:5180`
-   - your Vercel address, for example `https://safari-njema.vercel.app`
+   - your Vercel address, for example `https://safari-njema-rust.vercel.app`
 4. Under **Authorized redirect URIs** add exactly one address, the Supabase callback. Supabase shows it to you in the next step. It looks like `https://abcdefgh.supabase.co/auth/v1/callback`.
 5. Press **Create** and copy the **Client ID** and **Client secret**.
 
@@ -53,7 +61,7 @@ This has two halves: Google gives you a client ID and secret, and Supabase is to
 1. Open **Authentication, Sign In / Providers, Google**. Turn it on. Paste the Client ID and Client secret. The **Callback URL** shown here is the one to give Google in step 4 above. Save.
 2. Open **Authentication, URL Configuration**. Set **Site URL** to your Vercel address. Under **Redirect URLs** add both:
    - `http://localhost:5180/**`
-   - `https://safari-njema.vercel.app/**`
+   - `https://safari-njema-rust.vercel.app/**`
 
 If Google sign in sends you back to the wrong place, or to localhost from the live site, this URL Configuration page is almost always the cause.
 
@@ -90,6 +98,8 @@ Then run `npm run dev`, sign up, and add a stop. With no Google Maps key the pla
 
 In your Vercel project open **Settings, Environment Variables** and add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, plus `VITE_GOOGLE_MAPS_KEY` and `VITE_GOOGLE_MAP_ID` when you have them. Redeploy. The demo banner disappears and the site has accounts.
 
+Then tell Supabase where the site lives, so emailed links and Google sign in come back to the right place: open **Authentication, URL Configuration**, set **Site URL** to `https://safari-njema-rust.vercel.app`, and add `https://safari-njema-rust.vercel.app/**` and `http://localhost:5180/**` under **Redirect URLs**.
+
 If you want the public link to stay a no sign up demo for recruiters, leave these off the main deployment and make a second Vercel project for the real product.
 
 ## What can go wrong
@@ -99,6 +109,9 @@ If you want the public link to stay a no sign up demo for recruiters, leave thes
 | "Invalid API key" on sign up | The anon key in `.env` was copied with a space or a line break |
 | Sign up works but the trip never appears | `setup.sql` was not run, or only partly. Run `npm run check:supabase` |
 | "Preparing your lesson" then "Try again" | The phrases were not seeded, or migration 0005 is missing. Run `npm run check:supabase` |
+| A friend signs up and sees "Check your email", but no email comes | "Confirm email" is on and the built-in sender will not email people outside your team. Turn it off (step 3) or set up real email (step 3b) |
+| "We cannot send email to that address yet" on password reset | The same limit. Set up real email (step 3b) |
+| "Too many tries in a short time" | The built-in sender's limit of 2 emails an hour. Wait, or set up real email (step 3b) |
 | Google shows "redirect_uri_mismatch" | The redirect URI in Google Cloud is not exactly the Supabase callback URL |
 | Google sign in returns to localhost on the live site | Site URL in Supabase is still localhost |
 | Google says the app is not verified | Normal while the consent screen is in Testing. Add yourself as a test user |
