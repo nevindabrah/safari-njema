@@ -17,8 +17,9 @@ interface LocalData {
   lessons: Record<string, StoredLesson>
 }
 
-const KEY = 'safari-njema-demo-data'
-const SEEDED_KEY = 'safari-njema-demo-seeded'
+// The number changes whenever the saved shape changes, so an old browser gets a fresh sample trip instead of stale lessons.
+const KEY = 'safari-njema-demo-data-v2'
+const SEEDED_KEY = 'safari-njema-demo-seeded-v2'
 
 function isoDay(date: Date): string {
   return date.toISOString().slice(0, 10)

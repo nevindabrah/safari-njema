@@ -32,7 +32,8 @@ describe('template lessons from the real seed', () => {
   it('Maasai Market, first stop: core greetings, the price question, bargaining and numbers', () => {
     const { lesson, swahili } = lessonFor(market, 'Maasai Market')
     expect(lessonSchema.safeParse(lesson).success).toBe(true)
-    expect(swahili).toEqual([
+    expect(swahili).toHaveLength(8)
+    expect(swahili.slice(0, 6)).toEqual([
       'Habari?',
       'Nzuri',
       'Hii ni bei gani?',
@@ -45,7 +46,8 @@ describe('template lessons from the real seed', () => {
   it('Diani Beach, later stop: ordering food, a coastal greeting and coast words, with the dress note', () => {
     const { lesson, swahili, picked } = lessonFor(beach, 'Diani Beach')
     expect(lesson.brief.practical).toMatch(/away from the beach/)
-    expect(swahili).toEqual(['Naomba menyu', 'Madafu', 'Hujambo? / Sijambo', 'Bahari', 'Pwani', 'Jahazi'])
+    expect(swahili).toHaveLength(8)
+    expect(swahili.slice(0, 6)).toEqual(['Naomba menyu', 'Madafu', 'Hujambo? / Sijambo', 'Bahari', 'Pwani', 'Jahazi'])
     const plainGreetings = picked.filter((p) => p.phrase.tags.includes('greeting') && !p.phrase.tags.includes('coastal'))
     expect(plainGreetings).toHaveLength(0)
   })
@@ -72,7 +74,7 @@ describe('template lessons from the real seed', () => {
       for (const region of regions) {
         const ctx: CandidateContext = { placeType, activities: [], region, firstStop: false, level: 'none', knownIds: [] }
         const { swahili, picked } = lessonFor(ctx, 'x')
-        expect(swahili, `${placeType} in ${region} should have six phrases`).toHaveLength(6)
+        expect(swahili, `${placeType} in ${region} should have eight phrases`).toHaveLength(8)
         // The bill belongs at a meal, not at an airport or a station.
         if (placeType !== 'restaurant') expect(swahili).not.toContain('Naomba bili')
         // Swimming belongs at the beach.

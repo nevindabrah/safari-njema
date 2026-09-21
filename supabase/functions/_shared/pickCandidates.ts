@@ -59,7 +59,8 @@ export function pickCandidates(phrases: CandidatePhrase[], ctx: CandidateContext
 
 // Fills the slot plan in order. Each slot takes an unused candidate with that tag.
 // If slots run out before `count`, the best remaining candidates top it up.
-export function pickTemplatePhrases(candidates: CandidatePhrase[], ctx: CandidateContext, count = 6): PickedPhrase[] {
+// A lesson holds eight phrases, most important first. The learner picks a length, and a shorter lesson studies the first few.
+export function pickTemplatePhrases(candidates: CandidatePhrase[], ctx: CandidateContext, count = 8): PickedPhrase[] {
   const picked: PickedPhrase[] = []
   const used = new Set<string>()
   for (const slot of buildSlotPlan(ctx.placeType, ctx.activities, ctx.firstStop)) {
