@@ -15,11 +15,23 @@ export function AboutScreen() {
       <main className="mx-auto max-w-3xl px-4 pt-6 pb-28 sm:pb-6 flex flex-col gap-6">
         <Hero title="Kuhusu mimi">
           <p className="text-lg">About me, and why I built this.</p>
-          <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-4 rounded-card px-4 py-3 bg-primary text-on-primary">
+          <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-4 rounded-card px-4 py-3" style={{ background: 'var(--ink)', color: 'var(--on-ink)' }}>
             <b lang="sw" className="font-display">Mtu ni watu</b>
             <span className="text-sm opacity-75">A person is people. We are who we are because of others.</span>
           </p>
         </Hero>
+
+        {/* Nevin's own photos. Their camera and device metadata was removed before they were added to this public repo. */}
+        <figure>
+          <div className="grid grid-cols-2 gap-3 sm:gap-5">
+            <img src="/about/nevin-with-giraffe.jpg" alt="Nevin taking a selfie beside a giraffe, with acacia trees behind" width={768} height={1024}
+              className="w-full aspect-[3/4] object-cover rounded-card shadow-soft" />
+            <img src="/about/nevin-feeding-giraffe.jpg" alt="Nevin feeding a giraffe by hand from a raised wooden platform" width={768} height={1024} loading="lazy"
+              className="w-full aspect-[3/4] object-cover rounded-card shadow-soft sm:translate-y-6" />
+          </div>
+          <figcaption className="text-sm text-muted text-center mt-3 sm:mt-9">Twiga is Swahili for giraffe. Up close, they are taller than you expect.</figcaption>
+        </figure>
+
         <Card className="flex flex-col gap-4 text-lg leading-relaxed">
           <h2 className="text-2xl">Why I made Safari Njema</h2>
           <p>My name is Nevin Dabrah. I was born in Kenya. My dad worked there for many years, so Kenya is part of my family's story even though I grew up elsewhere. It is the first place I ever lived, and I have always wanted to know it better than a birth certificate lets me.</p>
