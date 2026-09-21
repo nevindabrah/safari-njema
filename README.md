@@ -8,9 +8,11 @@ You add the places you are going. Each stop becomes a five minute Swahili lesson
 
 ![The landing page](docs/screenshots/landing.png)
 
-| The trip planner | Practice | Word tiles on a phone, dark mode |
+| The trip planner | A finished lesson earns a kanga | On a phone, dark mode |
 |---|---|---|
-| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![A practice exercise matching a pronunciation to its phrase](docs/screenshots/lesson.png) | ![Building a Swahili sentence from word tiles, on a phone in dark mode](docs/screenshots/phone-dark.png) |
+| ![Trip planner with a map of Kenya and three stops](docs/screenshots/trip.png) | ![The end of a lesson, with the place photo and the kanga that was earned](docs/screenshots/lesson.png) | ![The itinerary on a phone in dark mode, with place photos and the bottom tab bar](docs/screenshots/phone-dark.png) |
+
+![The kanga shelf: one cloth per finished lesson, each carrying a Swahili proverb](docs/screenshots/kangas.png)
 
 ## The demo and the full product
 
@@ -29,7 +31,9 @@ The switch is automatic. With no keys the app is the demo. Add the Supabase valu
 - **Lessons come from a phrase bank, not free text.** Language models make mistakes in Swahili, so the model may only choose from 95 phrases, each tagged by hand. It picks and explains. It does not invent.
 - **An AI switch.** With it on, Claude writes the brief and picks phrases, and its JSON is validated with zod. With it off, a template builds the lesson from the same candidates. The live site runs with it off, so it costs nothing to host.
 - **One pipeline, two runtimes.** Scoring, the slot plan and the template are pure TypeScript. The same files run in a Supabase Edge Function and in the browser demo.
-- **Tests that read the lessons.** 60 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **A look that belongs to the subject.** Every finished lesson earns a kanga, the printed cloth that always carries a Swahili proverb, drawn in SVG from six colourways and four motifs. The icons are the app's own line set, not emoji. Light, dark or follow the device, with no flash on load.
+- **Real photos, properly credited.** A script resolves one freely licensed Wikimedia Commons photo per place in three batched requests, and saves the author and licence. Every photo is credited where it is shown and on the About page.
+- **Tests that read the lessons.** 64 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
 - **Row Level Security on every table**, with a database function so users never need write access to shared tables.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 
@@ -90,6 +94,9 @@ When the Supabase values are missing, the app runs in demo mode. This is what th
 - Practice mixes eight kinds of exercise in three parts that get harder: recognise (meaning, true or false, match the pairs), recall (English to Swahili, sounds like), and produce (build the sentence from word tiles, fill the gap, type the answer with one typo forgiven). Wrong answers come from the whole phrase bank, a streak counter rewards runs, and anything missed comes back once in a second chance round. Only first tries count.
 - Dates are free. Trip dates can be set, changed or cleared at any time. A stop can take any date, inside the trip or not, and can be moved to another day later. The list and the pin numbers follow the dates.
 - Sound effects for taps, right and wrong answers, a new stop and a finished lesson. They are made with Web Audio, so there are no audio files, and the speaker button in the top bar mutes them for good.
+- Every stop has a pocket card: all its phrases with pronunciation, the three things to know, the etiquette note and Kenya's emergency numbers, on one page that prints cleanly.
+- The kanga shelf shows a cloth for every lesson. Unearned ones are veiled and keep their proverb hidden until the lesson is finished.
+- Laptop users can answer with the number keys and move on with Enter. On a phone the main links sit in a floating tab bar within thumb reach.
 - Finish a quiz and the stop turns green and the trip's progress bar moves. "Start with an empty trip" clears the sample so the first stop flow can be tried from scratch.
 
 Demo data lives in the browser's localStorage. Demo mode is only ever on when the Supabase values are missing, so once they are set on Vercel the site becomes the real product with accounts. The code is in `src/features/demo/`, and each data hook switches to it with one `if (isDemoMode)`.
@@ -107,6 +114,10 @@ npm run dev             # http://localhost:5173
 npm test                # Vitest
 npm run build           # type check and production build
 ```
+
+## Photos and their licences
+
+`node scripts/fetchPlacePhotos.ts` finds the lead photo of each built-in place's Wikipedia article, falls back to a Wikimedia Commons search where an article has none, and writes `src/features/places/placePhotos.json` with the image URL, author, licence and source page. It skips anything that is not on Commons, which is how fair use logos are kept out. Photos found by search are marked illustrative and credited that way. The app never looks photos up at runtime, so a visitor cannot be rate limited.
 
 ## Environment variables
 
