@@ -2,10 +2,7 @@
 // Exists so a visitor or reviewer can see what a lesson is like, and so the app can be tried before Supabase is set up.
 import { useEffect, useMemo, useState } from 'react'
 import { TopBar } from '../../components/TopBar'
-import type { Phrase } from '../../lib/types'
-
-// The seed rows also carry a register, which the picker uses to leave Sheng out.
-type BankPhrase = Phrase & { register: string }
+import { loadSeedBank, type BankPhrase } from './seedBank'
 import { pickCandidates, pickTemplatePhrases, type CandidateContext } from '../../../supabase/functions/_shared/pickCandidates'
 import { buildTemplateLesson } from '../../../supabase/functions/_shared/template'
 import { LessonPlayer } from './LessonPlayer'
@@ -21,21 +18,8 @@ export function PreviewLessonScreen() {
   const [bank, setBank] = useState<BankPhrase[]>([])
   const [selected, setSelected] = useState(0)
 
-  // The seed is loaded only on this page so it stays out of the main bundle.
   useEffect(() => {
-    import('../../../supabase/seed/phrases.json').then((module) => {
-      setBank(
-        module.default.map((p, i) => ({
-          id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
-          swahili: p.swahili,
-          pronunciation: p.pronunciation,
-          english: p.english,
-          tags: p.tags,
-          register: p.register,
-          verified: false,
-        })),
-      )
-    })
+    loadSeedBank().then(setBank)
   }, [])
 
   const built = useMemo(() => {

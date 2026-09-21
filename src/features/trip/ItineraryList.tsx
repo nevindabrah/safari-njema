@@ -3,7 +3,7 @@
 import { Link } from 'react-router'
 import { Button } from '../../components/Button'
 import { PLACE_TYPE_INFO } from './placeTypes'
-import type { StopRow } from './useStops'
+import type { StopRow } from '../../lib/types'
 
 interface ItineraryListProps {
   stops: StopRow[]

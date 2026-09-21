@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { lessonSchema, type Lesson } from '../../lib/lessonSchema'
 import type { Phrase } from '../../lib/types'
+import { isTestMode } from '../testmode/testMode'
+import { completeLocalLesson, getLocalLesson } from '../testmode/localStore'
 
 export interface LoadedLesson {
   userLessonId: string
@@ -18,6 +20,12 @@ export function useLesson(userLessonId: string | undefined) {
 
   useEffect(() => {
     if (!userLessonId) return
+    if (isTestMode) {
+      const stored = getLocalLesson(userLessonId)
+      if (stored) setData({ userLessonId, lesson: stored.lesson, generatedBy: stored.generatedBy, phrases: stored.phrases })
+      else setError('We could not find that lesson.')
+      return
+    }
     let cancelled = false
 
     async function load() {
@@ -57,6 +65,7 @@ export function useLesson(userLessonId: string | undefined) {
 
   async function markCompleted(score: number, durationSeconds: number) {
     if (!userLessonId) return
+    if (isTestMode) return completeLocalLesson(userLessonId)
     await supabase
       .from('user_lessons')
       .update({ status: 'completed', score, duration_seconds: durationSeconds, completed_at: new Date().toISOString() })

@@ -1,27 +1,39 @@
-// Holds the signed in Supabase user and keeps it in sync with auth changes.
+// Holds the signed in user and keeps it in sync with Supabase auth. In test mode it holds the test user instead.
 // Exists so every screen reads the user from one context instead of asking Supabase again.
 import { createContext, useEffect, useState, type ReactNode } from 'react'
-import type { User } from '@supabase/supabase-js'
-import { isSupabaseConfigured, supabase } from '../../lib/supabase'
+import { supabase } from '../../lib/supabase'
+import { isTestMode, TEST_USER } from '../testmode/testMode'
+
+// The only parts of a user the app reads. A Supabase user fits this shape.
+export interface AppUser {
+  id: string
+  email?: string
+}
 
 export interface AuthState {
-  user: User | null
+  user: AppUser | null
   loading: boolean
   signOut: () => Promise<void>
+  signInAsTester: () => void
 }
 
 export const AuthContext = createContext<AuthState>({
   user: null,
   loading: true,
   signOut: async () => {},
+  signInAsTester: () => {},
 })
 
+// Test mode remembers a sign out, so the public pages and the login screen can be tried too.
+const SIGNED_OUT_KEY = 'safari-njema-test-signed-out'
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<AppUser | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!isSupabaseConfigured) {
+    if (isTestMode) {
+      setUser(localStorage.getItem(SIGNED_OUT_KEY) ? null : TEST_USER)
       setLoading(false)
       return
     }
@@ -36,8 +48,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   async function signOut() {
+    if (isTestMode) {
+      localStorage.setItem(SIGNED_OUT_KEY, '1')
+      setUser(null)
+      return
+    }
     await supabase.auth.signOut()
   }
 
-  return <AuthContext.Provider value={{ user, loading, signOut }}>{children}</AuthContext.Provider>
+  function signInAsTester() {
+    if (!isTestMode) return
+    localStorage.removeItem(SIGNED_OUT_KEY)
+    setUser(TEST_USER)
+  }
+
+  return <AuthContext.Provider value={{ user, loading, signOut, signInAsTester }}>{children}</AuthContext.Provider>
 }

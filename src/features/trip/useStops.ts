@@ -2,12 +2,11 @@
 // Exists so TripScreen only renders and this file owns the data calls.
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import type { TripStop } from '../../lib/types'
+import type { StopRow } from '../../lib/types'
+import { isTestMode } from '../testmode/testMode'
+import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops } from '../testmode/localStore'
+import { buildLocalLesson } from '../testmode/localLessons'
 import type { PickedPlace } from './usePlaceSearch'
-
-export interface StopRow extends TripStop {
-  user_lessons: { id: string }[]
-}
 
 const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, position, lesson_status, place:places(*), user_lessons(id)'
 
@@ -17,6 +16,11 @@ export function useStops(tripId: string | null) {
 
   const reload = useCallback(async () => {
     if (!tripId) return
+    if (isTestMode) {
+      setStops(listLocalStops())
+      setLoading(false)
+      return
+    }
     const { data } = await supabase.from('trip_stops').select(STOP_SELECT).eq('trip_id', tripId).order('position')
     setStops((data ?? []) as unknown as StopRow[])
     setLoading(false)
@@ -35,7 +39,19 @@ export function useStops(tripId: string | null) {
     await reload()
   }
 
+  // Test mode: same steps as the real path, but the lesson is built in the browser.
+  async function addLocalStopWithLesson(place: PickedPlace, visitDate: string | null, activities: string[]) {
+    const stop = addLocalStop(place, visitDate, activities)
+    await reload()
+    // A short wait so the "Preparing your lesson" state can be seen, as it would be with a real server.
+    await new Promise((resolve) => setTimeout(resolve, 900))
+    const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, activities, firstStop: stop.position === 1 })
+    attachLocalLesson(stop.id, lesson)
+    await reload()
+  }
+
   async function addStop(place: PickedPlace, visitDate: string | null, activities: string[]) {
+    if (isTestMode) return addLocalStopWithLesson(place, visitDate, activities)
     const { data: stopId, error } = await supabase.rpc('add_trip_stop', {
       p_trip_id: tripId,
       p_google_place_id: place.googlePlaceId,
@@ -55,6 +71,10 @@ export function useStops(tripId: string | null) {
 
   async function deleteStop(stopId: string) {
     setStops((list) => list.filter((s) => s.id !== stopId))
+    if (isTestMode) {
+      deleteLocalStop(stopId)
+      return reload()
+    }
     await supabase.from('trip_stops').delete().eq('id', stopId)
     await reload()
   }
