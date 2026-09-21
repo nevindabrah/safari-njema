@@ -1,5 +1,5 @@
 // Runs phrase selection against the real seed for the three stops in the Phase 1 acceptance test.
-// Exists so the template path is proven to give three clearly different lessons before anything goes live.
+// Exists so the template path is proven to give three clearly different, sensible lessons before anything goes live.
 import { describe, expect, it } from 'vitest'
 import seed from '../../seed/phrases.json'
 import { pickCandidates, pickTemplatePhrases, type CandidatePhrase, type CandidateContext } from './pickCandidates'
@@ -13,12 +13,15 @@ const bank: CandidatePhrase[] = seed.map((p, i) => ({
   pronunciation: p.pronunciation,
   english: p.english,
   tags: p.tags,
+  register: p.register,
 }))
 
 function lessonFor(ctx: CandidateContext, placeName: string) {
-  const chosen = pickTemplatePhrases(pickCandidates(bank, ctx), ctx)
-  const lesson = buildTemplateLesson({ placeName, placeType: ctx.placeType, region: ctx.region, firstStop: ctx.firstStop, phrases: chosen })
-  return { lesson, chosen }
+  const picked = pickTemplatePhrases(pickCandidates(bank, ctx), ctx)
+  const lesson = buildTemplateLesson({ placeName, placeType: ctx.placeType, region: ctx.region, firstStop: ctx.firstStop, phrases: picked })
+  const swahili = picked.map((p) => p.phrase.swahili)
+  const whyBySwahili = new Map(picked.map((p, i) => [p.phrase.swahili, lesson.phrases[i].why_here]))
+  return { lesson, picked, swahili, whyBySwahili }
 }
 
 const market: CandidateContext = { placeType: 'market', activities: ['shopping'], region: 'nairobi', firstStop: true, level: 'none', knownIds: [] }
@@ -26,34 +29,69 @@ const beach: CandidateContext = { placeType: 'beach', activities: ['eating out']
 const mara: CandidateContext = { placeType: 'park', activities: ['game drive'], region: 'rift_valley_mara', firstStop: false, level: 'none', knownIds: [] }
 
 describe('template lessons from the real seed', () => {
-  it('Maasai Market, first stop: greetings plus numbers and bargaining', () => {
-    const { lesson, chosen } = lessonFor(market, 'Maasai Market')
+  it('Maasai Market, first stop: core greetings, the price question, bargaining and numbers', () => {
+    const { lesson, swahili } = lessonFor(market, 'Maasai Market')
     expect(lessonSchema.safeParse(lesson).success).toBe(true)
-    expect(chosen[0].tags).toContain('greeting')
-    expect(chosen[1].tags).toContain('greeting')
-    expect(chosen.some((p) => p.tags.includes('numbers'))).toBe(true)
-    expect(chosen.some((p) => p.tags.includes('bargaining'))).toBe(true)
+    expect(swahili).toEqual([
+      'Habari?',
+      'Nzuri',
+      'Hii ni bei gani?',
+      'Moja, mbili, tatu, nne, tano',
+      'Punguza bei, tafadhali',
+      'Sita, saba, nane, tisa, kumi',
+    ])
   })
 
-  it('Diani Beach, later stop: coast and food, dress note, no plain greetings', () => {
-    const { lesson, chosen } = lessonFor(beach, 'Diani Beach')
+  it('Diani Beach, later stop: ordering food, a coastal greeting and coast words, with the dress note', () => {
+    const { lesson, swahili, picked } = lessonFor(beach, 'Diani Beach')
     expect(lesson.brief.practical).toMatch(/away from the beach/)
-    expect(chosen.some((p) => p.tags.includes('coast'))).toBe(true)
-    expect(chosen.some((p) => p.tags.includes('food'))).toBe(true)
-    const plainGreetings = chosen.filter((p) => p.tags.includes('greeting') && !p.tags.includes('coastal'))
+    expect(swahili).toEqual(['Naomba menyu', 'Madafu', 'Hujambo? / Sijambo', 'Bahari', 'Pwani', 'Jahazi'])
+    const plainGreetings = picked.filter((p) => p.phrase.tags.includes('greeting') && !p.phrase.tags.includes('coastal'))
     expect(plainGreetings).toHaveLength(0)
   })
 
-  it('Maasai Mara, game drive: animal names', () => {
-    const { chosen } = lessonFor(mara, 'Maasai Mara National Reserve')
-    expect(chosen.filter((p) => p.tags.includes('animals')).length).toBeGreaterThanOrEqual(4)
+  it('Maasai Mara, game drive: animal names and guide phrases', () => {
+    const { swahili, picked } = lessonFor(mara, 'Maasai Mara National Reserve')
+    expect(swahili).toContain('Simba')
+    expect(swahili).toContain('Ni mnyama gani huyo?')
+    expect(picked.filter((p) => p.slot === 'animals').length).toBeGreaterThanOrEqual(3)
+    expect(picked.filter((p) => p.slot === 'guide').length).toBeGreaterThanOrEqual(2)
   })
 
-  it('the three lessons share no phrases', () => {
-    const a = new Set(lessonFor(market, 'a').chosen.map((p) => p.id))
-    const b = new Set(lessonFor(beach, 'b').chosen.map((p) => p.id))
-    const c = new Set(lessonFor(mara, 'c').chosen.map((p) => p.id))
-    for (const id of a) expect(b.has(id) || c.has(id)).toBe(false)
-    for (const id of b) expect(c.has(id)).toBe(false)
+  it('gives every phrase a reason that fits it', () => {
+    const { whyBySwahili } = lessonFor(market, 'Maasai Market')
+    expect(whyBySwahili.get('Moja, mbili, tatu, nne, tano')).toMatch(/numbers/)
+    expect(whyBySwahili.get('Punguza bei, tafadhali')).toMatch(/price/)
+    expect(whyBySwahili.get('Habari?')).toMatch(/first/)
+  })
+
+  it('keeps phrases where they belong across every kind of place', () => {
+    const placeTypes = ['city', 'park', 'beach', 'market', 'restaurant', 'hotel', 'airport', 'station', 'religious_site', 'museum', 'other']
+    const regions = ['nairobi', 'coast', 'rift_valley_mara']
+    for (const placeType of placeTypes) {
+      for (const region of regions) {
+        const ctx: CandidateContext = { placeType, activities: [], region, firstStop: false, level: 'none', knownIds: [] }
+        const { swahili, picked } = lessonFor(ctx, 'x')
+        expect(swahili, `${placeType} in ${region} should have six phrases`).toHaveLength(6)
+        // The bill belongs at a meal, not at an airport or a station.
+        if (placeType !== 'restaurant') expect(swahili).not.toContain('Naomba bili')
+        // Swimming belongs at the beach.
+        if (placeType !== 'beach') expect(swahili).not.toContain('Naweza kuogelea hapa?')
+        // Pole is sympathy, so it never fills a help slot.
+        expect(picked.find((p) => p.phrase.swahili === 'Pole')?.slot ?? 'polite').toBe('polite')
+      }
+    }
+  })
+
+  it('opens a place of worship with the respectful greeting', () => {
+    const ctx: CandidateContext = { placeType: 'religious_site', activities: [], region: 'coast', firstStop: false, level: 'none', knownIds: [] }
+    expect(lessonFor(ctx, 'x').swahili[0]).toBe('Shikamoo / Marahaba')
+  })
+
+  it('never teaches Sheng by default, and the three lessons share no phrases', () => {
+    const lessons = [lessonFor(market, 'a'), lessonFor(beach, 'b'), lessonFor(mara, 'c')]
+    const all = lessons.flatMap((l) => l.swahili)
+    expect(all).not.toContain('Sasa? / Poa')
+    expect(new Set(all).size).toBe(all.length)
   })
 })

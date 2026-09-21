@@ -1,51 +1,61 @@
-// Tests for candidate selection.
-// Exists so the acceptance test's expectations about greetings and tags hold in code.
+// Tests for candidate scoring and slot filling, using a tiny made-up bank.
+// Exists so the rules about greetings, Sheng and known phrases hold in code.
 import { describe, expect, it } from 'vitest'
 import { pickCandidates, pickTemplatePhrases, type CandidatePhrase, type CandidateContext } from './pickCandidates'
 
 const bank: CandidatePhrase[] = [
-  { id: 'g1', swahili: 'g1', pronunciation: '', english: 'hello', tags: ['greeting'] },
-  { id: 'g2', swahili: 'g2', pronunciation: '', english: 'how are you', tags: ['greeting'] },
-  { id: 'm1', swahili: 'm1', pronunciation: '', english: 'how much', tags: ['market', 'numbers'] },
-  { id: 'm2', swahili: 'm2', pronunciation: '', english: 'lower the price', tags: ['bargaining', 'market'] },
-  { id: 'f1', swahili: 'f1', pronunciation: '', english: 'the bill please', tags: ['food', 'money'] },
-  { id: 's1', swahili: 's1', pronunciation: '', english: 'lion', tags: ['safari', 'animals'] },
-  { id: 'c1', swahili: 'c1', pronunciation: '', english: 'coastal hello', tags: ['greeting', 'coastal'] },
-  { id: 'h1', swahili: 'h1', pronunciation: '', english: 'help', tags: ['help'] },
+  { id: 'g1', swahili: 'g1', pronunciation: '', english: 'hello', tags: ['basics', 'greeting', 'core_greeting'] },
+  { id: 'g2', swahili: 'g2', pronunciation: '', english: 'slang hello', tags: ['basics', 'greeting'], register: 'sheng' },
+  { id: 'g3', swahili: 'g3', pronunciation: '', english: 'reply', tags: ['basics', 'greeting', 'core_greeting'] },
+  { id: 'n1', swahili: 'n1', pronunciation: '', english: 'one to five', tags: ['market', 'numbers'] },
+  { id: 'b1', swahili: 'b1', pronunciation: '', english: 'too expensive', tags: ['market', 'bargaining'] },
+  { id: 'b2', swahili: 'b2', pronunciation: '', english: 'lower the price', tags: ['market', 'bargaining', 'essential'] },
+  { id: 's1', swahili: 's1', pronunciation: '', english: 'just looking', tags: ['market', 'shopping'] },
+  { id: 'f1', swahili: 'f1', pronunciation: '', english: 'the menu', tags: ['food', 'ordering'] },
+  { id: 'a1', swahili: 'a1', pronunciation: '', english: 'lion', tags: ['safari', 'animals'] },
+  { id: 'c1', swahili: 'c1', pronunciation: '', english: 'coastal hello', tags: ['coast', 'greeting', 'coastal_greeting', 'coastal'] },
+  { id: 'c2', swahili: 'c2', pronunciation: '', english: 'ocean', tags: ['coast', 'beach'] },
 ]
 
-const base: CandidateContext = { placeType: 'market', activities: ['shopping'], region: 'nairobi', firstStop: true, level: 'none', knownIds: [] }
+const market: CandidateContext = { placeType: 'market', activities: ['shopping'], region: 'nairobi', firstStop: true, level: 'none', knownIds: [] }
+const beach: CandidateContext = { placeType: 'beach', activities: ['eating out'], region: 'coast', firstStop: false, level: 'none', knownIds: [] }
 
 describe('pickCandidates', () => {
-  it('puts greetings and market phrases first on a first stop', () => {
-    const ids = pickCandidates(bank, base).map((p) => p.id)
-    expect(ids.slice(0, 4).sort()).toEqual(['g1', 'g2', 'm1', 'm2'].sort())
+  it('leaves out Sheng unless it is switched on', () => {
+    expect(pickCandidates(bank, market).map((p) => p.id)).not.toContain('g2')
+    expect(pickCandidates(bank, { ...market, shengEnabled: true }).map((p) => p.id)).toContain('g2')
   })
 
-  it('drops plain greetings on later stops but keeps a coastal one for the coast', () => {
-    const ctx: CandidateContext = { ...base, placeType: 'beach', activities: ['eating out'], region: 'coast', firstStop: false }
-    const ids = pickCandidates(bank, ctx).map((p) => p.id)
-    expect(ids[0]).toBe('f1')
+  it('drops plain greetings after the first stop but keeps a coastal one at the coast', () => {
+    const ids = pickCandidates(bank, beach).map((p) => p.id)
+    expect(ids).not.toContain('g1')
     expect(ids).toContain('c1')
-    expect(ids.indexOf('c1')).toBeLessThan(ids.indexOf('g1'))
   })
 
   it('leaves out phrases the user already knows', () => {
-    const ids = pickCandidates(bank, { ...base, knownIds: ['m1'] }).map((p) => p.id)
-    expect(ids).not.toContain('m1')
+    expect(pickCandidates(bank, { ...market, knownIds: ['n1'] }).map((p) => p.id)).not.toContain('n1')
   })
 
-  it('finds safari words for a game drive', () => {
-    const ctx: CandidateContext = { ...base, placeType: 'park', activities: ['game drive'], region: 'rift_valley_mara', firstStop: false }
-    expect(pickCandidates(bank, ctx)[0].id).toBe('s1')
+  it('ignores phrases that do not fit the stop', () => {
+    expect(pickCandidates(bank, market).map((p) => p.id)).not.toContain('a1')
   })
 })
 
 describe('pickTemplatePhrases', () => {
-  it('starts with two greetings on a first stop', () => {
-    const chosen = pickTemplatePhrases(pickCandidates(bank, base), base)
-    expect(chosen[0].tags).toContain('greeting')
-    expect(chosen[1].tags).toContain('greeting')
-    expect(chosen).toHaveLength(6)
+  it('fills a first market stop with two greetings, then price talk and numbers', () => {
+    const picked = pickTemplatePhrases(pickCandidates(bank, market), market)
+    expect(picked.map((p) => p.phrase.id)).toEqual(['g1', 'g3', 'b2', 'n1', 'b1', 's1'])
+    expect(picked.map((p) => p.slot)).toEqual(['core_greeting', 'core_greeting', 'bargaining', 'numbers', 'bargaining', 'shopping'])
+  })
+
+  it('puts the essential phrase first within a slot', () => {
+    const picked = pickTemplatePhrases(pickCandidates(bank, market), market)
+    const bargaining = picked.filter((p) => p.slot === 'bargaining').map((p) => p.phrase.id)
+    expect(bargaining[0]).toBe('b2')
+  })
+
+  it('mixes food and coast for a beach stop with eating out', () => {
+    const picked = pickTemplatePhrases(pickCandidates(bank, beach), beach)
+    expect(picked.map((p) => p.phrase.id)).toEqual(['f1', 'c1', 'c2'])
   })
 })
