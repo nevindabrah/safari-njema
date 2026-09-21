@@ -40,6 +40,8 @@ Things only Nevin can do, before running the app:
 4. Edge Function: `supabase functions deploy generate-lesson`, then set secrets: `supabase secrets set LESSON_AI_ENABLED=false LESSON_MODEL=claude-opus-5 ANTHROPIC_API_KEY=...`. The key is only needed when the switch is on.
 5. Vercel: import the repo, set the four `VITE_` variables, deploy. `vercel.json` already rewrites every path to `index.html` for React Router.
 
+You can try the app before any of that is set up. With no `.env` it still boots: the landing page, the About page and a sample lesson at `/preview` all work, because the sample lesson is built in the browser from the seed phrases with the same code the Edge Function uses. Sign up, login and the trip planner need Supabase and the Google key.
+
 Then locally:
 
 ```
@@ -85,6 +87,7 @@ The 22 September cut, in the PRD's order:
 5. `generate-lesson` with the template path and the Claude path behind the switch, daily limit of ten, demo account blocked.
 6. The three step lesson: brief, phrases, quiz. The quiz builder is a pure function with tests.
 7. About page, the "not yet reviewed" note on the trip, lesson end and About screens, this README.
+8. A public sample lesson at `/preview` for the three acceptance-test stops, so a visitor can see a lesson without an account. The trip and lesson screens load on demand to keep the landing page small.
 
 Left for right after the deadline: Google sign in, the Today screen, onboarding, personalising beyond "first stop teaches greetings", theme toggle, pre-made Claude lessons, the demo account.
 

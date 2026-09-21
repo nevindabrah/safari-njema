@@ -6,19 +6,28 @@ import { AboutScreen } from './features/landing/AboutScreen'
 import { LoginScreen } from './features/auth/LoginScreen'
 import { SignupScreen } from './features/auth/SignupScreen'
 import { RequireAuth } from './features/auth/RequireAuth'
-import { TripScreen } from './features/trip/TripScreen'
-import { LessonScreen } from './features/lesson/LessonScreen'
 
+// The heavier screens are loaded only when visited, so the landing page stays small.
 export const router = createBrowserRouter([
   { path: '/', element: <LandingScreen /> },
   { path: '/about', element: <AboutScreen /> },
   { path: '/login', element: <LoginScreen /> },
   { path: '/signup', element: <SignupScreen /> },
   {
+    path: '/preview',
+    lazy: async () => ({ Component: (await import('./features/lesson/PreviewLessonScreen')).PreviewLessonScreen }),
+  },
+  {
     element: <RequireAuth />,
     children: [
-      { path: '/trip', element: <TripScreen /> },
-      { path: '/lesson/:id', element: <LessonScreen /> },
+      {
+        path: '/trip',
+        lazy: async () => ({ Component: (await import('./features/trip/TripScreen')).TripScreen }),
+      },
+      {
+        path: '/lesson/:id',
+        lazy: async () => ({ Component: (await import('./features/lesson/LessonScreen')).LessonScreen }),
+      },
     ],
   },
 ])
