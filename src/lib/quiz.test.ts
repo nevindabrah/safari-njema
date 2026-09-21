@@ -1,20 +1,15 @@
-// Tests for the quiz builder.
-// Exists so every question has exactly one right answer, no repeated options, and only real bank words.
+// Tests for the practice builder.
+// Exists so every exercise is fair: one right answer, no repeated options, only real bank words, and a mix of kinds.
 import { describe, expect, it } from 'vitest'
-import { buildQuiz, ROUNDS } from './quiz'
+import seed from '../../supabase/seed/phrases.json'
+import { buildQuiz, type Exercise } from './quiz'
 import type { Phrase } from './types'
 
-function phrase(id: string, swahili: string, english: string, pronunciation = 'x-X'): Phrase {
-  return { id, swahili, pronunciation, english, tags: [], verified: false }
-}
-
-const lesson: Phrase[] = [
-  phrase('a', 'Alpha beta gamma', 'A en'),
-  phrase('b', 'Delta epsilon', 'B en'),
-  phrase('c', 'Zeta / Eta', 'C en'),
-  phrase('d', 'Theta', 'D en'),
-]
-const pool: Phrase[] = [...lesson, phrase('p1', 'Iota kappa lambda', 'P1 en'), phrase('p2', 'Omicron sigma', 'P2 en'), phrase('p3', 'Omega, upsilon', 'P3 en')]
+const bank: Phrase[] = seed.map((p, i) => ({ id: String(i), swahili: p.swahili, pronunciation: p.pronunciation, english: p.english, tags: p.tags, verified: false }))
+const pick = (...names: string[]) => names.map((n) => bank.find((p) => p.swahili === n)!)
+const market = pick('Habari?', 'Nzuri', 'Hii ni bei gani?', 'Moja, mbili, tatu, nne, tano', 'Punguza bei, tafadhali', 'Sita, saba, nane, tisa, kumi')
+const mara = pick('Simba', 'Ni mnyama gani huyo?', 'Tembo / Ndovu', 'Twiga', 'Angalia!', 'Chui')
+const bankWords = new Set(bank.flatMap((p) => p.swahili.split(' ').map((w) => w.replace(/[?!.,]/g, ''))))
 
 // A tiny seeded random so tests are repeatable.
 function seeded(seed: number) {
@@ -24,55 +19,68 @@ function seeded(seed: number) {
     return s / 233280
   }
 }
+const kindsOf = (quiz: Exercise[]) => new Set<string>(quiz.map((e) => (e.kind === 'choice' ? e.variant : e.kind)))
 
 describe('buildQuiz', () => {
-  it('asks about every phrase in both directions, in round order', () => {
-    const quiz = buildQuiz(lesson, pool, seeded(1))
-    expect(quiz.filter((q) => q.kind === 'meaning').map((q) => q.phraseId).sort()).toEqual(['a', 'b', 'c', 'd'])
-    expect(quiz.filter((q) => q.kind === 'recall').map((q) => q.phraseId).sort()).toEqual(['a', 'b', 'c', 'd'])
-    const order = ROUNDS.map((r) => r.kind)
-    const kinds = quiz.map((q) => order.indexOf(q.kind))
-    expect([...kinds].sort((x, y) => x - y)).toEqual(kinds)
+  it('mixes at least five kinds of exercise for a lesson of sentences', () => {
+    const kinds = kindsOf(buildQuiz(market, bank, seeded(1)))
+    for (const kind of ['meaning', 'true_false', 'match', 'recall', 'sounds_like', 'build']) expect(kinds.has(kind), kind).toBe(true)
   })
 
-  it('gives every question one right answer and no repeated options', () => {
-    for (const seed of [1, 7, 42]) {
-      for (const q of buildQuiz(lesson, pool, seeded(seed))) {
-        expect(new Set(q.options.map((o) => o.toLowerCase())).size).toBe(q.options.length)
-        expect(q.options.length).toBeGreaterThanOrEqual(2)
-        expect(q.options.length).toBeLessThanOrEqual(4)
-        expect(q.correctIndex).toBeGreaterThanOrEqual(0)
-        const taught = lesson.find((p) => p.id === q.phraseId)!
-        if (q.kind === 'meaning') expect(q.options[q.correctIndex]).toBe(taught.english)
-        if (q.kind === 'recall' || q.kind === 'sounds_like') expect(q.options[q.correctIndex]).toBe(taught.swahili)
+  it('uses typing for a lesson of single words', () => {
+    const quiz = buildQuiz(mara, bank, seeded(2))
+    expect(quiz.filter((e) => e.kind === 'type').length).toBeGreaterThanOrEqual(3)
+    expect(quiz.some((e) => e.kind === 'type' && e.answer.includes('/'))).toBe(false)
+  })
+
+  it('runs the parts in order: recognise, recall, produce', () => {
+    const parts = buildQuiz(market, bank, seeded(3)).map((e) => e.part)
+    expect([...parts].sort()).toEqual(parts)
+    expect(new Set(parts)).toEqual(new Set([1, 2, 3]))
+  })
+
+  it('grows with the number of phrases', () => {
+    const four = buildQuiz(market.slice(0, 4), bank, seeded(4)).length
+    const six = buildQuiz(market, bank, seeded(4)).length
+    expect(four).toBeGreaterThanOrEqual(9)
+    expect(six).toBeGreaterThan(four)
+  })
+
+  it('gives every choice one right answer and no repeated options', () => {
+    for (const seedValue of [1, 7, 42]) {
+      for (const e of buildQuiz(market, bank, seeded(seedValue))) {
+        if (e.kind !== 'choice') continue
+        expect(new Set(e.options.map((o) => o.toLowerCase())).size).toBe(e.options.length)
+        const taught = market.find((p) => p.id === e.phraseIds[0])!
+        if (e.variant === 'meaning') expect(e.options[e.correctIndex]).toBe(taught.english)
+        if (e.variant === 'recall' || e.variant === 'sounds_like') expect(e.options[e.correctIndex]).toBe(taught.swahili)
+        if (e.variant === 'fill_gap') expect(e.prompt.replace('____', e.options[e.correctIndex])).toBe(taught.swahili)
+        if (e.variant === 'true_false') expect(e.correctIndex === 0).toBe(e.hint === taught.english)
       }
     }
   })
 
-  it('builds fill the gap from real words only, and skips pairs and single words', () => {
-    const bankWords = new Set(pool.flatMap((p) => p.swahili.split(' ').map((w) => w.replace(/[?!.,]/g, ''))))
-    const gaps = buildQuiz(lesson, pool, seeded(3)).filter((q) => q.kind === 'fill_gap')
-    expect(gaps.map((q) => q.phraseId).sort()).toEqual(['a', 'b'])
-    for (const q of gaps) {
-      expect(q.prompt).toContain('____')
-      for (const option of q.options) expect(bankWords.has(option)).toBe(true)
-      const taught = lesson.find((p) => p.id === q.phraseId)!
-      expect(q.prompt.replace('____', q.options[q.correctIndex])).toBe(taught.swahili)
+  it('builds tiles from real bank words that can spell the sentence', () => {
+    for (const e of buildQuiz(market, bank, seeded(5))) {
+      if (e.kind !== 'build') continue
+      for (const tile of e.tiles) expect(bankWords.has(tile), tile).toBe(true)
+      expect(e.tiles.length).toBeGreaterThan(e.answer.length)
+      const left = [...e.tiles]
+      for (const word of e.answer) expect(left.splice(left.indexOf(word), 1)).toEqual([word])
+      expect(e.full.replace(/[?!.,]/g, '')).toBe(e.answer.join(' '))
     }
   })
 
-  it('keeps punctuation in the sentence, not in the answer', () => {
-    const quiz = buildQuiz([phrase('x', 'Omega, upsilon', 'X en'), phrase('y', 'Kappa lambda', 'Y en')], pool, seeded(2))
-    const gap = quiz.find((q) => q.kind === 'fill_gap' && q.phraseId === 'x')!
-    expect(gap.options[gap.correctIndex]).not.toContain(',')
-    expect(gap.prompt.replace('____', gap.options[gap.correctIndex])).toBe('Omega, upsilon')
-  })
-
-  it('is longer than one question per phrase', () => {
-    expect(buildQuiz(lesson, pool, seeded(5)).length).toBeGreaterThanOrEqual(lesson.length * 2 + 2)
+  it('matches between three and five distinct pairs', () => {
+    const match = buildQuiz(market, bank, seeded(6)).find((e) => e.kind === 'match')
+    expect(match?.kind).toBe('match')
+    if (match?.kind !== 'match') return
+    expect(match.pairs.length).toBeGreaterThanOrEqual(3)
+    expect(match.pairs.length).toBeLessThanOrEqual(5)
+    expect([...match.englishOrder].sort()).toEqual(match.pairs.map((p) => p.phraseId).sort())
   })
 
   it('returns nothing when there is nothing to compare against', () => {
-    expect(buildQuiz(lesson.slice(0, 1), lesson.slice(0, 1))).toEqual([])
+    expect(buildQuiz(market.slice(0, 1), market.slice(0, 1))).toEqual([])
   })
 })
