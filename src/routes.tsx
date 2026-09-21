@@ -5,6 +5,7 @@ import { LandingScreen } from './features/landing/LandingScreen'
 import { AboutScreen } from './features/landing/AboutScreen'
 import { LoginScreen } from './features/auth/LoginScreen'
 import { SignupScreen } from './features/auth/SignupScreen'
+import { ForgotPasswordScreen, ResetPasswordScreen } from './features/auth/PasswordScreens'
 import { RequireAuth } from './features/auth/RequireAuth'
 
 // The heavier screens are loaded only when visited, so the landing page stays small.
@@ -16,6 +17,8 @@ export const router = createBrowserRouter([
   { path: '/about', element: <AboutScreen /> },
   { path: '/login', element: <LoginScreen /> },
   { path: '/signup', element: <SignupScreen /> },
+  { path: '/forgot', element: <ForgotPasswordScreen /> },
+  { path: '/reset', element: <ResetPasswordScreen /> },
   {
     path: '/preview',
     hydrateFallbackElement: loading,

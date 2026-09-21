@@ -11,7 +11,6 @@ import { PlaceSearch } from './PlaceSearch'
 import { PlacePreviewCard } from './PlacePreviewCard'
 import { ItineraryList } from './ItineraryList'
 import type { PickedPlace } from './usePlaceSearch'
-import { isDemoMode } from '../demo/demoMode'
 import { DemoMap } from '../demo/DemoMap'
 import { SamplePlaceSearch } from '../demo/SamplePlaceSearch'
 import { playSound } from '../../lib/sounds'
@@ -55,7 +54,7 @@ export function TripScreen() {
                 </div>
               )}
             </APIProvider>
-          ) : isDemoMode && trip ? (
+          ) : trip ? (
             <>
               <DemoMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
               <div className="absolute top-4 left-4 right-4 z-30">
