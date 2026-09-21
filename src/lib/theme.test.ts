@@ -35,7 +35,7 @@ function resolve(theme: Record<string, string>, name: string): string {
 const PAIRS: Array<[string, string]> = [
   ['--text', '--bg'], ['--text', '--surface'], ['--text', '--surface-2'], ['--text', '--tint'],
   ['--muted', '--bg'], ['--muted', '--surface'], ['--muted', '--surface-2'],
-  ['--on-hero', '--hero'], ['--on-accent', '--accent'], ['--on-primary', '--primary'], ['--on-success', '--success'],
+  ['--on-hero', '--hero'], ['--on-ink', '--ink'], ['--on-accent', '--accent'], ['--on-primary', '--primary'], ['--on-success', '--success'],
   ['--text', '--right-soft'], ['--text', '--wrong-soft'], ['--accent-text', '--surface'], ['--accent-text', '--bg'], ['--accent-text', '--tint'], ['--accent-text', '--surface-2'],
 ]
 

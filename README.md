@@ -37,7 +37,7 @@ The switch is automatic. With no keys the app is the demo. Add the Supabase valu
 - **Reviewed Swahili.** All 95 phrases have been reviewed by a Swahili teacher. Anything a model proposes later is marked unreviewed until someone checks it.
 - **A look that belongs to the subject.** Every finished lesson earns a kanga, the printed cloth that always carries a Swahili proverb, drawn in SVG from six colourways and four motifs. The icons are the app's own line set, not emoji. Light, dark or follow the device, with no flash on load.
 - **Real photos, properly credited.** A script resolves one freely licensed Wikimedia Commons photo per place in three batched requests, and saves the author and licence. Every photo is credited where it is shown and on the About page.
-- **Tests that read the lessons.** 121 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
+- **Tests that read the lessons.** 124 unit tests. They assert the exact phrases for a market, a beach and a game reserve, then sweep every kind of place so the bill never shows up at an airport.
 - **Row Level Security on every table**, with a database function so users never need write access to shared tables.
 - **Written to be read.** One feature per folder, no file over 200 lines, and every file opens by saying what it does and why it exists.
 

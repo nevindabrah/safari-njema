@@ -45,7 +45,7 @@ export function LandingScreen() {
             )}
             <Link to="/preview"><Button variant="onHero" tabIndex={-1}>See a sample lesson</Button></Link>
           </div>
-          <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-7 rounded-card px-4 py-3" style={{ background: 'var(--ink)', color: 'var(--on-accent)' }}>
+          <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-7 rounded-card px-4 py-3" style={{ background: 'var(--ink)', color: 'var(--on-ink)' }}>
             <b lang="sw" className="font-display">Haba na haba hujaza kibaba</b>
             <span className="text-sm opacity-75">Little by little fills the measure.</span>
           </p>

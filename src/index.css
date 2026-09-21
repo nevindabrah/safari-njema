@@ -21,6 +21,8 @@
 
   --hero: var(--marigold);
   --on-hero: var(--ink);
+  /* Ink is the same dark blue in both themes, so text set on it is always white. The proverb pills use this. */
+  --on-ink: #ffffff;
   --accent: var(--hibiscus);
   --accent-edge: #b3224f;
   --on-accent: #ffffff;

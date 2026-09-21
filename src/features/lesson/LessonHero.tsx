@@ -27,7 +27,7 @@ export function LessonHero({ lesson, placeType, googlePlaceId, note }: LessonHer
         <p className="text-sm font-bold opacity-90 flex items-center gap-1.5"><Icon name={placeType} size={16} />{PLACE_TYPE_INFO[placeType].label}</p>
         <h1 className="text-3xl sm:text-5xl mt-1">{lesson.place.name}</h1>
         {lesson.kanga && (
-          <p className="inline-flex mt-4 rounded-input px-3 py-2 text-sm" style={{ background: onPhoto ? 'var(--hero)' : 'var(--ink)', color: onPhoto ? 'var(--on-hero)' : 'var(--on-accent)' }}>
+          <p className="inline-flex mt-4 rounded-input px-3 py-2 text-sm" style={{ background: onPhoto ? 'var(--hero)' : 'var(--ink)', color: onPhoto ? 'var(--on-hero)' : 'var(--on-ink)' }}>
             <b lang="sw" className="font-display">{lesson.kanga.proverb}</b>
           </p>
         )}
