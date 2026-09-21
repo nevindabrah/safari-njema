@@ -9,9 +9,10 @@ import { Footer } from '../../components/Footer'
 import { allPhotos } from '../places/photoData'
 
 // Nevin's own photos. Their camera and device metadata was removed before they were added to this public repo.
+// The page shows them small, so it loads small copies, made the same way and checked to carry no metadata either.
 const PHOTOS = [
-  { src: '/about/nevin-with-giraffe.jpg', alt: 'Nevin taking a selfie beside a giraffe, with acacia trees behind' },
-  { src: '/about/nevin-feeding-giraffe.jpg', alt: 'Nevin feeding a giraffe by hand from a raised wooden platform' },
+  { src: '/about/nevin-with-giraffe-small.jpg', alt: 'Nevin taking a selfie beside a giraffe, with acacia trees behind' },
+  { src: '/about/nevin-feeding-giraffe-small.jpg', alt: 'Nevin feeding a giraffe by hand from a raised wooden platform' },
 ]
 const CAPTION = 'Twiga is Swahili for giraffe. Up close, they are taller than you expect.'
 
