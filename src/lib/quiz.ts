@@ -1,7 +1,7 @@
 // Builds a lesson's practice: a mix of exercise kinds in three parts that get harder: recognise, recall, produce.
 // Exists as a pure function so the practice can be tested without rendering. Its length follows the number of phrases.
 import type { Phrase } from './types'
-import { fillGapExercise, meaningExercise, recallExercise, shuffle, soundsLikeExercise, trueFalseExercise, type ChoiceExercise } from './quizChoice'
+import { fillGapExercise, listenExercise, meaningExercise, recallExercise, shuffle, soundsLikeExercise, trueFalseExercise, type ChoiceExercise } from './quizChoice'
 import { buildExercise, matchExercise, typeExercise, type BuildExercise, type MatchExercise, type TypeExercise } from './quizProduce'
 
 export type Exercise = ChoiceExercise | MatchExercise | BuildExercise | TypeExercise
@@ -9,7 +9,8 @@ export type Exercise = ChoiceExercise | MatchExercise | BuildExercise | TypeExer
 export const PART_TITLES: Record<1 | 2 | 3, string> = { 1: 'Recognise', 2: 'Recall', 3: 'Produce' }
 
 // phrases are the ones being taught. pool is where wrong answers come from, ideally the whole bank.
-export function buildQuiz(phrases: Phrase[], pool: Phrase[] = phrases, random: () => number = Math.random): Exercise[] {
+// hasAudio says whether a phrase has a recording. Without it there are no listening exercises, which keeps this function pure.
+export function buildQuiz(phrases: Phrase[], pool: Phrase[] = phrases, random: () => number = Math.random, hasAudio: (swahili: string) => boolean = () => false): Exercise[] {
   const everything = [...phrases, ...pool.filter((p) => !phrases.some((q) => q.id === p.id))]
   if (everything.length < 2) return []
   const othersOf = (phrase: Phrase) => everything.filter((p) => p.id !== phrase.id)
@@ -23,10 +24,12 @@ export function buildQuiz(phrases: Phrase[], pool: Phrase[] = phrases, random: (
   })
   const match = matchExercise(phrases, random)
 
-  // Part 2, recall: from English to Swahili, and from the pronunciation guide to the phrase.
+  // Part 2, recall: from English to Swahili, by ear from a recording, and from the pronunciation guide. They take turns.
   const recall: Exercise[] = []
   shuffle(phrases, random).forEach((phrase, i) => {
-    const exercise = (i % 2 === 1 && soundsLikeExercise(phrase, othersOf(phrase), random)) || recallExercise(phrase, othersOf(phrase), random)
+    const byEar = i % 3 === 1 && hasAudio(phrase.swahili) ? listenExercise(phrase, othersOf(phrase), random) : null
+    const bySound = i % 3 !== 0 ? soundsLikeExercise(phrase, othersOf(phrase), random) : null
+    const exercise = byEar || bySound || recallExercise(phrase, othersOf(phrase), random)
     if (exercise) recall.push(exercise)
   })
 

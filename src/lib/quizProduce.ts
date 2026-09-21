@@ -13,6 +13,7 @@ export interface MatchExercise {
   // The English side, shuffled, as phrase ids.
   englishOrder: string[]
   reveal: string
+  say: string
 }
 
 export interface BuildExercise {
@@ -27,6 +28,7 @@ export interface BuildExercise {
   full: string
   tiles: string[]
   reveal: string
+  say: string
 }
 
 export interface TypeExercise {
@@ -39,6 +41,7 @@ export interface TypeExercise {
   answer: string
   pronunciation: string
   reveal: string
+  say: string
 }
 
 // Up to five pairs. Two phrases with the same English or the same Swahili would be unfair, so only distinct ones go in.
@@ -52,7 +55,7 @@ export function matchExercise(phrases: Phrase[], random: () => number): MatchExe
   if (chosen.length < 3) return null
   return {
     kind: 'match', id: `match:${chosen.map((p) => p.id).join('+')}`, part: 1, phraseIds: chosen.map((p) => p.id),
-    instruction: 'Match each phrase to its meaning', reveal: '',
+    instruction: 'Match each phrase to its meaning', reveal: '', say: '',
     pairs: chosen.map((p) => ({ phraseId: p.id, swahili: p.swahili, english: p.english })),
     englishOrder: shuffle(chosen.map((p) => p.id), random),
   }
@@ -74,7 +77,7 @@ export function buildExercise(phrase: Phrase, others: Phrase[], random: () => nu
     if (extras.length === (answer.length <= 3 ? 3 : 2)) break
   }
   return {
-    kind: 'build', id: `build:${phrase.id}`, part: 3, phraseIds: [phrase.id], instruction: 'Build this in Swahili', reveal: `${phrase.swahili} · ${phrase.english}`,
+    kind: 'build', id: `build:${phrase.id}`, part: 3, phraseIds: [phrase.id], instruction: 'Build this in Swahili', reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili,
     english: phrase.english, answer, full: phrase.swahili, tiles: shuffle([...answer, ...extras], random),
   }
 }
@@ -82,5 +85,5 @@ export function buildExercise(phrase: Phrase, others: Phrase[], random: () => nu
 // Typing suits short answers. Pairs like "Kushoto / Kulia" are left to the other exercises.
 export function typeExercise(phrase: Phrase): TypeExercise | null {
   if (phrase.swahili.includes('/') || phrase.swahili.split(' ').length > 3) return null
-  return { kind: 'type', id: `type:${phrase.id}`, part: 3, phraseIds: [phrase.id], instruction: 'Type this in Swahili', reveal: `${phrase.swahili} · ${phrase.english}`, english: phrase.english, answer: phrase.swahili, pronunciation: phrase.pronunciation }
+  return { kind: 'type', id: `type:${phrase.id}`, part: 3, phraseIds: [phrase.id], instruction: 'Type this in Swahili', reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, english: phrase.english, answer: phrase.swahili, pronunciation: phrase.pronunciation }
 }

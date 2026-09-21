@@ -8,6 +8,7 @@ import { ReviewNote } from '../../components/ReviewNote'
 import { useLesson } from '../lesson/useLesson'
 import { PlacePhoto, PhotoCredit } from '../places/PlacePhoto'
 import type { PlaceType } from '../../lib/types'
+import { SpeakButton } from '../audio/SpeakButton'
 
 export function PocketCardScreen() {
   const { id } = useParams()
@@ -29,7 +30,8 @@ export function PocketCardScreen() {
               <h2 className="text-lg mt-6 mb-2">Say it</h2>
               <ul className="divide-y" style={{ borderColor: 'var(--line)' }}>
                 {data.phrases.map((phrase) => (
-                  <li key={phrase.id} className="py-2.5 grid grid-cols-[1fr_1fr] gap-3 items-baseline" style={{ borderColor: 'var(--line)' }}>
+                  <li key={phrase.id} className="py-2.5 grid grid-cols-[auto_1fr_1fr] gap-3 items-center" style={{ borderColor: 'var(--line)' }}>
+                    <span className="w-11 no-print"><SpeakButton swahili={phrase.swahili} /></span>
                     <span><span lang="sw" className="font-display font-extrabold block">{phrase.swahili}</span><span className="text-xs text-accent font-bold">{phrase.pronunciation}</span></span>
                     <span className="text-sm text-muted">{phrase.english}</span>
                   </li>

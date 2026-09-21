@@ -16,6 +16,7 @@ import { LessonHero } from './LessonHero'
 import { LessonEnd } from './LessonEnd'
 import { LESSON_LENGTHS, saveLessonLength, savedLessonLength, type LessonLength } from '../../lib/lessonLength'
 import { isDemoMode } from '../demo/demoMode'
+import { audioUrlFor } from '../audio/audio'
 import { playSound } from '../../lib/sounds'
 
 const STEPS = ['The brief', 'The phrases', 'Practice']
@@ -42,11 +43,12 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
   const [startedAt] = useState(() => Date.now())
   // A lesson holds up to eight phrases, most needed first. The length decides how many of them are studied.
   const studied = useMemo(() => phrases.slice(0, LESSON_LENGTHS[length].phrases), [phrases, length])
-  const exercises = useMemo(() => buildQuiz(studied, pool ?? phrases), [studied, pool, phrases])
+  const hasAudio = (swahili: string) => audioUrlFor(swahili) !== null
+  const exercises = useMemo(() => buildQuiz(studied, pool ?? phrases, Math.random, hasAudio), [studied, pool, phrases])
   const sizes = useMemo(() => {
     const sizeOf = (l: LessonLength) => {
       const some = phrases.slice(0, LESSON_LENGTHS[l].phrases)
-      return { phrases: some.length, exercises: buildQuiz(some, pool ?? phrases).length }
+      return { phrases: some.length, exercises: buildQuiz(some, pool ?? phrases, Math.random, hasAudio).length }
     }
     return { quick: sizeOf('quick'), standard: sizeOf('standard'), deep: sizeOf('deep') }
   }, [phrases, pool])

@@ -27,6 +27,14 @@ describe('buildQuiz', () => {
     for (const kind of ['meaning', 'true_false', 'match', 'recall', 'sounds_like', 'build']) expect(kinds.has(kind), kind).toBe(true)
   })
 
+  it('adds listening exercises only when phrases have recordings', () => {
+    expect(kindsOf(buildQuiz(market, bank, seeded(1))).has('listen')).toBe(false)
+    const withAudio = buildQuiz(market, bank, seeded(1), () => true)
+    const listens = withAudio.filter((e) => e.kind === 'choice' && e.variant === 'listen')
+    expect(listens.length).toBeGreaterThanOrEqual(1)
+    for (const e of listens) if (e.kind === 'choice') expect(e.options[e.correctIndex]).toBe(e.say)
+  })
+
   it('uses typing for a lesson of single words', () => {
     const quiz = buildQuiz(mara, bank, seeded(2))
     expect(quiz.filter((e) => e.kind === 'type').length).toBeGreaterThanOrEqual(3)

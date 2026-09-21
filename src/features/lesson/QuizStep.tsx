@@ -1,10 +1,12 @@
 // Runs the practice: one exercise at a time, feedback after each, a streak, then a second chance at anything missed.
 // Exists as the practice step of a lesson. Only first tries count for the score. The exercises come from the pure buildQuiz.
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '../../components/Button'
 import { ProgressBar } from '../../components/ProgressBar'
 import { PART_TITLES, type Exercise } from '../../lib/quiz'
-import { playSound } from '../../lib/sounds'
+import { isSoundOn, playSound } from '../../lib/sounds'
+import { playPhrase } from '../audio/audio'
+import { SpeakButton } from '../audio/SpeakButton'
 import { Icon } from '../../components/icons'
 import { ChoiceExercise } from './exercises/ChoiceExercise'
 import { MatchExercise } from './exercises/MatchExercise'
@@ -31,13 +33,20 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
   const [streak, setStreak] = useState(0)
   const [missed, setMissed] = useState<Exercise[]>([])
   const [missedPhraseIds, setMissedPhraseIds] = useState<string[]>([])
+  // The phrase is spoken a moment after an answer. This holds that pending clip so it can be cancelled.
+  const speakTimer = useRef<number | undefined>(undefined)
   const exercise = queue[index]
+
+  // Leaving the practice must not leave a clip waiting to play over the next screen.
+  useEffect(() => () => window.clearTimeout(speakTimer.current), [])
 
   if (!exercise) return <p className="text-muted">Not enough phrases to practise.</p>
 
   function answer(isCorrect: boolean, detail?: { phraseIds?: string[]; note?: string }) {
     setOutcome({ correct: isCorrect, note: detail?.note })
     playSound(isCorrect ? 'correct' : 'wrong')
+    // Hearing the phrase straight after answering is what makes it stick. It waits for the chime to finish.
+    if (exercise.say && isSoundOn()) speakTimer.current = window.setTimeout(() => playPhrase(exercise.say), 420)
     if (secondChance) return
     if (isCorrect) {
       setCorrect((c) => c + 1)
@@ -50,6 +59,8 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
   }
 
   function next() {
+    // A quick learner can press Next before the delayed clip starts. Cancel it, or it would play over a listening question.
+    window.clearTimeout(speakTimer.current)
     setOutcome(null)
     if (index + 1 < queue.length) return setIndex(index + 1)
     // The end of the main practice. Anything missed comes back once, and does not change the score.
@@ -94,7 +105,7 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
       {outcome && (
         <div className="mt-5 rounded-card p-4" role="status" style={{ background: outcome.correct ? 'var(--right-soft)' : 'var(--wrong-soft)' }}>
           <p className="font-display font-extrabold text-lg">{outcome.correct ? (outcome.note ?? 'Right.') : 'Not quite.'}</p>
-          {exercise.reveal && <p lang="sw" className="mt-1">{exercise.reveal}</p>}
+          {exercise.reveal && <p lang="sw" className="mt-1 flex items-center gap-3">{exercise.say && <SpeakButton swahili={exercise.say} />}<span>{exercise.reveal}</span></p>}
           <Button full className="mt-4" onClick={next}>{moreToCome ? 'Next' : 'Finish'}</Button>
         </div>
       )}

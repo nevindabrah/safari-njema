@@ -2,6 +2,8 @@
 // Exists as one of four exercise kinds. It shows the options, marks the answer, and reports right or wrong once.
 import { useEffect, useRef, useState } from 'react'
 import type { ChoiceExercise as Choice } from '../../../lib/quizChoice'
+import { playPhrase } from '../../audio/audio'
+import { SpeakButton } from '../../audio/SpeakButton'
 
 interface ChoiceExerciseProps {
   exercise: Choice
@@ -20,6 +22,11 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
     onAnswer(i === exercise.correctIndex)
   }
 
+  // A listening exercise speaks as soon as it appears. The tap that brought the learner here allows the sound.
+  useEffect(() => {
+    if (exercise.variant === 'listen') playPhrase(exercise.say)
+  }, [exercise])
+
   // Number keys pick an option, so a laptop user never has to reach for the mouse.
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -32,6 +39,12 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
 
   return (
     <div>
+      {exercise.variant === 'listen' && (
+        <div className="flex items-center gap-4 py-2">
+          <SpeakButton swahili={exercise.say} size="large" />
+          <p className="text-muted">Tap to hear it again.</p>
+        </div>
+      )}
       <p lang={exercise.promptLang === 'none' ? undefined : exercise.promptLang} className="font-display font-extrabold text-3xl"
         style={exercise.variant === 'sounds_like' ? { color: 'var(--accent)' } : undefined}>
         {exercise.prompt}

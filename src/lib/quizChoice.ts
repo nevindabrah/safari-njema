@@ -2,7 +2,7 @@
 // Exists apart from quiz.ts to keep each file short. Every builder is pure and only uses Swahili already in the bank.
 import type { Phrase } from './types'
 
-export type ChoiceVariant = 'meaning' | 'recall' | 'sounds_like' | 'fill_gap' | 'true_false'
+export type ChoiceVariant = 'meaning' | 'recall' | 'sounds_like' | 'listen' | 'fill_gap' | 'true_false'
 
 export interface ChoiceExercise {
   kind: 'choice'
@@ -20,6 +20,8 @@ export interface ChoiceExercise {
   correctIndex: number
   // Shown once answered, so a wrong answer still teaches the right one.
   reveal: string
+  // The Swahili to speak aloud: once answered, or as the question itself in a listening exercise.
+  say: string
 }
 
 // Fisher-Yates shuffle. The random source is an argument so tests can be repeatable.
@@ -56,20 +58,27 @@ function makeOptions(correct: string, wrongCandidates: string[], random: () => n
 export function meaningExercise(phrase: Phrase, others: Phrase[], random: () => number): ChoiceExercise | null {
   const built = makeOptions(phrase.english, others.map((p) => p.english), random)
   if (!built) return null
-  return { kind: 'choice', variant: 'meaning', id: `meaning:${phrase.id}`, part: 1, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, instruction: 'What does this mean?', prompt: phrase.swahili, promptLang: 'sw', optionLang: 'en', ...built }
+  return { kind: 'choice', variant: 'meaning', id: `meaning:${phrase.id}`, part: 1, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'What does this mean?', prompt: phrase.swahili, promptLang: 'sw', optionLang: 'en', ...built }
 }
 
 export function recallExercise(phrase: Phrase, others: Phrase[], random: () => number): ChoiceExercise | null {
   const built = makeOptions(phrase.swahili, others.map((p) => p.swahili), random)
   if (!built) return null
-  return { kind: 'choice', variant: 'recall', id: `recall:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, instruction: 'How do you say this in Swahili?', prompt: phrase.english, promptLang: 'en', optionLang: 'sw', ...built }
+  return { kind: 'choice', variant: 'recall', id: `recall:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'How do you say this in Swahili?', prompt: phrase.english, promptLang: 'en', optionLang: 'sw', ...built }
 }
 
 export function soundsLikeExercise(phrase: Phrase, others: Phrase[], random: () => number): ChoiceExercise | null {
   if (!phrase.pronunciation) return null
   const built = makeOptions(phrase.swahili, others.map((p) => p.swahili), random)
   if (!built) return null
-  return { kind: 'choice', variant: 'sounds_like', id: `sounds_like:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, instruction: 'Which phrase is said like this?', prompt: phrase.pronunciation, promptLang: 'none', optionLang: 'sw', ...built }
+  return { kind: 'choice', variant: 'sounds_like', id: `sounds_like:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'Which phrase is said like this?', prompt: phrase.pronunciation, promptLang: 'none', optionLang: 'sw', ...built }
+}
+
+// A listening exercise: the phrase is played, and the learner picks what was said. The prompt is the sound, so it has no text.
+export function listenExercise(phrase: Phrase, others: Phrase[], random: () => number): ChoiceExercise | null {
+  const built = makeOptions(phrase.swahili, others.map((p) => p.swahili), random)
+  if (!built) return null
+  return { kind: 'choice', variant: 'listen', id: `listen:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'Listen. What did you hear?', prompt: '', promptLang: 'none', optionLang: 'sw', ...built }
 }
 
 // Half the time the meaning shown is the real one, half the time it belongs to another phrase.
@@ -79,7 +88,7 @@ export function trueFalseExercise(phrase: Phrase, others: Phrase[], random: () =
   const showTruth = random() < 0.5
   const shown = showTruth ? phrase.english : wrongMeanings[Math.floor(random() * wrongMeanings.length)]
   return {
-    kind: 'choice', variant: 'true_false', id: `true_false:${phrase.id}`, part: 1, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`,
+    kind: 'choice', variant: 'true_false', id: `true_false:${phrase.id}`, part: 1, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili,
     instruction: 'Does it mean this?', prompt: phrase.swahili, promptLang: 'sw', hint: shown,
     options: ['Yes, that is what it means', 'No, it means something else'], optionLang: 'en', correctIndex: showTruth ? 0 : 1,
   }
@@ -102,5 +111,5 @@ export function fillGapExercise(phrase: Phrase, others: Phrase[], random: () => 
   const built = makeOptions(core, others.flatMap((p) => gapWords(p, gapIndex === 0)), random)
   if (!built) return null
   const sentence = words.map((w, i) => (i === gapIndex ? '____' + trail : w)).join(' ')
-  return { kind: 'choice', variant: 'fill_gap', id: `fill_gap:${phrase.id}`, part: 3, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, instruction: 'Which word is missing?', prompt: sentence, promptLang: 'sw', hint: phrase.english, optionLang: 'sw', ...built }
+  return { kind: 'choice', variant: 'fill_gap', id: `fill_gap:${phrase.id}`, part: 3, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'Which word is missing?', prompt: sentence, promptLang: 'sw', hint: phrase.english, optionLang: 'sw', ...built }
 }
