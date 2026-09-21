@@ -1,20 +1,19 @@
 """Speaks every seed phrase in Swahili and saves one small audio file each, plus a manifest the app reads.
 
 Exists so lessons have a native sounding voice with no speech service, no API key and no cost at run time.
-The voice is Meta's MMS text to speech model for Swahili (facebook/mms-tts-swh), licensed CC BY-NC 4.0:
-free for non-commercial use with credit. If Safari Njema ever earns money, replace this with a commercial voice.
+The main voice is Meta's MMS text to speech model for Swahili, licensed CC BY-NC 4.0: free for non-commercial use
+with credit. If Safari Njema ever earns money, replace these clips with a commercial voice.
 
 Run once, from the repo root, in a Python environment that has torch, transformers and scipy:
-    python scripts/generateAudio.py            one take per phrase
-    python scripts/generateAudio.py --judge 5  the same, for the first five phrases only, as a quick test
-    python scripts/generateAudio.py --judge    several takes per phrase. A Swahili speech recogniser listens to each
-                                               and the clearest one is kept. Slower, and downloads a 4 GB model once.
-    python scripts/generateAudio.py --judge --only-weak   redo only the clips the last report scored under 0.9
+    python scripts/generateAudio.py                 one take per phrase, main voice only
+    python scripts/generateAudio.py --judge         several takes per phrase. A Swahili speech recogniser listens to
+                                                    each and the clearest is kept. Downloads a 4 GB model once.
+    python scripts/generateAudio.py --judge --only-weak                  redo only clips the last report scored under 0.9
+    python scripts/generateAudio.py --judge --only-weak --other-voices   and let other voices try those too
 
-Short words are the hard case. The voice was trained on sentences, so a lone word is unusual input and often comes out
-unclear. For those, the word is also spoken three times in a row and the middle one is cut out, which gives it natural
-flow on both sides. The model's own predicted timing says where to cut, optionally nudged to the quietest instant nearby.
-Needs macOS for afconvert, which turns the WAV files into small AAC files every browser can play.
+Short words are the hard case: the voice was trained on sentences. For those the word is also spoken three times and
+the middle one cut out (see audioVoice.py). Other voices are only used where the main voice stays weak and another is
+heard almost perfectly, so the lessons keep one main voice. Needs macOS for afconvert.
 """
 import json
 import re
@@ -26,89 +25,27 @@ from pathlib import Path
 import numpy as np
 import scipy.io.wavfile
 import torch
-from transformers import AutoProcessor, AutoTokenizer, VitsModel, Wav2Vec2ForCTC
+from transformers import AutoProcessor, Wav2Vec2ForCTC
 
-VOICE = "facebook/mms-tts-swh"
+from audioVoice import SAY_AS, Voice
+
+MAIN_VOICE = "facebook/mms-tts-swh"
+# Community voices built on the same model. Compared across all 95 phrases they are weaker overall, but each wins a few.
+OTHER_VOICES = ["Mwau/waxal_swahili-tts-mms", "mussacharles60/swahili-tts-female-voice", "stano03/jambogpt-swahili-tts-v1"]
 LISTENER = "facebook/mms-1b-all"
-OUT_DIR = Path("public/audio")
-MANIFEST = Path("src/features/audio/audioManifest.json")
-REPORT = Path("docs/audio-report.json")
+OUT_DIR, MANIFEST, REPORT = Path("public/audio"), Path("src/features/audio/audioManifest.json"), Path("docs/audio-report.json")
+SHIP_AT = 0.7    # a clip is only offered in the app if the recogniser heard at least this much of it correctly
+WEAK_UNDER = 0.9  # below this a clip is retried, and other voices may have a go
+OTHER_VOICE_NEEDS = 0.95  # another voice replaces the main one only if it is heard almost perfectly
 
-# A clip is only offered in the app if the recogniser heard at least this much of the phrase correctly.
-# A phrase with no clip simply has no speaker button. Better silent than teaching a wrong sound.
-SHIP_AT = 0.7
-
-# Spellings used only for the voice, where the written form would be read wrongly. What learners see never changes.
-SAY_AS = {"M-Pesa": "em pesa"}
-
-JUDGE = "--judge" in sys.argv
-ONLY_WEAK = "--only-weak" in sys.argv
+JUDGE, ONLY_WEAK, USE_OTHERS = "--judge" in sys.argv, "--only-weak" in sys.argv, "--other-voices" in sys.argv
 phrases = json.loads(Path("supabase/seed/phrases.json").read_text())
 LIMIT = next((int(a) for a in sys.argv[1:] if a.isdigit()), len(phrases))
 
-tokenizer = AutoTokenizer.from_pretrained(VOICE)
-voice = VitsModel.from_pretrained(VOICE)
-rate = voice.config.sampling_rate
-hop = int(np.prod(voice.config.upsample_rates))  # audio samples per frame of the model's timing
-# Keep the timing the model predicts for each character, so a word can be cut out of a longer stretch of speech.
-timing = {}
-voice.duration_predictor.register_forward_hook(lambda module, args, output: timing.__setitem__("log", output.detach()))
+voices = {MAIN_VOICE: Voice(MAIN_VOICE)}
 if JUDGE:
     processor = AutoProcessor.from_pretrained(LISTENER, target_lang="swh")
     listener = Wav2Vec2ForCTC.from_pretrained(LISTENER, target_lang="swh", ignore_mismatched_sizes=True)
-
-
-def silence(seconds: float) -> np.ndarray:
-    return np.zeros(int(rate * seconds), dtype=np.float32)
-
-
-def speak(text: str, seed: int, speed: float, noise: float) -> np.ndarray:
-    """One stretch of speech with no pause inside it. The model adds randomness: the seed picks the take, and less noise is crisper."""
-    for written, spoken in SAY_AS.items():
-        text = text.replace(written, spoken)
-    voice.speaking_rate = speed
-    voice.noise_scale = noise
-    torch.manual_seed(seed)
-    with torch.no_grad():
-        return voice(**tokenizer(text, return_tensors="pt")).waveform[0].numpy()
-
-
-def middle_of_three(word: str, seed: int, speed: float, noise: float, snap: bool) -> np.ndarray:
-    """Say the word three times and keep the middle one. snap moves each cut to the quietest instant within 90 ms."""
-    wave = speak(f"{word} {word} {word}", seed, speed, noise)
-    ends = np.cumsum(torch.ceil(torch.exp(timing["log"][0, 0]) / speed).numpy()) * hop  # where each token ends, in samples
-    chars = (len(tokenizer(word).input_ids) - 1) // 2  # the tokenizer puts a blank token between every character
-    start, stop = int(ends[2 * (chars + 1) - 1]), int(min(ends[2 * (2 * chars + 1)], len(wave)))
-
-    def quietest(near: int) -> int:
-        window, reach = int(rate * 0.012), int(rate * 0.09)
-        low, high = max(0, near - reach), min(len(wave) - window, near + reach)
-        energy = [float(np.mean(wave[i:i + window] ** 2)) for i in range(low, high, window // 2)]
-        return low + int(np.argmin(energy)) * (window // 2) + window // 2
-
-    if snap and quietest(stop) - quietest(start) >= int(rate * 0.18):  # on a tiny word the quiet spots can collide
-        start, stop = quietest(start), quietest(stop)
-    piece = wave[start:stop].copy()
-    fade = min(int(rate * 0.012), max(1, len(piece) // 4))
-    piece[:fade] *= np.linspace(0, 1, fade)
-    piece[-fade:] *= np.linspace(1, 0, fade)
-    return piece
-
-
-def speak_phrase(swahili: str, seed: int, speed: float, split_commas: bool, noise: float, method: str = "alone") -> np.ndarray:
-    """A pair like "Kushoto / Kulia" gets a clear pause between its halves. A list can get a short pause at each comma."""
-    pieces = []
-    halves = [h.strip() for h in swahili.split(" / ")]
-    for h, half in enumerate(halves):
-        parts = [p.strip() for p in half.split(",") if p.strip()] if split_commas else [half]
-        for p, part in enumerate(parts):
-            pieces.append(speak(part, seed, speed, noise) if method == "alone" else middle_of_three(part, seed, speed, noise, method == "middle, quiet cut"))
-            if p < len(parts) - 1:
-                pieces.append(silence(0.22))
-        if h < len(halves) - 1:
-            pieces.append(silence(0.55))
-    audio = np.concatenate([silence(0.08), *pieces, silence(0.08)])
-    return audio / max(np.abs(audio).max(), 1e-6) * 0.9
 
 
 def letters(text: str) -> str:
@@ -130,26 +67,38 @@ def similarity(a: str, b: str) -> float:
     return 1 - row[-1] / max(len(a), len(b), 1)
 
 
-def hear(audio: np.ndarray) -> str:
-    inputs = processor(audio, sampling_rate=rate, return_tensors="pt")
+def hear(audio: np.ndarray, rate: int) -> str:
+    if rate != 16000:  # the recogniser expects 16 kHz
+        audio = np.interp(np.arange(0, len(audio), rate / 16000), np.arange(len(audio)), audio).astype(np.float32)
     with torch.no_grad():
-        ids = torch.argmax(listener(**inputs).logits, dim=-1)[0]
+        ids = torch.argmax(listener(**processor(audio, sampling_rate=16000, return_tensors="pt")).logits, dim=-1)[0]
     return processor.decode(ids)
 
 
+def single_words(swahili: str) -> bool:
+    return all(" " not in part.strip() for half in swahili.split(" / ") for part in half.split(","))
+
+
 def takes_for(swahili: str):
-    """The settings to try, best guesses first. Without the judge there is one. With it, a first round of six or so,
-    then a longer second round that only stubborn phrases ever reach: more seeds, slower, and less noise for crisper sounds."""
+    """The main voice's settings to try, best guesses first: a first round, then a longer one only stubborn phrases reach."""
     if not JUDGE:
         return [(7, 0.88, True, 0.667, "alone")]
     comma_choices = [True, False] if "," in swahili else [True]
     first = [(seed, speed, commas, 0.667, "alone") for seed in (7, 21, 42) for speed in (0.88, 0.78) for commas in comma_choices]
     second = [(seed, speed, True, noise, "alone") for noise in (0.4, 0.2) for speed in (0.8, 0.7) for seed in (1, 2)]
-    # The middle of three trick only makes sense when every part of the phrase is a single word.
-    parts = [p for half in swahili.split(" / ") for p in half.split(",")]
-    if all(" " not in p.strip() for p in parts):
-        second = [(seed, speed, True, noise, method) for method in ("middle", "middle, quiet cut") for seed in (7, 21, 42) for speed in (0.88, 0.75) for noise in (0.667, 0.3)] + second
+    if single_words(swahili):  # the middle of three trick only makes sense when every part is a single word
+        second = [(seed, speed, True, noise, m) for m in ("middle", "middle, quiet cut") for seed in (7, 21, 42) for speed in (0.88, 0.75) for noise in (0.667, 0.3)] + second
     return first + second
+
+
+def judge(voice: Voice, swahili: str, take, best):
+    seed, speed, commas, noise, method = take
+    audio = voice.speak_phrase(swahili, seed, speed, commas, noise, method)
+    heard = hear(audio, voice.rate) if JUDGE else ""
+    score = similarity(letters(swahili), letters(heard)) if JUDGE else 0.0
+    if best is None or score > best["score"]:
+        return {"audio": audio, "rate": voice.rate, "heard": heard, "score": score, "take": {"voice": voice.model_id, "method": method, "seed": seed, "speed": speed, "split_commas": commas, "noise": noise}}
+    return best
 
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -158,39 +107,44 @@ manifest = json.loads(MANIFEST.read_text()) if MANIFEST.exists() and (LIMIT < le
 report = []
 for index, phrase in enumerate(phrases[:LIMIT]):
     swahili = phrase["swahili"]
-    # With --only-weak, a clip that already scored well is left exactly as it is.
-    if ONLY_WEAK and swahili in previous and previous[swahili]["score"] >= 0.9:
+    if ONLY_WEAK and swahili in previous and previous[swahili]["score"] >= WEAK_UNDER:  # a good clip is left exactly as it is
         report.append(previous[swahili])
         continue
-    best = None
-    for number, (seed, speed, commas, noise, method) in enumerate(takes_for(swahili)):
-        # The second round is only for phrases the first round could not get across. Once in it, keep going until a take is nearly perfect.
-        first_round = 12 if "," in swahili else 6
+    best, first_round = None, 12 if "," in swahili else 6
+    for number, take in enumerate(takes_for(swahili)):
         if (number == first_round and best["score"] >= 0.85) or (number > first_round and best["score"] >= 0.95):
             break
-        audio = speak_phrase(swahili, seed, speed, commas, noise, method)
-        heard = hear(audio) if JUDGE else ""
-        score = similarity(letters(swahili), letters(heard)) if JUDGE else 0.0
-        if best is None or score > best["score"]:
-            best = {"audio": audio, "heard": heard, "score": score, "take": {"method": method, "seed": seed, "speed": speed, "split_commas": commas, "noise": noise}}
-        if score == 1.0:
+        best = judge(voices[MAIN_VOICE], swahili, take, best)
+        if best["score"] == 1.0:
             break
+    if JUDGE and USE_OTHERS and best["score"] < WEAK_UNDER:
+        for model_id in OTHER_VOICES:
+            if model_id not in voices:  # each extra voice is loaded once, the first time a weak clip needs it
+                voices[model_id] = Voice(model_id)
+            candidate = None
+            for method in (["alone", "middle"] if single_words(swahili) else ["alone"]):
+                for seed in (7, 21):
+                    candidate = judge(voices[model_id], swahili, (seed, 0.88, True, 0.667, method), candidate)
+            if candidate["score"] >= OTHER_VOICE_NEEDS and candidate["score"] > best["score"]:
+                best = candidate
     name = f"{index + 1:03d}.m4a"
+    if ONLY_WEAK and swahili in previous and previous[swahili]["score"] >= round(best["score"], 2) and (OUT_DIR / name).exists():
+        report.append(previous[swahili])  # the retry was no better, so the clip already on disk stays
+        print(f"{name}  kept at {previous[swahili]['score']:.2f}  {swahili}", flush=True)
+        continue
     with tempfile.NamedTemporaryFile(suffix=".wav") as wav:
-        scipy.io.wavfile.write(wav.name, rate, (best["audio"] * 32767).astype(np.int16))
+        scipy.io.wavfile.write(wav.name, best["rate"], (best["audio"] * 32767).astype(np.int16))
         subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", "40000", wav.name, str(OUT_DIR / name)], check=True)
     shipped = not JUDGE or best["score"] >= SHIP_AT
+    manifest.pop(swahili, None)
     if shipped:
         manifest[swahili] = f"/audio/{name}"
-    else:
-        manifest.pop(swahili, None)
     report.append({"file": name, "swahili": swahili, "heard": best["heard"], "score": round(best["score"], 2), "shipped": shipped, "take": best["take"]})
-    print(f"{name}  {best['score']:.2f}  {'    ' if shipped else 'HELD'}  {swahili}  ->  {best['heard']}", flush=True)
+    print(f"{name}  {best['score']:.2f}  {'    ' if shipped else 'HELD'}  {swahili}  ->  {best['heard']}   [{best['take']['voice'].split('/')[-1]}]", flush=True)
 
 MANIFEST.parent.mkdir(parents=True, exist_ok=True)
 MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
 if JUDGE and LIMIT == len(phrases):
-    REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     held = [r["swahili"] for r in report if not r["shipped"]]
     print(f"\n{len(report) - len(held)} of {len(report)} clips are in the app. Held back for a human to listen to: {held}. Full list in {REPORT}.")
