@@ -32,6 +32,12 @@
   --hero-ghost-edge: rgba(21, 23, 58, 0.18);
   --on-hero-ghost: #15173a;
 
+  /* The demo's sketch map. */
+  --map-ground: #eef0f7;
+  --map-land: #fff6da;
+  --map-border: #e9c46a;
+  --map-water: #cfe6f5;
+
   --radius-card: 28px;
   --radius-input: 16px;
   --radius-pill: 999px;
@@ -53,6 +59,10 @@
     --tint: #3a3114;
     --tint-2: #123428;
     --line: #2a2e58;
+    --map-ground: #12142b;
+    --map-land: #2a2745;
+    --map-border: #5a4a1e;
+    --map-water: #16324a;
     --hibiscus: #ff5c8d;
     --accent-edge: #c23562;
     --leaf: #3fd29c;
@@ -64,6 +74,10 @@
   }
 }
 :root[data-theme="dark"] {
+  --map-ground: #12142b;
+  --map-land: #2a2745;
+  --map-border: #5a4a1e;
+  --map-water: #16324a;
   --bg: #0e1024;
   --surface: #181b38;
   --surface-2: #1f2347;

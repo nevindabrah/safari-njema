@@ -11,9 +11,9 @@ import { PlaceSearch } from './PlaceSearch'
 import { PlacePreviewCard } from './PlacePreviewCard'
 import { ItineraryList } from './ItineraryList'
 import type { PickedPlace } from './usePlaceSearch'
-import { isTestMode } from '../testmode/testMode'
-import { TestMap } from '../testmode/TestMap'
-import { SamplePlaceSearch } from '../testmode/SamplePlaceSearch'
+import { isDemoMode } from '../demo/demoMode'
+import { DemoMap } from '../demo/DemoMap'
+import { SamplePlaceSearch } from '../demo/SamplePlaceSearch'
 
 export function TripScreen() {
   const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_KEY as string | undefined
@@ -46,9 +46,9 @@ export function TripScreen() {
                 </div>
               )}
             </APIProvider>
-          ) : isTestMode && trip ? (
+          ) : isDemoMode && trip ? (
             <>
-              <TestMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={setHighlightedId} />
+              <DemoMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={setHighlightedId} />
               <div className="absolute top-4 left-4 right-4 z-30">
                 <SamplePlaceSearch onPick={(place) => { setPreview(place); setHighlightedId(null) }} />
               </div>
