@@ -1,0 +1,25 @@
+// Tests for the Google type to place type mapping.
+// Exists so a change to the rules cannot silently reclassify places.
+import { describe, expect, it } from 'vitest'
+import { toPlaceType } from './placeTypes'
+
+describe('toPlaceType', () => {
+  it('maps a market', () => {
+    expect(toPlaceType(['market', 'point_of_interest', 'establishment'])).toBe('market')
+  })
+  it('maps a national reserve to park', () => {
+    expect(toPlaceType(['national_park', 'tourist_attraction'])).toBe('park')
+  })
+  it('maps a beach', () => {
+    expect(toPlaceType(['beach', 'natural_feature'])).toBe('beach')
+  })
+  it('prefers hotel over restaurant when both appear', () => {
+    expect(toPlaceType(['restaurant', 'lodging'])).toBe('hotel')
+  })
+  it('maps a town', () => {
+    expect(toPlaceType(['locality', 'political'])).toBe('city')
+  })
+  it('falls back to other', () => {
+    expect(toPlaceType(['point_of_interest'])).toBe('other')
+  })
+})
