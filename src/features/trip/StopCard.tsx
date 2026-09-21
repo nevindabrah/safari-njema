@@ -64,14 +64,18 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
           </p>
         )}
         {stop.lesson_status === 'ready' && lessonId && (
-          <div className="flex gap-2">
-            <Link to={`/lesson/${lessonId}`} className="block flex-1">
-              <Button variant={completed ? 'soft' : 'accent'} full tabIndex={-1}>{completed ? 'Review lesson' : 'Start lesson'}</Button>
-            </Link>
-            <Link to={`/card/${lessonId}`} aria-label={`Pocket card for ${stop.place.name}`} title="Pocket card">
-              <Button variant="soft" tabIndex={-1} className="!px-4"><Icon name="card" size={20} /></Button>
-            </Link>
-          </div>
+          <>
+            <div className="flex flex-wrap gap-2">
+              <Link to={`/lesson/${lessonId}`} className="block flex-1 min-w-[9rem]">
+                <Button variant={completed ? 'soft' : 'accent'} full tabIndex={-1}>{completed ? 'Review lesson' : 'Start lesson'}</Button>
+              </Link>
+              {/* Named in words. As an icon alone, nobody could tell what this button opened. */}
+              <Link to={`/card/${lessonId}`} aria-label={`Pocket card for ${stop.place.name}`} className="block flex-1 min-w-[9rem]">
+                <Button variant="soft" full tabIndex={-1} className="!px-4 whitespace-nowrap"><Icon name="card" size={18} />Pocket card</Button>
+              </Link>
+            </div>
+            <p className="text-xs text-muted mt-2 px-1">The pocket card is this stop's phrases on one page, to glance at while you are there or to print.</p>
+          </>
         )}
         {(stop.lesson_status === 'failed' || (stop.lesson_status === 'ready' && !lessonId)) && <Button variant="soft" full onClick={onRetry}>Try again</Button>}
       </div>
