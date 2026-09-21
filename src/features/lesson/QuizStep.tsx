@@ -41,6 +41,21 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
   // Leaving the practice must not leave a clip waiting to play over the next screen.
   useEffect(() => () => window.clearTimeout(speakTimer.current), [])
 
+  // Once there is an answer, make sure its feedback and the Next button are on screen.
+  useEffect(() => {
+    if (outcome) feedback.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [outcome])
+
+  // Enter moves on once an answer has been given.
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === 'Enter' && outcome) next()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  })
+
+  // Every hook sits above this line, because React needs the same hooks to run on every render.
   if (!exercise) return <p className="text-muted">Not enough phrases to practise.</p>
 
   function answer(isCorrect: boolean, detail?: { phraseIds?: string[]; note?: string }) {
@@ -72,20 +87,6 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
     }
     onFinish({ correct, total: exercises.length, missedPhraseIds })
   }
-
-  // Once there is an answer, make sure its feedback and the Next button are on screen.
-  useEffect(() => {
-    if (outcome) feedback.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [outcome])
-
-  // Enter moves on once an answer has been given.
-  useEffect(() => {
-    function onKey(event: KeyboardEvent) {
-      if (event.key === 'Enter' && outcome) next()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  })
 
   const moreToCome = index + 1 < queue.length || (!secondChance && missed.length > 0)
 
