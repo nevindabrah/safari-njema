@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { isExistingAccount, plainAuthMessage } from '../../lib/authMessages'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
+import { LeaveButton } from '../../components/LeaveButton'
 import { AuthForm } from './AuthForm'
 import { SetupNotice } from './SetupNotice'
 import { GoogleButton } from './GoogleButton'
@@ -32,7 +33,8 @@ export function SignupScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-md px-4 py-10">
+      <main className="mx-auto max-w-md px-4 pt-4 pb-10">
+        <LeaveButton kind="back" label="Back" to="/" showLabel className="mb-3" />
         <Card>
           {needsConfirm ? (
             <>

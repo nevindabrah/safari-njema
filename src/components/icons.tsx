@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 export type IconName =
   | 'city' | 'park' | 'beach' | 'market' | 'restaurant' | 'hotel' | 'airport' | 'station' | 'religious_site' | 'museum' | 'other'
-  | 'search' | 'trash' | 'sound' | 'mute' | 'sun' | 'moon' | 'system' | 'check' | 'bolt' | 'card' | 'cloth' | 'arrow' | 'print' | 'map' | 'close'
+  | 'search' | 'trash' | 'sound' | 'mute' | 'sun' | 'moon' | 'system' | 'check' | 'bolt' | 'card' | 'cloth' | 'arrow' | 'back' | 'print' | 'map' | 'close'
 
 const PATHS: Record<IconName, ReactNode> = {
   city: <><path d="M3 20h18M5 20V10l4-2v12M9 20V5l6 2.5V20M15 20v-7l4 1.5V20" /><path d="M11.5 10v.01M11.5 13.5v.01M11.5 17v.01" /></>,
@@ -32,6 +32,7 @@ const PATHS: Record<IconName, ReactNode> = {
   arrow: <path d="M4.5 12h15M13.5 6l6 6-6 6" />,
   print: <><path d="M7 8.5V3.5h10v5M7 17.5H4.5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H17" /><rect x="7" y="14" width="10" height="6.5" /></>,
   map: <><path d="m3 6.5 6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5V6.5Z" /><path d="M9 4v13.5M15 6.5V20" /></>,
+  back: <path d="M19.5 12h-15M10.5 6l-6 6 6 6" />,
   close: <path d="m6 6 12 12M18 6 6 18" />,
 }
 

@@ -2,6 +2,7 @@
 // Exists because the real search needs a paid Google key. Quick ideas and a way into the full catalogue sit right under it.
 import { useState } from 'react'
 import { Icon } from '../../components/icons'
+import { SearchBox } from '../../components/SearchBox'
 import { searchPlaces } from '../../lib/placeSearch'
 import { PlacePhoto } from '../places/PlacePhoto'
 import { PLACE_TYPE_INFO } from '../trip/placeTypes'
@@ -25,16 +26,11 @@ export function SamplePlaceSearch({ onPick, onBrowse }: SamplePlaceSearchProps) 
     onPick(place)
   }
 
-  const pill = 'shrink-0 px-3 min-h-[36px] rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap bg-surface shadow-soft'
+  const pill = 'shrink-0 px-3.5 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap bg-surface shadow-soft'
 
   return (
     <div className="w-full">
-      <label className="sr-only" htmlFor="sample-search">Search for a place in Kenya</label>
-      <div className="relative">
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted"><Icon name="search" size={18} /></span>
-        <input id="sample-search" type="search" autoComplete="off" placeholder="A place, or food, safari, beach" value={query} onChange={(e) => setQuery(e.target.value)}
-          className="w-full min-h-[52px] pl-11 pr-5 rounded-pill bg-surface shadow-lift text-text placeholder:text-muted" />
-      </div>
+      <SearchBox id="sample-search" label="Search for a place in Kenya" placeholder="Place, food, safari, beach" value={query} onChange={setQuery} shadow="lift" />
 
       {!typed && (
         <div className="flex gap-2 overflow-x-auto mt-2 pb-1">

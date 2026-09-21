@@ -2,6 +2,8 @@
 // Exists for two readers: a learner who wants to browse, and a Swahili speaker who wants to check the content and send corrections.
 import { useState } from 'react'
 import { TopBar } from '../../components/TopBar'
+import { SearchBox } from '../../components/SearchBox'
+import { LeaveButton } from '../../components/LeaveButton'
 import { Footer } from '../../components/Footer'
 import { countNotes } from '../../lib/phraseNotes'
 import { usePhrasebook } from './usePhrasebook'
@@ -22,6 +24,7 @@ export function PhrasebookScreen() {
     <div className="min-h-dvh">
       <TopBar />
       <main className={`mx-auto max-w-3xl px-4 pt-4 ${countNotes(notes) > 0 ? 'pb-44' : 'pb-28 sm:pb-10'}`}>
+        <LeaveButton kind="back" label="Back" to="/" showLabel className="mb-3" />
         <h1 className="text-4xl sm:text-5xl">Phrasebook</h1>
         <p className="text-muted mt-2">
           All {phrases.length || 95} phrases Safari Njema can teach, with the pronunciation guide and the recording learners hear. They have been reviewed by a Swahili teacher.
@@ -32,9 +35,7 @@ export function PhrasebookScreen() {
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2 items-center">
-          <label className="sr-only" htmlFor="book-search">Search the phrasebook</label>
-          <input id="book-search" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search Swahili or English"
-            className="flex-1 min-w-[12rem] min-h-[48px] px-5 rounded-pill bg-surface shadow-soft" />
+          <SearchBox id="book-search" label="Search the phrasebook" placeholder="Search Swahili or English" value={query} onChange={setQuery} className="flex-1 min-w-[12rem]" />
           {checkCount > 0 && (
             <button type="button" aria-pressed={checkOnly} onClick={() => setCheckOnly(!checkOnly)}
               className={`px-4 min-h-[48px] rounded-pill text-sm font-bold cursor-pointer ${checkOnly ? 'bg-primary text-on-primary' : 'bg-surface shadow-soft'}`}>

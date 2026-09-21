@@ -1,5 +1,6 @@
 // The search box and results list that float over the map.
 // Exists so the search matches our design instead of Google's default widget.
+import { SearchBox } from '../../components/SearchBox'
 import { usePlaceSearch, type PickedPlace, type Suggestion } from './usePlaceSearch'
 
 interface PlaceSearchProps {
@@ -16,16 +17,7 @@ export function PlaceSearch({ onPick }: PlaceSearchProps) {
 
   return (
     <div className="w-full">
-      <label className="sr-only" htmlFor="place-search">Search for a place in Kenya</label>
-      <input
-        id="place-search"
-        type="search"
-        autoComplete="off"
-        placeholder="Where are you going? Try Diani Beach"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full min-h-[52px] px-5 rounded-pill bg-surface shadow-lift text-text placeholder:text-muted"
-      />
+      <SearchBox id="place-search" label="Search for a place in Kenya" placeholder="Where are you going? Try Diani Beach" value={query} onChange={setQuery} shadow="lift" />
       {(suggestions.length > 0 || searching) && (
         <ul className="mt-2 bg-surface rounded-card shadow-lift overflow-hidden" role="listbox">
           {searching && suggestions.length === 0 && (

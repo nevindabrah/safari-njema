@@ -5,6 +5,7 @@ import { Card } from '../../components/Card'
 import { Hero } from '../../components/Hero'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
+import { LeaveButton } from '../../components/LeaveButton'
 import { Footer } from '../../components/Footer'
 import { allPhotos } from '../places/photoData'
 
@@ -34,7 +35,8 @@ export function AboutScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-3xl px-4 pt-6 pb-28 sm:pb-6 flex flex-col gap-6">
+      <main className="mx-auto max-w-3xl px-4 pt-4 pb-28 sm:pb-6 flex flex-col gap-6">
+        <LeaveButton kind="back" label="Back" to="/" showLabel className="self-start -mb-3" />
         <Hero title="Kuhusu mimi" artFrom="md" art={<HeroPhotos />}>
           <p className="text-lg">About me, and why I built this.</p>
           <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-4 rounded-card px-4 py-3" style={{ background: 'var(--ink)', color: 'var(--on-ink)' }}>

@@ -7,6 +7,7 @@ import { plainAuthMessage } from '../../lib/authMessages'
 import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
+import { LeaveButton } from '../../components/LeaveButton'
 import { SetupNotice } from './SetupNotice'
 import { isDemoMode } from '../demo/demoMode'
 
@@ -27,7 +28,8 @@ export function ForgotPasswordScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-md px-4 py-10">
+      <main className="mx-auto max-w-md px-4 pt-4 pb-10">
+        <LeaveButton kind="back" label="Back to log in" to="/login" showLabel className="mb-3" />
         <Card>
           <h1 className="text-3xl mb-3">Reset your password</h1>
           <SetupNotice />
@@ -67,7 +69,8 @@ export function ResetPasswordScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-md px-4 py-10">
+      <main className="mx-auto max-w-md px-4 pt-4 pb-10">
+        <LeaveButton kind="back" label="Back to log in" to="/login" showLabel className="mb-3" />
         <Card>
           <h1 className="text-3xl mb-1">Choose a new password</h1>
           <form onSubmit={save} className="flex flex-col gap-3 mt-4">

@@ -2,6 +2,7 @@
 // Exists for the moment you are actually standing in the market. It prints cleanly, because signal in places like the Mara is unreliable.
 import { Link, useParams } from 'react-router'
 import { TopBar } from '../../components/TopBar'
+import { LeaveButton } from '../../components/LeaveButton'
 import { Button } from '../../components/Button'
 import { Icon } from '../../components/icons'
 import { ReviewNote } from '../../components/ReviewNote'
@@ -18,6 +19,7 @@ export function PocketCardScreen() {
     <div className="min-h-dvh">
       <TopBar />
       <main className="mx-auto max-w-2xl px-4 pt-4 pb-28 sm:pb-10">
+        <LeaveButton kind="back" label="Back to my trip" to="/trip" showLabel className="mb-3" />
         {error && <p className="p-8 text-center">{error} <Link to="/trip" className="underline font-bold">Back to my trip</Link></p>}
         {!error && !data && <p className="p-8 text-center text-muted">Opening your pocket card.</p>}
         {data && (

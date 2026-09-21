@@ -4,12 +4,14 @@ import { Link } from 'react-router'
 import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
+import { LeaveButton } from '../../components/LeaveButton'
 
 export function NotFoundScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-md px-4 py-10">
+      <main className="mx-auto max-w-md px-4 pt-4 pb-10">
+        <LeaveButton kind="back" label="Back" to="/" showLabel className="mb-3" />
         <Card className="text-center">
           <p lang="sw" className="font-display font-extrabold text-5xl mb-2">Nimepotea</p>
           <p className="text-muted mb-1">That is Swahili for "I am lost", and so is this page.</p>

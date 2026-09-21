@@ -2,6 +2,7 @@
 // Exists because a kanga always carries a proverb, so a collection of them is a record of the trip in the culture's own form.
 import { Link } from 'react-router'
 import { TopBar } from '../../components/TopBar'
+import { LeaveButton } from '../../components/LeaveButton'
 import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
 import { KangaCloth } from '../../components/KangaCloth'
@@ -17,6 +18,7 @@ export function KangasScreen() {
     <div className="min-h-dvh">
       <TopBar />
       <main className="mx-auto max-w-5xl px-4 pt-4 pb-28 sm:pb-10">
+        <LeaveButton kind="back" label="Back to my trip" to="/trip" showLabel className="mb-3" />
         <h1 className="text-4xl sm:text-5xl">My kangas</h1>
         <p className="text-muted mt-2 max-w-2xl">
           A kanga is a printed cloth worn along the East African coast, and every one carries a Swahili proverb. Finish a lesson and you earn the kanga for that stop.

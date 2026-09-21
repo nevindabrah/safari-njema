@@ -2,6 +2,7 @@
 // Exists so nobody has to guess a place's name. It opens over the planner, and picking a place hands it to the same preview card as search.
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from '../../components/icons'
+import { SearchBox } from '../../components/SearchBox'
 import { CATEGORIES, searchPlaces } from '../../lib/placeSearch'
 import { SAMPLE_PLACES } from '../demo/samplePlaces'
 import { PlacePhoto } from '../places/PlacePhoto'
@@ -47,12 +48,7 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
             <h2 id="catalog-title" className="text-2xl sm:text-3xl">Where are you going?</h2>
             <button type="button" onClick={onClose} aria-label="Close the catalogue" className="w-11 h-11 rounded-pill bg-surface shadow-soft flex items-center justify-center cursor-pointer"><Icon name="close" size={18} /></button>
           </div>
-          <label className="sr-only" htmlFor="catalog-search">Search places</label>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted"><Icon name="search" size={18} /></span>
-            <input ref={input} id="catalog-search" type="search" autoComplete="off" value={query} onChange={(e) => setQuery(e.target.value)}
-              placeholder="A place, or what you want to do: food, safari, swim" className="w-full min-h-[52px] pl-11 pr-5 rounded-pill bg-surface shadow-soft" />
-          </div>
+          <SearchBox id="catalog-search" label="Search places" placeholder="A place, or food, safari, swim" value={query} onChange={setQuery} inputRef={input} />
           <div className="flex gap-2 overflow-x-auto mt-3 pb-1 -mx-1 px-1" role="group" aria-label="Kinds of place">
             <button type="button" className={chip(category === null)} aria-pressed={category === null} onClick={() => setCategory(null)}>All {found.length}</button>
             {CATEGORIES.map((c) => {
