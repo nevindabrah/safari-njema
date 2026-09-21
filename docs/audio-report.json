@@ -1,0 +1,1237 @@
+[
+  {
+    "file": "001.m4a",
+    "swahili": "Habari?",
+    "heard": "habari",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "002.m4a",
+    "swahili": "Nzuri",
+    "heard": "niori",
+    "score": 0.6,
+    "shipped": false,
+    "take": {
+      "seed": 2,
+      "speed": 0.7,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "003.m4a",
+    "swahili": "Sasa? / Poa",
+    "heard": "tana toa",
+    "score": 0.57,
+    "shipped": false,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "004.m4a",
+    "swahili": "Shikamoo / Marahaba",
+    "heard": "sheda moo marahaba",
+    "score": 0.88,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "005.m4a",
+    "swahili": "Asante sana",
+    "heard": "asande sana",
+    "score": 0.9,
+    "shipped": true,
+    "take": {
+      "seed": 4,
+      "speed": 0.8,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "006.m4a",
+    "swahili": "Karibu",
+    "heard": "karibu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "007.m4a",
+    "swahili": "Tafadhali",
+    "heard": "tafadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "008.m4a",
+    "swahili": "Samahani",
+    "heard": "samahani",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "009.m4a",
+    "swahili": "Ndiyo / Hapana",
+    "heard": "ndiyo zala",
+    "score": 0.64,
+    "shipped": false,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "010.m4a",
+    "swahili": "Sawa",
+    "heard": "tawa",
+    "score": 0.75,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "011.m4a",
+    "swahili": "Jina langu ni Sam",
+    "heard": "jina langu ni sam",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "012.m4a",
+    "swahili": "Unaitwa nani?",
+    "heard": "unaitwa nani",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "013.m4a",
+    "swahili": "Ninajifunza Kiswahili",
+    "heard": "ninajifunza kiswahili",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "014.m4a",
+    "swahili": "Sema polepole, tafadhali",
+    "heard": "sema pole pole tafadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "015.m4a",
+    "swahili": "Sielewi",
+    "heard": "selewi",
+    "score": 0.86,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "016.m4a",
+    "swahili": "Kwaheri",
+    "heard": "kwayeri",
+    "score": 0.86,
+    "shipped": true,
+    "take": {
+      "seed": 2,
+      "speed": 0.8,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "017.m4a",
+    "swahili": "Pasipoti",
+    "heard": "pazipoi",
+    "score": 0.75,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "018.m4a",
+    "swahili": "Nimekuja kwa utalii",
+    "heard": "nimekuja kwa utalii",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "019.m4a",
+    "swahili": "Nitakaa wiki mbili",
+    "heard": "nitakaa wiki mbili",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "020.m4a",
+    "swahili": "Mizigo yangu iko wapi?",
+    "heard": "mizigo yangu iko wapi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "021.m4a",
+    "swahili": "Choo kiko wapi?",
+    "heard": "shoo kiko wapi",
+    "score": 0.92,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "022.m4a",
+    "swahili": "Ninahitaji teksi",
+    "heard": "ni nahitaji teksi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "023.m4a",
+    "swahili": "Ninahitaji laini ya simu",
+    "heard": "ninahitaji laini ya simu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "024.m4a",
+    "swahili": "Naweza kubadilisha pesa wapi?",
+    "heard": "naweza kubadilisha pesa wapi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "025.m4a",
+    "swahili": "Nipeleke hotelini, tafadhali",
+    "heard": "nipeleke hotelini tafadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "026.m4a",
+    "swahili": "Ni shilingi ngapi?",
+    "heard": "nishilingi ngapi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "027.m4a",
+    "swahili": "Nauli ni ngapi?",
+    "heard": "nauli ni ngapi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "028.m4a",
+    "swahili": "Unaenda mjini?",
+    "heard": "unaenda mjini",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "029.m4a",
+    "swahili": "Nishushe hapa, tafadhali",
+    "heard": "nishushe hapa tafadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": false,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "030.m4a",
+    "swahili": "Simama hapa",
+    "heard": "si mama hapa",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "031.m4a",
+    "swahili": "Twende",
+    "heard": "twende",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "032.m4a",
+    "swahili": "Polepole, tafadhali",
+    "heard": "polepole ta fadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": false,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "033.m4a",
+    "swahili": "Kushoto / Kulia",
+    "heard": "kushoto kolie",
+    "score": 0.83,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "034.m4a",
+    "swahili": "Moja kwa moja",
+    "heard": "moja kwa moja",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "035.m4a",
+    "swahili": "Ni mbali?",
+    "heard": "nimbali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "036.m4a",
+    "swahili": "Naomba chenji yangu",
+    "heard": "naomba chenji yangu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "037.m4a",
+    "swahili": "Kituo cha treni kiko wapi?",
+    "heard": "kituo cha treni kiko wapi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "038.m4a",
+    "swahili": "Naomba menyu",
+    "heard": "naomba menyu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "039.m4a",
+    "swahili": "Naomba maji",
+    "heard": "naomba maji",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "040.m4a",
+    "swahili": "Ningependa nyama choma na ugali",
+    "heard": "ningependa nyama choma na ugali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "041.m4a",
+    "swahili": "Nusu kilo",
+    "heard": "nuzu kilo",
+    "score": 0.88,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "042.m4a",
+    "swahili": "Bila pilipili",
+    "heard": "mila pili pili",
+    "score": 0.92,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "043.m4a",
+    "swahili": "Sili nyama",
+    "heard": "sili nyama",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "044.m4a",
+    "swahili": "Baridi / Moto",
+    "heard": "naridi molo",
+    "score": 0.8,
+    "shipped": true,
+    "take": {
+      "seed": 4,
+      "speed": 0.8,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "045.m4a",
+    "swahili": "Chakula ni kitamu sana",
+    "heard": "chakula ni kitamu sana",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "046.m4a",
+    "swahili": "Nimeshiba",
+    "heard": "nime shiba",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "047.m4a",
+    "swahili": "Naomba bili",
+    "heard": "naomba bili",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "048.m4a",
+    "swahili": "Naweza kulipa na M-Pesa?",
+    "heard": "naweza kulipa na em pesa",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "049.m4a",
+    "swahili": "Moja, mbili, tatu, nne, tano",
+    "heard": "mmoja mbili tatu nne tano",
+    "score": 0.95,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": false,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "050.m4a",
+    "swahili": "Sita, saba, nane, tisa, kumi",
+    "heard": "sita saba nane tisa kumi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": false,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "051.m4a",
+    "swahili": "Mia / Elfu",
+    "heard": "le al fu",
+    "score": 0.57,
+    "shipped": false,
+    "take": {
+      "seed": 1,
+      "speed": 0.7,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "052.m4a",
+    "swahili": "Mia tano",
+    "heard": "mea tano",
+    "score": 0.86,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "053.m4a",
+    "swahili": "Hii ni bei gani?",
+    "heard": "hii ni bei ghani",
+    "score": 0.92,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "054.m4a",
+    "swahili": "Ni ghali sana",
+    "heard": "ni ghali sana",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "055.m4a",
+    "swahili": "Punguza bei, tafadhali",
+    "heard": "punguza bei tafadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": false,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "056.m4a",
+    "swahili": "Bei ya mwisho ni ngapi?",
+    "heard": "bei ya mwishoni ngapi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "057.m4a",
+    "swahili": "Naangalia tu",
+    "heard": "na angalia tu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "058.m4a",
+    "swahili": "Una rangi nyingine?",
+    "heard": "unaranginingine",
+    "score": 0.94,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "059.m4a",
+    "swahili": "Nitachukua hii",
+    "heard": "nitachukua hii",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "060.m4a",
+    "swahili": "Sitaki, asante",
+    "heard": "sitaki asante",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": false,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "061.m4a",
+    "swahili": "Simba",
+    "heard": "himba",
+    "score": 0.8,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "062.m4a",
+    "swahili": "Tembo / Ndovu",
+    "heard": "temmo ndovu",
+    "score": 0.9,
+    "shipped": true,
+    "take": {
+      "seed": 1,
+      "speed": 0.8,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "063.m4a",
+    "swahili": "Twiga",
+    "heard": "twenda",
+    "score": 0.5,
+    "shipped": false,
+    "take": {
+      "seed": 2,
+      "speed": 0.7,
+      "split_commas": true,
+      "noise": 0.2
+    }
+  },
+  {
+    "file": "064.m4a",
+    "swahili": "Chui",
+    "heard": "thui",
+    "score": 0.75,
+    "shipped": true,
+    "take": {
+      "seed": 1,
+      "speed": 0.7,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "065.m4a",
+    "swahili": "Duma",
+    "heard": "doma",
+    "score": 0.75,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "066.m4a",
+    "swahili": "Kifaru",
+    "heard": "kidaru",
+    "score": 0.83,
+    "shipped": true,
+    "take": {
+      "seed": 3,
+      "speed": 0.8,
+      "split_commas": true,
+      "noise": 0.4
+    }
+  },
+  {
+    "file": "067.m4a",
+    "swahili": "Nyati",
+    "heard": "nali",
+    "score": 0.6,
+    "shipped": false,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "068.m4a",
+    "swahili": "Punda milia",
+    "heard": "punda milia",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "069.m4a",
+    "swahili": "Kiboko",
+    "heard": "kue mula",
+    "score": 0.14,
+    "shipped": false,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "070.m4a",
+    "swahili": "Nyumbu",
+    "heard": "nyumbu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "071.m4a",
+    "swahili": "Angalia!",
+    "heard": "amgalia",
+    "score": 0.86,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "072.m4a",
+    "swahili": "Ni mnyama gani huyo?",
+    "heard": "ni mnyamadani huyo",
+    "score": 0.94,
+    "shipped": true,
+    "take": {
+      "seed": 42,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "073.m4a",
+    "swahili": "Tunaweza kusimama hapa?",
+    "heard": "tunaweza kusimama hapa",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "074.m4a",
+    "swahili": "Naweza kupiga picha?",
+    "heard": "naweza kupiga picha",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "075.m4a",
+    "swahili": "Hakuna shida",
+    "heard": "hakuna shida",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "076.m4a",
+    "swahili": "Bahari",
+    "heard": "naari",
+    "score": 0.67,
+    "shipped": false,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "077.m4a",
+    "swahili": "Pwani",
+    "heard": "wani",
+    "score": 0.8,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "078.m4a",
+    "swahili": "Jahazi",
+    "heard": "nahazi",
+    "score": 0.83,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "079.m4a",
+    "swahili": "Samaki",
+    "heard": "samaki",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "080.m4a",
+    "swahili": "Madafu",
+    "heard": "madafu",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "081.m4a",
+    "swahili": "Kuna joto sana leo",
+    "heard": "kuna yoto sana leo",
+    "score": 0.93,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "082.m4a",
+    "swahili": "Naweza kuogelea hapa?",
+    "heard": "naweza kuogelea hapa",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "083.m4a",
+    "swahili": "Hujambo? / Sijambo",
+    "heard": "huliambo si jambo",
+    "score": 0.87,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "084.m4a",
+    "swahili": "Habari za asubuhi?",
+    "heard": "habari za asubuhi",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "085.m4a",
+    "swahili": "Salama",
+    "heard": "talama",
+    "score": 0.83,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "086.m4a",
+    "swahili": "Tutaonana",
+    "heard": "tutaonana",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "087.m4a",
+    "swahili": "Nisaidie, tafadhali",
+    "heard": "nisaidie tafadhali",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "088.m4a",
+    "swahili": "Nimepotea",
+    "heard": "nimepotea",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "089.m4a",
+    "swahili": "Ninaumwa",
+    "heard": "ni naumwa",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "090.m4a",
+    "swahili": "Hospitali iko wapi?",
+    "heard": "khospitali iko wapi",
+    "score": 0.94,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "091.m4a",
+    "swahili": "Ninahitaji daktari",
+    "heard": "ninahitaji daktari",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "092.m4a",
+    "swahili": "Dawa",
+    "heard": "daw",
+    "score": 0.75,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "093.m4a",
+    "swahili": "Simu yangu imepotea",
+    "heard": "simu yangu imepotea",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "094.m4a",
+    "swahili": "Unaongea Kiingereza?",
+    "heard": "unaomgia kiingereza",
+    "score": 0.89,
+    "shipped": true,
+    "take": {
+      "seed": 21,
+      "speed": 0.78,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  },
+  {
+    "file": "095.m4a",
+    "swahili": "Pole",
+    "heard": "pole",
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "seed": 7,
+      "speed": 0.88,
+      "split_commas": true,
+      "noise": 0.667
+    }
+  }
+]
