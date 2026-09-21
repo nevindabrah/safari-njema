@@ -8,12 +8,33 @@ import { TopBar } from '../../components/TopBar'
 import { Footer } from '../../components/Footer'
 import { allPhotos } from '../places/photoData'
 
+// Nevin's own photos. Their camera and device metadata was removed before they were added to this public repo.
+const PHOTOS = [
+  { src: '/about/nevin-with-giraffe.jpg', alt: 'Nevin taking a selfie beside a giraffe, with acacia trees behind' },
+  { src: '/about/nevin-feeding-giraffe.jpg', alt: 'Nevin feeding a giraffe by hand from a raised wooden platform' },
+]
+const CAPTION = 'Twiga is Swahili for giraffe. Up close, they are taller than you expect.'
+
+// From medium screens up, the two photos sit in the empty right side of the hero, tilted like prints on a table.
+// That keeps them on the page without pushing the story down.
+function HeroPhotos() {
+  return (
+    <figure className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 w-[17rem]">
+      <div className="flex justify-center">
+        <img src={PHOTOS[0].src} alt={PHOTOS[0].alt} width={768} height={1024} className="w-32 aspect-[3/4] object-cover rounded-input shadow-lift -rotate-6 translate-x-3" style={{ border: '4px solid var(--surface)' }} />
+        <img src={PHOTOS[1].src} alt={PHOTOS[1].alt} width={768} height={1024} className="w-32 aspect-[3/4] object-cover rounded-input shadow-lift rotate-3 -translate-x-3 translate-y-3" style={{ border: '4px solid var(--surface)' }} />
+      </div>
+      <figcaption className="text-xs text-center mt-5 opacity-80">{CAPTION}</figcaption>
+    </figure>
+  )
+}
+
 export function AboutScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
       <main className="mx-auto max-w-3xl px-4 pt-6 pb-28 sm:pb-6 flex flex-col gap-6">
-        <Hero title="Kuhusu mimi">
+        <Hero title="Kuhusu mimi" artFrom="md" art={<HeroPhotos />}>
           <p className="text-lg">About me, and why I built this.</p>
           <p className="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 mt-4 rounded-card px-4 py-3" style={{ background: 'var(--ink)', color: 'var(--on-ink)' }}>
             <b lang="sw" className="font-display">Mtu ni watu</b>
@@ -21,15 +42,13 @@ export function AboutScreen() {
           </p>
         </Hero>
 
-        {/* Nevin's own photos. Their camera and device metadata was removed before they were added to this public repo. */}
-        <figure>
-          <div className="grid grid-cols-2 gap-3 sm:gap-5">
-            <img src="/about/nevin-with-giraffe.jpg" alt="Nevin taking a selfie beside a giraffe, with acacia trees behind" width={768} height={1024}
-              className="w-full aspect-[3/4] object-cover rounded-card shadow-soft" />
-            <img src="/about/nevin-feeding-giraffe.jpg" alt="Nevin feeding a giraffe by hand from a raised wooden platform" width={768} height={1024} loading="lazy"
-              className="w-full aspect-[3/4] object-cover rounded-card shadow-soft sm:translate-y-6" />
+        {/* On a phone the photos sit here, small, so the story below is already on screen. Wider screens show them in the hero. */}
+        <figure className="md:hidden">
+          <div className="grid grid-cols-2 gap-3 max-w-[17rem] mx-auto">
+            <img src={PHOTOS[0].src} alt={PHOTOS[0].alt} width={768} height={1024} className="w-full aspect-[3/4] object-cover rounded-card shadow-soft" />
+            <img src={PHOTOS[1].src} alt={PHOTOS[1].alt} width={768} height={1024} className="w-full aspect-[3/4] object-cover rounded-card shadow-soft" />
           </div>
-          <figcaption className="text-sm text-muted text-center mt-3 sm:mt-9">Twiga is Swahili for giraffe. Up close, they are taller than you expect.</figcaption>
+          <figcaption className="text-sm text-muted text-center mt-3">{CAPTION}</figcaption>
         </figure>
 
         <Card className="flex flex-col gap-4 text-lg leading-relaxed">
