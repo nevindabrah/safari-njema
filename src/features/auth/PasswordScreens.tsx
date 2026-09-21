@@ -7,6 +7,7 @@ import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
 import { SetupNotice } from './SetupNotice'
+import { isDemoMode } from '../demo/demoMode'
 
 const inputClass = 'w-full min-h-[48px] px-4 rounded-input bg-surface-2 text-text placeholder:text-muted'
 
@@ -29,7 +30,7 @@ export function ForgotPasswordScreen() {
         <Card>
           <h1 className="text-3xl mb-3">Reset your password</h1>
           <SetupNotice />
-          {sent ? (
+          {isDemoMode ? null : sent ? (
             <p className="text-muted">If that email has an account, a reset link is on its way. Open it on this device.</p>
           ) : (
             <form onSubmit={send} className="flex flex-col gap-3">

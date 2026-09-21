@@ -7,6 +7,7 @@ import { TopBar } from '../../components/TopBar'
 import { AuthForm } from './AuthForm'
 import { SetupNotice } from './SetupNotice'
 import { GoogleButton } from './GoogleButton'
+import { isDemoMode } from '../demo/demoMode'
 
 export function LoginScreen() {
   const navigate = useNavigate()
@@ -28,9 +29,13 @@ export function LoginScreen() {
           <h1 className="text-3xl mb-1">Welcome back</h1>
           <p className="text-muted mb-6">Log in to open your trip.</p>
           <SetupNotice />
-          <GoogleButton />
-          <AuthForm submitLabel="Log in" onSubmit={login} />
-          <p className="text-sm text-center mt-4"><Link to="/forgot" className="underline text-muted">Forgot your password?</Link></p>
+          {!isDemoMode && (
+            <>
+              <GoogleButton />
+              <AuthForm submitLabel="Log in" onSubmit={login} />
+              <p className="text-sm text-center mt-4"><Link to="/forgot" className="underline text-muted">Forgot your password?</Link></p>
+            </>
+          )}
           <p className="text-sm text-muted mt-6 text-center">
             New here? <Link to="/signup" className="font-bold text-text underline">Create an account</Link>
           </p>
