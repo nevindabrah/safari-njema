@@ -15,14 +15,15 @@
   {
     "file": "002.m4a",
     "swahili": "Nzuri",
-    "heard": "niori",
-    "score": 0.6,
-    "shipped": false,
+    "heard": "unzuri",
+    "score": 0.83,
+    "shipped": true,
     "take": {
-      "seed": 2,
-      "speed": 0.7,
+      "method": "middle",
+      "seed": 42,
+      "speed": 0.88,
       "split_commas": true,
-      "noise": 0.4
+      "noise": 0.667
     }
   },
   {
@@ -32,6 +33,7 @@
     "score": 0.57,
     "shipped": false,
     "take": {
+      "method": "alone",
       "seed": 21,
       "speed": 0.78,
       "split_commas": true,
@@ -45,6 +47,7 @@
     "score": 0.88,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 42,
       "speed": 0.78,
       "split_commas": true,
@@ -110,6 +113,7 @@
     "score": 0.64,
     "shipped": false,
     "take": {
+      "method": "alone",
       "seed": 7,
       "speed": 0.78,
       "split_commas": true,
@@ -123,6 +127,7 @@
     "score": 0.75,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 42,
       "speed": 0.78,
       "split_commas": true,
@@ -188,6 +193,7 @@
     "score": 0.86,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 7,
       "speed": 0.78,
       "split_commas": true,
@@ -197,12 +203,13 @@
   {
     "file": "016.m4a",
     "swahili": "Kwaheri",
-    "heard": "kwayeri",
-    "score": 0.86,
+    "heard": "kwa heri",
+    "score": 1.0,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 2,
-      "speed": 0.8,
+      "speed": 0.7,
       "split_commas": true,
       "noise": 0.4
     }
@@ -210,14 +217,15 @@
   {
     "file": "017.m4a",
     "swahili": "Pasipoti",
-    "heard": "pazipoi",
-    "score": 0.75,
+    "heard": "pasi potia",
+    "score": 0.89,
     "shipped": true,
     "take": {
+      "method": "middle",
       "seed": 7,
       "speed": 0.88,
       "split_commas": true,
-      "noise": 0.667
+      "noise": 0.3
     }
   },
   {
@@ -422,6 +430,7 @@
     "score": 0.83,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 42,
       "speed": 0.78,
       "split_commas": true,
@@ -526,6 +535,7 @@
     "score": 0.88,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 21,
       "speed": 0.88,
       "split_commas": true,
@@ -565,8 +575,9 @@
     "score": 0.8,
     "shipped": true,
     "take": {
-      "seed": 4,
-      "speed": 0.8,
+      "method": "alone",
+      "seed": 1,
+      "speed": 0.7,
       "split_commas": true,
       "noise": 0.4
     }
@@ -656,6 +667,7 @@
     "score": 0.57,
     "shipped": false,
     "take": {
+      "method": "alone",
       "seed": 1,
       "speed": 0.7,
       "split_commas": true,
@@ -669,6 +681,7 @@
     "score": 0.86,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 7,
       "speed": 0.88,
       "split_commas": true,
@@ -782,14 +795,15 @@
   {
     "file": "061.m4a",
     "swahili": "Simba",
-    "heard": "himba",
-    "score": 0.8,
+    "heard": "simbaz",
+    "score": 0.83,
     "shipped": true,
     "take": {
-      "seed": 21,
-      "speed": 0.88,
+      "method": "middle, quiet cut",
+      "seed": 42,
+      "speed": 0.75,
       "split_commas": true,
-      "noise": 0.667
+      "noise": 0.3
     }
   },
   {
@@ -812,6 +826,7 @@
     "score": 0.5,
     "shipped": false,
     "take": {
+      "method": "alone",
       "seed": 2,
       "speed": 0.7,
       "split_commas": true,
@@ -825,6 +840,7 @@
     "score": 0.75,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 1,
       "speed": 0.7,
       "split_commas": true,
@@ -834,11 +850,12 @@
   {
     "file": "065.m4a",
     "swahili": "Duma",
-    "heard": "doma",
-    "score": 0.75,
+    "heard": "dumat",
+    "score": 0.8,
     "shipped": true,
     "take": {
-      "seed": 42,
+      "method": "middle",
+      "seed": 7,
       "speed": 0.88,
       "split_commas": true,
       "noise": 0.667
@@ -847,27 +864,29 @@
   {
     "file": "066.m4a",
     "swahili": "Kifaru",
-    "heard": "kidaru",
+    "heard": "kivaru",
     "score": 0.83,
     "shipped": true,
     "take": {
-      "seed": 3,
-      "speed": 0.8,
+      "method": "middle",
+      "seed": 42,
+      "speed": 0.75,
       "split_commas": true,
-      "noise": 0.4
+      "noise": 0.3
     }
   },
   {
     "file": "067.m4a",
     "swahili": "Nyati",
-    "heard": "nali",
-    "score": 0.6,
-    "shipped": false,
+    "heard": "nati",
+    "score": 0.8,
+    "shipped": true,
     "take": {
+      "method": "middle",
       "seed": 7,
-      "speed": 0.88,
+      "speed": 0.75,
       "split_commas": true,
-      "noise": 0.667
+      "noise": 0.3
     }
   },
   {
@@ -886,11 +905,12 @@
   {
     "file": "069.m4a",
     "swahili": "Kiboko",
-    "heard": "kue mula",
-    "score": 0.14,
-    "shipped": false,
+    "heard": "ki mboko",
+    "score": 0.86,
+    "shipped": true,
     "take": {
-      "seed": 7,
+      "method": "middle, quiet cut",
+      "seed": 42,
       "speed": 0.88,
       "split_commas": true,
       "noise": 0.667
@@ -916,6 +936,7 @@
     "score": 0.86,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 7,
       "speed": 0.78,
       "split_commas": true,
@@ -977,12 +998,13 @@
   {
     "file": "076.m4a",
     "swahili": "Bahari",
-    "heard": "naari",
-    "score": 0.67,
-    "shipped": false,
+    "heard": "bahari",
+    "score": 1.0,
+    "shipped": true,
     "take": {
+      "method": "middle",
       "seed": 21,
-      "speed": 0.78,
+      "speed": 0.75,
       "split_commas": true,
       "noise": 0.667
     }
@@ -990,11 +1012,12 @@
   {
     "file": "077.m4a",
     "swahili": "Pwani",
-    "heard": "wani",
-    "score": 0.8,
+    "heard": "pwanip",
+    "score": 0.83,
     "shipped": true,
     "take": {
-      "seed": 7,
+      "method": "middle, quiet cut",
+      "seed": 21,
       "speed": 0.88,
       "split_commas": true,
       "noise": 0.667
@@ -1003,12 +1026,13 @@
   {
     "file": "078.m4a",
     "swahili": "Jahazi",
-    "heard": "nahazi",
-    "score": 0.83,
+    "heard": "jahazi",
+    "score": 1.0,
     "shipped": true,
     "take": {
-      "seed": 7,
-      "speed": 0.78,
+      "method": "middle",
+      "seed": 21,
+      "speed": 0.75,
       "split_commas": true,
       "noise": 0.667
     }
@@ -1072,6 +1096,7 @@
     "score": 0.87,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 7,
       "speed": 0.78,
       "split_commas": true,
@@ -1094,10 +1119,11 @@
   {
     "file": "085.m4a",
     "swahili": "Salama",
-    "heard": "talama",
-    "score": 0.83,
+    "heard": "salama",
+    "score": 1.0,
     "shipped": true,
     "take": {
+      "method": "middle",
       "seed": 7,
       "speed": 0.88,
       "split_commas": true,
@@ -1189,6 +1215,7 @@
     "score": 0.75,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 21,
       "speed": 0.78,
       "split_commas": true,
@@ -1215,6 +1242,7 @@
     "score": 0.89,
     "shipped": true,
     "take": {
+      "method": "alone",
       "seed": 21,
       "speed": 0.78,
       "split_commas": true,
