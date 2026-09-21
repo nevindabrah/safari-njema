@@ -1,0 +1,233 @@
+{
+  "sample-malindi": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Pillar_of_Vasco_da_Gama.jpg/960px-Pillar_of_Vasco_da_Gama.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "Mgiganteus",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Pillar_of_Vasco_da_Gama.jpg",
+    "article": "https://en.wikipedia.org/wiki/Malindi"
+  },
+  "sample-watamu": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Watamu_Beach%2C_Kenya.JPG/960px-Watamu_Beach%2C_Kenya.JPG",
+    "illustrative": false,
+    "width": 960,
+    "height": 640,
+    "author": "Alsandro",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Watamu_Beach,_Kenya.JPG",
+    "article": "https://en.wikipedia.org/wiki/Watamu"
+  },
+  "sample-amboseli": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Elephants_at_Amboseli_national_park_against_Mount_Kilimanjaro.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 640,
+    "author": "Amoghavarsha JS amoghavarsha.com",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Elephants_at_Amboseli_national_park_against_Mount_Kilimanjaro.jpg",
+    "article": null
+  },
+  "sample-lake-nakuru": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Lake-Nakuru-Baboon-Hill-View.JPG/960px-Lake-Nakuru-Baboon-Hill-View.JPG",
+    "illustrative": false,
+    "width": 960,
+    "height": 591,
+    "author": "Bjørn Christian Tørrissen",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Lake-Nakuru-Baboon-Hill-View.JPG",
+    "article": "https://en.wikipedia.org/wiki/Lake_Nakuru"
+  },
+  "sample-jkia": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Jomo_Kenyatta_International_Airport_%28JKIA%29.jpg/960px-Jomo_Kenyatta_International_Airport_%28JKIA%29.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 638,
+    "author": "li yong",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Jomo_Kenyatta_International_Airport_(JKIA).jpg",
+    "article": "https://en.wikipedia.org/wiki/Jomo_Kenyatta_International_Airport"
+  },
+  "sample-maasai-market": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Traditional_Maasai_Jewelry._Triangle_Curio_Market%2C_Nairobi%2C_Kenya_%282%29.jpg/960px-Traditional_Maasai_Jewelry._Triangle_Curio_Market%2C_Nairobi%2C_Kenya_%282%29.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 1709,
+    "author": "Laurakomanga",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Traditional_Maasai_Jewelry._Triangle_Curio_Market,_Nairobi,_Kenya_(2).jpg",
+    "article": null
+  },
+  "sample-karura": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Karura_Forest_Nairobi_05.JPG/960px-Karura_Forest_Nairobi_05.JPG",
+    "illustrative": false,
+    "width": 960,
+    "height": 586,
+    "author": "Ninaras",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Karura_Forest_Nairobi_05.JPG",
+    "article": "https://en.wikipedia.org/wiki/Karura_Forest"
+  },
+  "sample-nairobi-np": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Lions_of_Kenya_02.jpg/960px-Lions_of_Kenya_02.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 640,
+    "author": "flightlog",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Lions_of_Kenya_02.jpg",
+    "article": "https://en.wikipedia.org/wiki/Nairobi_National_Park"
+  },
+  "sample-hells-gate": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Hell%27s_Gate%2C_Kenya.jpg/960px-Hell%27s_Gate%2C_Kenya.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 563,
+    "author": "Ninara from Helsinki, Finland",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Hell%27s_Gate,_Kenya.jpg",
+    "article": "https://en.wikipedia.org/wiki/Hell's_Gate_National_Park"
+  },
+  "sample-sgr": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Nairobi_Terminus.jpg/960px-Nairobi_Terminus.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "Macabe5387",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Nairobi_Terminus.jpg",
+    "article": "https://en.wikipedia.org/wiki/Nairobi_Terminus"
+  },
+  "sample-fort-jesus": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Fort_Jesus_at_the_Mombasa_Island.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 524,
+    "author": "Maingi030",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Fort_Jesus_at_the_Mombasa_Island.jpg",
+    "article": "https://en.wikipedia.org/wiki/Fort_Jesus"
+  },
+  "sample-mount-kenya": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/MtKenya.jpg/960px-MtKenya.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 480,
+    "author": "Don Elvis Muraya",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:MtKenya.jpg",
+    "article": "https://en.wikipedia.org/wiki/Mount_Kenya"
+  },
+  "sample-maasai-mara": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Masai_Mara_at_Sunset.jpg/960px-Masai_Mara_at_Sunset.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 448,
+    "author": "Danijel Mihajlovic",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Masai_Mara_at_Sunset.jpg",
+    "article": "https://en.wikipedia.org/wiki/Maasai_Mara"
+  },
+  "sample-carnivore": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Nyama_choma_in_nairobi_kenya.jpg/960px-Nyama_choma_in_nairobi_kenya.jpg",
+    "illustrative": true,
+    "width": 960,
+    "height": 640,
+    "author": "Kengitau254",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Nyama_choma_in_nairobi_kenya.jpg",
+    "article": null
+  },
+  "sample-lamu": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Lamu_Old_Town.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 544,
+    "author": "Almaddy2022",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Lamu_Old_Town.jpg",
+    "article": "https://en.wikipedia.org/wiki/Lamu"
+  },
+  "sample-kisumu": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Kisumu_rooftop.jpg/960px-Kisumu_rooftop.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 540,
+    "author": "Leo Hempstone",
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Kisumu_rooftop.jpg",
+    "article": "https://en.wikipedia.org/wiki/Kisumu"
+  },
+  "sample-giraffe-centre": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Giraffe_Centre_August_2025_04.jpg/960px-Giraffe_Centre_August_2025_04.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 640,
+    "author": "Samwalton9",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Giraffe_Centre_August_2025_04.jpg",
+    "article": "https://en.wikipedia.org/wiki/Giraffe_Centre"
+  },
+  "sample-nairobi-cbd": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Nairobi_skyline_from_Gem_Hotel.jpg/960px-Nairobi_skyline_from_Gem_Hotel.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 641,
+    "author": "Daniel Case",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Nairobi_skyline_from_Gem_Hotel.jpg",
+    "article": "https://en.wikipedia.org/wiki/Nairobi"
+  },
+  "sample-diani": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Diani_Beach_Ukunda.jpg/960px-Diani_Beach_Ukunda.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 720,
+    "author": "Lebu Ayiga",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Diani_Beach_Ukunda.jpg",
+    "article": "https://en.wikipedia.org/wiki/Diani_Beach"
+  },
+  "sample-jamia": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Jamia_Mosque_%28Nairobi%29%2C_2025_%2805%29.jpg/960px-Jamia_Mosque_%28Nairobi%29%2C_2025_%2805%29.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 640,
+    "author": "Bahnfrend",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Jamia_Mosque_(Nairobi),_2025_(05).jpg",
+    "article": "https://en.wikipedia.org/wiki/Jamia_Mosque_(Kenya)"
+  },
+  "sample-hotel": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Sarova_Stanley%2C_2025_%2801%29.jpg/960px-Sarova_Stanley%2C_2025_%2801%29.jpg",
+    "illustrative": false,
+    "width": 960,
+    "height": 768,
+    "author": "Bahnfrend",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Sarova_Stanley,_2025_(01).jpg",
+    "article": "https://en.wikipedia.org/wiki/Stanley_Hotel%2C_Nairobi"
+  }
+}
