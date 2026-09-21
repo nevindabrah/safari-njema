@@ -1,12 +1,16 @@
 // A small strip that says this is the demo, with a button to start again from an empty trip.
 // Exists so nobody mistakes the demo for a real account, and so the first stop flow can be tried from scratch.
+import { useLocation } from 'react-router'
 import { useAuth } from '../auth/useAuth'
 import { isDemoMode } from './demoMode'
 import { startEmptyTrip } from './localStore'
 
 export function DemoBanner() {
   const { user } = useAuth()
-  if (!isDemoMode || !user) return null
+  const { pathname } = useLocation()
+  // Shown where the trip is managed. A lesson or a pocket card keeps the whole screen for itself.
+  const focused = pathname.startsWith('/lesson') || pathname.startsWith('/card')
+  if (!isDemoMode || !user || focused) return null
 
   function startOver() {
     startEmptyTrip()

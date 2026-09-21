@@ -35,6 +35,7 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
   const [missedPhraseIds, setMissedPhraseIds] = useState<string[]>([])
   // The phrase is spoken a moment after an answer. This holds that pending clip so it can be cancelled.
   const speakTimer = useRef<number | undefined>(undefined)
+  const feedback = useRef<HTMLDivElement>(null)
   const exercise = queue[index]
 
   // Leaving the practice must not leave a clip waiting to play over the next screen.
@@ -72,6 +73,11 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
     onFinish({ correct, total: exercises.length, missedPhraseIds })
   }
 
+  // Once there is an answer, make sure its feedback and the Next button are on screen.
+  useEffect(() => {
+    if (outcome) feedback.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [outcome])
+
   // Enter moves on once an answer has been given.
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -89,7 +95,7 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
         <p className="text-xs font-bold uppercase tracking-wide rounded-pill bg-tint px-3 py-1">
           {secondChance ? 'Second chance' : `Part ${exercise.part} of 3 · ${PART_TITLES[exercise.part]}`}
         </p>
-        {streak >= 3 && !secondChance && <p className="text-sm font-bold flex items-center gap-1 text-accent" aria-live="polite"><Icon name="bolt" size={16} />{streak} in a row</p>}
+        {streak >= 3 && !secondChance && <p className="text-sm font-bold flex items-center gap-1 text-accent-text" aria-live="polite"><Icon name="bolt" size={16} />{streak} in a row</p>}
       </div>
       <ProgressBar value={index + 1} max={queue.length} label="Practice progress" />
       <p className="text-sm text-muted mt-4 mb-1">{exercise.instruction}</p>
@@ -103,7 +109,7 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
       </div>
 
       {outcome && (
-        <div className="mt-5 rounded-card p-4" role="status" style={{ background: outcome.correct ? 'var(--right-soft)' : 'var(--wrong-soft)' }}>
+        <div ref={feedback} className="mt-5 rounded-card p-4 scroll-mb-6" role="status" style={{ background: outcome.correct ? 'var(--right-soft)' : 'var(--wrong-soft)' }}>
           <p className="font-display font-extrabold text-lg">{outcome.correct ? (outcome.note ?? 'Right.') : 'Not quite.'}</p>
           {exercise.reveal && <p lang="sw" className="mt-1 flex items-center gap-3">{exercise.say && <SpeakButton swahili={exercise.say} />}<span>{exercise.reveal}</span></p>}
           <Button full className="mt-4" onClick={next}>{moreToCome ? 'Next' : 'Finish'}</Button>

@@ -1,15 +1,18 @@
 // The floating pill of tabs at the bottom of a phone screen, for signed in users.
 // Exists because the PRD asks for phone navigation within thumb reach. Wide screens use the links in the top bar instead.
-import { NavLink } from 'react-router'
+import { NavLink, useLocation } from 'react-router'
 import { Icon, type IconName } from './icons'
 
 const TABS: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/trip', label: 'My trip', icon: 'map' },
   { to: '/kangas', label: 'Kangas', icon: 'cloth' },
-  { to: '/about', label: 'About', icon: 'other' },
+  { to: '/phrasebook', label: 'Phrases', icon: 'card' },
 ]
 
 export function BottomTabs() {
+  // Hidden during a lesson, where it would float over the Next button.
+  const { pathname } = useLocation()
+  if (pathname.startsWith('/lesson') || pathname.startsWith('/preview')) return null
   return (
     <nav aria-label="Main" className="no-print sm:hidden fixed z-30 left-1/2 -translate-x-1/2 flex gap-1 p-1.5 rounded-pill bg-surface shadow-lift" style={{ bottom: 'calc(0.9rem + env(safe-area-inset-bottom, 0px))' }}>
       {TABS.map((tab) => (
