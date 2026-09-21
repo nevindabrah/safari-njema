@@ -9,6 +9,14 @@ export function audioUrlFor(swahili: string): string | null {
   return CLIPS[swahili] ?? null
 }
 
+// Plays any clip by its address. The phrasebook uses this for recordings that were held back from lessons.
+export function playClip(url: string) {
+  if (!player) player = new Audio()
+  player.pause()
+  player.src = url
+  player.play().catch(() => {})
+}
+
 // Returns false when there is no clip, so a caller can hide its button.
 export function playPhrase(swahili: string): boolean {
   const url = audioUrlFor(swahili)
