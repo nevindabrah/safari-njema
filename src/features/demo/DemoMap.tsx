@@ -5,6 +5,7 @@ import type { StopRow } from '../../lib/types'
 import type { PickedPlace } from '../trip/usePlaceSearch'
 import { spreadPins } from '../../lib/spreadPins'
 import { CITY_LABELS, KENYA, LAKE_TURKANA, LAKE_VICTORIA, OCEAN } from './kenyaOutline'
+import { isDemoMode } from './demoMode'
 
 function path(points: Array<[number, number]>): string {
   return points.map(([lng, lat], i) => `${i === 0 ? 'M' : 'L'}${lng} ${-lat}`).join(' ') + ' Z'
@@ -79,7 +80,7 @@ export function DemoMap({ stops, preview, highlightedId, onPinClick }: DemoMapPr
         {preview && <circle cx={preview.lng} cy={-preview.lat} r="0.26" fill="var(--hero)" stroke="var(--surface)" strokeWidth="0.09" className="animate-pulse" style={{ pointerEvents: 'none' }} />}
       </svg>
       <p className="absolute bottom-3 left-4 right-4 text-xs text-muted text-center pointer-events-none">
-        A sketch for the demo. The full app shows Google Maps here, with live search of every place in Kenya.
+        {isDemoMode ? 'A sketch for the demo. The full app shows Google Maps here, with live search of every place in Kenya.' : 'A sketch of Kenya. Pick places from the catalogue. With a Google Maps key, the live map and search appear here.'}
       </p>
     </div>
   )

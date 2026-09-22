@@ -33,8 +33,8 @@ export function AccountScreen() {
       setBusy(false)
       return
     }
-    await supabase.auth.signOut()
     navigate('/', { replace: true })
+    await supabase.auth.signOut()
   }
 
   return (
