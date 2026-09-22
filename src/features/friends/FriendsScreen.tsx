@@ -1,5 +1,5 @@
 // The friends screen: find people by username, answer requests, and see who you can plan trips with.
-// Exists because a trip is better shared, and a shared trip starts with two people who are friends here.
+// Exists because a trip is better shared. Accepting a request here joins each friend to the other's trips at once.
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { Card } from '../../components/Card'
@@ -47,7 +47,7 @@ export function FriendsScreen() {
       <main className="mx-auto max-w-2xl px-4 pt-4 pb-28 sm:pb-10">
         <LeaveButton kind="back" label="Back to my trip" to="/trip" showLabel className="mb-3" />
         <h1 className="text-4xl sm:text-5xl mb-2">Friends</h1>
-        <p className="text-muted mb-5">Find a friend by their username. Once you are friends, either of you can invite the other onto a trip.</p>
+        <p className="text-muted mb-5">Find a friend by their username. Once you are friends you plan together: each of you sees the other's trip, can add stops to it, and gets the same lessons.</p>
 
         {isDemoMode ? (
           <Card><p className="mb-4">Friends need an account, so the demo cannot show them. Create one to find your friends and plan a trip together.</p><Link to="/signup"><Button tabIndex={-1}>Create your account</Button></Link></Card>

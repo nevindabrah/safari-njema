@@ -116,9 +116,10 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Trade-off.** The lookup is not covered by Supabase's own auth rate limits, hence the attempts table.
 
 ### 4.6 Friend requests and shared trips
-**Decision.** One `friendships` table: requester, addressee, status pending or accepted, one row per pair in either direction. One `trip_members` table. The owner may invite only accepted friends. Members see the trip and its stops, may add and move stops, and each gets their own lesson per stop; only the owner changes the dates or the title.
+**Decision.** One `friendships` table: requester, addressee, status pending or accepted, one row per pair in either direction. One `trip_members` table. Since 22 September 2026 (migration 0011) friends share trips automatically: accepting a request joins each person to the other's trips, a trip created later includes existing friends, and ending the friendship removes both from each other's trips, all by database triggers. Members see the trip and its stops, may add and move stops, and each gets their own lesson per stop; only the owner changes the dates or the title. The manual invite step was removed.
 **Why.** The owner's idea: friends who are going on a trip together plan one trip. Keeping lessons per person means each traveller's progress is their own.
-**Alternatives.** Copying a trip to a friend (no shared editing). Trip codes anyone can join (no friendship step, and anyone with the code can edit). Full roles per trip (more than two students need).
+**Alternatives.** A separate invite per trip after the friendship (the first version; the owner found it one step too many). Copying a trip to a friend (no shared editing). Trip codes anyone can join (no friendship step, and anyone with the code can edit). Full roles per trip (more than two students need).
+**Trade-off.** Friendship now means full trip access. Someone who wants a friend without sharing a trip can remove them from that trip on the Travelling with panel, and the trigger will not add them back until the friendship is made again.
 **Gotcha learned.** A `stable` security definer function used in a select policy cannot see a row inserted by the same statement, so `insert ... returning` failed for trips. `is_trip_member` is volatile and the owner check is written inline in the policy.
 
 ## 5. Lessons

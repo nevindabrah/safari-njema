@@ -73,7 +73,7 @@ test('an account that arrives without a username is asked for one once, then goe
   await deleteAccount(page)
 })
 
-test('two friends share a trip and each gets their own lesson', async ({ browser }) => {
+test('accepting a friend request shares the trip, and each friend gets their own lesson', async ({ browser }) => {
   const id = stamp()
   const a = await browser.newPage()
   const d = await browser.newPage()
@@ -92,8 +92,6 @@ test('two friends share a trip and each gets their own lesson', async ({ browser
   await expect(a.getByRole('heading', { name: 'Your friends' }).locator('..')).toContainText(`guest_${id}`)
 
   await a.goto('/trip')
-  await a.getByRole('button', { name: 'Invite a friend' }).click()
-  await a.getByRole('button', { name: `guest-${id}` }).click()
   await expect(a.getByText(`guest-${id}`).first()).toBeVisible()
   await a.getByRole('searchbox').first().fill('diani')
   await a.getByRole('listbox').getByRole('button').first().click()
