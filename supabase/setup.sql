@@ -701,6 +701,7 @@ begin
 end;
 $$;
 
+drop trigger if exists friendship_accepted on public.friendships;
 create trigger friendship_accepted
   after update of status on public.friendships
   for each row execute function public.on_friendship_accepted();
@@ -720,6 +721,7 @@ begin
 end;
 $$;
 
+drop trigger if exists friendship_ended on public.friendships;
 create trigger friendship_ended
   after delete on public.friendships
   for each row execute function public.on_friendship_ended();
@@ -740,11 +742,12 @@ begin
 end;
 $$;
 
+drop trigger if exists trip_created on public.trips;
 create trigger trip_created
   after insert on public.trips
   for each row execute function public.on_trip_created();
 
-create unique index profiles_username_lower_idx on public.profiles (lower(username));
+create unique index if not exists profiles_username_lower_idx on public.profiles (lower(username));
 
 -- ===== 0012_just_me_stops.sql =====
 -- A stop on a shared trip can be marked "Just me": only the person who added it sees it, on the itinerary and on the map.
