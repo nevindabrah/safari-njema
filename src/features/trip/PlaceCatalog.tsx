@@ -1,4 +1,4 @@
-// The catalogue: every built-in place as a photo card, browsable by kind and searchable by name or by what you want to do.
+// The catalogue: every built-in place as a photo card, browsable by kind and searchable by name or by what you want to do, then Google Maps results when a key exists.
 // Exists so nobody has to guess a place's name. It opens over the planner, and picking a place hands it to the same preview card as search.
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from '../../components/icons'
@@ -10,6 +10,8 @@ import { PlacePhoto } from '../places/PlacePhoto'
 import { PLACE_TYPE_INFO } from './placeTypes'
 import { REGION_LABEL } from './regions'
 import type { PickedPlace } from './usePlaceSearch'
+import { GoogleResults } from './GoogleResults'
+import { mapsKey } from './MapsProvider'
 
 interface PlaceCatalogProps {
   addedIds: string[]
@@ -64,8 +66,8 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
         <div className="flex-1 overflow-y-auto px-4 sm:px-5 pb-6">
           {shown.length === 0 && (
             <div className="text-center py-12">
-              <p className="font-bold">Nothing matches "{query}".</p>
-              <p className="text-muted text-sm mt-1">Try a kind of place, like food, beach or museum. The catalogue covers Kenya only.</p>
+              <p className="font-bold">Nothing in the catalogue matches "{query}".</p>
+              <p className="text-muted text-sm mt-1">{mapsKey ? 'Places from Google Maps are listed below when there are any.' : 'Try a kind of place, like food, beach or museum. The catalogue covers Kenya only.'}</p>
             </div>
           )}
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
@@ -88,6 +90,7 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
               )
             })}
           </ul>
+          {mapsKey && <GoogleResults query={query} onPick={onPick} />}
         </div>
       </div>
     </div>

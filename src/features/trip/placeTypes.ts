@@ -22,16 +22,16 @@ export function toPlaceType(googleTypes: string[]): PlaceType {
   return 'other'
 }
 
-export const PLACE_TYPE_INFO: Record<PlaceType, { label: string }> = {
-  city: { label: 'City or town' },
-  park: { label: 'Park or reserve' },
-  beach: { label: 'Beach' },
-  market: { label: 'Market or shop' },
-  restaurant: { label: 'Restaurant or cafe' },
-  hotel: { label: 'Hotel or lodge' },
-  airport: { label: 'Airport' },
-  station: { label: 'Station' },
-  religious_site: { label: 'Place of worship' },
-  museum: { label: 'Museum or landmark' },
-  other: { label: 'Place' },
+export const PLACE_TYPE_INFO: Record<PlaceType, { label: string; about: string }> = {
+  city: { label: 'City or town', about: 'A town or city in Kenya. Towns mix matatu stages, markets and offices, and a Swahili greeting opens every conversation.' },
+  park: { label: 'Park or reserve', about: 'A park or reserve. Kenya\'s parks protect wildlife and landscapes, and most are visited by vehicle with a guide.' },
+  beach: { label: 'Beach', about: 'A beach on Kenya\'s Indian Ocean coast, the region where Swahili has its roots and is spoken most fully.' },
+  market: { label: 'Market or shop', about: 'A market or shop. At markets prices are spoken rather than printed, and a greeting comes before any business.' },
+  restaurant: { label: 'Restaurant or cafe', about: 'A restaurant or cafe. Kenyan menus mix coastal, upcountry and Indian cooking, and most dishes are named in Swahili.' },
+  hotel: { label: 'Hotel or lodge', about: 'A hotel or lodge. Staff usually speak English, and a greeting in Swahili is warmly received.' },
+  airport: { label: 'Airport', about: 'An airport. Signs are in English and Swahili, and it is often the first place a visitor hears Swahili spoken.' },
+  station: { label: 'Station', about: 'A station or terminus. Kenya\'s trains and buses run on set routes, and asking about times is a good first use of Swahili.' },
+  religious_site: { label: 'Place of worship', about: 'A place of worship. Dress modestly, keep your voice low, and ask before taking photographs.' },
+  museum: { label: 'Museum or landmark', about: 'A museum or historic site. Many tell the story of Kenya before and after independence in 1963.' },
+  other: { label: 'Place', about: 'A place in Kenya.' },
 }

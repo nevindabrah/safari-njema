@@ -2,12 +2,12 @@
 // Exists to hold the loop together: search, add, then open a lesson.
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { APIProvider } from '@vis.gl/react-google-maps'
 import { TopBar } from '../../components/TopBar'
 import { ReviewNote } from '../../components/ReviewNote'
 import { useTrip } from './useTrip'
 import { useStops } from './useStops'
 import { TripMap } from './TripMap'
+import { MapsProvider, mapsKey } from './MapsProvider'
 import { PlaceSearch } from './PlaceSearch'
 import { PlacePreviewCard } from './PlacePreviewCard'
 import { PreviewSheet } from './PreviewSheet'
@@ -27,7 +27,6 @@ import { TodayCard } from './TodayCard'
 import { useDueProgress } from '../review/useProgress'
 
 export function TripScreen() {
-  const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_KEY as string | undefined
   const { tripId } = useParams()
   const navigate = useNavigate()
   const { user } = useAuth()
@@ -68,22 +67,23 @@ export function TripScreen() {
   }
 
   return (
+    <MapsProvider>
     <div className="min-h-dvh flex flex-col">
       <TopBar />
       <main className="flex-1 mx-auto w-full max-w-6xl px-4 pb-28 sm:pb-8 grid gap-6 grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <section className="relative isolate min-w-0 h-[55dvh] lg:h-[calc(100dvh-6rem)] lg:sticky lg:top-20 rounded-card overflow-hidden shadow-soft bg-tint">
           {mapsKey && trip ? (
-            <APIProvider apiKey={mapsKey} libraries={['places']}>
+            <>
               <TripMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
               <div className="absolute top-4 left-4 right-4 z-10">
-                <PlaceSearch onPick={pickPlace} />
+                <PlaceSearch onPick={pickPlace} onBrowse={() => setCatalogOpen(true)} />
               </div>
               {preview && wide && (
                 <div className="absolute bottom-4 left-4 right-4 z-10 max-h-[70%] overflow-y-auto">
                   <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} shared={shared} onAdd={handleAdd} onClose={() => setPreview(null)} />
                 </div>
               )}
-            </APIProvider>
+            </>
           ) : trip ? (
             <>
               <DemoMap stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={selectStop} />
@@ -125,5 +125,6 @@ export function TripScreen() {
       )}
       {catalogOpen && <PlaceCatalog addedIds={stops.map((s) => s.place.google_place_id)} onPick={pickPlace} onClose={() => setCatalogOpen(false)} />}
     </div>
+    </MapsProvider>
   )
 }

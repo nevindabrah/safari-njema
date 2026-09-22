@@ -64,7 +64,7 @@ export function PlacePreviewCard({ place, trip, shared, onAdd, onClose }: PlaceP
       <h2 className="text-2xl">{place.name}</h2>
       <p className="text-sm text-muted flex items-center gap-1.5 mt-1"><Icon name={place.placeType} size={15} />{info.label}{place.county ? ` · ${place.county}` : ''} · {REGION_LABEL[place.region]}</p>
       <PhotoCredit googlePlaceId={place.googlePlaceId} className="text-muted mt-1" />
-      <WikipediaNote summary={summary} className="text-sm mt-3" />
+      <WikipediaNote summary={summary} fallback={info.about} className="text-sm mt-3" />
 
       <p className="text-sm font-bold mt-4 mb-2">Which day?</p>
       <div className="flex gap-2 flex-wrap items-center">
