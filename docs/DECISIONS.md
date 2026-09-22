@@ -23,6 +23,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Alternatives.** Claude on for everyone, with a "not yet reviewed" label. Pre-generated Claude lessons for common places, reviewed once. The second is in the backlog.
 **Trade-off.** The brief is general for the kind of place, not written for the exact place. The landing page says so.
 
+### 1.4 The home page is for travellers, and the demo exists only where there is no database
+**Decision.** On 22 September 2026 the home page lost its demo button and the two sections written for reviewers (what the full version adds, how it was built). With accounts on, it offers one thing: create an account. Demo mode still runs when the app has no Supabase values, which is how it runs in development and in the browser tests.
+**Why.** The owner's first users are his professor's students, not recruiters. A page that explains itself as a portfolio piece undermines trust in it as a product.
+**Alternatives.** Keeping the demo as a second way in (the earlier choice). A separate marketing page. Both kept reviewer language in front of students.
+**Trade-off.** A recruiter now has to create an account or read the README to see the build story. The README and `docs/DECISIONS.md` carry it.
+
 ## 2. Stack and repository rules
 
 ### 2.1 React, Vite, TypeScript, Tailwind, Supabase, Google Maps Platform, Claude API

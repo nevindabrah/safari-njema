@@ -7,7 +7,7 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Item | Who | Notes |
 |---|---|---|
 | Create the Supabase project and paste `supabase/setup.sql` | Owner | Steps 1 and 2 of `docs/SETUP.md`. About five minutes. |
-| Put `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env` and on Vercel | Owner | Step 7. Redeploy. The landing page then offers accounts and the demo. |
+| Get the two `VITE_SUPABASE` values into the Vercel build | Owner | Five rows exist on Vercel but the production build still has no Supabase code, so the values are probably empty. Remove both rows, add them again with values, redeploy without cache. Until then the live site is the demo. |
 | Turn "Confirm email" off, or set up custom SMTP first | Owner | Step 3. The built in mailer sends 2 emails an hour and only to the project's team. |
 | Set the Site URL and Redirect URLs in Supabase | Owner | Step 7. Wrong values send Google sign in back to localhost. |
 | Google Cloud OAuth client, pasted into Supabase | Owner | Step 4. Needs the consent screen and the Supabase callback URL. |
