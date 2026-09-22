@@ -3,17 +3,18 @@
 import { useState } from 'react'
 import { Icon } from '../../components/icons'
 import type { PlaceType } from '../../lib/types'
-import { photoFor, photoUrl } from './photoData'
+import { PHOTO_SIZES, photoFor, photoSrcSet, photoUrl } from './photoData'
 
 interface PlacePhotoProps {
   googlePlaceId: string
   placeType: PlaceType
   name: string
   size: 'small' | 'large'
+  sizes?: string
   className?: string
 }
 
-export function PlacePhoto({ googlePlaceId, placeType, name, size, className = '' }: PlacePhotoProps) {
+export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, className = '' }: PlacePhotoProps) {
   const [failed, setFailed] = useState(false)
   const photo = photoFor(googlePlaceId)
 
@@ -24,7 +25,7 @@ export function PlacePhoto({ googlePlaceId, placeType, name, size, className = '
       </div>
     )
   }
-  return <img src={photoUrl(photo, size)} alt={photo.illustrative ? `A photo that suits ${name}` : name} loading="lazy" onError={() => setFailed(true)} className={`object-cover ${className}`} />
+  return <img src={photoUrl(photo, size)} srcSet={photoSrcSet(photo)} sizes={sizes ?? (size === 'small' ? PHOTO_SIZES.thumb : PHOTO_SIZES.card)} alt={photo.illustrative ? `A photo that suits ${name}` : name} loading="lazy" onError={() => setFailed(true)} className={`object-cover ${className}`} />
 }
 
 export function PhotoCredit({ googlePlaceId, className = '' }: { googlePlaceId: string; className?: string }) {

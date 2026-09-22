@@ -3,7 +3,7 @@
 import { Icon } from '../../components/icons'
 import type { Lesson } from '../../lib/lessonSchema'
 import type { PlaceType } from '../../lib/types'
-import { photoFor, photoUrl } from '../places/photoData'
+import { PHOTO_SIZES, photoFor, photoSrcSet, photoUrl } from '../places/photoData'
 import { PhotoCredit } from '../places/PlacePhoto'
 import { PLACE_TYPE_INFO } from '../trip/placeTypes'
 
@@ -22,7 +22,7 @@ export function LessonHero({ lesson, placeType, googlePlaceId, note, compact = f
 
   return (
     <section className={`relative overflow-hidden rounded-card mb-5 ${onPhoto ? `${compact ? 'min-h-[84px]' : 'min-h-[260px]'} sm:min-h-[320px] flex items-end` : 'bg-hero text-on-hero'}`} style={onPhoto ? { color: 'var(--on-photo)' } : undefined}>
-      {photo && <img src={photoUrl(photo, 'large')} alt="" className="absolute inset-0 w-full h-full object-cover" />}
+      {photo && <img src={photoUrl(photo, 'large')} srcSet={photoSrcSet(photo)} sizes={PHOTO_SIZES.hero} alt="" className="absolute inset-0 w-full h-full object-cover" />}
       {photo && <div className="absolute inset-0" style={{ background: 'var(--photo-fade)' }} />}
       {!photo && <div className="kanga-dots absolute inset-0 opacity-30 pointer-events-none" aria-hidden="true" />}
       <div className={`relative w-full sm:p-8 ${compact ? 'py-4 pl-5 pr-16' : 'p-6'}`}>

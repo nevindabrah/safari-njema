@@ -1,7 +1,7 @@
 // Finds a freely licensed photo for each built-in place, once, and saves it with the author and licence.
 // Exists so the site never depends on a live photo lookup, and every photo carries the credit its licence requires.
-// It also downloads each photo once and saves two compressed sizes in public/places, so the site serves its own photos
-// from Vercel's network and never waits on a third party. The licences allow this as long as the credit stays, and it does.
+// It also downloads each photo once at high resolution and saves three sizes in public/places, so the site serves sharp
+// photos on every screen from Vercel's network. Wide landscape photos are preferred because every place they appear in is wider than tall.
 // Run: node scripts/fetchPlacePhotos.ts   (a few batched requests, then one slow download per photo. Needs macOS for sips.)
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
@@ -62,7 +62,7 @@ const ARTICLES: Record<string, string | null> = {
   'sample-all-saints': "All Saints' Cathedral, Nairobi",
 }
 const COMMONS_SEARCH: Record<string, string> = {
-  'sample-maasai-market': 'Maasai Market Nairobi beadwork',
+  'sample-maasai-market': 'The Maasai Market Vendors Nairobi',
   'sample-amboseli': 'Amboseli elephants Kilimanjaro',
   'sample-carnivore': 'nyama choma Kenya',
   'sample-city-market': 'Nairobi City Market',
@@ -97,20 +97,56 @@ for (const [id, title] of Object.entries(ARTICLES)) {
 }
 
 const NO_PHOTO = new Set(['sample-ali-barbours'])
-const stillMissing = Object.keys(ARTICLES).filter((id) => !fileById.has(id) && !NO_PHOTO.has(id))
-for (const id of stillMissing) {
-  const search = COMMONS_SEARCH[id] ?? `${ARTICLES[id]} Kenya`
+const MIN_WIDE = 1400
+
+async function searchCommons(text: string): Promise<string[]> {
   await new Promise((resolve) => setTimeout(resolve, 1200))
-  const found = await api('commons.wikimedia.org', { action: 'query', list: 'search', srnamespace: '6', srsearch: `${search} filetype:bitmap`, srlimit: '5' })
-  const hit = (found.query.search as Array<{ title: string }>).find((r) => /\.jpe?g$/i.test(r.title))
-  if (hit) fileById.set(id, hit.title.replace(/^File:/, ''))
+  const found = await api('commons.wikimedia.org', { action: 'query', list: 'search', srnamespace: '6', srsearch: `${text} filetype:bitmap`, srlimit: '10' })
+  return (found.query.search as Array<{ title: string }>).map((r) => r.title.replace(/^File:/, '')).filter((t) => /\.jpe?g$/i.test(t))
+}
+
+interface Candidate { file: string; width: number; height: number; licensed: boolean }
+
+async function describe(files: string[]): Promise<Map<string, Candidate>> {
+  const out = new Map<string, Candidate>()
+  for (let i = 0; i < files.length; i += 40) {
+    const info = await api('commons.wikimedia.org', { action: 'query', titles: files.slice(i, i + 40).map((f) => 'File:' + f).join('|'), prop: 'imageinfo', iiprop: 'size|extmetadata' })
+    const back = new Map<string, string>((info.query.normalized ?? []).map((n: { from: string; to: string }) => [n.to, n.from]))
+    for (const page of info.query.pages) {
+      const image = page.imageinfo?.[0]
+      if (!image) continue
+      const file = (back.get(page.title) ?? page.title).replace(/^File:/, '')
+      out.set(file.replace(/_/g, ' '), { file, width: image.width, height: image.height, licensed: Boolean(image.extmetadata?.LicenseShortName?.value) })
+    }
+  }
+  return out
+}
+
+const isWide = (c: Candidate) => c.licensed && c.width > c.height && c.width >= MIN_WIDE
+
+const candidatesById = new Map<string, string[]>()
+for (const id of Object.keys(ARTICLES)) {
+  if (NO_PHOTO.has(id)) continue
+  const own = fileById.get(id)
+  const search = COMMONS_SEARCH[id] ?? `${ARTICLES[id]} Kenya`
+  const hits = await searchCommons(search)
+  candidatesById.set(id, [...(own ? [own] : []), ...hits.filter((h) => h !== own)])
+}
+const known = await describe([...new Set([...candidatesById.values()].flat())])
+for (const [id, names] of candidatesById) {
+  const options = names.map((n) => known.get(n.replace(/_/g, ' '))).filter((c): c is Candidate => Boolean(c) && c!.licensed)
+  const wide = options.find(isWide) ?? [...options].filter((c) => c.width > c.height).sort((a, b) => b.width - a.width)[0]
+  const chosen = wide ?? [...options].sort((a, b) => b.width - a.width)[0]
+  if (!chosen) continue
+  fileById.set(id, chosen.file)
+  if (chosen.file !== names[0] || !articleById.has(id)) articleById.delete(id)
 }
 
 const files = [...new Set(fileById.values())]
 const infoPages: any[] = []
 const normalised = new Map<string, string>()
 for (let i = 0; i < files.length; i += 40) {
-  const info = await api('commons.wikimedia.org', { action: 'query', titles: files.slice(i, i + 40).map((f) => 'File:' + f).join('|'), prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '960' })
+  const info = await api('commons.wikimedia.org', { action: 'query', titles: files.slice(i, i + 40).map((f) => 'File:' + f).join('|'), prop: 'imageinfo', iiprop: 'url|extmetadata|size', iiurlwidth: '2000' })
   infoPages.push(...info.query.pages)
   for (const n of info.query.normalized ?? []) normalised.set(n.to, n.from)
 }
@@ -127,8 +163,8 @@ for (const page of infoPages) {
     result[id] = {
       source: String(image.thumburl).split('?')[0],
       illustrative: !articleById.has(id),
-      width: image.thumbwidth,
-      height: image.thumbheight,
+      width: image.width,
+      height: image.height,
       author: stripTags(meta.Artist?.value ?? 'Unknown author').slice(0, 80),
       licence,
       licenceUrl: meta.LicenseUrl?.value ?? null,
@@ -139,22 +175,25 @@ for (const page of infoPages) {
 }
 
 mkdirSync('public/places', { recursive: true })
+const SIZES: Array<[suffix: string, width: number, quality: string]> = [['', 1600, '80'], ['-medium', 960, '78'], ['-small', 480, '76']]
 for (const [id, photo] of Object.entries(result) as Array<[string, any]>) {
-  const large = `public/places/${id}.jpg`
-  const small = `public/places/${id}-small.jpg`
-  if (!existsSync(large) || !existsSync(small)) {
+  const paths = SIZES.map(([suffix]) => `public/places/${id}${suffix}.jpg`)
+  if (paths.some((path) => !existsSync(path))) {
     await new Promise((resolve) => setTimeout(resolve, 900))
     const response = await fetch(photo.source, { headers: { 'User-Agent': USER_AGENT } })
     if (!response.ok) { console.log(`  could not download ${id}: ${response.status}`); delete result[id]; continue }
     const original = `public/places/${id}-original.jpg`
     writeFileSync(original, Buffer.from(await response.arrayBuffer()))
-    execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '62', '-Z', '960', original, '--out', large], { stdio: 'ignore' })
-    execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '60', '-Z', '420', original, '--out', small], { stdio: 'ignore' })
-    if (statSync(large).size > 170 * 1024) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '48', '-Z', '820', large, '--out', large], { stdio: 'ignore' })
-    if (statSync(small).size > 45 * 1024) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '48', '-Z', '400', small, '--out', small], { stdio: 'ignore' })
+    const sourceWidth = Math.min(photo.width, 2000)
+    for (const [suffix, width, quality] of SIZES) {
+      const target = `public/places/${id}${suffix}.jpg`
+      execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', quality, '--resampleWidth', String(Math.min(width, sourceWidth)), original, '--out', target], { stdio: 'ignore' })
+      if (statSync(target).size > width * 300) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '70', target, '--out', target], { stdio: 'ignore' })
+    }
     unlinkSync(original)
   }
   photo.url = `/places/${id}.jpg`
+  photo.medium = `/places/${id}-medium.jpg`
   photo.small = `/places/${id}-small.jpg`
 }
 

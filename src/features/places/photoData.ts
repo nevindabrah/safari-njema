@@ -1,9 +1,10 @@
-// Looks up the saved photo for a place, and picks the right size of it.
+// Looks up the saved photo for a place, and gives the browser its three sizes so each screen loads the sharpest one it needs.
 // Exists so screens ask one question, "is there a photo for this place?", and never touch the JSON or URL rules.
 import saved from './placePhotos.json'
 
 export interface PlacePhotoInfo {
   url: string
+  medium: string
   small: string
   source: string
   width: number
@@ -29,3 +30,13 @@ export function allPhotos(): Array<[string, PlacePhotoInfo]> {
 export function photoUrl(photo: PlacePhotoInfo, size: 'small' | 'large'): string {
   return size === 'small' ? photo.small : photo.url
 }
+
+export function photoSrcSet(photo: PlacePhotoInfo): string {
+  return `${photo.small} 480w, ${photo.medium} 960w, ${photo.url} 1600w`
+}
+
+export const PHOTO_SIZES = {
+  thumb: '(min-width: 640px) 120px, 96px',
+  card: '(min-width: 1024px) 40vw, 100vw',
+  hero: '(min-width: 640px) 42rem, 100vw',
+} as const
