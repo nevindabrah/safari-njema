@@ -27,7 +27,7 @@ function report(ok: boolean, good: string, bad: string) {
   if (!ok) problems++
 }
 
-console.log(`Checking ${url}\n`)
+console.log("Checking the Supabase project named in .env\n")
 
 const tables = ['profiles', 'user_settings', 'trips', 'places', 'trip_stops', 'phrases', 'proverbs', 'lessons', 'user_lessons', 'phrase_progress', 'speaking_attempts', 'phrase_reports', 'user_kangas']
 for (const table of tables) {
