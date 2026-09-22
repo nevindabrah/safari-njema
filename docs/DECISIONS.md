@@ -277,6 +277,16 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Why.** Two queries at page load give the two signals that matter, with no new table and no push service.
 **Trade-off.** "Seen" is per browser, so a trip shared while you were on your phone shows as new once on your laptop too.
 
+### 11b. Every write reports failure, and optimistic changes roll back
+**Decision.** `writeProblem(result)` in `src/lib/` turns a Supabase `{ error }` into a sentence or null. Every hook that writes checks it, restores the previous state on failure, and exposes `error` for the screen to show. Async effects keep an `alive` ref or a `cancelled` flag so a slow answer never paints over a newer screen.
+**Why.** The audit found twelve writes that ignored their result. A refused rule or a dropped connection showed the change on screen and lost it on reload.
+**Alternatives.** A global toast bus (a custom state library, which the rules forbid). Throwing on error (Supabase never throws, so every call site would wrap it anyway).
+
+### 11c. Limits and caps live in the database (migration 0010)
+**Decision.** Length checks on titles, place names, display names and note subjects. One lesson per person per stop as a unique index. Anonymous notes capped at 200 an hour by a policy that counts recent rows. Search needs three letters and shows display names only to friends. Only a trip's owner or the person who added a stop can delete it.
+**Why.** The browser can be bypassed; the database cannot. A cap in SQL needs no server and no Edge Function.
+**Trade-off.** The notes cap is global, so a real burst from a whole class in one hour would hit it. Two hundred is above any class we expect.
+
 ## 12. Testing approach
 
 ### 12.1 Vitest for pure functions, a browser script for flows, PGlite for the database

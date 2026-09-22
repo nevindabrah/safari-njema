@@ -1,5 +1,7 @@
 # Audit, 22 September 2026
 
+**Status, later the same day: every finding below was fixed.** Migration 0010 carries the database side (limits, the notes cap, one lesson per stop, tighter search, stop deletion for the owner or the person who added it). `src/lib/writeResult.ts` reads every write's error, hooks roll back optimistic state and show the message, every async effect has a cancelled guard, inputs are capped, chips truncate, dialogs trap Tab, and a crash screen replaced the not found page for render errors. 67 database checks, 195 unit tests, 12 demo browser tests and 3 live browser tests pass. The text below is kept as it was written, as the record of what was found.
+
 An adversarial pass over the code by a senior QA and security lens, assuming it is fragile until shown otherwise. Findings are ranked. Each has the fix that closes it without changing behaviour elsewhere. "Verified" means the finding was confirmed by reading the code or by grep, not guessed.
 
 Severity: **P1** breaks a real user or leaks data. **P2** fails silently or degrades badly under load or odd input. **P3** polish.
