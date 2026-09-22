@@ -1,7 +1,8 @@
-// The Google map with numbered pins for each stop and a route line joining them.
+// The Google map with numbered pins for each stop, a route line joining them, and a pin that drops on a place just picked from search.
 // Exists as the one component that touches the map provider, so it can be swapped later.
 import { useEffect } from 'react'
 import { AdvancedMarker, Map, useMap } from '@vis.gl/react-google-maps'
+import { Icon } from '../../components/icons'
 import type { TripStop } from '../../lib/types'
 import type { PickedPlace } from './usePlaceSearch'
 
@@ -14,13 +15,14 @@ interface TripMapProps {
   onPinClick: (stopId: string) => void
 }
 
-function CameraFollow({ target }: { target: { lat: number; lng: number } | null }) {
+function CameraFollow({ target, closeUp }: { target: { lat: number; lng: number } | null; closeUp: boolean }) {
   const map = useMap()
   useEffect(() => {
     if (!map || !target) return
     map.panTo(target)
-    if ((map.getZoom() ?? 0) < 11) map.setZoom(12)
-  }, [map, target])
+    const wanted = closeUp ? 15 : 12
+    if ((map.getZoom() ?? 0) < wanted) map.setZoom(wanted)
+  }, [map, target, closeUp])
   return null
 }
 
@@ -61,7 +63,7 @@ export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapPr
       colorScheme="FOLLOW_SYSTEM"
       style={{ width: '100%', height: '100%' }}
     >
-      <CameraFollow target={target} />
+      <CameraFollow target={target} closeUp={Boolean(preview)} />
       <RouteLine stops={stops} />
       {stops.map((stop, index) => (
         <AdvancedMarker
@@ -84,8 +86,14 @@ export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapPr
         </AdvancedMarker>
       ))}
       {preview && (
-        <AdvancedMarker position={{ lat: preview.lat, lng: preview.lng }} title={preview.name} zIndex={20}>
-          <div className="w-5 h-5 rounded-pill animate-pulse" style={{ background: 'var(--hero)', border: '3px solid var(--surface)' }} />
+        <AdvancedMarker key={preview.googlePlaceId} position={{ lat: preview.lat, lng: preview.lng }} title={preview.name} zIndex={20}>
+          <div className="pin-drop flex flex-col items-center">
+            <div className="w-11 h-11 rounded-pill flex items-center justify-center shadow-lift" style={{ background: 'var(--hero)', color: 'var(--on-hero)', border: '3px solid var(--surface)' }}>
+              <Icon name={preview.placeType} size={20} />
+            </div>
+            <div className="w-1 h-3 -mt-0.5 rounded-b-pill" style={{ background: 'var(--surface)' }} />
+            <div className="w-3 h-1.5 rounded-pill opacity-40" style={{ background: 'var(--ink)' }} />
+          </div>
         </AdvancedMarker>
       )}
     </Map>

@@ -242,6 +242,18 @@
   .confetti { display: none; }
 }
 
+.pin-drop {
+  animation: pin-drop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+@keyframes pin-drop {
+  0% { opacity: 0; transform: translateY(-48px) scale(0.6); }
+  60% { opacity: 1; transform: translateY(4px) scale(1.05); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pin-drop { animation: none; }
+}
+
 @media print {
   header, .no-print { display: none !important; }
   body { background: #ffffff; }
