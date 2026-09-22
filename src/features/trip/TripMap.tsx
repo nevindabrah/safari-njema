@@ -1,4 +1,4 @@
-// The Google map with numbered pins for each stop, a route line joining them, and a pin that drops on a place just picked from search.
+// The Google map with numbered pins for each stop, the selected stop's name above its pin, a route line joining them, and a pin that drops on a place just picked from search.
 // Exists as the one component that touches the map provider, so it can be swapped later.
 import { useEffect } from 'react'
 import { AdvancedMarker, Map, useMap } from '@vis.gl/react-google-maps'
@@ -73,15 +73,20 @@ export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapPr
           onClick={() => onPinClick(stop.id)}
           zIndex={stop.id === highlightedId ? 10 : 1}
         >
-          <div
-            className="w-9 h-9 rounded-pill flex items-center justify-center font-display font-extrabold text-sm shadow-lift"
-            style={{
-              background: stop.id === highlightedId ? 'var(--primary)' : 'var(--accent)',
-              color: stop.id === highlightedId ? 'var(--on-primary)' : 'var(--on-accent)',
-              border: '3px solid var(--surface)',
-            }}
-          >
-            {index + 1}
+          <div className="flex flex-col items-center">
+            {stop.id === highlightedId && (
+              <div className="mb-1 px-3 py-1 rounded-pill bg-surface text-text text-sm font-bold whitespace-nowrap shadow-lift">{stop.place.name}</div>
+            )}
+            <div
+              className="w-9 h-9 rounded-pill flex items-center justify-center font-display font-extrabold text-sm shadow-lift"
+              style={{
+                background: stop.id === highlightedId ? 'var(--primary)' : 'var(--accent)',
+                color: stop.id === highlightedId ? 'var(--on-primary)' : 'var(--on-accent)',
+                border: '3px solid var(--surface)',
+              }}
+            >
+              {index + 1}
+            </div>
           </div>
         </AdvancedMarker>
       ))}

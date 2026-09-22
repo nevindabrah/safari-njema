@@ -75,7 +75,7 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
   }
 
   const type = (lesson.place.type in PLACE_TYPE_INFO ? lesson.place.type : 'other') as PlaceType
-  const note = generatedBy !== 'template' ? 'Written for this place' : isDemoMode ? 'Demo lesson built from the phrase bank. With the Claude API on, the brief is written for this exact place.' : 'General lesson for this kind of place'
+  const note = generatedBy !== 'template' ? 'Written for this place' : isDemoMode ? 'Demo lesson built from the phrase bank. With the Claude API on, the brief is written for this exact place.' : `Phrases chosen for ${lesson.place.name} from the reviewed phrase bank.`
 
   return (
     <>

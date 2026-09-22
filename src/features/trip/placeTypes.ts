@@ -6,13 +6,14 @@ const rules: Array<{ type: PlaceType; googleTypes: string[] }> = [
   { type: 'airport', googleTypes: ['airport', 'international_airport', 'airstrip'] },
   { type: 'station', googleTypes: ['train_station', 'bus_station', 'transit_station', 'bus_stop', 'ferry_terminal', 'light_rail_station'] },
   { type: 'hotel', googleTypes: ['lodging', 'hotel', 'resort_hotel', 'guest_house', 'hostel', 'bed_and_breakfast', 'campground', 'motel', 'extended_stay_hotel'] },
-  { type: 'restaurant', googleTypes: ['restaurant', 'cafe', 'bar', 'coffee_shop', 'food', 'meal_takeaway', 'bakery', 'fast_food_restaurant', 'pub'] },
-  { type: 'market', googleTypes: ['market', 'shopping_mall', 'store', 'grocery_store', 'supermarket', 'clothing_store', 'gift_shop', 'jewelry_store'] },
+  { type: 'restaurant', googleTypes: ['restaurant', 'cafe', 'bar', 'coffee_shop', 'food', 'meal_takeaway', 'bakery', 'fast_food_restaurant', 'pub', 'night_club', 'ice_cream_shop', 'tea_house'] },
+  { type: 'market', googleTypes: ['market', 'shopping_mall', 'store', 'grocery_store', 'supermarket', 'clothing_store', 'gift_shop', 'jewelry_store', 'convenience_store', 'department_store', 'shopping_center'] },
   { type: 'beach', googleTypes: ['beach', 'marina'] },
   { type: 'museum', googleTypes: ['museum', 'art_gallery', 'historical_landmark', 'monument', 'historical_place', 'cultural_landmark'] },
   { type: 'religious_site', googleTypes: ['church', 'mosque', 'hindu_temple', 'place_of_worship', 'synagogue'] },
-  { type: 'park', googleTypes: ['national_park', 'park', 'zoo', 'wildlife_park', 'wildlife_refuge', 'natural_feature', 'hiking_area', 'state_park', 'garden', 'botanical_garden'] },
+  { type: 'park', googleTypes: ['national_park', 'park', 'zoo', 'wildlife_park', 'wildlife_refuge', 'natural_feature', 'hiking_area', 'state_park', 'garden', 'botanical_garden', 'aquarium', 'amusement_park', 'campground'] },
   { type: 'city', googleTypes: ['locality', 'sublocality', 'neighborhood', 'administrative_area_level_1', 'administrative_area_level_2', 'administrative_area_level_3', 'postal_town'] },
+  { type: 'museum', googleTypes: ['tourist_attraction'] },
 ]
 
 export function toPlaceType(googleTypes: string[]): PlaceType {

@@ -19,6 +19,10 @@ describe('toPlaceType', () => {
   it('maps a town', () => {
     expect(toPlaceType(['locality', 'political'])).toBe('city')
   })
+  it('treats a plain tourist attraction as a landmark, but a named kind wins', () => {
+    expect(toPlaceType(['tourist_attraction', 'point_of_interest'])).toBe('museum')
+    expect(toPlaceType(['tourist_attraction', 'zoo'])).toBe('park')
+  })
   it('falls back to other', () => {
     expect(toPlaceType(['point_of_interest'])).toBe('other')
   })

@@ -1,4 +1,4 @@
-// Builds a lesson with no model call: a general brief for the kind of place, plus the top phrases.
+// Builds a lesson with no model call: a brief that names the place, its kind and its region, plus the top phrases for that kind.
 // Exists because the live site runs with the AI switch off, so this is the main path users see.
 import type { Lesson } from './lessonSchema.ts'
 import type { PickedPhrase } from './pickCandidates.ts'
@@ -71,6 +71,22 @@ const BRIEFS: Record<string, { what: string; know: string[]; etiquette: string }
   },
 }
 
+const KIND: Record<string, string> = {
+  market: 'a market', restaurant: 'a restaurant', hotel: 'a hotel', park: 'a park or reserve', beach: 'a beach', airport: 'an airport',
+  station: 'a station', city: 'a town', religious_site: 'a place of worship', museum: 'a museum or landmark', other: 'a place',
+}
+
+const REGION: Record<string, string> = {
+  nairobi: 'Nairobi', coast: 'on the Kenyan coast', rift_valley_mara: 'the Rift Valley', central_mt_kenya: 'central Kenya near Mount Kenya',
+  western_lake: 'western Kenya near Lake Victoria', north: 'northern Kenya',
+}
+
+export function placeLine(placeName: string, placeType: string, region: string): string {
+  const where = REGION[region] ?? 'Kenya'
+  const inWhere = where.startsWith('on ') ? where : `in ${where}`
+  return `${placeName} is ${KIND[placeType] ?? KIND.other} ${inWhere}.`
+}
+
 const PRACTICAL: Record<string, string> = {
   coast: 'Dress modestly away from the beach. Cover shoulders and knees in towns and villages.',
   nairobi: 'Use ride apps or agree a taxi fare first. Keep phones out of sight on busy streets.',
@@ -120,7 +136,7 @@ export function buildTemplateLesson(input: TemplateInput): Lesson {
   return {
     place: { name: input.placeName, type: input.placeType },
     brief: {
-      what_it_is: brief.what,
+      what_it_is: `${placeLine(input.placeName, input.placeType, input.region)} ${brief.what}`,
       know_today: know.slice(0, 4),
       etiquette: brief.etiquette,
       practical: PRACTICAL[input.region] ?? PRACTICAL.nairobi,

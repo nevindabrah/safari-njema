@@ -2,7 +2,7 @@
 // Exists so the template always validates against the shared schema and the reason text follows the slot.
 import { describe, expect, it } from 'vitest'
 import { lessonSchema } from './lessonSchema'
-import { buildTemplateLesson } from './template'
+import { buildTemplateLesson, placeLine } from './template'
 import type { PickedPhrase } from './pickCandidates'
 
 const phrases: PickedPhrase[] = [
@@ -28,5 +28,12 @@ describe('buildTemplateLesson', () => {
   it('mentions greetings on a first stop', () => {
     const lesson = buildTemplateLesson({ placeName: 'Maasai Market', placeType: 'market', region: 'nairobi', firstStop: true, phrases })
     expect(lesson.brief.know_today[0]).toMatch(/first stop/)
+  })
+
+  it('opens the brief by naming the place, its kind and its region', () => {
+    const lesson = buildTemplateLesson({ placeName: 'Java House', placeType: 'restaurant', region: 'nairobi', firstStop: false, phrases })
+    expect(lesson.brief.what_it_is.startsWith('Java House is a restaurant in Nairobi. ')).toBe(true)
+    expect(placeLine('Diani Beach', 'beach', 'coast')).toBe('Diani Beach is a beach on the Kenyan coast.')
+    expect(placeLine('Somewhere', 'other', 'unknown')).toBe('Somewhere is a place in Kenya.')
   })
 })

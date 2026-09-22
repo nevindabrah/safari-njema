@@ -10,13 +10,18 @@ interface BriefStepProps {
   googlePlaceId: string | null
 }
 
+function withoutPlaceLine(text: string, placeName: string): string {
+  const first = text.indexOf('. ')
+  return text.startsWith(`${placeName} is `) && first > 0 ? text.slice(first + 2) : text
+}
+
 export function BriefStep({ brief, placeName, googlePlaceId }: BriefStepProps) {
   const facts = usePlaceFacts(googlePlaceId, placeName)
   const summary = facts?.summary
   return (
     <div className="flex flex-col gap-5">
       <WikipediaNote summary={summary} className="text-lg" />
-      <p className={summary ? 'leading-relaxed' : 'text-lg leading-relaxed'}>{brief.what_it_is}</p>
+      <p className={summary ? 'leading-relaxed' : 'text-lg leading-relaxed'}>{summary ? withoutPlaceLine(brief.what_it_is, placeName) : brief.what_it_is}</p>
       <div>
         <h3 className="text-xl mb-2">Things to know today</h3>
         <ul className="flex flex-col gap-2">
