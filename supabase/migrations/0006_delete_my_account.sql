@@ -12,11 +12,9 @@ begin
   if auth.uid() is null then
     raise exception 'Not signed in';
   end if;
-  -- Only ever the caller's own row. The function runs as its owner, which is what lets it reach auth.users at all.
   delete from auth.users where id = auth.uid();
 end;
 $$;
 
--- Anonymous visitors have no account to delete.
 revoke execute on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;

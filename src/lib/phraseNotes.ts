@@ -7,7 +7,6 @@ export interface NotedPhrase {
   pronunciation: string
 }
 
-// notes maps a phrase's Swahili text to what the reviewer wrote about it. Empty notes are left out.
 export function formatNotes(notes: Record<string, string>, phrases: NotedPhrase[], reviewer = ''): string {
   const noted = phrases.filter((p) => (notes[p.swahili] ?? '').trim() !== '')
   if (noted.length === 0) return ''

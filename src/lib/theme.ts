@@ -10,7 +10,6 @@ export function savedTheme(): ThemeMode {
     const value = localStorage.getItem(KEY)
     if (value === 'light' || value === 'dark') return value
   } catch {
-    // Storage can be blocked. Following the device still works.
   }
   return 'system'
 }
@@ -22,11 +21,9 @@ export function applyTheme(mode: ThemeMode) {
     if (mode === 'system') localStorage.removeItem(KEY)
     else localStorage.setItem(KEY, mode)
   } catch {
-    // The choice then lasts for this visit only.
   }
 }
 
-// The button cycles through the three in this order.
 export function nextTheme(mode: ThemeMode): ThemeMode {
   return mode === 'system' ? 'light' : mode === 'light' ? 'dark' : 'system'
 }

@@ -8,7 +8,6 @@ type Variant = 'primary' | 'accent' | 'soft' | 'onHero'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
   full?: boolean
-  // Set when the screen plays its own sound for this action, so two sounds do not overlap.
   silent?: boolean
 }
 

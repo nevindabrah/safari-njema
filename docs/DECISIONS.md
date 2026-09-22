@@ -37,6 +37,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Alternatives.** A conventional layered structure (components, hooks, services). Shared generic utilities. Both make a codebase shorter and harder to explain screen by screen.
 **Trade-off.** Some code is repeated, for example the three auth screens each build a form. That repetition is the price of each file being self contained.
 
+### 2.2a Only the header comment, nothing inside
+**Decision.** On 22 September 2026 all comments inside files were removed. The two line header stays. Reasons for a piece of code live in this file instead.
+**Why.** The owner's view: production code in industry carries few comments, and a reviewer judges the code, not the notes. Anything that needed a comment was either a name that could be better or a decision that belongs here.
+**Alternatives.** Keeping short "why" comments at the tricky spots (the bundler dead code condition, the scaled SVG focus ring, the middle of three audio cut). Those explanations now sit in sections 6, 8, 9 and 10 of this log.
+**Trade-off.** A reader of one file no longer sees the gotcha in place. The header still says what the file is for.
+
 ### 2.3 Tailwind v4 with every colour as a CSS variable
 **Decision.** All colours, radii and shadows are variables in `src/index.css`, mapped into Tailwind with `@theme inline`. No hard coded colour in any component. No square corners.
 **Why.** Theming is then a matter of rewriting one file's variables. Dark mode arrived on day two and needed no component changes.

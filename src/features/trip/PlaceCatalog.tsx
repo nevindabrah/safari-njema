@@ -11,7 +11,6 @@ import { REGION_LABEL } from './regions'
 import type { PickedPlace } from './usePlaceSearch'
 
 interface PlaceCatalogProps {
-  // Places already on the trip are marked, so nobody adds the same one twice by accident.
   addedIds: string[]
   onPick: (place: PickedPlace) => void
   onClose: () => void
@@ -22,7 +21,6 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
   const [category, setCategory] = useState<string | null>(null)
   const input = useRef<HTMLInputElement>(null)
 
-  // While the catalogue is open: focus the search, close on Escape, and stop the page behind from scrolling.
   useEffect(() => {
     input.current?.focus()
     const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose() }
@@ -78,7 +76,6 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
                     <span className="block p-3">
                       <span className="block font-display font-extrabold leading-tight">{place.name}</span>
                       <span className="text-xs text-muted flex items-center gap-1 mt-1"><Icon name={place.placeType} size={13} />{PLACE_TYPE_INFO[place.placeType].label}</span>
-                      {/* "Nairobi · Nairobi" says nothing twice, so the region is only added when it differs from the address. */}
                       <span className="block text-xs text-muted mt-0.5">{place.address}{place.address === REGION_LABEL[place.region] ? '' : ` · ${REGION_LABEL[place.region]}`}</span>
                     </span>
                   </button>

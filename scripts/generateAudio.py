@@ -30,13 +30,12 @@ from transformers import AutoProcessor, Wav2Vec2ForCTC
 from audioVoice import SAY_AS, Voice
 
 MAIN_VOICE = "facebook/mms-tts-swh"
-# Community voices built on the same model. Compared across all 95 phrases they are weaker overall, but each wins a few.
 OTHER_VOICES = ["Mwau/waxal_swahili-tts-mms", "mussacharles60/swahili-tts-female-voice", "stano03/jambogpt-swahili-tts-v1"]
 LISTENER = "facebook/mms-1b-all"
 OUT_DIR, MANIFEST, REPORT = Path("public/audio"), Path("src/features/audio/audioManifest.json"), Path("docs/audio-report.json")
-SHIP_AT = 0.7    # a clip is only offered in the app if the recogniser heard at least this much of it correctly
-WEAK_UNDER = 0.9  # below this a clip is retried, and other voices may have a go
-OTHER_VOICE_NEEDS = 0.95  # another voice replaces the main one only if it is heard almost perfectly
+SHIP_AT = 0.7
+WEAK_UNDER = 0.9
+OTHER_VOICE_NEEDS = 0.95
 
 JUDGE, ONLY_WEAK, USE_OTHERS = "--judge" in sys.argv, "--only-weak" in sys.argv, "--other-voices" in sys.argv
 phrases = json.loads(Path("supabase/seed/phrases.json").read_text())
@@ -47,13 +46,11 @@ if JUDGE:
     processor = AutoProcessor.from_pretrained(LISTENER, target_lang="swh")
     listener = Wav2Vec2ForCTC.from_pretrained(LISTENER, target_lang="swh", ignore_mismatched_sizes=True)
 
-
 def letters(text: str) -> str:
     """Only the letters, so "em pesa" and "empesa" count as the same thing heard."""
     for written, spoken in SAY_AS.items():
         text = text.replace(written, spoken)
     return re.sub(r"[^a-z]", "", text.lower())
-
 
 def similarity(a: str, b: str) -> float:
     """One minus the edit distance over the longer length. 1.0 means heard exactly as written."""
@@ -66,18 +63,15 @@ def similarity(a: str, b: str) -> float:
             previous = current
     return 1 - row[-1] / max(len(a), len(b), 1)
 
-
 def hear(audio: np.ndarray, rate: int) -> str:
-    if rate != 16000:  # the recogniser expects 16 kHz
+    if rate != 16000:
         audio = np.interp(np.arange(0, len(audio), rate / 16000), np.arange(len(audio)), audio).astype(np.float32)
     with torch.no_grad():
         ids = torch.argmax(listener(**processor(audio, sampling_rate=16000, return_tensors="pt")).logits, dim=-1)[0]
     return processor.decode(ids)
 
-
 def single_words(swahili: str) -> bool:
     return all(" " not in part.strip() for half in swahili.split(" / ") for part in half.split(","))
-
 
 def takes_for(swahili: str):
     """The main voice's settings to try, best guesses first: a first round, then a longer one only stubborn phrases reach."""
@@ -86,10 +80,9 @@ def takes_for(swahili: str):
     comma_choices = [True, False] if "," in swahili else [True]
     first = [(seed, speed, commas, 0.667, "alone") for seed in (7, 21, 42) for speed in (0.88, 0.78) for commas in comma_choices]
     second = [(seed, speed, True, noise, "alone") for noise in (0.4, 0.2) for speed in (0.8, 0.7) for seed in (1, 2)]
-    if single_words(swahili):  # the middle of three trick only makes sense when every part is a single word
+    if single_words(swahili):
         second = [(seed, speed, True, noise, m) for m in ("middle", "middle, quiet cut") for seed in (7, 21, 42) for speed in (0.88, 0.75) for noise in (0.667, 0.3)] + second
     return first + second
-
 
 def judge(voice: Voice, swahili: str, take, best):
     seed, speed, commas, noise, method = take
@@ -100,14 +93,13 @@ def judge(voice: Voice, swahili: str, take, best):
         return {"audio": audio, "rate": voice.rate, "heard": heard, "score": score, "take": {"voice": voice.model_id, "method": method, "seed": seed, "speed": speed, "split_commas": commas, "noise": noise}}
     return best
 
-
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 previous = {r["swahili"]: r for r in json.loads(REPORT.read_text())} if REPORT.exists() else {}
 manifest = json.loads(MANIFEST.read_text()) if MANIFEST.exists() and (LIMIT < len(phrases) or ONLY_WEAK) else {}
 report = []
 for index, phrase in enumerate(phrases[:LIMIT]):
     swahili = phrase["swahili"]
-    if ONLY_WEAK and swahili in previous and previous[swahili]["score"] >= WEAK_UNDER:  # a good clip is left exactly as it is
+    if ONLY_WEAK and swahili in previous and previous[swahili]["score"] >= WEAK_UNDER:
         report.append(previous[swahili])
         continue
     best, first_round = None, 12 if "," in swahili else 6
@@ -119,7 +111,7 @@ for index, phrase in enumerate(phrases[:LIMIT]):
             break
     if JUDGE and USE_OTHERS and best["score"] < WEAK_UNDER:
         for model_id in OTHER_VOICES:
-            if model_id not in voices:  # each extra voice is loaded once, the first time a weak clip needs it
+            if model_id not in voices:
                 voices[model_id] = Voice(model_id)
             candidate = None
             for method in (["alone", "middle"] if single_words(swahili) else ["alone"]):
@@ -129,7 +121,7 @@ for index, phrase in enumerate(phrases[:LIMIT]):
                 best = candidate
     name = f"{index + 1:03d}.m4a"
     if ONLY_WEAK and swahili in previous and previous[swahili]["score"] >= round(best["score"], 2) and (OUT_DIR / name).exists():
-        report.append(previous[swahili])  # the retry was no better, so the clip already on disk stays
+        report.append(previous[swahili])
         print(f"{name}  kept at {previous[swahili]['score']:.2f}  {swahili}", flush=True)
         continue
     with tempfile.NamedTemporaryFile(suffix=".wav") as wav:

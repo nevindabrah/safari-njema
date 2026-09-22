@@ -3,7 +3,6 @@
 
 export interface Month {
   year: number
-  // 1 for January to 12 for December.
   month: number
 }
 
@@ -26,10 +25,8 @@ export function addMonths({ year, month }: Month, by: number): Month {
   return { year: Math.floor(index / 12), month: (index % 12) + 1 }
 }
 
-// The month as rows of seven, Monday first, as calendars in Kenya are printed. Empty corners are null.
 export function monthGrid({ year, month }: Month): Array<Array<string | null>> {
   const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate()
-  // getUTCDay counts from Sunday as 0. Shifting by six makes Monday 0.
   const blanksBefore = (new Date(Date.UTC(year, month - 1, 1)).getUTCDay() + 6) % 7
   const cells: Array<string | null> = Array(blanksBefore).fill(null)
   for (let day = 1; day <= daysInMonth; day++) cells.push(toIso(year, month, day))
@@ -43,7 +40,6 @@ export function monthTitle({ year, month }: Month): string {
   return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' })
 }
 
-// "Mon 5 Oct". The year is added only when it is not this year, to keep the button short.
 export function dayLabel(iso: string, thisYear = new Date().getFullYear()): string {
   const { year, month } = monthOf(iso)
   const date = new Date(Date.UTC(year, month - 1, Number(iso.slice(8, 10))))
@@ -51,7 +47,6 @@ export function dayLabel(iso: string, thisYear = new Date().getFullYear()): stri
   return year === thisYear ? text : `${text} ${year}`
 }
 
-// True when the day falls inside the trip, so the calendar can tint those days. Either end may be missing.
 export function isInRange(iso: string, start: string | null, end: string | null): boolean {
   if (!start || !end) return false
   return iso >= start && iso <= end

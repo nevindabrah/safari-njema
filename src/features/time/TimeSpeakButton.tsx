@@ -4,7 +4,6 @@ import { Icon } from '../../components/icons'
 import { playClip } from '../audio/audio'
 import clips from './timeAudio.json'
 
-// Made by scripts/generateTimeAudio.py: the Swahili phrase, then the address of its recording.
 const CLIPS = clips as Record<string, string>
 
 export function TimeSpeakButton({ swahili }: { swahili: string }) {

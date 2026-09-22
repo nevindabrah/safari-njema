@@ -43,7 +43,6 @@ describe('the clock face', () => {
   })
 
   it('snaps to the nearest hour', () => {
-    // A little clockwise of one o'clock is still one. Just short of twelve, coming round from eleven, is twelve.
     expect(hourFromPoint(Math.sin((40 * Math.PI) / 180), -Math.cos((40 * Math.PI) / 180))).toBe(1)
     expect(hourFromPoint(Math.sin((350 * Math.PI) / 180), -Math.cos((350 * Math.PI) / 180))).toBe(12)
   })

@@ -10,8 +10,6 @@ import { RequireAuth } from './features/auth/RequireAuth'
 import { PrivacyScreen } from './features/landing/PrivacyScreen'
 import { NotFoundScreen } from './features/landing/NotFoundScreen'
 
-// The heavier screens are loaded only when visited, so the landing page stays small.
-// While one of them loads on a fresh page, this short message shows.
 const loading = <p className="p-8 text-center text-muted">Loading.</p>
 
 export const router = createBrowserRouter([
@@ -66,6 +64,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  // Anything else.
   { path: '*', element: <NotFoundScreen /> },
 ])

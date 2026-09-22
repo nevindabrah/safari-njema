@@ -10,7 +10,6 @@ export interface MatchExercise {
   phraseIds: string[]
   instruction: string
   pairs: Array<{ phraseId: string; swahili: string; english: string }>
-  // The English side, shuffled, as phrase ids.
   englishOrder: string[]
   reveal: string
   say: string
@@ -23,7 +22,6 @@ export interface BuildExercise {
   phraseIds: string[]
   instruction: string
   english: string
-  // The words in order, without punctuation. full is the sentence as the bank has it, shown once answered.
   answer: string[]
   full: string
   tiles: string[]
@@ -44,7 +42,6 @@ export interface TypeExercise {
   say: string
 }
 
-// Up to five pairs. Two phrases with the same English or the same Swahili would be unfair, so only distinct ones go in.
 export function matchExercise(phrases: Phrase[], random: () => number): MatchExercise | null {
   const chosen: Phrase[] = []
   for (const phrase of shuffle(phrases, random)) {
@@ -65,7 +62,6 @@ function canBuild(phrase: Phrase): boolean {
   return !phrase.swahili.includes('/') && phrase.swahili.split(' ').length >= 2
 }
 
-// The phrase's own words plus two or three words from other phrases, shuffled.
 export function buildExercise(phrase: Phrase, others: Phrase[], random: () => number): BuildExercise | null {
   if (!canBuild(phrase)) return null
   const answer = phrase.swahili.split(' ').map((w) => splitWord(w).core)
@@ -82,7 +78,6 @@ export function buildExercise(phrase: Phrase, others: Phrase[], random: () => nu
   }
 }
 
-// Typing suits short answers. Pairs like "Kushoto / Kulia" are left to the other exercises.
 export function typeExercise(phrase: Phrase): TypeExercise | null {
   if (phrase.swahili.includes('/') || phrase.swahili.split(' ').length > 3) return null
   return { kind: 'type', id: `type:${phrase.id}`, part: 3, phraseIds: [phrase.id], instruction: 'Type this in Swahili', reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, english: phrase.english, answer: phrase.swahili, pronunciation: phrase.pronunciation }

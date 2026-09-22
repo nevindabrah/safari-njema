@@ -76,7 +76,6 @@ create table public.proverbs (
   themes text[] not null default '{}'
 );
 
--- The shared lesson cache. One row per place, activity set and level.
 create table public.lessons (
   id uuid primary key default gen_random_uuid(),
   place_id uuid not null references public.places (id),

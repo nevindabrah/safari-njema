@@ -34,8 +34,6 @@ export function useStops(tripId: string | null) {
     reload()
   }, [reload])
 
-  // Calls the Edge Function and waits for it. No realtime subscriptions.
-  // If the function is not deployed, or fails, the lesson is built here in the browser and saved to the user's own account.
   async function generateLesson(stopId: string) {
     const { error } = await supabase.functions.invoke('generate-lesson', { body: { trip_stop_id: stopId } })
     if (error) {
@@ -48,11 +46,9 @@ export function useStops(tripId: string | null) {
     await reload()
   }
 
-  // Test mode: same steps as the real path, but the lesson is built in the browser.
   async function addLocalStopWithLesson(place: PickedPlace, visitDate: string | null, activities: string[]) {
     const stop = addLocalStop(place, visitDate, activities)
     await reload()
-    // A short wait so the "Preparing your lesson" state can be seen, as it would be with a real server.
     await new Promise((resolve) => setTimeout(resolve, 300))
     const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, activities, firstStop: stop.position === 1 })
     attachLocalLesson(stop.id, lesson)
@@ -88,7 +84,6 @@ export function useStops(tripId: string | null) {
     await reload()
   }
 
-  // Moves a stop to another day, or to no day. The list and the pin numbers follow.
   async function moveStop(stopId: string, visitDate: string | null) {
     setStops((list) => orderStops(list.map((s) => (s.id === stopId ? { ...s, visit_date: visitDate } : s))))
     if (isDemoMode) {

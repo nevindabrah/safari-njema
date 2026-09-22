@@ -42,7 +42,6 @@ export interface TripStop {
   place: Place
 }
 
-// A stop as the itinerary shows it: the stop, its place, and the id of its lesson once there is one.
 export interface StopRow extends TripStop {
   user_lessons: { id: string; status?: string }[]
 }

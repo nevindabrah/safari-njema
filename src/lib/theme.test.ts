@@ -7,7 +7,6 @@ import { contrastRatio } from './contrast'
 
 const css = readFileSync('src/index.css', 'utf8')
 
-// The variables declared inside the block that starts at the given selector.
 function variablesIn(selector: string): Record<string, string> {
   const open = css.indexOf('{', css.indexOf(selector))
   let depth = 0
@@ -24,14 +23,12 @@ const light = variablesIn(':root {')
 const deviceDark = variablesIn(':root:not([data-theme="light"])')
 const toggleDark = variablesIn(':root[data-theme="dark"]')
 
-// Follows var(--x) references until it reaches a real colour.
 function resolve(theme: Record<string, string>, name: string): string {
   let value = theme[name]
   for (let i = 0; i < 5 && value?.startsWith('var('); i++) value = theme[value.slice(4, -1)]
   return value
 }
 
-// Text colour first, then the background it sits on.
 const PAIRS: Array<[string, string]> = [
   ['--text', '--bg'], ['--text', '--surface'], ['--text', '--surface-2'], ['--text', '--tint'],
   ['--muted', '--bg'], ['--muted', '--surface'], ['--muted', '--surface-2'],
@@ -46,7 +43,6 @@ describe('the two dark themes', () => {
   })
 })
 
-// Things that are not text, like the edge of a box you type in, need 3 to 1 against what is around them.
 const EDGES: Array<[string, string]> = [['--field-edge', '--surface'], ['--field-edge', '--bg'], ['--field-edge', '--tint']]
 
 describe.each([

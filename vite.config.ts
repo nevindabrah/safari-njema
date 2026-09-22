@@ -9,7 +9,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // The libraries change far less often than our code, so they get their own files and stay cached across deploys.
         manualChunks(id: string) {
           if (id.includes('node_modules/@supabase')) return 'supabase'
           if (id.includes('node_modules/react') || id.includes('node_modules/scheduler')) return 'react'

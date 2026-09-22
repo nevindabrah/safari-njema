@@ -9,7 +9,6 @@ const db = new PGlite()
 let passed = 0, failed = 0
 const ok = (name, cond, detail = '') => { cond ? passed++ : failed++; console.log(`  ${cond ? 'ok  ' : 'FAIL'} ${name}${cond ? '' : ' -> ' + detail}`) }
 
-// The few pieces Supabase provides: the auth schema, the two roles, and auth.uid() reading the signed in user's id.
 await db.exec(`
   create schema auth;
   create table auth.users (id uuid primary key default gen_random_uuid(), email text);
@@ -30,12 +29,10 @@ ok('10 proverbs seeded', (await count(`select count(*) n from proverbs`)) === 10
 ok('sort_order runs 1 to 95', (await count(`select count(distinct sort_order) n from phrases where sort_order between 1 and 95`)) === 95)
 ok('every table has Row Level Security on', (await count(`select count(*) n from pg_tables t join pg_class c on c.relname = t.tablename where t.schemaname = 'public' and not c.relrowsecurity`)) === 0)
 
-// Two users sign up. The trigger must create their profile and settings rows.
 const a = (await db.query(`insert into auth.users (email) values ('amina@example.com') returning id`)).rows[0].id
 const b = (await db.query(`insert into auth.users (email) values ('baraka@example.com') returning id`)).rows[0].id
 ok('sign up trigger creates a profile and settings', (await count(`select count(*) n from profiles`)) === 2 && (await count(`select count(*) n from user_settings`)) === 2)
 
-// Everything below runs as a signed in user, exactly as a browser request would.
 async function as(userId, fn) {
   await db.exec(`set role authenticated; select set_config('request.jwt.claim.sub', '${userId ?? ''}', false);`)
   try { return await fn() } finally { await db.exec(`reset role`) }
@@ -55,7 +52,6 @@ ok('a signed in user can read the phrase bank and proverbs', await as(b, async (
 ok('a signed in user cannot write to the phrase bank', await as(b, async () => { try { await db.query(`insert into phrases (swahili, english) values ('x', 'y')`); return false } catch { return true } }))
 ok('a signed in user cannot write to the shared lessons table', await as(a, async () => { try { await db.query(`insert into lessons (place_id, content, generated_by) select id, '{}'::jsonb, 'template' from places limit 1`); return false } catch { return true } }))
 
-// The new fallback: a lesson built in the browser, saved into the user's own row.
 ok('user A can save a browser built lesson in their own row', await as(a, async () => { await db.query(`insert into user_lessons (user_id, trip_stop_id, content, generated_by) values ('${a}', '${stopA}', '{"place":{"name":"Diani Beach"}}'::jsonb, 'template')`); return (await count(`select count(*) n from user_lessons where content is not null`)) === 1 }))
 ok('a lesson row with neither a shared lesson nor content is refused', await as(a, async () => { try { await db.query(`insert into user_lessons (user_id, trip_stop_id) values ('${a}', '${stopA}')`); return false } catch { return true } }))
 ok('user B cannot save a lesson into user A\'s account', await as(b, async () => { try { await db.query(`insert into user_lessons (user_id, trip_stop_id, content) values ('${a}', '${stopA}', '{}'::jsonb)`); return false } catch { return true } }))
@@ -64,10 +60,7 @@ ok('user A can mark their lesson completed', await as(a, async () => (await db.q
 ok('deleting a stop removes its lesson', await as(a, async () => { await db.query(`delete from trip_stops where id = '${stopA}'`); return (await count(`select count(*) n from user_lessons`)) === 0 }))
 ok('someone not signed in sees no trips', await (async () => { await db.exec(`set role anon`); try { return (await count(`select count(*) n from trips`)) === 0 } finally { await db.exec(`reset role`) } })())
 
-
-// Deleting an account. User B must not be able to delete anyone but themselves, and everything of theirs must go with them.
 await as(b, async () => { await db.query(`insert into trips (user_id, title) values ('${b}', 'B trip')`) })
-// The function takes no argument, so the only account it can reach is the caller's. User A calls it here.
 await as(a, async () => { await db.query(`select delete_my_account()`) })
 await db.exec(`reset role`)
 ok('a user deleting their account removes their auth row, profile and trip', (await count(`select count(*) n from auth.users where id = '${a}'`)) === 0 && (await count(`select count(*) n from profiles where id = '${a}'`)) === 0 && (await count(`select count(*) n from trips where user_id = '${a}'`)) === 0)

@@ -80,7 +80,6 @@ const PRACTICAL: Record<string, string> = {
   north: 'Distances are long and services are sparse. Carry water, cash and a charged phone.',
 }
 
-// One line on when you would say the phrase, chosen by the slot that picked it.
 const WHY: Record<string, string> = {
   greeting: 'Say this first, before anything else.',
   core_greeting: 'Say this first, before anything else.',

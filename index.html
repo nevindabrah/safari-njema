@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <!-- viewport-fit=cover lets the page reach under the notch and home bar. The bars then pad themselves with safe area insets. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="A travel companion for Kenya. Add the places you are going and get a short Swahili lesson made for each one." />
     <meta name="color-scheme" content="light dark" />
@@ -14,10 +13,8 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#ffc83d" />
     <title>Safari Njema</title>
-    <!-- The fonts live on this site. Asking for them early means the first screen is drawn in its final lettering. -->
     <link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/bricolage-grotesque-800.woff2" as="font" type="font/woff2" crossorigin />
-    <!-- Applies a saved light or dark choice before the app loads, so the page never flashes the wrong theme. -->
     <script>
       try { var t = localStorage.getItem('safari-njema-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
     </script>

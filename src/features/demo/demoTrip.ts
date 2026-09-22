@@ -17,10 +17,8 @@ function dayOfTrip(startDate: string | null, offset: number): string | null {
   return day.toISOString().slice(0, 10)
 }
 
-// One shared promise, so two callers at once (React runs effects twice in development) cannot seed the trip twice.
 let seeding: Promise<void> | null = null
 
-// Runs once per browser. After "Start with an empty trip" the flag is set, so this does nothing.
 export function ensureDemoTrip(): Promise<void> {
   if (wasDemoSeeded() || listLocalStops().length > 0) return Promise.resolve()
   if (!seeding) seeding = seedDemoTrip()

@@ -27,7 +27,6 @@ export function PlacePhoto({ googlePlaceId, placeType, name, size, className = '
   return <img src={photoUrl(photo, size)} alt={photo.illustrative ? `A photo that suits ${name}` : name} loading="lazy" onError={() => setFailed(true)} className={`object-cover ${className}`} />
 }
 
-// The credit a Creative Commons licence asks for: who made it, under which licence, and a link to the original.
 export function PhotoCredit({ googlePlaceId, className = '' }: { googlePlaceId: string; className?: string }) {
   const photo = photoFor(googlePlaceId)
   if (!photo) return null

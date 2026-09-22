@@ -15,7 +15,6 @@ const STOPS = [
 export function LessonShowcase() {
   const [lessons, setLessons] = useState<StoredLesson[]>([])
 
-  // The lesson builder and the seed are loaded only when this section mounts, to keep the first load small.
   useEffect(() => {
     let cancelled = false
     import('../demo/localLessons').then(async ({ buildLocalLesson }) => {

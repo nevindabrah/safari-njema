@@ -9,7 +9,6 @@ import { ThemeToggle } from './ThemeToggle'
 import { BottomTabs } from './BottomTabs'
 import { Logo } from './Logo'
 
-// py-3 around a 20px line makes each link 44px tall, a comfortable size for a thumb.
 const link = ({ isActive }: { isActive: boolean }) => `px-3 py-3 rounded-pill ${isActive ? 'bg-tint' : 'hover:bg-tint'}`
 
 export function TopBar() {
@@ -23,7 +22,6 @@ export function TopBar() {
             {user && <span className="hidden sm:flex items-center gap-1"><NavLink to="/trip" className={link}>My trip</NavLink><NavLink to="/kangas" className={link}>Kangas</NavLink></span>}
             <NavLink to="/phrasebook" className={(state) => `${link(state)} hidden sm:inline-block`}>Phrasebook</NavLink>
             <NavLink to="/time" className={(state) => `${link(state)} hidden sm:inline-block`}>Time</NavLink>
-            {/* On a phone the bar holds the logo and the controls. About is in the footer of every public page. */}
             <NavLink to="/about" className={(state) => `${link(state)} hidden sm:inline-block`}>About</NavLink>
             <SoundToggle />
             <ThemeToggle />

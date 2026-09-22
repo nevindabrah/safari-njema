@@ -15,7 +15,6 @@ export function SetupNotice() {
     navigate('/trip', { replace: true })
   }
 
-  // A demo visitor on a site that does have accounts: one tap leaves the demo and brings back the real form.
   if (accountsAvailable) {
     return (
       <div className="bg-tint rounded-input p-4 mb-5 text-sm">

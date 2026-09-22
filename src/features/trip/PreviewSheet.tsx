@@ -8,7 +8,6 @@ interface PreviewSheetProps {
 }
 
 export function PreviewSheet({ onClose, children }: PreviewSheetProps) {
-  // While the sheet is open: close on Escape, and stop the page behind from scrolling.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose() }
     window.addEventListener('keydown', onKey)

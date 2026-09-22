@@ -30,8 +30,6 @@ export interface KangaDesign {
   fieldMotif: Motif
 }
 
-// A small string hash. The same proverb always gives the same number.
-// The multiplier 25 was chosen by trying odd numbers until the ten seeded proverbs used all six colourways.
 function hash(text: string): number {
   let value = 0
   for (let i = 0; i < text.length; i++) value = (value * 25 + text.charCodeAt(i)) >>> 0
@@ -41,7 +39,6 @@ function hash(text: string): number {
 export function kangaDesignFor(proverb: string): KangaDesign {
   const h = hash(proverb)
   const borderMotif = MOTIFS[Math.floor(h / COLOURWAYS.length) % MOTIFS.length]
-  // The field never repeats the border's motif, so the two always read as different bands.
   const others = MOTIFS.filter((m) => m !== borderMotif)
   return { colourway: COLOURWAYS[h % COLOURWAYS.length], borderMotif, fieldMotif: others[Math.floor(h / 97) % others.length] }
 }

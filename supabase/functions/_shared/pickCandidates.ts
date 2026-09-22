@@ -21,7 +21,6 @@ export interface CandidateContext {
   shengEnabled?: boolean
 }
 
-// A chosen phrase and the slot tag that chose it. The template uses the slot to say why the phrase is here.
 export interface PickedPhrase {
   phrase: CandidatePhrase
   slot: string
@@ -38,13 +37,11 @@ export function scorePhrase(phrase: CandidatePhrase, ctx: CandidateContext): num
     if (regionTags.includes(tag)) score += 2
   }
   if (phrase.tags.includes('greeting')) {
-    // The first stop of a trip always teaches greetings. Later stops assume them.
     score += ctx.firstStop ? 6 : -1
   }
   return score
 }
 
-// Returns up to `limit` phrases that fit the stop, best first. Ties keep the bank's order, which is v1's teaching order.
 export function pickCandidates(phrases: CandidatePhrase[], ctx: CandidateContext, limit = 40): CandidatePhrase[] {
   const known = new Set(ctx.knownIds)
   return phrases
@@ -57,15 +54,11 @@ export function pickCandidates(phrases: CandidatePhrase[], ctx: CandidateContext
     .map((x) => x.p)
 }
 
-// Fills the slot plan in order. Each slot takes an unused candidate with that tag.
-// If slots run out before `count`, the best remaining candidates top it up.
-// A lesson holds eight phrases, most important first. The learner picks a length, and a shorter lesson studies the first few.
 export function pickTemplatePhrases(candidates: CandidatePhrase[], ctx: CandidateContext, count = 8): PickedPhrase[] {
   const picked: PickedPhrase[] = []
   const used = new Set<string>()
   for (const slot of buildSlotPlan(ctx.placeType, ctx.activities, ctx.firstStop)) {
     if (picked.length >= count) break
-    // Within a slot, a phrase marked essential wins. Otherwise the best scoring one does.
     const fits = candidates.filter((c) => !used.has(c.id) && c.tags.includes(slot))
     const match = fits.find((c) => c.tags.includes('essential')) ?? fits[0]
     if (!match) continue

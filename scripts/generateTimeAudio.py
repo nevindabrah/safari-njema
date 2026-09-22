@@ -23,9 +23,8 @@ from transformers import AutoProcessor, Wav2Vec2ForCTC
 from audioVoice import Voice
 
 OUT_DIR, MANIFEST, REPORT = Path("public/audio/time"), Path("src/features/time/timeAudio.json"), Path("docs/time-audio-report.json")
-SHIP_AT = 0.85  # full phrases are easier for the voice than single words, so the bar is higher than for lesson clips
-TAKES = [(7, 0.88), (21, 0.88), (42, 0.82), (3, 0.78)]  # (seed, speed), best guesses first
-# Slower and more varied takes, tried only on a phrase that was held back.
+SHIP_AT = 0.85
+TAKES = [(7, 0.88), (21, 0.88), (42, 0.82), (3, 0.78)]
 MORE_TAKES = [(seed, speed) for speed in (0.72, 0.66, 0.8) for seed in (1, 2, 5, 9, 13)]
 ONLY_HELD = "--only-held" in sys.argv
 
@@ -34,10 +33,8 @@ voice = Voice("facebook/mms-tts-swh")
 processor = AutoProcessor.from_pretrained("facebook/mms-1b-all", target_lang="swh")
 listener = Wav2Vec2ForCTC.from_pretrained("facebook/mms-1b-all", target_lang="swh", ignore_mismatched_sizes=True)
 
-
 def letters(text: str) -> str:
     return re.sub(r"[^a-z]", "", text.lower())
-
 
 def similarity(a: str, b: str) -> float:
     """One minus the edit distance over the longer length. 1.0 means heard exactly as written."""
@@ -50,19 +47,17 @@ def similarity(a: str, b: str) -> float:
             previous = current
     return 1 - row[-1] / max(len(a), len(b), 1)
 
-
 def hear(audio: np.ndarray) -> str:
     with torch.no_grad():
         ids = torch.argmax(listener(**processor(audio, sampling_rate=16000, return_tensors="pt")).logits, dim=-1)[0]
     return processor.decode(ids)
-
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 previous = {r["swahili"]: r for r in json.loads(REPORT.read_text())} if ONLY_HELD else {}
 manifest = json.loads(MANIFEST.read_text()) if ONLY_HELD else {}
 report = []
 for index, swahili in enumerate(phrases):
-    if ONLY_HELD and previous.get(swahili, {}).get("shipped"):  # a clip that passed is left exactly as it is
+    if ONLY_HELD and previous.get(swahili, {}).get("shipped"):
         report.append(previous[swahili])
         continue
     best = None

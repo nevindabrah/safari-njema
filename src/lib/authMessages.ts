@@ -14,7 +14,6 @@ export function plainAuthMessage(message: string): string {
   return message
 }
 
-// With email confirmation on, Supabase hides whether an email is taken: it answers with a user that has no identities.
 export function isExistingAccount(user: { identities?: unknown[] } | null): boolean {
   return !!user && Array.isArray(user.identities) && user.identities.length === 0
 }

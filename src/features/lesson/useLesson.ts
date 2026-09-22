@@ -13,9 +13,7 @@ export interface LoadedLesson {
   lesson: Lesson
   generatedBy: string
   phrases: Phrase[]
-  // Extra phrases the quiz can use as wrong answers.
   pool: Phrase[]
-  // The Google place id of the stop, used to find its photo.
   googlePlaceId: string | null
 }
 
@@ -46,7 +44,6 @@ export function useLesson(userLessonId: string | undefined) {
         if (!cancelled) setError('We could not find that lesson.')
         return
       }
-      // A lesson comes from the shared table, or from the user's own row when it was built in the browser.
       const shared = row.lesson as unknown as { content: unknown; generated_by: string } | null
       const lessonRow = shared ?? { content: row.content, generated_by: (row.generated_by as string | null) ?? 'template' }
       const parsed = lessonSchema.safeParse(lessonRow.content)
@@ -59,7 +56,6 @@ export function useLesson(userLessonId: string | undefined) {
         .from('phrases')
         .select('id, swahili, pronunciation, english, tags, verified')
         .in('id', ids)
-      // Keep the lesson's order, not the database's.
       const byId = new Map((phraseRows ?? []).map((p) => [p.id, p as Phrase]))
       const phrases = ids.map((id) => byId.get(id)).filter((p): p is Phrase => Boolean(p))
       const { data: poolRows } = await supabase.from('phrases').select('id, swahili, pronunciation, english, tags, verified').neq('register', 'sheng').limit(100)

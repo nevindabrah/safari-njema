@@ -6,9 +6,7 @@ interface HeroProps {
   eyebrow?: string
   title: string
   children?: ReactNode
-  // An optional picture placed behind the text, on the right.
   art?: ReactNode
-  // The screen width from which the text makes room for the picture. It must match when the picture itself appears.
   artFrom?: 'md' | 'lg'
 }
 

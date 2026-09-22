@@ -5,7 +5,6 @@ import { LESSON_LENGTHS, type LessonLength } from '../../lib/lessonLength'
 
 interface LengthPickerProps {
   selected: LessonLength
-  // How many phrases and exercises each length gives for this lesson.
   sizes: Record<LessonLength, { phrases: number; exercises: number }>
   onSelect: (length: LessonLength) => void
   onStart: () => void

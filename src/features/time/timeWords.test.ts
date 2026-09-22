@@ -11,7 +11,6 @@ describe('sayTime and pronounce', () => {
       for (let minute = 0; minute < 60; minute += 5) {
         const said = sayTime(swahiliTime(hour, minute))
         expect(said).not.toContain('undefined')
-        // Every syllable guide has a capital letter in it. A word that was passed through unchanged would not.
         for (const word of pronounce(said).split(' ')) expect(word === 'na' || /[A-Z]/.test(word)).toBe(true)
         seen.add(said)
       }

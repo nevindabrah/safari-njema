@@ -53,7 +53,6 @@ export function useTrip() {
     }
   }, [user])
 
-  // Either date can be empty. An end before the start is moved up to the start, so the range always makes sense.
   async function updateDates(startDate: string | null, endDate: string | null) {
     if (!trip) return
     const end = startDate && endDate && endDate < startDate ? startDate : endDate

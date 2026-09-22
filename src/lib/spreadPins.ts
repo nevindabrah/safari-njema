@@ -6,8 +6,6 @@ export interface Point {
   y: number
 }
 
-// Points closer than minDistance to the first point of a group join that group.
-// A group of one stays where it is. A bigger group is placed evenly on a circle around its centre.
 export function spreadPins(points: Point[], minDistance: number): Point[] {
   const groups: number[][] = []
   points.forEach((point, index) => {
@@ -21,7 +19,6 @@ export function spreadPins(points: Point[], minDistance: number): Point[] {
     if (group.length < 2) continue
     const centreX = group.reduce((sum, i) => sum + points[i].x, 0) / group.length
     const centreY = group.reduce((sum, i) => sum + points[i].y, 0) / group.length
-    // The radius that keeps neighbours on the ring exactly minDistance apart.
     const radius = minDistance / 2 / Math.sin(Math.PI / group.length)
     group.forEach((pointIndex, k) => {
       const angle = -Math.PI / 2 + (2 * Math.PI * k) / group.length

@@ -9,7 +9,6 @@ export function audioUrlFor(swahili: string): string | null {
   return CLIPS[swahili] ?? null
 }
 
-// Asks the browser to fetch these phrases' clips now and keep them, so playing one later does not wait on the network.
 const warmed = new Set<string>()
 export function preloadPhrases(swahili: string[]) {
   for (const phrase of swahili) {
@@ -20,7 +19,6 @@ export function preloadPhrases(swahili: string[]) {
   }
 }
 
-// Plays any clip by its address. The phrasebook uses this for recordings that were held back from lessons.
 export function playClip(url: string) {
   if (!player) player = new Audio()
   player.pause()
@@ -28,14 +26,12 @@ export function playClip(url: string) {
   player.play().catch(() => {})
 }
 
-// Returns false when there is no clip, so a caller can hide its button.
 export function playPhrase(swahili: string): boolean {
   const url = audioUrlFor(swahili)
   if (!url) return false
   if (!player) player = new Audio()
   player.pause()
   player.src = url
-  // Browsers block sound that was not started by the user. Every call here follows a tap, but a refusal is harmless.
   player.play().catch(() => {})
   return true
 }

@@ -33,20 +33,16 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
   const [streak, setStreak] = useState(0)
   const [missed, setMissed] = useState<Exercise[]>([])
   const [missedPhraseIds, setMissedPhraseIds] = useState<string[]>([])
-  // The phrase is spoken a moment after an answer. This holds that pending clip so it can be cancelled.
   const speakTimer = useRef<number | undefined>(undefined)
   const feedback = useRef<HTMLDivElement>(null)
   const exercise = queue[index]
 
-  // Leaving the practice must not leave a clip waiting to play over the next screen.
   useEffect(() => () => window.clearTimeout(speakTimer.current), [])
 
-  // Once there is an answer, make sure its feedback and the Next button are on screen.
   useEffect(() => {
     if (outcome) feedback.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [outcome])
 
-  // Enter moves on once an answer has been given.
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (event.key === 'Enter' && outcome) next()
@@ -55,13 +51,11 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
     return () => window.removeEventListener('keydown', onKey)
   })
 
-  // Every hook sits above this line, because React needs the same hooks to run on every render.
   if (!exercise) return <p className="text-muted">Not enough phrases to practise.</p>
 
   function answer(isCorrect: boolean, detail?: { phraseIds?: string[]; note?: string }) {
     setOutcome({ correct: isCorrect, note: detail?.note })
     playSound(isCorrect ? 'correct' : 'wrong')
-    // Hearing the phrase straight after answering is what makes it stick. It waits for the chime to finish.
     if (exercise.say && isSoundOn()) speakTimer.current = window.setTimeout(() => playPhrase(exercise.say), 420)
     if (secondChance) return
     if (isCorrect) {
@@ -75,11 +69,9 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
   }
 
   function next() {
-    // A quick learner can press Next before the delayed clip starts. Cancel it, or it would play over a listening question.
     window.clearTimeout(speakTimer.current)
     setOutcome(null)
     if (index + 1 < queue.length) return setIndex(index + 1)
-    // The end of the main practice. Anything missed comes back once, and does not change the score.
     if (!secondChance && missed.length > 0) {
       setQueue(missed)
       setSecondChance(true)
@@ -101,7 +93,6 @@ export function QuizStep({ exercises, onFinish }: QuizStepProps) {
       <ProgressBar value={index + 1} max={queue.length} label="Practice progress" />
       <p className="text-sm text-muted mt-4 mb-1">{exercise.instruction}</p>
 
-      {/* The key makes React start each exercise fresh, including when one comes back in the second chance round. */}
       <div key={`${secondChance}-${exercise.id}`}>
         {exercise.kind === 'choice' && <ChoiceExercise exercise={exercise} onAnswer={(ok) => answer(ok)} />}
         {exercise.kind === 'match' && <MatchExercise exercise={exercise} onAnswer={(ok, ids) => answer(ok, { phraseIds: ids })} />}

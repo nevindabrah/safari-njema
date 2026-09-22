@@ -9,16 +9,12 @@ import { LeaveButton } from '../../components/LeaveButton'
 import { Footer } from '../../components/Footer'
 import { allPhotos } from '../places/photoData'
 
-// Nevin's own photos. Their camera and device metadata was removed before they were added to this public repo.
-// The page shows them small, so it loads small copies, made the same way and checked to carry no metadata either.
 const PHOTOS = [
   { src: '/about/nevin-with-giraffe-small.jpg', alt: 'Nevin taking a selfie beside a giraffe, with acacia trees behind' },
   { src: '/about/nevin-feeding-giraffe-small.jpg', alt: 'Nevin feeding a giraffe by hand from a raised wooden platform' },
 ]
 const CAPTION = 'Twiga is Swahili for giraffe. Up close, they are taller than you expect.'
 
-// From medium screens up, the two photos sit in the empty right side of the hero, tilted like prints on a table.
-// That keeps them on the page without pushing the story down.
 function HeroPhotos() {
   return (
     <figure className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 w-[17rem]">
@@ -45,7 +41,6 @@ export function AboutScreen() {
           </p>
         </Hero>
 
-        {/* On a phone the photos sit here, small, so the story below is already on screen. Wider screens show them in the hero. */}
         <figure className="md:hidden">
           <div className="grid grid-cols-2 gap-3 max-w-[17rem] mx-auto">
             <img src={PHOTOS[0].src} alt={PHOTOS[0].alt} width={768} height={1024} className="w-full aspect-[3/4] object-cover rounded-card shadow-soft" />

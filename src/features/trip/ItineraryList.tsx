@@ -34,7 +34,6 @@ export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, 
     )
   }
 
-  // The stops arrive in visiting order, so one pass groups neighbours that share a day.
   const groups: Array<{ date: string | null; stops: StopRow[] }> = []
   for (const stop of stops) {
     const last = groups[groups.length - 1]

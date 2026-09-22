@@ -5,7 +5,6 @@ import { supabase } from '../../lib/supabase'
 import { plainAuthMessage } from '../../lib/authMessages'
 import { isDemoMode } from '../demo/demoMode'
 
-// Google's own mark, in Google's colours, as its sign in guidelines ask. It is a logo, so its colours are not theme tokens.
 function GoogleMark() {
   return (
     <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">

@@ -6,7 +6,6 @@ import { pickCandidates, pickTemplatePhrases, type CandidatePhrase, type Candida
 import { buildTemplateLesson } from './template'
 import { lessonSchema } from './lessonSchema'
 
-// The seed has no ids yet, so give each phrase a stable fake uuid for the test.
 const bank: CandidatePhrase[] = seed.map((p, i) => ({
   id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
   swahili: p.swahili,
@@ -75,11 +74,8 @@ describe('template lessons from the real seed', () => {
         const ctx: CandidateContext = { placeType, activities: [], region, firstStop: false, level: 'none', knownIds: [] }
         const { swahili, picked } = lessonFor(ctx, 'x')
         expect(swahili, `${placeType} in ${region} should have eight phrases`).toHaveLength(8)
-        // The bill belongs at a meal, not at an airport or a station.
         if (placeType !== 'restaurant') expect(swahili).not.toContain('Naomba bili')
-        // Swimming belongs at the beach.
         if (placeType !== 'beach') expect(swahili).not.toContain('Naweza kuogelea hapa?')
-        // Pole is sympathy, so it never fills a help slot.
         expect(picked.find((p) => p.phrase.swahili === 'Pole')?.slot ?? 'polite').toBe('polite')
       }
     }

@@ -12,14 +12,12 @@ interface LessonHeroProps {
   placeType: PlaceType
   googlePlaceId: string | null
   note: string
-  // Once the lesson is under way, a phone shows only a slim strip with the place name, so the lesson itself fits on screen.
   compact?: boolean
 }
 
 export function LessonHero({ lesson, placeType, googlePlaceId, note, compact = false }: LessonHeroProps) {
   const photo = googlePlaceId ? photoFor(googlePlaceId) : null
   const onPhoto = Boolean(photo)
-  // Extra detail that a compact hero hides on a phone and keeps on a wider screen.
   const detail = compact ? 'hidden sm:block' : ''
 
   return (

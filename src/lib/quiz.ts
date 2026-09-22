@@ -8,15 +8,12 @@ export type Exercise = ChoiceExercise | MatchExercise | BuildExercise | TypeExer
 
 export const PART_TITLES: Record<1 | 2 | 3, string> = { 1: 'Recognise', 2: 'Recall', 3: 'Produce' }
 
-// phrases are the ones being taught. pool is where wrong answers come from, ideally the whole bank.
-// hasAudio says whether a phrase has a recording. Without it there are no listening exercises, which keeps this function pure.
 export function buildQuiz(phrases: Phrase[], pool: Phrase[] = phrases, random: () => number = Math.random, hasAudio: (swahili: string) => boolean = () => false): Exercise[] {
   const everything = [...phrases, ...pool.filter((p) => !phrases.some((q) => q.id === p.id))]
   if (everything.length < 2) return []
   const othersOf = (phrase: Phrase) => everything.filter((p) => p.id !== phrase.id)
   const order = shuffle(phrases, random)
 
-  // Part 1, recognise: meaning and true or false take turns, then one round of matching pairs.
   const recognise: Exercise[] = []
   order.forEach((phrase, i) => {
     const exercise = i % 2 === 0 ? meaningExercise(phrase, othersOf(phrase), random) : trueFalseExercise(phrase, othersOf(phrase), random)
@@ -24,7 +21,6 @@ export function buildQuiz(phrases: Phrase[], pool: Phrase[] = phrases, random: (
   })
   const match = matchExercise(phrases, random)
 
-  // Part 2, recall: from English to Swahili, by ear from a recording, and from the pronunciation guide. They take turns.
   const recall: Exercise[] = []
   shuffle(phrases, random).forEach((phrase, i) => {
     const byEar = i % 3 === 1 && hasAudio(phrase.swahili) ? listenExercise(phrase, othersOf(phrase), random) : null
@@ -33,7 +29,6 @@ export function buildQuiz(phrases: Phrase[], pool: Phrase[] = phrases, random: (
     if (exercise) recall.push(exercise)
   })
 
-  // Part 3, produce: build sentences from tiles and fill gaps for longer phrases, type the short ones.
   const produce: Exercise[] = []
   let longPhrases = 0
   for (const phrase of shuffle(phrases, random)) {

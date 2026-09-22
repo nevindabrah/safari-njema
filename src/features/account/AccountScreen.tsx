@@ -23,7 +23,6 @@ export function AccountScreen() {
     setBusy(true)
     setError(null)
     if (isDemoMode) {
-      // The demo lives only in this browser, so deleting it means clearing what is saved here.
       startEmptyTrip()
       leaveDemo('/')
       return

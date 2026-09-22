@@ -5,13 +5,11 @@ import { Icon } from './icons'
 
 interface SearchBoxProps {
   id: string
-  // Read out by screen readers. The placeholder is only a hint and disappears on typing.
   label: string
   placeholder: string
   value: string
   onChange: (value: string) => void
   inputRef?: Ref<HTMLInputElement>
-  // 'lift' floats over the map. 'soft' sits on a page.
   shadow?: 'lift' | 'soft'
   className?: string
 }
@@ -21,7 +19,6 @@ export function SearchBox({ id, label, placeholder, value, onChange, inputRef, s
     <div className={`relative ${className}`}>
       <label className="sr-only" htmlFor={id}>{label}</label>
       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none"><Icon name="search" size={18} /></span>
-      {/* field gives the edge every typed box has. bg-surface keeps the fill white, because a search box often floats over the map. */}
       <input ref={inputRef} id={id} type="search" enterKeyHint="search" autoComplete="off" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}
         className={`field bg-surface w-full min-h-[52px] pl-11 ${value === '' ? 'pr-5' : 'pr-14'} rounded-pill text-text placeholder:text-muted ${shadow === 'lift' ? 'shadow-lift' : 'shadow-soft'}`} />
       {value !== '' && (

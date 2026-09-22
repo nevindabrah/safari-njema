@@ -8,7 +8,6 @@ import { existsSync, mkdirSync, statSync, unlinkSync, writeFileSync } from 'node
 
 const USER_AGENT = 'SafariNjema/1.0 (student project; https://github.com/nevindabrah/safari-njema)'
 
-// Built-in place id -> Wikipedia article whose lead photo shows the place. Null means search Wikimedia Commons instead.
 const ARTICLES: Record<string, string | null> = {
   'sample-maasai-market': null,
   'sample-maasai-mara': 'Maasai Mara',
@@ -82,7 +81,6 @@ async function api(host: string, params: Record<string, string>) {
 
 const stripTags = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
 
-// 1. One request: the lead image file name of every article.
 const titles = Object.values(ARTICLES).filter((t): t is string => t !== null)
 const pages = await api('en.wikipedia.org', { action: 'query', titles: titles.join('|'), prop: 'pageimages', piprop: 'name', redirects: '1' })
 const fileByTitle = new Map<string, string>()
@@ -98,8 +96,6 @@ for (const [id, title] of Object.entries(ARTICLES)) {
   if (file) { fileById.set(id, file); articleById.set(id, finalTitle) }
 }
 
-// 2. One Commons search per place that still has no photo: the listed search, or the article's own title. Only real photographs: jpg files.
-// Places where a search found nothing suitable. They show the place type icon instead of a photo that does not fit.
 const NO_PHOTO = new Set(['sample-ali-barbours'])
 const stillMissing = Object.keys(ARTICLES).filter((id) => !fileById.has(id) && !NO_PHOTO.has(id))
 for (const id of stillMissing) {
@@ -110,7 +106,6 @@ for (const id of stillMissing) {
   if (hit) fileById.set(id, hit.title.replace(/^File:/, ''))
 }
 
-// 3. One request: the image URL, author and licence of every file. Commons only hosts freely licensed files.
 const files = [...new Set(fileById.values())]
 const infoPages: any[] = []
 const normalised = new Map<string, string>()
@@ -125,14 +120,12 @@ for (const page of infoPages) {
   const image = page.imageinfo?.[0]
   const meta = image?.extmetadata
   const licence = meta?.LicenseShortName?.value as string | undefined
-  // No licence on Commons means the file is missing there (for example a fair use logo kept on Wikipedia). Skip it.
   if (!image || !licence) continue
   const fileName = (normalised.get(page.title) ?? page.title).replace(/^File:/, '')
   for (const [id, file] of fileById) {
     if (file.replace(/_/g, ' ') !== fileName.replace(/_/g, ' ')) continue
     result[id] = {
       source: String(image.thumburl).split('?')[0],
-      // A photo found by search shows the kind of place, not always the exact spot, so the credit says so.
       illustrative: !articleById.has(id),
       width: image.thumbwidth,
       height: image.thumbheight,
@@ -145,7 +138,6 @@ for (const page of infoPages) {
   }
 }
 
-// 4. Download each photo once and save two sizes: a small one for lists and cards, a large one for lesson headers.
 mkdirSync('public/places', { recursive: true })
 for (const [id, photo] of Object.entries(result) as Array<[string, any]>) {
   const large = `public/places/${id}.jpg`
@@ -156,10 +148,8 @@ for (const [id, photo] of Object.entries(result) as Array<[string, any]>) {
     if (!response.ok) { console.log(`  could not download ${id}: ${response.status}`); delete result[id]; continue }
     const original = `public/places/${id}-original.jpg`
     writeFileSync(original, Buffer.from(await response.arrayBuffer()))
-    // sips ships with macOS. -Z sets the longest side, and formatOptions is the JPEG quality.
     execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '62', '-Z', '960', original, '--out', large], { stdio: 'ignore' })
     execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '60', '-Z', '420', original, '--out', small], { stdio: 'ignore' })
-    // Detailed photos, like beadwork, stay heavy at those settings. They get a second, firmer pass.
     if (statSync(large).size > 170 * 1024) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '48', '-Z', '820', large, '--out', large], { stdio: 'ignore' })
     if (statSync(small).size > 45 * 1024) execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '48', '-Z', '400', small, '--out', small], { stdio: 'ignore' })
     unlinkSync(original)

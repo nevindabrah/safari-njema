@@ -12,7 +12,6 @@ interface ChoiceExerciseProps {
 
 export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
   const [chosen, setChosen] = useState<number | null>(null)
-  // A ref changes at once, unlike state. It stops two taps in the same instant from both counting.
   const answered = useRef(false)
 
   function choose(i: number) {
@@ -22,12 +21,10 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
     onAnswer(i === exercise.correctIndex)
   }
 
-  // A listening exercise speaks as soon as it appears. The tap that brought the learner here allows the sound.
   useEffect(() => {
     if (exercise.variant === 'listen') playPhrase(exercise.say)
   }, [exercise])
 
-  // Number keys pick an option, so a laptop user never has to reach for the mouse.
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       const i = Number(event.key) - 1

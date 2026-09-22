@@ -12,7 +12,7 @@ Build "The 22 September cut" in the PRD, in the order listed. Do not start anyth
 Nevin will walk interviewers through this code. Optimise for reading, not cleverness.
 1. One feature per folder under `src/features/`. A screen and the hooks it uses live together.
 2. No file over about 200 lines. Split it.
-3. Every file starts with a two line comment: what it does, and why it exists.
+3. Every file starts with a two line comment: what it does, and why it exists. No other comments. If code needs explaining, rename or split it, and put the why in `docs/DECISIONS.md`.
 4. Prefer plain, slightly repetitive code over abstractions. No generic utilities, no higher order components, no custom state library.
 5. Business logic goes in pure functions in `src/lib/` with Vitest tests. Components only render and call those functions.
 6. Do not add a dependency that is not in section 5 of the PRD without asking first and writing the reason in the README.

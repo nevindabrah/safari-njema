@@ -21,7 +21,6 @@ export function TimeExplorer() {
     const now = new Date()
     setClock12(now.getHours() % 12 === 0 ? 12 : now.getHours() % 12)
     setPm(now.getHours() >= 12)
-    // The clock moves in fives, so the minutes are rounded down.
     setMinute(Math.floor(now.getMinutes() / 5) * 5)
   }
 

@@ -3,12 +3,10 @@
 
 export type TypedResult = 'right' | 'close' | 'wrong'
 
-// Lowercase, no punctuation, single spaces. "Habari?" and "habari" are the same answer.
 export function normalise(text: string): string {
   return text.toLowerCase().replace(/[?!.,'’"-]/g, '').replace(/\s+/g, ' ').trim()
 }
 
-// The classic edit distance: how many single letter changes turn one string into the other.
 export function editDistance(a: string, b: string): number {
   const row = Array.from({ length: b.length + 1 }, (_, i) => i)
   for (let i = 1; i <= a.length; i++) {
@@ -23,7 +21,6 @@ export function editDistance(a: string, b: string): number {
   return row[b.length]
 }
 
-// "close" still counts as right, with a note to check the spelling. Short words must be exact.
 export function checkTyped(expected: string, typed: string): TypedResult {
   const want = normalise(expected)
   const got = normalise(typed)

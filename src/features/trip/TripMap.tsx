@@ -14,7 +14,6 @@ interface TripMapProps {
   onPinClick: (stopId: string) => void
 }
 
-// Pans the camera whenever the target changes. Kept separate because useMap needs to be inside <Map>.
 function CameraFollow({ target }: { target: { lat: number; lng: number } | null }) {
   const map = useMap()
   useEffect(() => {
@@ -25,7 +24,6 @@ function CameraFollow({ target }: { target: { lat: number; lng: number } | null 
   return null
 }
 
-// Draws one polyline through the stops in order.
 function RouteLine({ stops }: { stops: TripStop[] }) {
   const map = useMap()
   useEffect(() => {

@@ -13,18 +13,14 @@ export interface ChoiceExercise {
   instruction: string
   prompt: string
   promptLang: 'sw' | 'en' | 'none'
-  // A line under the prompt: the English for fill the gap, the meaning to judge for true or false.
   hint?: string
   options: string[]
   optionLang: 'sw' | 'en'
   correctIndex: number
-  // Shown once answered, so a wrong answer still teaches the right one.
   reveal: string
-  // The Swahili to speak aloud: once answered, or as the question itself in a listening exercise.
   say: string
 }
 
-// Fisher-Yates shuffle. The random source is an argument so tests can be repeatable.
 export function shuffle<T>(items: T[], random: () => number): T[] {
   const copy = [...items]
   for (let i = copy.length - 1; i > 0; i--) {
@@ -34,13 +30,11 @@ export function shuffle<T>(items: T[], random: () => number): T[] {
   return copy
 }
 
-// Splits "bei," into the word and the punctuation after it.
 export function splitWord(word: string): { core: string; trail: string } {
   const match = word.match(/^(.*?)([?!.,]*)$/)
   return { core: match?.[1] ?? word, trail: match?.[2] ?? '' }
 }
 
-// The right answer plus up to three different wrong ones, shuffled. Null if there is nothing wrong to offer.
 function makeOptions(correct: string, wrongCandidates: string[], random: () => number) {
   const seen = new Set([correct.toLowerCase()])
   const wrong: string[] = []
@@ -74,14 +68,12 @@ export function soundsLikeExercise(phrase: Phrase, others: Phrase[], random: () 
   return { kind: 'choice', variant: 'sounds_like', id: `sounds_like:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'Which phrase is said like this?', prompt: phrase.pronunciation, promptLang: 'none', optionLang: 'sw', ...built }
 }
 
-// A listening exercise: the phrase is played, and the learner picks what was said. The prompt is the sound, so it has no text.
 export function listenExercise(phrase: Phrase, others: Phrase[], random: () => number): ChoiceExercise | null {
   const built = makeOptions(phrase.swahili, others.map((p) => p.swahili), random)
   if (!built) return null
   return { kind: 'choice', variant: 'listen', id: `listen:${phrase.id}`, part: 2, phraseIds: [phrase.id], reveal: `${phrase.swahili} · ${phrase.english}`, say: phrase.swahili, instruction: 'Listen. What did you hear?', prompt: '', promptLang: 'none', optionLang: 'sw', ...built }
 }
 
-// Half the time the meaning shown is the real one, half the time it belongs to another phrase.
 export function trueFalseExercise(phrase: Phrase, others: Phrase[], random: () => number): ChoiceExercise | null {
   const wrongMeanings = others.map((p) => p.english).filter((e) => e.toLowerCase() !== phrase.english.toLowerCase())
   if (wrongMeanings.length === 0) return null
@@ -94,7 +86,6 @@ export function trueFalseExercise(phrase: Phrase, others: Phrase[], random: () =
   }
 }
 
-// Words that can fill a gap: three letters or more, from phrases that are one sentence and not an "a / b" pair.
 function gapWords(phrase: Phrase, firstWord: boolean): string[] {
   if (phrase.swahili.includes('/')) return []
   return phrase.swahili.split(' ').filter((_, i) => (i === 0) === firstWord).map((w) => splitWord(w).core).filter((w) => w.length >= 3)
@@ -107,7 +98,6 @@ export function fillGapExercise(phrase: Phrase, others: Phrase[], random: () => 
   if (candidates.length === 0) return null
   const gapIndex = candidates[Math.floor(random() * candidates.length)]
   const { core, trail } = splitWord(words[gapIndex])
-  // Wrong words come from the same position in other phrases, so capital letters never give the answer away.
   const built = makeOptions(core, others.flatMap((p) => gapWords(p, gapIndex === 0)), random)
   if (!built) return null
   const sentence = words.map((w, i) => (i === gapIndex ? '____' + trail : w)).join(' ')

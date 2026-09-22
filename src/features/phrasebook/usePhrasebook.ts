@@ -7,10 +7,8 @@ export interface BookPhrase {
   pronunciation: string
   english: string
   chapter: string
-  // The recording's address, and whether it was held back from lessons because a speech recogniser could not understand it.
   clip: string | null
   held: boolean
-  // In lessons, but the recogniser was not fully sure of it. Worth a human ear.
   unsure: boolean
 }
 
@@ -31,7 +29,6 @@ export function usePhrasebook() {
   const [notes, setNotes] = useState<Record<string, string>>(() => readStored(NOTES_KEY, {}))
   const [reviewer, setReviewer] = useState<string>(() => readStored(NAME_KEY, ''))
 
-  // Both files are loaded only on this page, to keep them out of the main bundle.
   useEffect(() => {
     Promise.all([import('../../../supabase/seed/phrases.json'), import('../../../docs/audio-report.json')]).then(([seed, report]) => {
       const clips = new Map(report.default.map((r) => [r.swahili, r]))
@@ -41,7 +38,6 @@ export function usePhrasebook() {
           swahili: p.swahili,
           pronunciation: p.pronunciation,
           english: p.english,
-          // The source reads "v1 chapter salamu: Greetings first". The part after the colon is the chapter's name.
           chapter: p.source.split(': ')[1] ?? 'Other',
           clip: clip ? `/audio/${clip.file}` : null,
           held: clip ? !clip.shipped : false,
@@ -54,19 +50,19 @@ export function usePhrasebook() {
   function saveNote(swahili: string, note: string) {
     setNotes((current) => {
       const next = { ...current, [swahili]: note }
-      try { localStorage.setItem(NOTES_KEY, JSON.stringify(next)) } catch { /* the note then lasts for this visit */ }
+      try { localStorage.setItem(NOTES_KEY, JSON.stringify(next)) } catch {  }
       return next
     })
   }
 
   function saveReviewer(name: string) {
     setReviewer(name)
-    try { localStorage.setItem(NAME_KEY, JSON.stringify(name)) } catch { /* as above */ }
+    try { localStorage.setItem(NAME_KEY, JSON.stringify(name)) } catch {  }
   }
 
   function clearNotes() {
     setNotes({})
-    try { localStorage.removeItem(NOTES_KEY) } catch { /* nothing to clear */ }
+    try { localStorage.removeItem(NOTES_KEY) } catch {  }
   }
 
   return { phrases, notes, reviewer, saveNote, saveReviewer, clearNotes }

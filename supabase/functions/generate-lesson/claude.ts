@@ -65,7 +65,6 @@ export async function generateWithClaude(input: ClaudeInput, apiKey: string, mod
   const allowedIds = new Set(input.candidates.map((c) => c.id))
   const userMessage = buildUserMessage(input)
 
-  // One try, then one retry, as the PRD asks. Anything else falls through to the template.
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const response = await client.messages.create({

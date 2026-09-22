@@ -8,12 +8,10 @@ import { pronounce, sayTime } from './timeWords'
 import { TimeSpeakButton } from './TimeSpeakButton'
 
 interface TimePracticeProps {
-  // What the clock and the am or pm switch are set to right now: 0 to 23, and 0 to 55 in fives.
   hour24: number
   minute: number
 }
 
-// Minutes since midnight, in steps of five, and never the time the clock already shows.
 function randomTime(not: number): number {
   let next = not
   while (next === not) next = Math.floor(Math.random() * 288) * 5

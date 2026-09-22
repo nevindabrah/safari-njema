@@ -4,7 +4,6 @@ import { createContext, useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../../lib/supabase'
 import { isDemoMode, accountsAvailable, leaveDemo, DEMO_USER, DEMO_SIGNED_IN_KEY } from '../demo/demoMode'
 
-// The only parts of a user the app reads. A Supabase user fits this shape.
 export interface AppUser {
   id: string
   email?: string
@@ -24,7 +23,6 @@ export const AuthContext = createContext<AuthState>({
   signInAsDemoUser: () => {},
 })
 
-// Demo visitors start signed out, so the landing page comes first. One tap on the demo button signs them in.
 const SIGNED_IN_KEY = DEMO_SIGNED_IN_KEY
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -49,7 +47,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signOut() {
     if (isDemoMode) {
-      // Where real accounts exist, leaving the demo reloads the page so the log in and sign up forms come back.
       if (accountsAvailable) return leaveDemo()
       localStorage.removeItem(SIGNED_IN_KEY)
       setUser(null)

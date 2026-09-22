@@ -7,14 +7,12 @@ import { useAuth } from '../auth/useAuth'
 import { isDemoMode, accountsAvailable, leaveDemo } from './demoMode'
 import { startEmptyTrip } from './localStore'
 
-// Put away for this visit only, so the reminder that this is a demo comes back next time.
 const HIDDEN_KEY = 'safari-njema-demo-banner-hidden'
 
 export function DemoBanner() {
   const { user } = useAuth()
   const { pathname } = useLocation()
   const [hidden, setHidden] = useState(() => sessionStorage.getItem(HIDDEN_KEY) === '1')
-  // Shown where the trip is managed. A lesson or a pocket card keeps the whole screen for itself.
   const focused = pathname.startsWith('/lesson') || pathname.startsWith('/card')
   if (!isDemoMode || !user || focused || hidden) return null
 

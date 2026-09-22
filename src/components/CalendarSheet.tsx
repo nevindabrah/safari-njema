@@ -18,20 +18,16 @@ interface CalendarSheetProps {
 
 export function CalendarSheet({ title, value, tripStart, tripEnd, onChoose, onClose }: CalendarSheetProps) {
   const today = todayIso()
-  // Open on the chosen day's month, or the trip's, or this month.
   const [month, setMonth] = useState(() => monthOf(value ?? tripStart ?? today))
   const panel = useRef<HTMLDivElement>(null)
 
-  // While open: close on Escape, keep the page behind still, and put the keyboard on the chosen day.
   useEffect(() => {
-    // Listening first (capture) and stopping the event means Escape closes only the calendar, not the place card under it.
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return
       event.stopPropagation()
       onClose()
     }
     window.addEventListener('keydown', onKey, true)
-    // Another sheet may already have stopped the page scrolling, so put back whatever was there before.
     const before = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     panel.current?.querySelector<HTMLButtonElement>('[aria-pressed="true"], [data-today]')?.focus()

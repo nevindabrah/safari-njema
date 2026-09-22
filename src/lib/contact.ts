@@ -4,7 +4,6 @@ export const FEEDBACK_EMAIL = (import.meta.env.VITE_FEEDBACK_EMAIL as string | u
 
 export const GITHUB_ISSUES_URL = 'https://github.com/nevindabrah/safari-njema/issues/new'
 
-// An email link with the subject and body filled in. Long bodies are trimmed, because some mail apps refuse very long links.
 export function feedbackMailto(subject: string, body: string): string {
   const trimmed = body.length > 1800 ? body.slice(0, 1800) + '\n\n(The rest was too long for an email link. Use Copy instead and paste it in.)' : body
   return `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(trimmed)}`

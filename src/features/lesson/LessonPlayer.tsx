@@ -25,9 +25,7 @@ const STEPS = ['The brief', 'The phrases', 'Practice']
 interface LessonPlayerProps {
   lesson: Lesson
   phrases: Phrase[]
-  // Where the quiz finds wrong answers. The whole bank makes guessing harder than the six lesson phrases alone.
   pool?: Phrase[]
-  // Used to find the place's photo, and to link to the pocket card. Both are optional, for the sample lesson.
   googlePlaceId?: string | null
   userLessonId?: string
   generatedBy: string
@@ -37,12 +35,10 @@ interface LessonPlayerProps {
 }
 
 export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonId, generatedBy, backTo, backLabel, onComplete }: LessonPlayerProps) {
-  // Step -1 is the length picker. Then 0 the brief, 1 the phrases, 2 the practice, 3 the end.
   const [step, setStep] = useState(-1)
   const [length, setLength] = useState<LessonLength>(savedLessonLength)
   const [result, setResult] = useState<QuizResult | null>(null)
   const [startedAt] = useState(() => Date.now())
-  // A lesson holds up to eight phrases, most needed first. The length decides how many of them are studied.
   const studied = useMemo(() => phrases.slice(0, LESSON_LENGTHS[length].phrases), [phrases, length])
   const hasAudio = (swahili: string) => audioUrlFor(swahili) !== null
   const exercises = useMemo(() => buildQuiz(studied, pool ?? phrases, Math.random, hasAudio), [studied, pool, phrases])
@@ -54,12 +50,10 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
     return { quick: sizeOf('quick'), standard: sizeOf('standard'), deep: sizeOf('deep') }
   }, [phrases, pool])
 
-  // Fetch this lesson's recordings while the learner reads the brief, so every tap plays at once.
   useEffect(() => {
     preloadPhrases(studied.map((p) => p.swahili))
   }, [studied])
 
-  // Each step starts at its top. Without this, pressing Continue at the bottom of a long step opens the next one half way down.
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [step])
@@ -83,12 +77,10 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
     <>
       <div className="relative">
         <LessonHero lesson={lesson} placeType={type} googlePlaceId={googlePlaceId ?? null} note={note} compact={step >= 0 && step < 3} />
-        {/* Leaving is always one tap away, in the corner furthest from the answer buttons. */}
         {step < 3 && <LeaveButton kind="close" label={`Leave the lesson. ${backLabel}`} to={backTo} className={`absolute right-3 ${step >= 0 ? 'top-1/2 -translate-y-1/2 sm:top-3 sm:translate-y-0' : 'top-3'}`} />}
       </div>
 
       {step >= 0 && step < 3 && (
-        // Practice has its own progress bar, so on a phone this one steps aside to leave room for the answers.
         <div className={`mb-5 px-1 ${step === 2 ? 'hidden sm:block' : ''}`}>
           <ProgressBar value={step + 1} max={STEPS.length} label="Lesson progress" />
           <p className="text-sm font-bold mt-2">{STEPS[step]}</p>

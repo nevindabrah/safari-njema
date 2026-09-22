@@ -5,11 +5,8 @@ import { Icon } from './icons'
 
 interface LeaveButtonProps {
   kind: 'back' | 'close'
-  // Said to screen readers and shown beside a back arrow, for example "Back to my trip".
   label: string
-  // Where to go. A back arrow first tries the screen the visitor came from, and uses this when there is none.
   to?: string
-  // For cards and pop ups that close without changing the address.
   onLeave?: () => void
   showLabel?: boolean
   className?: string
@@ -20,7 +17,6 @@ export function LeaveButton({ kind, label, to = '/', onLeave, showLabel = false,
 
   function leave() {
     if (onLeave) return onLeave()
-    // React Router numbers the screens visited in this tab. Above zero means there is one of ours to go back to.
     const cameFromInside = ((window.history.state as { idx?: number } | null)?.idx ?? 0) > 0
     if (kind === 'back' && cameFromInside) navigate(-1)
     else navigate(to)

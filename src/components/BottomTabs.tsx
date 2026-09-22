@@ -11,7 +11,6 @@ const TABS: Array<{ to: string; label: string; icon: IconName }> = [
 ]
 
 export function BottomTabs() {
-  // Hidden during a lesson, where it would float over the Next button.
   const { pathname } = useLocation()
   if (pathname.startsWith('/lesson') || pathname.startsWith('/preview')) return null
   return (

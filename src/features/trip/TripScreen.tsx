@@ -34,7 +34,6 @@ export function TripScreen() {
     setHighlightedId(null)
   }
 
-  // Picking a pin or a row selects it everywhere. Picking it again clears the selection.
   function selectStop(stopId: string) {
     playSound('select')
     setHighlightedId((current) => (current === stopId ? null : stopId))
@@ -48,7 +47,6 @@ export function TripScreen() {
     await addStop(place, visitDate, activities)
   }
 
-  // On a laptop the preview card sits over the map. On a phone the map is too small for it, so it opens as a sheet.
   const wide = window.matchMedia('(min-width: 1024px)').matches
 
   return (

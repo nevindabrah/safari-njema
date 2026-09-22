@@ -11,7 +11,6 @@ interface BuildExerciseProps {
 }
 
 export function BuildExercise({ exercise, onAnswer }: BuildExerciseProps) {
-  // Tiles are tracked by their position in the list, because a sentence can use the same word twice.
   const [placed, setPlaced] = useState<number[]>([])
   const [checked, setChecked] = useState(false)
 

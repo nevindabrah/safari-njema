@@ -35,7 +35,6 @@ export function useKangas() {
         return
       }
       const { data } = await supabase.from('user_lessons').select('id, status, content, lesson:lessons(content), trip_stop:trip_stops(position, place:places(name, google_place_id))')
-      // The lesson lives in the shared table, or in the user's own row when it was built in the browser.
       const kangaOf = (r: LessonRow) => r.lesson?.content.kanga ?? r.content?.kanga
       const rows = ((data ?? []) as unknown as LessonRow[]).filter((r) => kangaOf(r) && r.trip_stop)
       rows.sort((a, b) => a.trip_stop!.position - b.trip_stop!.position)

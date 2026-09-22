@@ -29,29 +29,23 @@ function report(ok: boolean, good: string, bad: string) {
 
 console.log(`Checking ${url}\n`)
 
-// 1. Every table exists. Row Level Security hides the rows from this anonymous check, so a 200 with no rows is a pass.
 const tables = ['profiles', 'user_settings', 'trips', 'places', 'trip_stops', 'phrases', 'proverbs', 'lessons', 'user_lessons', 'phrase_progress', 'speaking_attempts', 'phrase_reports', 'user_kangas']
 for (const table of tables) {
   const response = await fetch(`${url}/rest/v1/${table}?select=*&limit=1`, { headers })
   const rows = response.ok ? ((await response.json()) as unknown[]) : []
   report(response.ok, `table ${table}`, `table ${table} is missing (HTTP ${response.status}). Run supabase/setup.sql in the SQL editor.`)
-  // An anonymous visitor must never see rows. If one comes back, Row Level Security is off for that table.
   if (response.ok && rows.length > 0) report(false, '', `table ${table} shows rows to an anonymous visitor. Row Level Security is not protecting it.`)
 }
 
-// 2. The phrase bank has the sort_order column from the fourth migration.
 const sortOrder = await fetch(`${url}/rest/v1/phrases?select=sort_order&limit=1`, { headers })
 report(sortOrder.ok, 'phrases.sort_order column', 'phrases.sort_order is missing. Migration 0004 has not been run.')
 
-// 2b. The column that lets a lesson built in the browser be saved, from the fifth migration.
 const content = await fetch(`${url}/rest/v1/user_lessons?select=content&limit=1`, { headers })
 report(content.ok, 'user_lessons.content column', 'user_lessons.content is missing. Migration 0005 has not been run, so lessons cannot be saved without the Edge Function.')
 
-// 3. The database function that adds a stop.
 const rpc = await fetch(`${url}/rest/v1/rpc/add_trip_stop`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: '{}' })
 report(rpc.status !== 404, 'function add_trip_stop', 'function add_trip_stop is missing. Migration 0003 has not been run.')
 
-// 4. Sign in settings.
 const settings = await fetch(`${url}/auth/v1/settings`, { headers })
 if (settings.ok) {
   const auth = (await settings.json()) as { external?: Record<string, boolean>; disable_signup?: boolean; mailer_autoconfirm?: boolean }
@@ -63,7 +57,6 @@ if (settings.ok) {
   report(false, '', `could not read the auth settings (HTTP ${settings.status}). Check the URL and anon key.`)
 }
 
-// 5. The Edge Function. Without a signed in user it should refuse with 401, which proves it is deployed.
 const fn = await fetch(`${url}/functions/v1/generate-lesson`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: '{}' })
 if (fn.status === 404) console.log('  note  Edge Function generate-lesson is not deployed. That is fine: lessons are then built in the browser and saved to the account. Deploy it only when you want Claude to write lessons.')
 else console.log(`  ok    Edge Function generate-lesson is deployed (answered ${fn.status})`)

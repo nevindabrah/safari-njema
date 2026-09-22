@@ -60,7 +60,6 @@ export function ResetPasswordScreen() {
 
   async function save(event: FormEvent) {
     event.preventDefault()
-    // The emailed link has already signed the visitor in, so this simply changes their password.
     const { error: problem } = await supabase.auth.updateUser({ password })
     if (problem) setError(plainAuthMessage(problem.message))
     else navigate('/trip', { replace: true })

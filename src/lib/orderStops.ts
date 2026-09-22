@@ -15,7 +15,6 @@ export function orderStops<T extends Orderable>(stops: T[]): T[] {
   })
 }
 
-// "Day 3" if the date falls inside the trip, otherwise nothing. Dates are plain YYYY-MM-DD strings.
 export function dayNumber(date: string | null, tripStart: string | null, tripEnd: string | null): number | null {
   if (!date || !tripStart) return null
   if (date < tripStart || (tripEnd && date > tripEnd)) return null

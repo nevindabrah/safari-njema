@@ -17,7 +17,6 @@ export function TimeScreen() {
         <h1 className="text-4xl sm:text-5xl">Telling time</h1>
         <p className="text-muted mt-2 max-w-2xl">In Swahili, 7 in the morning is hour one. Set the clock to any hour to see it both ways, then practise.</p>
 
-        {/* On a laptop the clock and the story sit side by side. On a phone the clock comes first. */}
         <div className="grid lg:grid-cols-2 gap-5 items-start">
           <TimeExplorer />
           <Card className="mt-5">

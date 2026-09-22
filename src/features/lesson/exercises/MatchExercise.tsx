@@ -25,7 +25,6 @@ export function MatchExercise({ exercise, onAnswer }: MatchExerciseProps) {
       if (nowMatched.length === exercise.pairs.length) onAnswer(missed.length === 0, missed)
       return
     }
-    // A wrong guess: flash both cards, remember the phrase, and let the learner try again.
     playSound('wrong')
     setMissed((list) => (list.includes(selected) ? list : [...list, selected]))
     setWrongPair([selected, phraseId])

@@ -11,7 +11,6 @@ const market = pick('Habari?', 'Nzuri', 'Hii ni bei gani?', 'Moja, mbili, tatu, 
 const mara = pick('Simba', 'Ni mnyama gani huyo?', 'Tembo / Ndovu', 'Twiga', 'Angalia!', 'Chui')
 const bankWords = new Set(bank.flatMap((p) => p.swahili.split(' ').map((w) => w.replace(/[?!.,]/g, ''))))
 
-// A tiny seeded random so tests are repeatable.
 function seeded(seed: number) {
   let s = seed
   return () => {

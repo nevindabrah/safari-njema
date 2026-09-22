@@ -5,7 +5,6 @@ import { Button } from '../../components/Button'
 
 interface AuthFormProps {
   submitLabel: string
-  // True on sign up, so password managers offer to make a new password instead of filling an old one.
   newPassword?: boolean
   onSubmit: (email: string, password: string) => Promise<string | null>
 }

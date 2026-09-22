@@ -16,7 +16,6 @@ export function savedLessonLength(): LessonLength {
     const value = localStorage.getItem(KEY)
     if (value === 'quick' || value === 'standard' || value === 'deep') return value
   } catch {
-    // Storage can be blocked. The default below still works.
   }
   return 'standard'
 }
@@ -25,6 +24,5 @@ export function saveLessonLength(length: LessonLength) {
   try {
     localStorage.setItem(KEY, length)
   } catch {
-    // The choice then lasts for this lesson only.
   }
 }

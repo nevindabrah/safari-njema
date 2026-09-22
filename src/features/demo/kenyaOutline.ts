@@ -1,7 +1,6 @@
 // A hand-simplified outline of Kenya, its coast and two lakes, as longitude and latitude points.
 // Exists so the demo map shows a recognisable country without a map provider. It is a sketch, not survey data.
 
-// Clockwise from the north west corner. About forty points is enough for the shape to read as Kenya.
 export const KENYA: Array<[number, number]> = [
   [34.0, 4.22], [35.3, 5.0], [35.95, 4.62], [36.05, 4.45], [36.85, 4.45], [38.1, 3.6], [39.05, 3.52], [39.55, 3.43],
   [39.85, 3.85], [40.78, 4.25], [41.15, 3.95], [41.9, 3.95], [40.98, 2.83], [40.99, 0.0], [40.99, -0.85], [41.56, -1.66],
@@ -10,7 +9,6 @@ export const KENYA: Array<[number, number]> = [
   [34.1, 0.45], [34.5, 1.1], [34.9, 1.5], [34.9, 2.4], [34.55, 3.1], [34.4, 3.7],
 ]
 
-// The Indian Ocean: the Kenyan coast, then far out past the edges of the panel in every direction so no edge of the water shows.
 export const OCEAN: Array<[number, number]> = [
   [41.56, -1.66], [41.0, -2.1], [40.9, -2.3], [40.3, -2.55], [40.17, -2.85], [40.13, -3.22], [39.87, -3.63],
   [39.68, -4.05], [39.55, -4.4], [39.22, -4.68], [39.1, -5.1], [38.85, -6.0], [39.4, -7.5], [39.5, -30],
@@ -21,7 +19,6 @@ export const LAKE_TURKANA: Array<[number, number]> = [
   [35.95, 4.5], [36.2, 4.3], [36.3, 3.6], [36.7, 3.0], [36.75, 2.45], [36.5, 2.4], [36.2, 3.0], [35.95, 3.8],
 ]
 
-// Only the Kenyan corner of Lake Victoria, with the gulf that reaches Kisumu.
 export const LAKE_VICTORIA: Array<[number, number]> = [
   [10, -2.6], [33.0, -1.6], [34.0, -1.0], [34.1, -0.6], [34.45, -0.45], [34.75, -0.25], [34.72, -0.08], [34.3, -0.1], [34.05, 0.0], [33.92, 0.1], [33.0, 0.4], [10, 0.6],
 ]

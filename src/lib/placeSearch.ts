@@ -10,7 +10,6 @@ export interface SearchablePlace {
   region: string
 }
 
-// Everyday words for each kind of place. Typing any of them finds that kind.
 export const TYPE_WORDS: Record<string, string[]> = {
   restaurant: ['food', 'eat', 'eating', 'restaurant', 'restaurants', 'dinner', 'lunch', 'breakfast', 'meal', 'hungry', 'cafe', 'drink', 'nyama', 'choma', 'seafood', 'fish'],
   market: ['market', 'markets', 'shop', 'shopping', 'buy', 'souvenir', 'souvenirs', 'gifts', 'crafts', 'beads', 'bargain', 'mall'],
@@ -37,9 +36,6 @@ function wordsOf(text: string): string[] {
   return text.toLowerCase().split(/[^a-z0-9']+/).filter(Boolean)
 }
 
-// A query word matches a place word if it starts it, or is a near miss of it. Longer words forgive more.
-// fuzzyFrom is the shortest query word that gets typo forgiveness. Everyday keywords need a longer word than names do,
-// because short keywords sit close to real words: "Paris" is one letter from "parks".
 function matches(queryWord: string, placeWord: string, fuzzyFrom: number): boolean {
   if (placeWord.startsWith(queryWord)) return true
   if (queryWord.length < fuzzyFrom) return false
@@ -47,7 +43,6 @@ function matches(queryWord: string, placeWord: string, fuzzyFrom: number): boole
   return editDistance(queryWord, placeWord.slice(0, queryWord.length + 1)) <= allowed || editDistance(queryWord, placeWord) <= allowed
 }
 
-// Every word of the query must match something about the place. Places matched by name come before places matched by kind.
 export function searchPlaces<T extends SearchablePlace>(places: T[], query: string): T[] {
   const queryWords = wordsOf(query).filter((w) => w.length >= 2 && !['in', 'at', 'to', 'the', 'near', 'for', 'and', 'of'].includes(w))
   if (queryWords.length === 0) return []
@@ -66,7 +61,6 @@ export function searchPlaces<T extends SearchablePlace>(places: T[], query: stri
   return scored.sort((a, b) => b.score - a.score || a.index - b.index).map((s) => s.place)
 }
 
-// The groups the catalogue is browsed by. A group can hold more than one kind of place.
 export const CATEGORIES: Array<{ key: string; label: string; types: string[] }> = [
   { key: 'nature', label: 'Safari and nature', types: ['park'] },
   { key: 'beach', label: 'Beaches', types: ['beach'] },

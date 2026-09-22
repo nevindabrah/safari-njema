@@ -3,10 +3,8 @@
 import saved from './placePhotos.json'
 
 export interface PlacePhotoInfo {
-  // Our own copies, served with the site: a large one for lesson headers and a small one for lists and cards.
   url: string
   small: string
-  // Where the photo came from, kept for the credit.
   source: string
   width: number
   height: number
@@ -28,7 +26,6 @@ export function allPhotos(): Array<[string, PlacePhotoInfo]> {
   return Object.entries(PHOTOS)
 }
 
-// A list row asks for the small copy, so a phone is never sent a header sized photo for a 64 pixel square.
 export function photoUrl(photo: PlacePhotoInfo, size: 'small' | 'large'): string {
   return size === 'small' ? photo.small : photo.url
 }

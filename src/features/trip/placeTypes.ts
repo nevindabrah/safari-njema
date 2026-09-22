@@ -2,7 +2,6 @@
 // Exists so the lesson generator and the UI agree on what kind of place a stop is.
 import type { PlaceType } from '../../lib/types'
 
-// Checked in order. The first group with a matching Google type wins.
 const rules: Array<{ type: PlaceType; googleTypes: string[] }> = [
   { type: 'airport', googleTypes: ['airport', 'international_airport', 'airstrip'] },
   { type: 'station', googleTypes: ['train_station', 'bus_station', 'transit_station', 'bus_stop', 'ferry_terminal', 'light_rail_station'] },

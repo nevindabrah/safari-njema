@@ -25,7 +25,6 @@ export interface PickedPlace {
   address: string
 }
 
-// Only these fields are requested, to keep the Places bill small.
 const FIELDS = ['id', 'displayName', 'location', 'types', 'formattedAddress', 'addressComponents']
 
 export function usePlaceSearch() {
@@ -72,7 +71,6 @@ export function usePlaceSearch() {
   async function pick(suggestion: Suggestion): Promise<PickedPlace> {
     const place = suggestion.prediction.toPlace()
     await place.fetchFields({ fields: FIELDS })
-    // Fetching details ends the billing session, so the next search starts a new token.
     tokenRef.current = null
     setSuggestions([])
     setQuery('')

@@ -25,7 +25,6 @@ export const REGION_LABEL: Record<Region, string> = {
   north: 'The North',
 }
 
-// "Nairobi County" -> "nairobi", "Murang'a" -> "muranga", "Taita-Taveta" -> "taita taveta".
 export function normaliseCounty(name: string): string {
   return name
     .toLowerCase()
@@ -41,7 +40,6 @@ export function regionFromCounty(county: string | null): Region | null {
   return countyToRegion[normaliseCounty(county)] ?? null
 }
 
-// Used when Google gives no county. Rough boxes are enough for phrase selection.
 export function regionFromLatLng(lat: number, lng: number): Region {
   if (Math.abs(lat + 1.29) < 0.35 && Math.abs(lng - 36.82) < 0.35) return 'nairobi'
   if (lng > 38.6 && lat < 0) return 'coast'

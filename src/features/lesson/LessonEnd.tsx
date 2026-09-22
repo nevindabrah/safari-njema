@@ -18,7 +18,6 @@ interface LessonEndProps {
   userLessonId?: string
 }
 
-// Twelve small pieces in the kanga colours, each with its own delay and drift.
 const CONFETTI = Array.from({ length: 12 }, (_, i) => ({ left: 6 + i * 8, delay: (i % 4) * 0.12, colour: ['var(--hero)', 'var(--accent)', 'var(--success)'][i % 3] }))
 
 export function LessonEnd({ lesson, studied, result, backTo, backLabel, userLessonId }: LessonEndProps) {

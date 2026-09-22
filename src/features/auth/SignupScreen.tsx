@@ -17,11 +17,9 @@ export function SignupScreen() {
   const [needsConfirm, setNeedsConfirm] = useState(false)
 
   async function signup(email: string, password: string) {
-    // The confirmation email, if Supabase sends one, brings the visitor back to this same site and signs them in.
     const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/trip` } })
     if (error) return plainAuthMessage(error.message)
     if (isExistingAccount(data.user)) return plainAuthMessage('User already registered')
-    // If email confirmation is on in Supabase, there is no session yet.
     if (!data.session) {
       setNeedsConfirm(true)
       return null

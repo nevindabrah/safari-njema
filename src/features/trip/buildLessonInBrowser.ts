@@ -16,7 +16,6 @@ export async function buildLessonInBrowser(stop: StopRow, firstStop: boolean): P
     supabase.from('phrases').select('id, swahili, pronunciation, english, tags, register').order('sort_order'),
     supabase.from('proverbs').select('swahili, meaning, themes'),
   ])
-  // An empty bank means the seed was never run. There is nothing to build a lesson from.
   if (!bank || bank.length === 0) return false
 
   const ctx = { placeType: stop.place.place_type, activities: stop.activities, region: stop.place.region, firstStop, level: 'none', knownIds: [] }

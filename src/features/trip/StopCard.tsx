@@ -12,7 +12,6 @@ import { PLACE_TYPE_INFO } from './placeTypes'
 interface StopCardProps {
   stop: StopRow
   number: number
-  // The trip's dates, so the calendar can open on the right month and tint the trip's days.
   tripStart: string | null
   tripEnd: string | null
   highlighted: boolean
@@ -28,8 +27,6 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
   const completed = stop.user_lessons[0]?.status === 'completed'
   const row = useRef<HTMLLIElement>(null)
 
-  // When the pin is picked on the map, bring this row into view. Only on wide screens, where the list sits beside the map.
-  // On a phone the list is below the map, and scrolling there would take the map away from the finger that just tapped it.
   useEffect(() => {
     if (highlighted && window.matchMedia('(min-width: 1024px)').matches) row.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [highlighted])
@@ -69,7 +66,6 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
               <Link to={`/lesson/${lessonId}`} className="block flex-1 min-w-[9rem]">
                 <Button variant={completed ? 'soft' : 'accent'} full tabIndex={-1}>{completed ? 'Review lesson' : 'Start lesson'}</Button>
               </Link>
-              {/* Named in words. As an icon alone, nobody could tell what this button opened. */}
               <Link to={`/card/${lessonId}`} aria-label={`Pocket card for ${stop.place.name}`} className="block flex-1 min-w-[9rem]">
                 <Button variant="soft" full tabIndex={-1} className="!px-4 whitespace-nowrap"><Icon name="card" size={18} />Pocket card</Button>
               </Link>

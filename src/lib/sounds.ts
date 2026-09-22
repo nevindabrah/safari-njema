@@ -18,11 +18,9 @@ export function setSoundOn(on: boolean) {
   try {
     localStorage.setItem(KEY, on ? 'on' : 'off')
   } catch {
-    // If storage is blocked the choice just lasts for this visit.
   }
 }
 
-// Each sound is a short list of notes: frequency in hertz, when it starts, how long it lasts, and how loud.
 const SOUNDS: Record<SoundName, Array<{ freq: number; at: number; length: number; volume: number; wave: OscillatorType }>> = {
   tap: [{ freq: 520, at: 0, length: 0.05, volume: 0.05, wave: 'sine' }],
   select: [{ freq: 660, at: 0, length: 0.08, volume: 0.07, wave: 'sine' }],
@@ -46,7 +44,6 @@ const SOUNDS: Record<SoundName, Array<{ freq: number; at: number; length: number
   ],
 }
 
-// Call this from a click or a key press. Browsers only allow sound after the user has done something.
 export function playSound(name: SoundName) {
   if (!isSoundOn() || typeof AudioContext === 'undefined') return
   try {
@@ -58,7 +55,6 @@ export function playSound(name: SoundName) {
       const gain = context.createGain()
       oscillator.type = note.wave
       oscillator.frequency.value = note.freq
-      // A quick fade in and a smooth fade out, so notes never click.
       gain.gain.setValueAtTime(0.0001, now + note.at)
       gain.gain.linearRampToValueAtTime(note.volume, now + note.at + 0.01)
       gain.gain.exponentialRampToValueAtTime(0.0001, now + note.at + note.length)
@@ -67,6 +63,5 @@ export function playSound(name: SoundName) {
       oscillator.stop(now + note.at + note.length + 0.02)
     }
   } catch {
-    // Sound is a nicety. If the browser refuses, the app carries on silently.
   }
 }

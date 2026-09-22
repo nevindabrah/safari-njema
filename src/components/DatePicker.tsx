@@ -6,16 +6,12 @@ import { Icon } from './icons'
 import { CalendarSheet } from './CalendarSheet'
 
 interface DatePickerProps {
-  // "2026-10-05", or null for no date.
   value: string | null
   onChange: (value: string | null) => void
-  // Said to screen readers, for example "Day for Diani Beach".
   label: string
   placeholder?: string
-  // The trip's dates. Days inside them are tinted, and the calendar opens on the trip's month. Neither is a limit.
   tripStart?: string | null
   tripEnd?: string | null
-  // Draws the button in the dark "chosen" style, used where the date sits in a row of chips.
   active?: boolean
 }
 

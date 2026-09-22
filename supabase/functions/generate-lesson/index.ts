@@ -33,7 +33,6 @@ Deno.serve(async (req) => {
   const { trip_stop_id } = (await req.json().catch(() => ({}))) as { trip_stop_id?: string }
   if (!trip_stop_id) return json({ error: 'trip_stop_id is required' }, 400)
 
-  // The service role client bypasses RLS, so every read below checks user_id by hand.
   const admin = createClient(supabaseUrl, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
 
   const { data: stop } = await admin
@@ -55,7 +54,6 @@ Deno.serve(async (req) => {
     return json({ error: 'Daily lesson limit reached. Try again tomorrow.' }, 429)
   }
 
-  // If this user has an earlier stop, greetings are assumed known.
   const { count: earlier } = await admin.from('trip_stops').select('id', { count: 'exact', head: true }).eq('user_id', user.id).lt('position', stop.position).eq('trip_id', stop.trip_id)
   const firstStop = (earlier ?? 0) === 0
 
@@ -70,7 +68,6 @@ Deno.serve(async (req) => {
     return json({ error: 'The phrase bank is empty. Seed it first.' }, 500)
   }
 
-  // Cache key: activities sorted, plus a marker when this is a first stop, since that changes the phrases.
   const activitiesKey = [...(stop.activities ?? [])].sort().join(',') + (firstStop ? '|first' : '')
   const aiEnabled = Deno.env.get('LESSON_AI_ENABLED') === 'true'
   const apiKey = Deno.env.get('ANTHROPIC_API_KEY')
@@ -87,7 +84,6 @@ Deno.serve(async (req) => {
     .eq('activities_key', activitiesKey)
     .eq('level', level)
     .order('created_at', { ascending: false })
-  // Prefer a model written lesson. A cached template is only reused when the AI is off anyway.
   const hit = (cached ?? []).find((l) => l.generated_by !== 'template') ?? (!aiEnabled ? cached?.[0] : undefined)
   if (hit) {
     lessonId = hit.id
@@ -106,7 +102,6 @@ Deno.serve(async (req) => {
 
   const { data: proverbs } = await admin.from('proverbs').select('swahili, meaning, themes')
   const proverb = pickProverb((proverbs ?? []) as Proverb[], place.place_type)
-  // The model never writes the proverb. It is added here from the seeded table.
   if (lesson && !lesson.kanga && proverb) lesson.kanga = { proverb: proverb.swahili, meaning: proverb.meaning }
 
   if (!lesson) {

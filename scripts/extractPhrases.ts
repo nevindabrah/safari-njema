@@ -5,7 +5,6 @@ import { readFileSync, writeFileSync } from 'node:fs'
 
 const htmlPath = process.argv[2] ?? 'safari-njema-design-reference.html'
 
-// In v1 every chapter has an id, and every phrase is [Swahili, how to say it, English].
 interface Chapter {
   id: string
   sw: string
@@ -14,14 +13,11 @@ interface Chapter {
   phrases: Array<[string, string, string]>
 }
 
-// Every phrase gets its chapter's base tag, plus the per phrase tags below.
-// Tags are metadata for choosing phrases. The Swahili, pronunciation and English are never changed.
 const CHAPTER_BASE: Record<string, string> = {
   salamu: 'basics', uwanja: 'airport', usafiri: 'transport', chakula: 'food',
   sokoni: 'market', safari: 'safari', pwani: 'coast', msaada: 'help',
 }
 
-// Keyed by the exact Swahili text in v1. The script stops if a key here matches no phrase, so a typo cannot slip through.
 const PHRASE_TAGS: Record<string, string[]> = {
   'Habari?': ['greeting', 'core_greeting', 'essential'],
   'Nzuri': ['greeting', 'core_greeting', 'essential'],
@@ -88,8 +84,6 @@ const PHRASE_TAGS: Record<string, string[]> = {
   'Unaongea Kiingereza?': ['questions'],
   'Pole': ['polite'],
 }
-// These phrases sit in a chapter but are not that chapter's kind of phrase, so they skip its base tag.
-// Coastal greetings are not coast vocabulary, and Pole is sympathy, not a request for help.
 const NO_BASE_TAG = new Set(['Hujambo? / Sijambo', 'Habari za asubuhi?', 'Salama', 'Tutaonana', 'Pole'])
 
 const REGISTER: Record<string, string> = {
@@ -106,7 +100,6 @@ if (marker < 0) {
   console.error('Could not find a CHAPTERS array in', htmlPath)
   process.exit(1)
 }
-// Walk from the opening bracket to its matching close bracket, ignoring brackets inside strings.
 const start = html.indexOf('[', marker)
 let depth = 0
 let inString: string | null = null
@@ -133,7 +126,6 @@ if (end < 0) {
   process.exit(1)
 }
 
-// The array is a JavaScript literal, so evaluate just that literal.
 const chapters = new Function('return ' + html.slice(start, end + 1))() as Chapter[]
 
 const phrases = chapters.flatMap((chapter) =>
@@ -155,7 +147,6 @@ if (unmatched.length > 0) {
   process.exit(1)
 }
 
-// Proverbs: one per chapter, plus the two used on the v1 home and About screens.
 const proverbs = chapters.map((chapter) => ({ swahili: chapter.jina[0], meaning: chapter.jina[1], themes: [CHAPTER_BASE[chapter.id] ?? 'general'] }))
 for (const swahili of ['Haba na haba hujaza kibaba', 'Mtu ni watu']) {
   const match = html.match(new RegExp(`"${swahili}","([^"]+)"`))

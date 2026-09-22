@@ -17,7 +17,6 @@ interface PlacePreviewCardProps {
   onClose: () => void
 }
 
-// Builds the list of days between the trip dates, if both are set.
 function tripDays(trip: Trip): string[] {
   if (!trip.start_date || !trip.end_date) return []
   const days: string[] = []
@@ -51,7 +50,6 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
     `px-3.5 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
 
   return (
-    // overflow-clip rounds the photo like overflow-hidden would, but still lets the Add button below stick while the card scrolls.
     <div className="bg-surface rounded-card shadow-lift overflow-clip">
       <div className="relative">
         <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="large" className="w-full h-36" />
@@ -68,7 +66,6 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
         {days.slice(0, 14).map((d, i) => (
           <button key={d} type="button" className={chip(visitDate === d)} onClick={() => setVisitDate(d)}>Day {i + 1}</button>
         ))}
-        {/* Any date at all, inside the trip or not. Trip dates are a guide, never a limit. */}
         {days.length > 0 && <span className="text-sm font-bold text-muted">or</span>}
         <DatePicker label="Pick any date" placeholder="Any date" value={visitDate && !days.slice(0, 14).includes(visitDate) ? visitDate : null} active={Boolean(visitDate && !days.slice(0, 14).includes(visitDate))}
           tripStart={trip.start_date} tripEnd={trip.end_date} onChange={setVisitDate} />
@@ -81,7 +78,6 @@ export function PlacePreviewCard({ place, trip, onAdd, onClose }: PlacePreviewCa
         ))}
       </div>
 
-      {/* Stays in view at the bottom of the card, so adding never needs a scroll on a small screen. */}
       <div className="sticky bottom-0 bg-surface pt-3 pb-4 -mb-5 mt-2">
         <Button variant="accent" full silent onClick={add} disabled={busy}>
           {busy ? 'Adding' : 'Add to itinerary'}

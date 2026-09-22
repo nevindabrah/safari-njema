@@ -8,7 +8,6 @@ import { pickCandidates, pickTemplatePhrases, type CandidateContext } from '../.
 import { buildTemplateLesson } from '../../../supabase/functions/_shared/template'
 import { LessonPlayer } from './LessonPlayer'
 
-// The three stops from the Phase 1 acceptance test.
 const SAMPLES: Array<{ name: string; placeId: string; ctx: CandidateContext }> = [
   { name: 'Maasai Market', placeId: 'sample-maasai-market', ctx: { placeType: 'market', activities: ['shopping'], region: 'nairobi', firstStop: true, level: 'none', knownIds: [] } },
   { name: 'Diani Beach', placeId: 'sample-diani', ctx: { placeType: 'beach', activities: ['eating out'], region: 'coast', firstStop: false, level: 'none', knownIds: [] } },
