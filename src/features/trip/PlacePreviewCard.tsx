@@ -9,7 +9,7 @@ import { PlacePhoto, PhotoCredit } from '../places/PlacePhoto'
 import { PLACE_TYPE_INFO } from './placeTypes'
 import { REGION_LABEL } from './regions'
 import type { PickedPlace } from './usePlaceSearch'
-import { useWikipediaSummary } from '../places/useWikipediaSummary'
+import { usePlaceFacts } from '../places/usePlaceFacts'
 import { WikipediaNote } from '../places/WikipediaNote'
 
 interface PlacePreviewCardProps {
@@ -36,7 +36,7 @@ export function PlacePreviewCard({ place, trip, shared, onAdd, onClose }: PlaceP
   const [visitDate, setVisitDate] = useState<string | null>(null)
   const [activities, setActivities] = useState<string[]>([])
   const [justMe, setJustMe] = useState(false)
-  const summary = useWikipediaSummary(place.googlePlaceId, place.name, place.county)
+  const facts = usePlaceFacts(place.googlePlaceId, place.name, place.county)
   const [busy, setBusy] = useState(false)
   const info = PLACE_TYPE_INFO[place.placeType]
   const days = tripDays(trip)
@@ -57,14 +57,14 @@ export function PlacePreviewCard({ place, trip, shared, onAdd, onClose }: PlaceP
   return (
     <div className="bg-surface rounded-card shadow-lift overflow-clip">
       <div className="relative">
-        <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="large" className="w-full h-36" />
+        <PlacePhoto googlePlaceId={place.googlePlaceId} placeType={place.placeType} name={place.name} size="large" className="w-full h-36" photo={facts?.photo} />
         <button onClick={onClose} aria-label="Close this place" className="absolute top-3 right-3 w-11 h-11 rounded-pill bg-surface text-text shadow-soft cursor-pointer flex items-center justify-center"><Icon name="close" size={18} /></button>
       </div>
       <div className="p-5">
       <h2 className="text-2xl">{place.name}</h2>
       <p className="text-sm text-muted flex items-center gap-1.5 mt-1"><Icon name={place.placeType} size={15} />{info.label}{place.county ? ` · ${place.county}` : ''} · {REGION_LABEL[place.region]}</p>
-      <PhotoCredit googlePlaceId={place.googlePlaceId} className="text-muted mt-1" />
-      <WikipediaNote summary={summary} fallback={info.about} className="text-sm mt-3" />
+      <PhotoCredit googlePlaceId={place.googlePlaceId} className="text-muted mt-1" photo={facts?.photo} />
+      <WikipediaNote summary={facts?.summary} fallback={info.about} className="text-sm mt-3" />
 
       <p className="text-sm font-bold mt-4 mb-2">Which day?</p>
       <div className="flex gap-2 flex-wrap items-center">

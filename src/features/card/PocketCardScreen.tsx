@@ -8,12 +8,14 @@ import { Icon } from '../../components/icons'
 import { ReviewNote } from '../../components/ReviewNote'
 import { useLesson } from '../lesson/useLesson'
 import { PlacePhoto, PhotoCredit } from '../places/PlacePhoto'
+import { usePlaceFacts } from '../places/usePlaceFacts'
 import type { PlaceType } from '../../lib/types'
 import { SpeakButton } from '../audio/SpeakButton'
 
 export function PocketCardScreen() {
   const { id } = useParams()
   const { data, error } = useLesson(id)
+  const facts = usePlaceFacts(data?.googlePlaceId ?? null, data?.lesson.place.name ?? '')
 
   return (
     <div className="min-h-dvh">
@@ -24,7 +26,7 @@ export function PocketCardScreen() {
         {!error && !data && <p className="p-8 text-center text-muted">Opening your pocket card.</p>}
         {data && (
           <article className="bg-surface rounded-card shadow-soft overflow-hidden">
-            {data.googlePlaceId && <PlacePhoto googlePlaceId={data.googlePlaceId} placeType={data.lesson.place.type as PlaceType} name={data.lesson.place.name} size="large" className="w-full h-40 no-print" />}
+            {data.googlePlaceId && <PlacePhoto googlePlaceId={data.googlePlaceId} placeType={data.lesson.place.type as PlaceType} name={data.lesson.place.name} size="large" className="w-full h-40 no-print" photo={facts?.photo} />}
             <div className="p-5 sm:p-7">
               <p className="text-xs uppercase tracking-wide font-bold text-muted">Pocket card</p>
               <h1 className="text-3xl sm:text-4xl mt-1">{data.lesson.place.name}</h1>
@@ -53,7 +55,7 @@ export function PocketCardScreen() {
                 <p className="font-display font-extrabold text-3xl">112</p>
               </div>
               <p className="text-xs text-muted mt-3">Details change. Check locally.</p>
-              {data.googlePlaceId && <PhotoCredit googlePlaceId={data.googlePlaceId} className="text-muted mt-1 no-print" />}
+              {data.googlePlaceId && <PhotoCredit googlePlaceId={data.googlePlaceId} className="text-muted mt-1 no-print" photo={facts?.photo} />}
 
               <div className="mt-6 flex gap-3 no-print">
                 <Button onClick={() => window.print()}><Icon name="print" size={18} />Print or save</Button>

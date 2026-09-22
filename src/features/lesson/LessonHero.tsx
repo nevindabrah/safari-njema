@@ -5,6 +5,7 @@ import type { Lesson } from '../../lib/lessonSchema'
 import type { PlaceType } from '../../lib/types'
 import { PHOTO_SIZES, photoFor, photoSrcSet, photoUrl } from '../places/photoData'
 import { PhotoCredit } from '../places/PlacePhoto'
+import { usePlaceFacts } from '../places/usePlaceFacts'
 import { PLACE_TYPE_INFO } from '../trip/placeTypes'
 
 interface LessonHeroProps {
@@ -16,7 +17,8 @@ interface LessonHeroProps {
 }
 
 export function LessonHero({ lesson, placeType, googlePlaceId, note, compact = false }: LessonHeroProps) {
-  const photo = googlePlaceId ? photoFor(googlePlaceId) : null
+  const facts = usePlaceFacts(googlePlaceId, lesson.place.name)
+  const photo = (googlePlaceId ? photoFor(googlePlaceId) : null) ?? facts?.photo ?? null
   const onPhoto = Boolean(photo)
   const detail = compact ? 'hidden sm:block' : ''
 
@@ -34,7 +36,7 @@ export function LessonHero({ lesson, placeType, googlePlaceId, note, compact = f
           </p>
         )}
         <p className={`text-xs mt-3 opacity-80 max-w-md ${detail}`}>{note}</p>
-        {googlePlaceId && <PhotoCredit googlePlaceId={googlePlaceId} className={`opacity-70 mt-1 ${detail}`} />}
+        {googlePlaceId && <PhotoCredit googlePlaceId={googlePlaceId} className={`opacity-70 mt-1 ${detail}`} photo={facts?.photo} />}
       </div>
     </section>
   )

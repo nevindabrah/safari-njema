@@ -15,6 +15,8 @@ export interface PlacePhotoInfo {
   filePage: string
   article: string | null
   illustrative: boolean
+  smallWidth?: number
+  largeWidth?: number
 }
 
 const PHOTOS = saved as Record<string, PlacePhotoInfo>
@@ -32,7 +34,7 @@ export function photoUrl(photo: PlacePhotoInfo, size: 'small' | 'large'): string
 }
 
 export function photoSrcSet(photo: PlacePhotoInfo): string {
-  return `${photo.small} 480w, ${photo.medium} 960w, ${photo.url} 1600w`
+  return `${photo.small} ${photo.smallWidth ?? 480}w, ${photo.medium} 960w, ${photo.url} ${photo.largeWidth ?? 1600}w`
 }
 
 export const PHOTO_SIZES = {

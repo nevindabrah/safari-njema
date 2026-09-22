@@ -1,7 +1,7 @@
 // Step one of the lesson: what this place is, in Wikipedia's words when it has them, three things to know, etiquette and a practical note.
 // Exists as the orientation part of every lesson.
 import type { Lesson } from '../../lib/lessonSchema'
-import { useWikipediaSummary } from '../places/useWikipediaSummary'
+import { usePlaceFacts } from '../places/usePlaceFacts'
 import { WikipediaNote } from '../places/WikipediaNote'
 
 interface BriefStepProps {
@@ -11,7 +11,8 @@ interface BriefStepProps {
 }
 
 export function BriefStep({ brief, placeName, googlePlaceId }: BriefStepProps) {
-  const summary = useWikipediaSummary(googlePlaceId, placeName)
+  const facts = usePlaceFacts(googlePlaceId, placeName)
+  const summary = facts?.summary
   return (
     <div className="flex flex-col gap-5">
       <WikipediaNote summary={summary} className="text-lg" />

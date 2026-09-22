@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Icon } from '../../components/icons'
 import type { PlaceType } from '../../lib/types'
-import { PHOTO_SIZES, photoFor, photoSrcSet, photoUrl } from './photoData'
+import { PHOTO_SIZES, photoFor, photoSrcSet, photoUrl, type PlacePhotoInfo } from './photoData'
 
 interface PlacePhotoProps {
   googlePlaceId: string
@@ -12,11 +12,12 @@ interface PlacePhotoProps {
   size: 'small' | 'large'
   sizes?: string
   className?: string
+  photo?: PlacePhotoInfo | null
 }
 
-export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, className = '' }: PlacePhotoProps) {
+export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, className = '', photo: livePhoto }: PlacePhotoProps) {
   const [failed, setFailed] = useState(false)
-  const photo = photoFor(googlePlaceId)
+  const photo = photoFor(googlePlaceId) ?? livePhoto ?? null
 
   if (!photo || failed) {
     return (
@@ -28,8 +29,8 @@ export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, classN
   return <img src={photoUrl(photo, size)} srcSet={photoSrcSet(photo)} sizes={sizes ?? (size === 'small' ? PHOTO_SIZES.thumb : PHOTO_SIZES.card)} alt={photo.illustrative ? `A photo that suits ${name}` : name} loading="lazy" onError={() => setFailed(true)} className={`object-cover ${className}`} />
 }
 
-export function PhotoCredit({ googlePlaceId, className = '' }: { googlePlaceId: string; className?: string }) {
-  const photo = photoFor(googlePlaceId)
+export function PhotoCredit({ googlePlaceId, className = '', photo: livePhoto }: { googlePlaceId: string; className?: string; photo?: PlacePhotoInfo | null }) {
+  const photo = photoFor(googlePlaceId) ?? livePhoto ?? null
   if (!photo) return null
   return (
     <p className={`text-[11px] leading-snug ${className}`}>

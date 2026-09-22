@@ -23,7 +23,7 @@ const SECTIONS = [
   },
   {
     title: 'Other services this site talks to',
-    body: 'The fonts, place photos and recordings are served from this site itself. The two sentence description of a place comes from Wikipedia: for a place you found on the map, its name is sent to Wikipedia to look the article up. When the full version is switched on, the map and place search come from Google Maps, and lesson text is written by Anthropic\'s Claude from the name and kind of a place, never from anything about you.',
+    body: 'The fonts, place photos and recordings are served from this site itself. The two sentence description of a place comes from Wikipedia: for a place you found on the map, its name is sent to Wikipedia to look the article up, and its photo, when there is a free one, is loaded from Wikimedia Commons. When the full version is switched on, the map and place search come from Google Maps, and lesson text is written by Anthropic\'s Claude from the name and kind of a place, never from anything about you.',
   },
 ]
 

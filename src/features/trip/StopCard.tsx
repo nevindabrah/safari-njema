@@ -9,6 +9,7 @@ import type { StopRow } from '../../lib/types'
 import { PlacePhoto } from '../places/PlacePhoto'
 import { DatePicker } from '../../components/DatePicker'
 import { PLACE_TYPE_INFO } from './placeTypes'
+import { usePlaceFacts } from '../places/usePlaceFacts'
 
 interface StopCardProps {
   stop: StopRow
@@ -27,6 +28,7 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
   const lessonId = stop.user_lessons[0]?.id
   const completed = stop.user_lessons[0]?.status === 'completed'
   const row = useRef<HTMLLIElement>(null)
+  const facts = usePlaceFacts(stop.place.google_place_id, stop.place.name)
 
   useEffect(() => {
     if (highlighted && window.matchMedia('(min-width: 1024px)').matches) row.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
@@ -36,7 +38,7 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
     <li ref={row} className="bg-surface rounded-card shadow-soft p-3 transition-shadow" style={highlighted ? { boxShadow: '0 0 0 3px var(--accent), var(--shadow-lift)' } : undefined}>
       <div className="flex items-stretch gap-3">
         <button type="button" onClick={onSelect} aria-label={`Show ${stop.place.name} on the map`} aria-pressed={highlighted} className="relative shrink-0 cursor-pointer">
-          <PlacePhoto googlePlaceId={stop.place.google_place_id} placeType={stop.place.place_type} name={stop.place.name} size="small" className="w-20 h-20 rounded-input" />
+          <PlacePhoto googlePlaceId={stop.place.google_place_id} placeType={stop.place.place_type} name={stop.place.name} size="small" className="w-20 h-20 rounded-input" photo={facts?.photo} />
           <span className="absolute -top-1.5 -left-1.5 w-6 h-6 rounded-pill text-xs font-bold flex items-center justify-center" style={{ background: completed ? 'var(--success)' : 'var(--accent)', color: completed ? 'var(--on-success)' : 'var(--on-accent)', border: '2px solid var(--surface)' }}>
             {completed ? <Icon name="check" size={13} /> : number}
           </span>
