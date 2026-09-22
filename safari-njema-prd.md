@@ -172,7 +172,7 @@ Priority labels: **P0** is required for launch. **P1** is the second pass. **P2*
 ### 6.1 Accounts (P0)
 - Sign up and log in with email and password, and with "Continue with Google", using Supabase Auth. Email and password ships first. Google sign-in follows straight after the first deadline.
 - No guest mode. Every user has an account, because the product is about a personal itinerary.
-- **Demo account.** One seeded account, on an email address Nevin controls, with a finished three stop trip. Its login is printed in the README and on the landing page under "Just looking? Use the demo login". This is for recruiters and reviewers who will not sign up. The demo account cannot generate new lessons, so it cannot run up costs. A nightly job resets its data.
+- **Demo account.** One seeded account, on an email address Nevin controls, with a finished three stop trip. Its login is printed in the README and on the landing page under "Just looking? Use the demo login". This is for visitors who will not sign up. The demo account cannot generate new lessons, so it cannot run up costs. A nightly job resets its data.
 - Password reset by email.
 - Delete my account and all my data, from Settings.
 - One trip per account at a time. Trip dates are optional.
@@ -351,7 +351,7 @@ Nevin does not want ongoing API bills. The design handles this honestly: the AI 
 - **One switch.** An Edge Function secret, `LESSON_AI_ENABLED`, set to `true` or `false`. When it is `false`, step 5 of the pipeline is skipped and the function goes straight to the cache and then the template. Nothing else in the app changes.
 - **Pre-made lessons for popular places.** A script, `scripts/pregenerate.ts`, runs the real Claude pipeline once for about 20 well known places: Maasai Market, Maasai Mara, Diani Beach, Lamu Old Town, Fort Jesus, Nairobi National Park, Giraffe Centre, Karura Forest, Amboseli, Lake Nakuru, Lake Naivasha, Hell's Gate, Mount Kenya, Watamu, Malindi, Kisumu, Nairobi CBD, JKIA, Nairobi SGR terminus, Carnivore restaurant. The output is saved as seed data in `supabase/seed/lessons.json` and loaded into the `lessons` cache table. This is a one time cost of well under a dollar.
 - **On the live site with the switch off:** a user who adds one of those places gets a real Claude written lesson from the cache, at no cost. A user who adds any other place gets a template lesson built from the phrase bank for that place type and region. The lesson screen shows a small line saying which kind it is: "Written for this place" or "General lesson for this kind of place".
-- **Locally or in a demo:** set the switch to `true` with a key and every place gets a freshly generated lesson. This is what Nevin shows in an interview.
+- **Locally or in a demo:** set the switch to `true` with a key and every place gets a freshly generated lesson. This is how Nevin checks the AI path before switching it on.
 - The README explains this plainly, with a short screen recording of live generation working.
 
 **This must be real.** The AI path has to be built, run and tested end to end at least once, and the recording and the pre-made lessons are the evidence. Do not describe it as working if it has never been run.

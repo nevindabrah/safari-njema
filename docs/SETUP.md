@@ -112,7 +112,7 @@ In your Vercel project open **Settings, Environment Variables** and add `VITE_SU
 
 Then tell Supabase where the site lives, so emailed links and Google sign in come back to the right place: open **Authentication, URL Configuration**, set **Site URL** to `https://safari-njema-rust.vercel.app`, and add `https://safari-njema-rust.vercel.app/**` and `http://localhost:5180/**` under **Redirect URLs**.
 
-The demo does not go away. The landing page then offers both: "Create your account" for people who want their trip saved, and "Try the demo, no sign up" for a recruiter who wants to look around. The demo still lives only in the visitor's browser.
+The landing page then offers "Create your account". The demo only runs when the Supabase values are missing, for development and the browser tests, and it lives only in the visitor's browser.
 
 ## What can go wrong
 
