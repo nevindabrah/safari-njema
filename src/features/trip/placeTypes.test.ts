@@ -19,6 +19,17 @@ describe('toPlaceType', () => {
   it('maps a town', () => {
     expect(toPlaceType(['locality', 'political'])).toBe('city')
   })
+  it('knows the everyday places a student needs', () => {
+    expect(toPlaceType(['hospital', 'health', 'point_of_interest'])).toBe('hospital')
+    expect(toPlaceType(['pharmacy', 'drugstore', 'store'])).toBe('hospital')
+    expect(toPlaceType(['school', 'point_of_interest'])).toBe('school')
+    expect(toPlaceType(['university'])).toBe('school')
+    expect(toPlaceType(['bank', 'finance'])).toBe('bank')
+    expect(toPlaceType(['atm'])).toBe('bank')
+    expect(toPlaceType(['embassy'])).toBe('office')
+    expect(toPlaceType(['post_office'])).toBe('office')
+  })
+
   it('treats a plain tourist attraction as a landmark, but a named kind wins', () => {
     expect(toPlaceType(['tourist_attraction', 'point_of_interest'])).toBe('museum')
     expect(toPlaceType(['tourist_attraction', 'zoo'])).toBe('park')

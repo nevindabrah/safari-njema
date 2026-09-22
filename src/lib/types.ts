@@ -3,7 +3,8 @@
 
 export type PlaceType =
   | 'city' | 'park' | 'beach' | 'market' | 'restaurant' | 'hotel'
-  | 'airport' | 'station' | 'religious_site' | 'museum' | 'other'
+  | 'airport' | 'station' | 'religious_site' | 'museum'
+  | 'hospital' | 'school' | 'bank' | 'office' | 'other'
 
 export type Region =
   | 'nairobi' | 'coast' | 'rift_valley_mara' | 'central_mt_kenya'

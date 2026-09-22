@@ -13,6 +13,10 @@ export const PLACE_TYPE_TAGS: Record<string, string[]> = {
   city: ['directions', 'transport', 'help', 'polite'],
   religious_site: ['respect', 'polite', 'questions', 'help'],
   museum: ['polite', 'questions', 'help'],
+  hospital: ['help', 'emergency', 'polite', 'questions'],
+  school: ['introductions', 'polite', 'questions', 'respect'],
+  bank: ['numbers', 'cash', 'paying', 'price', 'help'],
+  office: ['polite', 'questions', 'help', 'introductions'],
   other: ['basics', 'essential', 'greeting', 'polite', 'help', 'questions', 'numbers', 'directions'],
 }
 
@@ -48,6 +52,10 @@ const TYPE_SLOTS: Record<string, string[]> = {
   city: ['directions', 'transport', 'help', 'directions', 'polite', 'help'],
   religious_site: ['respect', 'polite', 'polite', 'questions', 'polite', 'help'],
   museum: ['polite', 'questions', 'polite', 'help', 'polite', 'questions'],
+  hospital: ['help', 'emergency', 'polite', 'questions', 'help', 'polite'],
+  school: ['introductions', 'polite', 'questions', 'respect', 'introductions', 'polite'],
+  bank: ['cash', 'numbers', 'paying', 'numbers', 'help', 'polite'],
+  office: ['polite', 'questions', 'introductions', 'help', 'polite', 'questions'],
   other: ['core_greeting', 'polite', 'questions', 'help', 'numbers', 'directions', 'farewell', 'basics'],
 }
 
@@ -75,6 +83,7 @@ const REGION_SLOTS: Record<string, string[]> = {
 const PROVERB_THEME: Record<string, string> = {
   market: 'market', restaurant: 'food', park: 'safari', beach: 'coast', airport: 'airport', hotel: 'airport',
   station: 'transport', city: 'basics', religious_site: 'basics', museum: 'general', other: 'help',
+  hospital: 'help', school: 'basics', bank: 'market', office: 'general',
 }
 
 export interface Proverb {

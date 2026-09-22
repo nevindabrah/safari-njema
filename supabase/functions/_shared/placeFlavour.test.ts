@@ -16,6 +16,14 @@ describe('flavourFor', () => {
     expect(mall?.tags).not.toContain('bargaining')
     expect(flavourFor(['gift_shop'])?.slots).toContain('bargaining')
   })
+  it('names the everyday places rather than their broad kind', () => {
+    expect(flavourFor(['pharmacy', 'drugstore', 'store'])?.noun).toBe('a pharmacy')
+    expect(flavourFor(['university'])?.noun).toBe('a university')
+    expect(flavourFor(['atm'])?.noun).toBe('a cash machine')
+    expect(flavourFor(['embassy'])?.noun).toBe('an embassy')
+    expect(flavourFor(['police'])?.noun).toBe('a police station')
+  })
+
   it('has no flavour for a plain type or an empty list', () => {
     expect(flavourFor(['restaurant', 'food'])).toBeNull()
     expect(flavourFor([])).toBeNull()

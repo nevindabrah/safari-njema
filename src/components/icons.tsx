@@ -3,7 +3,8 @@
 import type { ReactNode } from 'react'
 
 export type IconName =
-  | 'city' | 'park' | 'beach' | 'market' | 'restaurant' | 'hotel' | 'airport' | 'station' | 'religious_site' | 'museum' | 'other'
+  | 'city' | 'park' | 'beach' | 'market' | 'restaurant' | 'hotel' | 'airport' | 'station' | 'religious_site' | 'museum'
+  | 'hospital' | 'school' | 'bank' | 'office' | 'other'
   | 'plus' | 'minus' | 'target' | 'search' | 'trash' | 'sound' | 'mute' | 'sun' | 'moon' | 'system' | 'check' | 'bolt' | 'card' | 'cloth' | 'arrow' | 'back' | 'print' | 'map' | 'close' | 'calendar' | 'clock' | 'user' | 'menu'
 
 const PATHS: Record<IconName, ReactNode> = {
@@ -17,6 +18,10 @@ const PATHS: Record<IconName, ReactNode> = {
   station: <><rect x="5" y="3.5" width="14" height="13.5" rx="3" /><path d="M5 11h14M8.5 7.2h7M8 17l-1.5 3.5M16 17l1.5 3.5" /><path d="M8.5 14v.01M15.5 14v.01" /></>,
   religious_site: <><path d="M5 20v-7.5a7 7 0 0 1 14 0V20M3 20h18M12 5.5V2.8" /><path d="M9.8 20v-3.8a2.2 2.2 0 0 1 4.4 0V20" /></>,
   museum: <><path d="m3 9 9-5 9 5M4 9.2h16M3 20h18M6 9.5V17M10 9.5V17M14 9.5V17M18 9.5V17M4.5 17h15" /></>,
+  hospital: <><path d="M4 20V9l8-4.5L20 9v11M3 20h18" /><path d="M12 10.5v5M9.5 13h5" /></>,
+  school: <><path d="M2.5 9.2 12 4.7l9.5 4.5L12 13.7 2.5 9.2Z" /><path d="M6.8 11.4V16c0 1.3 2.3 2.4 5.2 2.4s5.2-1.1 5.2-2.4v-4.6M21.5 9.2v5.3" /></>,
+  bank: <><path d="M3 10 12 4.5 21 10M3.5 10h17" /><path d="M6 10.8v7.4M10 10.8v7.4M14 10.8v7.4M18 10.8v7.4M3 20.5h18" /></>,
+  office: <><path d="M6.5 3h7l4.5 4.5V21H6.5V3Z" /><path d="M13.5 3v4.5H18M9.5 12h5M9.5 16h5" /></>,
   other: <><path d="M12 21s-6.5-5.6-6.5-10.4a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21Z" /><circle cx="12" cy="10.5" r="2.2" /></>,
   plus: <path d="M12 5.5v13M5.5 12h13" />,
   minus: <path d="M5.5 12h13" />,

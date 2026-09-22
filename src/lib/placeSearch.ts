@@ -20,6 +20,10 @@ export const TYPE_WORDS: Record<string, string[]> = {
   station: ['train', 'trains', 'station', 'railway', 'sgr', 'bus', 'transport', 'travel'],
   city: ['city', 'cities', 'town', 'towns', 'downtown', 'urban', 'walk'],
   religious_site: ['mosque', 'church', 'cathedral', 'pray', 'prayer', 'worship', 'religion', 'faith'],
+  hospital: ['hospital', 'clinic', 'doctor', 'pharmacy', 'chemist', 'medicine', 'health', 'sick'],
+  school: ['school', 'university', 'college', 'campus', 'library', 'study', 'student'],
+  bank: ['bank', 'atm', 'cash', 'money', 'forex', 'exchange'],
+  office: ['embassy', 'post', 'office', 'police', 'government', 'visa', 'passport'],
   museum: ['museum', 'museums', 'history', 'culture', 'cultural', 'landmark', 'fort', 'ruins', 'heritage', 'art', 'sightseeing'],
 }
 

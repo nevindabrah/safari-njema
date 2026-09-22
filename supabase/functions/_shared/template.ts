@@ -66,6 +66,26 @@ const BRIEFS: Record<string, { what: string; know: string[]; etiquette: string }
     know: ['A guide adds a lot. Ask if one is available.', 'Ask before taking photos inside.', 'Check what the entry fee covers.'],
     etiquette: 'Greet the guide first and thank them at the end.',
   },
+  hospital: {
+    what: 'Hospitals, clinics and pharmacies run on English for the medicine itself, but a greeting and a clear, simple sentence get you seen sooner and more kindly.',
+    know: ['Greet before you explain what is wrong.', 'Pharmacies advise as well as sell, and many medicines need no prescription.', 'Private hospitals usually want payment or insurance details up front.'],
+    etiquette: 'Wait to be called, and thank the person who helps you.',
+  },
+  school: {
+    what: 'Schools and universities are formal and warm at once. Greetings come before business, and the oldest or most senior person is greeted first.',
+    know: ['Greet the most senior person in the room first.', 'Introduce yourself with your full name.', 'Students will often switch to English to help you, so offer your Swahili first.'],
+    etiquette: 'Stand to greet, and use the respectful greeting for anyone older than you.',
+  },
+  bank: {
+    what: 'Banks and cash machines are orderly and formal. Numbers are the Swahili you need most here, and the queue is respected.',
+    know: ['Take a ticket if there is one, and wait to be called.', 'Notes come in hundreds and thousands, so know those numbers.', 'Mobile money is used more than cards for small amounts.'],
+    etiquette: 'Greet the teller first, then say what you need.',
+  },
+  office: {
+    what: 'Offices, embassies and post offices run on queues and paperwork. Patience and a greeting go much further than hurry.',
+    know: ['Greet whoever is at the desk before you ask anything.', 'Take your passport and a printed copy of it.', 'Ask where the queue starts rather than guessing.'],
+    etiquette: 'Be patient and polite. Rushing is noticed and rarely helps.',
+  },
   other: {
     what: 'These are the words that work anywhere in Kenya: hello, please, thank you, how much, and where is it. Wherever you are going, a greeting opens the door before anything else.',
     know: ['Greet first, always. Business comes after hello.', 'Ask for help. People are generous with it.', 'Numbers and a little cash cover most small moments.', 'A thank you at the end is remembered.'],
@@ -75,7 +95,8 @@ const BRIEFS: Record<string, { what: string; know: string[]; etiquette: string }
 
 const KIND: Record<string, string> = {
   market: 'a market', restaurant: 'a restaurant', hotel: 'a hotel', park: 'a park or reserve', beach: 'a beach', airport: 'an airport',
-  station: 'a station', city: 'a town', religious_site: 'a place of worship', museum: 'a museum or landmark', other: 'a place',
+  station: 'a station', city: 'a town', religious_site: 'a place of worship', museum: 'a museum or landmark',
+  hospital: 'a hospital', school: 'a school', bank: 'a bank', office: 'an office', other: 'a place',
 }
 
 const REGION: Record<string, string> = {
