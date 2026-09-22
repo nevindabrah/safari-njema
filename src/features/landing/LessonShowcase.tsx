@@ -14,13 +14,14 @@ const STOPS = [
 
 export function LessonShowcase() {
   const [lessons, setLessons] = useState<StoredLesson[]>([])
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
     import('../demo/localLessons').then(async ({ buildLocalLesson }) => {
       const built = await Promise.all(STOPS.map((stop) => buildLocalLesson(stop)))
       if (!cancelled) setLessons(built)
-    })
+    }).catch(() => { if (!cancelled) setFailed(true) })
     return () => {
       cancelled = true
     }
@@ -50,7 +51,7 @@ export function LessonShowcase() {
                       <span className="block text-sm text-muted">{phrase.english}</span>
                     </li>
                   ))}
-                  {!built && <li className="text-sm text-muted py-2">Building the lesson.</li>}
+                  {!built && <li className="text-sm text-muted py-2">{failed ? 'The sample could not be built. Reload to try again.' : 'Building the lesson.'}</li>}
                 </ul>
                 {built?.lesson.kanga && (
                   <div className="mt-4 flex items-center gap-3">

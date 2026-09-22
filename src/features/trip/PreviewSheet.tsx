@@ -1,6 +1,7 @@
 // On a phone, holds the place preview card as a sheet that slides over the bottom of the screen, above the tabs.
 // Exists because the card does not fit inside the small phone map: its "Add to itinerary" button was cut off.
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
+import { trapTab } from '../../components/trapTab'
 
 interface PreviewSheetProps {
   onClose: () => void
@@ -8,8 +9,13 @@ interface PreviewSheetProps {
 }
 
 export function PreviewSheet({ onClose, children }: PreviewSheetProps) {
+  const panel = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose() }
+    panel.current?.querySelector<HTMLElement>('button, input')?.focus()
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+      trapTab(event, panel.current)
+    }
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
     return () => {
@@ -20,7 +26,7 @@ export function PreviewSheet({ onClose, children }: PreviewSheetProps) {
 
   return (
     <div className="fixed inset-0 z-40 flex items-end" style={{ background: 'color-mix(in srgb, var(--ink) 55%, transparent)' }} onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-label="Add this place" onClick={(e) => e.stopPropagation()}
+      <div ref={panel} role="dialog" aria-modal="true" aria-label="Add this place" onClick={(e) => e.stopPropagation()}
         className="w-full max-h-[88dvh] overflow-y-auto overscroll-contain rounded-t-card" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)', background: 'var(--surface)' }}>
         {children}
       </div>

@@ -30,7 +30,9 @@ export function usePhrasebook() {
   const [reviewer, setReviewer] = useState<string>(() => readStored(NAME_KEY, ''))
 
   useEffect(() => {
+    let cancelled = false
     Promise.all([import('../../../supabase/seed/phrases.json'), import('../../../docs/audio-report.json')]).then(([seed, report]) => {
+      if (cancelled) return
       const clips = new Map(report.default.map((r) => [r.swahili, r]))
       setPhrases(seed.default.map((p) => {
         const clip = clips.get(p.swahili)
@@ -45,6 +47,9 @@ export function usePhrasebook() {
         }
       }))
     })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   function saveNote(swahili: string, note: string) {

@@ -28,7 +28,7 @@ export function TypeExercise({ exercise, onAnswer }: TypeExerciseProps) {
       <label className="block mt-5">
         <span className="sr-only">Your answer in Swahili</span>
         <input
-          lang="sw" type="text" value={text} onChange={(e) => setText(e.target.value)} disabled={checked}
+          lang="sw" type="text" value={text} maxLength={120} onChange={(e) => setText(e.target.value)} disabled={checked}
           autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false} placeholder="Type it in Swahili"
           className="w-full min-h-[56px] px-5 rounded-input field text-text text-lg font-bold placeholder:text-muted placeholder:font-normal"
         />

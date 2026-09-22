@@ -78,8 +78,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user])
 
   useEffect(() => {
+    let cancelled = false
     setProfileLoading(true)
-    refreshProfile()
+    refreshProfile().then(() => { if (cancelled) setProfileLoading(true) })
+    return () => {
+      cancelled = true
+    }
   }, [refreshProfile])
 
   async function saveProfile(changes: ProfileChanges): Promise<string | null> {

@@ -24,8 +24,12 @@ export function ReviewScreen() {
   const [result, setResult] = useState<QuizResult | null>(null)
 
   useEffect(() => {
-    if (isDemoMode) loadSeedBank().then((bank) => setPool(bank.filter((p) => p.register !== 'sheng')))
-    else supabase.from('phrases').select('id, swahili, pronunciation, english, tags, verified').then(({ data }) => setPool((data ?? []) as Phrase[]))
+    let cancelled = false
+    if (isDemoMode) loadSeedBank().then((bank) => { if (!cancelled) setPool(bank.filter((p) => p.register !== 'sheng')) })
+    else supabase.from('phrases').select('id, swahili, pronunciation, english, tags, verified').then(({ data }) => { if (!cancelled) setPool((data ?? []) as Phrase[]) })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   const studied = useMemo(() => {

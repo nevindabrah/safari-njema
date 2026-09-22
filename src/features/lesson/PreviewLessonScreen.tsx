@@ -19,7 +19,11 @@ export function PreviewLessonScreen() {
   const [selected, setSelected] = useState(0)
 
   useEffect(() => {
-    loadSeedBank().then(setBank)
+    let cancelled = false
+    loadSeedBank().then((bank) => { if (!cancelled) setBank(bank) })
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   const built = useMemo(() => {

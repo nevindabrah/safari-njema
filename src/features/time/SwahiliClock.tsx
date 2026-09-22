@@ -50,7 +50,7 @@ export function SwahiliClock({ clock12, minute, moving, onHour, onMinute, showSw
         const chosen = moving === 'hour' ? position === clock12 : minuteHere === minute
         const innerText = moving === 'hour' ? (showSwahili ? String(swahiliHour(position).hour) : '') : String(minuteHere).padStart(2, '0')
         return (
-          <g key={position} role="button" tabIndex={0} aria-label={moving === 'hour' ? `${position} o'clock` : `${minuteHere} minutes`} aria-pressed={chosen} className="cursor-pointer" style={{ outline: 'none' }}
+          <g key={position} role="button" tabIndex={0} aria-label={`${moving === 'hour' ? `${position} o'clock` : `${minuteHere} minutes`}, sets the ${moving} hand`} aria-pressed={chosen} className="cursor-pointer" style={{ outline: 'none' }}
             onClick={() => choose(position)} onFocus={() => setFocused(position)} onBlur={() => setFocused(null)}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(position) } }}>
             <circle cx={at(position * 30, 76).x} cy={at(position * 30, 76).y} r="24" fill="transparent" />

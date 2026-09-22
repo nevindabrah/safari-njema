@@ -39,7 +39,7 @@ export function AuthForm({ submitLabel, mode, onSubmit }: AuthFormProps) {
       {mode === 'signup' && <UsernameField value={username} onChange={setUsername} />}
       <label className="flex flex-col gap-1 text-sm font-bold">
         {mode === 'signup' ? 'Email' : 'Email or username'}
-        <input className={inputClass} type={mode === 'signup' ? 'email' : 'text'} autoComplete={mode === 'signup' ? 'email' : 'username'} autoCapitalize="none" required value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+        <input className={inputClass} type={mode === 'signup' ? 'email' : 'text'} autoComplete={mode === 'signup' ? 'email' : 'username'} autoCapitalize="none" required maxLength={254} value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
       </label>
       <label className="flex flex-col gap-1 text-sm font-bold">
         Password

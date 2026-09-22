@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from '../../components/icons'
 import { SearchBox } from '../../components/SearchBox'
+import { trapTab } from '../../components/trapTab'
 import { CATEGORIES, searchPlaces } from '../../lib/placeSearch'
 import { SAMPLE_PLACES } from '../demo/samplePlaces'
 import { PlacePhoto } from '../places/PlacePhoto'
@@ -20,10 +21,14 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<string | null>(null)
   const input = useRef<HTMLInputElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     input.current?.focus()
-    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose() }
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+      trapTab(event, panel.current)
+    }
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
     return () => {
@@ -39,7 +44,7 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
 
   return (
     <div className="fixed inset-0 z-40 flex sm:items-center sm:justify-center sm:p-6" style={{ background: 'color-mix(in srgb, var(--ink) 55%, transparent)' }} onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-labelledby="catalog-title" onClick={(e) => e.stopPropagation()}
+      <div ref={panel} role="dialog" aria-modal="true" aria-labelledby="catalog-title" onClick={(e) => e.stopPropagation()}
         className="bg-bg w-full sm:max-w-4xl sm:rounded-card shadow-lift flex flex-col h-dvh sm:h-[86dvh] overflow-hidden">
         <div className="p-4 sm:p-5 pb-3">
           <div className="flex items-center justify-between gap-3 mb-3">

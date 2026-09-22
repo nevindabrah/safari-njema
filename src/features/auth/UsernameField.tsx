@@ -19,11 +19,15 @@ export function UsernameField({ value, onChange, current = null, label = 'Userna
   useEffect(() => {
     setTaken(null)
     if (!value || problem || value === current || isDemoMode) return
+    let cancelled = false
     const handle = setTimeout(async () => {
       const { data } = await supabase.rpc('username_taken', { p_username: value })
-      setTaken(data === true)
+      if (!cancelled) setTaken(data === true)
     }, 350)
-    return () => clearTimeout(handle)
+    return () => {
+      cancelled = true
+      clearTimeout(handle)
+    }
   }, [value, problem, current])
 
   const note = problem ?? (taken === true ? 'That username is taken.' : taken === false ? 'Available.' : value === current && value ? 'This is your username now.' : 'Letters, numbers and underscores. 3 to 20 characters.')
@@ -32,7 +36,7 @@ export function UsernameField({ value, onChange, current = null, label = 'Userna
     <label className="flex flex-col gap-1 text-sm font-bold">
       {label}
       <input className="w-full min-h-[48px] px-4 rounded-input field text-text placeholder:text-muted" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false}
-        placeholder="amina_k" value={value} onChange={(e) => onChange(normaliseUsername(e.target.value))} aria-describedby="username-note" />
+        placeholder="amina_k" maxLength={20} value={value} onChange={(e) => onChange(normaliseUsername(e.target.value))} aria-describedby="username-note" />
       <span id="username-note" className={`text-xs font-normal ${problem || taken ? 'text-accent-text' : taken === false ? 'text-text' : 'text-muted'}`}>{note}</span>
     </label>
   )

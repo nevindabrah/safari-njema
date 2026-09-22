@@ -44,9 +44,10 @@ export function PhraseRow({ phrase, note, onNote }: PhraseRowProps) {
       {open && (
         <div id={noteId} className="mt-3 sm:ml-14">
           <label className="sr-only" htmlFor={`${noteId}-box`}>Your note on {phrase.swahili}</label>
-          <textarea id={`${noteId}-box`} value={note} onChange={(e) => onNote(e.target.value)} rows={2}
+          <textarea id={`${noteId}-box`} value={note} onChange={(e) => onNote(e.target.value.slice(0, 1000))} rows={2} maxLength={1000}
             placeholder="A correction, a better way to say it, a comment on the recording"
             className="w-full rounded-input field text-text placeholder:text-muted p-3" />
+          {note.length > 800 && <p className="text-xs text-muted mt-1 text-right">{1000 - note.length} characters left</p>}
         </div>
       )}
     </li>

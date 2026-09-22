@@ -41,7 +41,7 @@ export function useLesson(userLessonId: string | undefined) {
         .eq('id', userLessonId!)
         .single()
       if (readError || !row) {
-        if (!cancelled) setError('We could not find that lesson.')
+        if (!cancelled) setError(readError && !/0 rows|PGRST116/.test(readError.message + (readError.code ?? '')) ? 'The lesson could not be loaded. Check your connection and try again.' : 'That lesson was removed, or it belongs to someone else.')
         return
       }
       const shared = row.lesson as unknown as { content: unknown; generated_by: string } | null

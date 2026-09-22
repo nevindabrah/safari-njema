@@ -59,7 +59,7 @@ export function NotesBar({ notes, phrases, reviewer, onReviewer, onClear }: Note
           <div className="mt-4">
             <label className="flex flex-col gap-1 text-sm font-bold mb-3">
               Your name, if you would like it included
-              <input value={reviewer} onChange={(e) => onReviewer(e.target.value)} className="min-h-[44px] px-4 rounded-input field font-normal" />
+              <input value={reviewer} maxLength={80} onChange={(e) => onReviewer(e.target.value)} className="min-h-[44px] px-4 rounded-input field font-normal" />
             </label>
             <pre className="text-xs bg-surface-2 rounded-input p-3 max-h-40 overflow-auto whitespace-pre-wrap">{message}</pre>
             <div className="mt-3 flex flex-wrap gap-2">

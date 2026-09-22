@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { addMonths, isInRange, monthGrid, monthOf, monthTitle, todayIso } from '../lib/calendar'
 import { Icon } from './icons'
+import { trapTab } from './trapTab'
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -23,6 +24,7 @@ export function CalendarSheet({ title, value, tripStart, tripEnd, onChoose, onCl
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      trapTab(event, panel.current)
       if (event.key !== 'Escape') return
       event.stopPropagation()
       onClose()

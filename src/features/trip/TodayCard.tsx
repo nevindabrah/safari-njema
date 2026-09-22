@@ -33,7 +33,7 @@ export function TodayCard({ trip, stops, dueCount, onSelect }: TodayCardProps) {
         </div>
       ))}
       {dueCount > 0 && (
-        <div className="mt-3 pt-3 flex flex-wrap items-center gap-3" style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
+        <div className="mt-3 pt-3 flex flex-wrap items-center gap-3" style={{ borderTop: '1px solid var(--on-ink-line)' }}>
           <p className="flex-1 min-w-[10rem]">{dueCount} phrase{dueCount === 1 ? '' : 's'} from earlier stops {dueCount === 1 ? 'is' : 'are'} due for review.</p>
           <Link to="/review"><Button variant="onHero" tabIndex={-1} className="!min-h-[44px]">Review now</Button></Link>
         </div>

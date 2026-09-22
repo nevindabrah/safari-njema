@@ -9,6 +9,7 @@ import { ForgotPasswordScreen, ResetPasswordScreen } from './features/auth/Passw
 import { RequireAuth } from './features/auth/RequireAuth'
 import { PrivacyScreen } from './features/landing/PrivacyScreen'
 import { NotFoundScreen } from './features/landing/NotFoundScreen'
+import { CrashScreen } from './features/landing/CrashScreen'
 
 const loading = <p className="p-8 text-center text-muted">Loading.</p>
 
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
   {
     element: <RequireAuth />,
     hydrateFallbackElement: loading,
-    errorElement: <NotFoundScreen />,
+    errorElement: <CrashScreen />,
     children: [
       {
         path: '/trip',

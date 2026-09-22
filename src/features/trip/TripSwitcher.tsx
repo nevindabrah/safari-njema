@@ -10,7 +10,7 @@ export function TripSwitcher({ shared }: { shared: SharedTrip[] }) {
     if (shared.length > 0) markSharedTripsSeen(shared.map((t) => t.id))
   }, [shared])
   if (shared.length === 0) return null
-  const pill = ({ isActive }: { isActive: boolean }) => `inline-flex items-center min-h-[40px] px-4 rounded-pill text-sm font-bold whitespace-nowrap ${isActive ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
+  const pill = ({ isActive }: { isActive: boolean }) => `inline-flex items-center min-h-[40px] max-w-[16rem] px-4 rounded-pill text-sm font-bold whitespace-nowrap truncate ${isActive ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
   return (
     <nav aria-label="Your trips" className="px-2 mb-4 flex gap-2 overflow-x-auto pb-1">
       <NavLink to="/trip" end className={pill}>My trip</NavLink>
