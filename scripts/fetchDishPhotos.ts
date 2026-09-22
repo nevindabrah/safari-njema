@@ -1,4 +1,4 @@
-// Finds a freely licensed, wide, high resolution photo for each dish on the food page, once, and saves it in three sizes with its credit.
+// Finds a freely licensed, wide, high resolution photo for each dish on the food page, or the exact Commons file named in dishes.ts, and saves it in three sizes with its credit.
 // Exists for the same reason as fetchPlacePhotos.ts: the site serves its own photos and never depends on a live lookup.
 // Run: node scripts/fetchDishPhotos.ts   (a search and one download per dish. Needs macOS for sips.)
 import { execFileSync } from 'node:child_process'
@@ -9,7 +9,7 @@ const MIN_WIDE = 1200
 const SIZES: Array<[suffix: string, width: number, quality: string]> = [['', 1600, '80'], ['-medium', 960, '78'], ['-small', 480, '76']]
 
 const source = readFileSync('src/features/food/dishes.ts', 'utf8')
-const dishes = [...source.matchAll(/id: '([^']+)'[^\n]*?search: '([^']+)'/g)].map((m) => ({ id: m[1], search: m[2] }))
+const dishes = [...source.matchAll(/id: '([^']+)'[^\n]*?search: '([^']+)'(?:, photo: '((?:[^'\\]|\\.)*)')?/g)].map((m) => ({ id: m[1], search: m[2], photo: m[3]?.replace(/\\'/g, "'") }))
 
 async function api(params: Record<string, string>) {
   const url = 'https://commons.wikimedia.org/w/api.php?' + new URLSearchParams({ format: 'json', formatversion: '2', ...params })
@@ -22,9 +22,10 @@ const stripTags = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&amp;/
 const result: Record<string, unknown> = {}
 mkdirSync('public/dishes', { recursive: true })
 for (const dish of dishes) {
+  if (dish.photo === 'none') { console.log(`  ${dish.id}: no photo by choice`); continue }
   await new Promise((resolve) => setTimeout(resolve, 1200))
-  const found = await api({ action: 'query', list: 'search', srnamespace: '6', srsearch: `${dish.search} filetype:bitmap`, srlimit: '12' })
-  const titles = (found.query.search as Array<{ title: string }>).map((r) => r.title).filter((t) => /\.jpe?g$/i.test(t))
+  const found = dish.photo ? null : await api({ action: 'query', list: 'search', srnamespace: '6', srsearch: `${dish.search} filetype:bitmap`, srlimit: '12' })
+  const titles = dish.photo ? ['File:' + dish.photo] : (found.query.search as Array<{ title: string }>).map((r) => r.title).filter((t) => /\.jpe?g$/i.test(t))
   if (titles.length === 0) { console.log(`  nothing for ${dish.id}`); continue }
   const info = await api({ action: 'query', titles: titles.join('|'), prop: 'imageinfo', iiprop: 'url|size|extmetadata', iiurlwidth: '2000' })
   const options = (info.query.pages as any[])

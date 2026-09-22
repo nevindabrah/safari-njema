@@ -174,10 +174,10 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Alternatives.** One large file for everything (slow on phones). An image service that resizes on request (a dependency and a bill). WebP or AVIF (smaller, but `sips` on the build machine writes JPEG, and the gain did not justify a new tool).
 **Trade-off.** `public/places` grew from about 4 MB to 35 MB. Nothing loads that is not on screen, and each file is cached for a month.
 
-### 6.6 A food page of dishes, with reviewed phrases only
-**Decision.** Fourteen dishes with what, how to eat, where, and a phrase to order. Every phrase comes from the reviewed bank; the descriptions are English and the page says they were not part of the teacher's review.
-**Why.** The first meal is where a traveller first needs the language. Dish names are the Swahili words a menu uses, so they are not invented.
-**Alternatives.** Folding dishes into restaurant lessons (hides them from someone who is not planning a restaurant stop).
+### 6.6 A food page of dishes, with a pronunciation for each name
+**Decision.** Fourteen dishes with what, how to eat, where, and how to say the name: a syllable guide in the phrasebook's style and a recording judged by the same recogniser as the lessons. Photos are chosen by hand where a search picked the wrong subject, by naming the exact Commons file in `dishes.ts`; a dish with no honest photo on Commons (maharagwe) shows an icon rather than a wrong picture. The descriptions are English and the page says they were not part of the teacher's review.
+**Why.** The first meal is where a traveller first needs the language, and the name is the word they will have to say aloud. Dish names are the Swahili words a menu uses, so they are not invented.
+**Alternatives.** An ordering phrase on each card (the first version; it repeated three phrases across fourteen cards and said nothing about the dish itself). Folding dishes into restaurant lessons (hides them from someone who is not planning a restaurant stop). Letting the search choose every photo (it put fish on sukuma wiki and beef on maharagwe).
 
 ## 7. Design
 

@@ -3,34 +3,34 @@
     "url": "/dishes/ugali.jpg",
     "medium": "/dishes/ugali-medium.jpg",
     "small": "/dishes/ugali-small.jpg",
-    "author": "Anitah Pezz",
-    "licence": "CC BY-SA 4.0",
-    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:Homemade_food_platter_with_Ugali,chicken,fries,salsa_and_lettuce.jpg",
-    "width": 4160,
-    "height": 3120
+    "author": "Queen Asali",
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Plate_of_ugali_with_creamed_spinach.jpg",
+    "width": 4080,
+    "height": 1884
   },
   "nyama-choma": {
     "url": "/dishes/nyama-choma.jpg",
     "medium": "/dishes/nyama-choma-medium.jpg",
     "small": "/dishes/nyama-choma-small.jpg",
-    "author": "Shiku Ngigi",
-    "licence": "CC BY-SA 4.0",
-    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:Nyama_choma_-_Chapati.JPG",
-    "width": 4608,
-    "height": 3456
+    "author": "safaritravelplus",
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Nyama_choma_barbeque.jpg",
+    "width": 3984,
+    "height": 2656
   },
   "sukuma-wiki": {
     "url": "/dishes/sukuma-wiki.jpg",
     "medium": "/dishes/sukuma-wiki-medium.jpg",
     "small": "/dishes/sukuma-wiki-small.jpg",
-    "author": "Napendakukula",
-    "licence": "CC BY-SA 4.0",
-    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:Fried_Tilapia,_Ugali,_Sukuma_Wiki_and_Kachumbari_(From_Kisumu).JPG",
-    "width": 4000,
-    "height": 3000
+    "author": "Nana Pearls",
+    "licence": "CC0",
+    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "filePage": "https://commons.wikimedia.org/wiki/File:East_African_Vegetable_(Sukuma_wiki).jpg",
+    "width": 2855,
+    "height": 2855
   },
   "chapati": {
     "url": "/dishes/chapati.jpg",
@@ -47,34 +47,34 @@
     "url": "/dishes/mandazi.jpg",
     "medium": "/dishes/mandazi-medium.jpg",
     "small": "/dishes/mandazi-small.jpg",
-    "author": "Onyemaechi Kester Kanayo",
-    "licence": "CC BY-SA 4.0",
-    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:She_runs_a_%22provision_store%22.jpg",
-    "width": 6016,
-    "height": 4000
+    "author": "Orrling",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Andazi.jpg",
+    "width": 4608,
+    "height": 3456
   },
   "pilau": {
     "url": "/dishes/pilau.jpg",
     "medium": "/dishes/pilau-medium.jpg",
     "small": "/dishes/pilau-small.jpg",
-    "author": "Bigvai Muhoti",
+    "author": "Joe.wanjohi",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:The_maasai_tribe_preparing_to_cook_rice.jpg",
-    "width": 5536,
-    "height": 4160
+    "filePage": "https://commons.wikimedia.org/wiki/File:Swahili_Pilau.jpg",
+    "width": 640,
+    "height": 480
   },
   "kachumbari": {
     "url": "/dishes/kachumbari.jpg",
     "medium": "/dishes/kachumbari-medium.jpg",
     "small": "/dishes/kachumbari-small.jpg",
-    "author": "Kerigo",
+    "author": "Masaichris",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:Kachumbari_ya_Pilau.jpg",
-    "width": 4608,
-    "height": 3456
+    "filePage": "https://commons.wikimedia.org/wiki/File:The_%22Kachumbari%22.jpg",
+    "width": 4128,
+    "height": 2322
   },
   "githeri": {
     "url": "/dishes/githeri.jpg",
@@ -124,23 +124,12 @@
     "url": "/dishes/viazi-karai.jpg",
     "medium": "/dishes/viazi-karai-medium.jpg",
     "small": "/dishes/viazi-karai-small.jpg",
-    "author": "Bahnfrend",
+    "author": "Anitah Pezz",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:Fish_Market_(Mombasa),_2025_(04).jpg",
-    "width": 5915,
-    "height": 3920
-  },
-  "maharagwe": {
-    "url": "/dishes/maharagwe.jpg",
-    "medium": "/dishes/maharagwe-medium.jpg",
-    "small": "/dishes/maharagwe-small.jpg",
-    "author": "avlxyz",
-    "licence": "CC BY-SA 2.0",
-    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:%E4%B8%89%E6%9E%A3%E7%82%96%E8%8A%AB%E8%B9%84_Stewed_Pork_Knuckle_with_Dates_-_Sungs_Kitchen.jpg",
-    "width": 2048,
-    "height": 1536
+    "filePage": "https://commons.wikimedia.org/wiki/File:Viazi_Karai.jpg",
+    "width": 864,
+    "height": 1152
   },
   "sambusa": {
     "url": "/dishes/sambusa.jpg",

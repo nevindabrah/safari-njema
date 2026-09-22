@@ -1,0 +1,142 @@
+[
+  {
+    "file": "01.m4a",
+    "name": "Ugali",
+    "heard": "ugali",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 42,
+    "speed": 0.8,
+    "method": "alone"
+  },
+  {
+    "file": "02.m4a",
+    "name": "Nyama choma",
+    "heard": "nyama choma",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "03.m4a",
+    "name": "Sukuma wiki",
+    "heard": "sukuma wiki",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "04.m4a",
+    "name": "Chapati",
+    "heard": "chapati",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "05.m4a",
+    "name": "Mandazi",
+    "heard": "mandazi",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "06.m4a",
+    "name": "Pilau",
+    "heard": "pilau",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.85,
+    "method": "middle"
+  },
+  {
+    "file": "07.m4a",
+    "name": "Kachumbari",
+    "heard": "kachumbari",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 21,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "08.m4a",
+    "name": "Githeri",
+    "heard": "his herli",
+    "score": 0.62,
+    "shipped": false,
+    "seed": 3,
+    "speed": 0.75,
+    "method": "alone"
+  },
+  {
+    "file": "09.m4a",
+    "name": "Mukimo",
+    "heard": "mukino",
+    "score": 0.83,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "10.m4a",
+    "name": "Chai",
+    "heard": "cai",
+    "score": 0.75,
+    "shipped": false,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "11.m4a",
+    "name": "Samaki wa kupaka",
+    "heard": "samaki wa kupaka",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "12.m4a",
+    "name": "Viazi karai",
+    "heard": "viazikarai",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "13.m4a",
+    "name": "Maharagwe",
+    "heard": "maharabe",
+    "score": 0.78,
+    "shipped": false,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "14.m4a",
+    "name": "Sambusa",
+    "heard": "sam bruza",
+    "score": 0.75,
+    "shipped": false,
+    "seed": 3,
+    "speed": 0.75,
+    "method": "alone"
+  }
+]
