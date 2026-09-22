@@ -32,10 +32,7 @@ export function TimeScreen() {
             </p>
             <p className="mt-3 leading-relaxed">On a real watch there is a shortcut: read the number straight across the face from the hour hand. Across from 8 is 2.</p>
             <div className="mt-4 flex items-center gap-3"><TimeSpeakButton swahili={ASK_THE_TIME.swahili} /><p className="text-sm">To ask: <b lang="sw">{ASK_THE_TIME.swahili}</b> <span className="font-bold text-accent-text">{pronounce(ASK_THE_TIME.swahili)}</span> <span className="text-muted">{ASK_THE_TIME.english}</span></p></div>
-            <p className="mt-3 text-xs text-muted">
-              <span className="inline-block rounded-pill bg-tint text-text font-bold px-2 py-0.5 mr-1">Not yet reviewed</span>
-              The time words here were added after the teacher's review of the phrasebook and are waiting for a check. Where one part of the day ends and the next begins also varies from speaker to speaker.
-            </p>
+            <p className="mt-3 text-xs text-muted">Where one part of the day ends and the next begins varies from speaker to speaker. The boundaries here are a common convention.</p>
           </Card>
         </div>
         <Footer />

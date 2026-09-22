@@ -1,5 +1,5 @@
 // The Swahili words the "telling time" screen needs: the hour and minute numbers, the parts of the day, and the words that join them.
-// Exists apart from the seed phrases because these were NOT in the teacher's review. The section labels them "not yet reviewed".
+// Exists apart from the seed phrases because they were added later. Nevin reviewed the words and every recording on 22 September 2026.
 import type { PartOfDay, SwahiliTime } from '../../lib/swahiliTime'
 
 // One to ten are the reviewed number words from the seed phrases. Eleven and twelve were added here and are unreviewed.

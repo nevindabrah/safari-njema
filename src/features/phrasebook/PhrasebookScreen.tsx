@@ -17,9 +17,10 @@ export function PhrasebookScreen() {
   const [checkOnly, setCheckOnly] = useState(false)
 
   const q = query.trim().toLowerCase()
-  const shown = phrases.filter((p) => (!checkOnly || p.held || p.unsure) && (q === '' || `${p.swahili} ${p.english}`.toLowerCase().includes(q)))
+  const shown = phrases.filter((p) => (!checkOnly || p.unsure) && (q === '' || `${p.swahili} ${p.english}`.toLowerCase().includes(q)))
   const chapters = [...new Set(shown.map((p) => p.chapter))]
-  const checkCount = phrases.filter((p) => p.held || p.unsure).length
+  // Held recordings are not offered at all, so only the unsure ones are left to listen to.
+  const checkCount = phrases.filter((p) => p.unsure).length
 
   return (
     <div className="min-h-dvh">

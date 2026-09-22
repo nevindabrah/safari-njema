@@ -3,6 +3,8 @@
 import type { Lesson } from '../../lib/lessonSchema'
 import type { Phrase } from '../../lib/types'
 import { SpeakButton } from '../audio/SpeakButton'
+import { AudioComingSoon } from '../audio/ComingSoon'
+import { audioUrlFor } from '../audio/audio'
 
 interface PhrasesStepProps {
   phrases: Phrase[]
@@ -15,9 +17,10 @@ export function PhrasesStep({ phrases, lessonPhrases }: PhrasesStepProps) {
     <ul className="flex flex-col gap-3">
       {phrases.map((phrase) => (
         <li key={phrase.id} className="bg-tint rounded-card p-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <SpeakButton swahili={phrase.swahili} />
             <p lang="sw" className="font-display font-extrabold text-2xl">{phrase.swahili}</p>
+            {!audioUrlFor(phrase.swahili) && <AudioComingSoon />}
           </div>
           {phrase.pronunciation && <p className="text-sm text-muted mt-1">{phrase.pronunciation}</p>}
           <p className="mt-2 font-bold">{phrase.english}</p>
