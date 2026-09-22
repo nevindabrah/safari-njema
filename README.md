@@ -1,6 +1,6 @@
 # Safari Njema
 
-**A travel companion for Kenya. Duolingo, but the curriculum is your itinerary.**
+**A travel companion for Kenya. Add the places you are going and get a short Swahili lesson made for each one.**
 
 You add the places you are going. Each stop becomes a five minute Swahili lesson made for that place: a brief on what to know, the phrases you will need there, and a quiz. A market teaches prices and bargaining. A beach teaches coast words and ordering. A game reserve teaches the animals your guide will call out.
 

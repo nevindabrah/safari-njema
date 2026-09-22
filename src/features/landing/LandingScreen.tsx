@@ -35,7 +35,7 @@ export function LandingScreen() {
       <main className="mx-auto max-w-5xl px-4 py-6 flex flex-col gap-12">
         <Hero eyebrow="A travel companion for Kenya" title="Learn the Swahili you will actually say." art={<HeroMap />}>
           <p className="text-lg max-w-xl">
-            Duolingo, but the curriculum is your itinerary. Add the places you are going, and each one becomes a short lesson made for that place.
+            Taught in the order your trip needs it. Add the places you are going, and each one becomes a short lesson made for that place.
           </p>
           <div className="mt-6 flex gap-3 flex-wrap">
             {user ? (

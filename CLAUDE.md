@@ -9,7 +9,7 @@ A travel companion for Kenya. The user searches a place on a Google map, adds it
 Build "The 22 September cut" in the PRD, in the order listed. Do not start anything outside that list until Nevin says the cut is done. If a task seems to need something outside the list, stop and ask.
 
 ## The owner must be able to explain every file
-Nevin will walk interviewers through this code. Optimise for reading, not cleverness.
+Nevin must be able to walk anyone through this code. Optimise for reading, not cleverness.
 1. One feature per folder under `src/features/`. A screen and the hooks it uses live together.
 2. No file over about 200 lines. Split it.
 3. Every file starts with a two line comment: what it does, and why it exists. No other comments. If code needs explaining, rename or split it. `docs/DECISIONS.md` records decisions about how the software works, not about process.

@@ -11,7 +11,7 @@ Audience for this document: a coding agent, and Nevin when he explains the proje
 
 Safari Njema is a web app that gets travellers ready for each day of a trip to Kenya. The user builds a trip by adding real places in Kenya and the dates they will be there. For each stop, the app generates a five minute lesson: a short brief on the place, the Swahili phrases they will need there, and spoken practice where the user says the phrases out loud and gets scored.
 
-The one sentence version: "A travel companion for Kenya. Duolingo, but the curriculum is your itinerary."
+The one sentence version: "A travel companion for Kenya. The Swahili you will actually say, taught in the order your trip needs it."
 
 No two users get the same course. What each account learns is decided by where that person is actually going.
 
@@ -127,7 +127,7 @@ Travel guides tell you where to go. Language apps teach sentences you never say.
 
 **Secondary: the heritage learner.** Has family ties to Kenya or East Africa, some classroom Swahili, and wants practical speaking confidence.
 
-**Tertiary: the reviewer.** A recruiter or engineer looking at this as a portfolio project. They will not create an account. There is no guest mode, so the README and the landing page give a shared demo login with a ready-made trip. See 6.1.
+**Tertiary: the visitor.** Someone looking at the site without creating an account. They will not create an account. There is no guest mode, so the README and the landing page give a shared demo login with a ready-made trip. See 6.1.
 
 ## 4. Goals and non-goals
 
@@ -561,7 +561,7 @@ These come from `user_lessons`, `speaking_attempts` and `phrase_progress`. No th
 | Map provider | Google Maps. A card on file is fine | As written in 6.3 |
 | Lesson generation | Claude API, built and tested, then switched off on the live site to avoid bills | See 7.3a. Pre-made Claude lessons for about 20 popular places, template lessons for everything else, live generation shown locally. A ChatGPT Plus or Claude Pro subscription cannot be used here. Those are chat subscriptions and do not include API access, which is billed separately |
 | Login | Email and password, plus Continue with Google. No guest mode | Demo account for reviewers instead. See 6.1 |
-| Audience | Both a portfolio piece and real travellers | Keep the daily limits. Add a short plain-language privacy page before sharing it publicly |
+| Audience | Both a public project and real travellers | Keep the daily limits. Add a short plain-language privacy page before sharing it publicly |
 | Countries | Kenya only | Search stays locked to Kenya. No work on other countries |
 | Phrase review | Not reviewed by an instructor for now | Show "Phrases written by a learner and not yet reviewed by a Swahili teacher" in the footer, on the About page and at the end of each lesson. All seeded phrases get `verified = false`. If a review happens later, flipping that flag removes the note |
 | Voice | Synthetic voice | Cloud text to speech in Phase 2. Confirm a Kenyan Swahili voice exists before building it |

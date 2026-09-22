@@ -1,5 +1,5 @@
 // The public pages: phrasebook, the clock, and the landing page in dark mode.
-// Exists so the pages a teacher and a recruiter open first keep working.
+// Exists so the pages a teacher and a first time visitor open keep working.
 import { expect, test } from '@playwright/test'
 
 test('the phrasebook lists every phrase and filters by search', async ({ page }) => {

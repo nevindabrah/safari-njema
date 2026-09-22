@@ -1,5 +1,5 @@
 // Decides whether this visit runs as the demo: always when Supabase is not configured, and otherwise when the visitor chose "Try the demo".
-// Exists so one site can serve both a recruiter who wants to look around with no sign up and a student who wants a real account.
+// Exists so one site can serve both a visitor who wants to look around with no sign up and a student who wants a real account.
 import { isSupabaseConfigured } from '../../lib/supabase'
 
 export const accountsAvailable = isSupabaseConfigured

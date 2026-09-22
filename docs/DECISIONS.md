@@ -1,6 +1,6 @@
 # Decisions
 
-Every decision that shaped how the code works, in the order the project met them: what was decided, why, what else could have been done, and the trade-off that came with the choice. How the work was organised is not recorded here, only what the software does and how. It is written so the owner can defend any part of the project in an interview without rereading the code.
+Every decision that shaped how the code works, in the order the project met them: what was decided, why, what else could have been done, and the trade-off that came with the choice. How the work was organised is not recorded here, only what the software does and how. It is written so the owner can explain any part of the project without rereading the code.
 
 Dates are 20 to 22 September 2026. Commit hashes are given where one commit carries the decision.
 
@@ -25,21 +25,21 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 
 ### 1.4 The home page is for travellers, and the demo exists only where there is no database
 **Decision.** On 22 September 2026 the home page lost its demo button and the two sections written for reviewers (what the full version adds, how it was built). With accounts on, it offers one thing: create an account. Demo mode still runs when the app has no Supabase values, which is how it runs in development and in the browser tests.
-**Why.** The owner's first users are his professor's students, not recruiters. A page that explains itself as a portfolio piece undermines trust in it as a product.
+**Why.** The first users are a professor's students. A page that explains itself as a showcase undermines trust in it as a product.
 **Alternatives.** Keeping the demo as a second way in (the earlier choice). A separate marketing page. Both kept reviewer language in front of students.
-**Trade-off.** A recruiter now has to create an account or read the README to see the build story. The README and `docs/DECISIONS.md` carry it.
+**Trade-off.** A curious visitor now has to create an account or read the README to see the build story. The README and `docs/DECISIONS.md` carry it.
 
 ## 2. Stack and repository rules
 
 ### 2.1 React, Vite, TypeScript, Tailwind, Supabase, Google Maps Platform, Claude API
 **Decision.** Fixed by the PRD. No other dependency without asking and writing the reason in the README.
-**Why.** Every piece is mainstream, so an interviewer can read it, and Supabase gives Postgres, auth, Row Level Security and Edge Functions from one account.
+**Why.** Every piece is mainstream, so any engineer can read it, and Supabase gives Postgres, auth, Row Level Security and Edge Functions from one account.
 **Alternatives.** Next.js with server components (more moving parts for a static site). Firebase (no SQL, weaker access rules). A custom Node server (someone has to run it).
 **Trade-off.** Vite gives a plain single page app, so there is no server rendering. That is fine: nothing here needs to be indexed by search engines except the landing page.
 
 ### 2.2 Rules that keep the code explainable
 **Decision.** One feature per folder under `src/features/`. No file over about 200 lines. Every file starts with a two line comment: what it does, and why it exists. Plain, slightly repetitive code over abstractions. Business logic in pure functions in `src/lib/` with Vitest tests, components only render and call them.
-**Why.** The owner will walk interviewers through the code. A 200 line ceiling forces a split at the point where a file stops being readable in one sitting. The two line comment answers the two questions a reader has before reading anything.
+**Why.** The owner must be able to walk anyone through the code. A 200 line ceiling forces a split at the point where a file stops being readable in one sitting. The two line comment answers the two questions a reader has before reading anything.
 **Alternatives.** A conventional layered structure (components, hooks, services). Shared generic utilities. Both make a codebase shorter and harder to explain screen by screen.
 **Trade-off.** Some code is repeated, for example the three auth screens each build a form. That repetition is the price of each file being self contained.
 
@@ -99,7 +99,7 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 
 ### 4.4 The demo and real accounts share one site
 **Decision.** When Supabase values exist, the landing page offers both "Create your account" and "Try the demo, no sign up". The choice is saved in localStorage, read once at page load, and entering or leaving the demo reloads the page (d55f2b5).
-**Why.** Recruiters want to look around without signing up. Students want their trip saved. One URL serves both.
+**Why.** Some visitors want to look around without signing up. Students want their trip saved. One URL serves both.
 **Alternatives.** Two Vercel projects. Twice the deployments to keep in step.
 **Trade-off.** `isDemoMode` is a constant per page load, not React state. The reload is what makes that safe, and it keeps every data hook to one `if (isDemoMode)`.
 
@@ -136,7 +136,7 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 
 ### 5.4 Practice is eight kinds of exercise in three parts, with a second chance
 **Decision.** Recognise, recall, produce. Meaning, true or false, match, recall, sounds like, listen, build from tiles, fill the gap, type. Missed items return once and do not change the score (c6f5955, f8b062a).
-**Why.** The owner asked for "varied questions like Duolingo". Three parts move from reading to producing. The second chance is where the learning happens.
+**Why.** The owner asked for varied questions, the way the big language apps do it. Three parts move from reading to producing. The second chance is where the learning happens.
 **Alternatives.** Multiple choice only (the first version). It was quick to build and boring to use.
 **Detail.** Typed answers are checked with edit distance (`checkTyped.ts`) so one slipped letter is not a fail. Double taps are locked out with a ref, because a fast tap once counted two answers.
 
@@ -149,7 +149,7 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 
 ### 6.1 A full demo with no keys, no accounts and no server
 **Decision.** With no Supabase values, the app runs from localStorage: a seeded three stop trip, a sketch map of Kenya drawn in SVG, and lessons built in the browser (a6b157a, 141cd7e, f17495b).
-**Why.** The owner asked to exercise every feature before setting up Supabase, then wanted a link a recruiter could open. A demo that needs a key is not a demo.
+**Why.** The owner asked to exercise every feature before setting up Supabase, then wanted a link anyone could open. A demo that needs a key is not a demo.
 **Alternatives.** A recorded video. A hosted test account (needs the backend). Neither lets someone add their own stop.
 **Trade-off.** Two implementations of the data layer. Each hook keeps them side by side with one `if`, and the pure functions are shared.
 
@@ -302,7 +302,7 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 - Commit a small Playwright suite once flows settled, instead of keeping the browser scripts in a scratch folder.
 - Decide the audio licence question earlier. MMS is non-commercial, which is fine for a student project and a real constraint later.
 
-## 14. Short answers for interviews
+## 14. Short answers to common questions
 
 - **Why Supabase and not your own server?** Postgres with Row Level Security puts the access rules next to the data, and I could test them by running the real schema in an in-process Postgres. A server of mine would be one more thing to run and to get wrong.
 - **Why is the AI off?** Every phrase a first year student sees has been reviewed by a teacher. Model output has not. The AI path exists, is validated and tested, and can be switched on per project.

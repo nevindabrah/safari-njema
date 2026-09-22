@@ -1,5 +1,5 @@
 // Fills a first time visitor's demo with a ready-made three stop trip: a market, a beach and a game reserve.
-// Exists so the first screen a recruiter sees is a real itinerary with three different lessons, not an empty list.
+// Exists so the first screen a visitor sees is a real itinerary with three different lessons, not an empty list.
 import { addLocalStop, attachLocalLesson, getLocalTrip, listLocalStops, markDemoSeeded, wasDemoSeeded } from './localStore'
 import { buildLocalLesson } from './localLessons'
 import { SAMPLE_PLACES } from './samplePlaces'

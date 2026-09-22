@@ -38,3 +38,6 @@ __pycache__/
 # Playwright leaves these behind
 playwright-report/
 test-results/
+
+# Personal notes kept out of the public repo
+docs/RESUME_BRIEF.md
