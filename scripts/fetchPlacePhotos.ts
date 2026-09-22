@@ -4,9 +4,12 @@
 // photos on every screen from Vercel's network. Wide landscape photos are preferred because every place they appear in is wider than tall.
 // Run: node scripts/fetchPlacePhotos.ts   (a few batched requests, then one slow download per photo. Needs macOS for sips.)
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { existsSync, mkdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 
 const USER_AGENT = 'SafariNjema/1.0 (student project; https://github.com/nevindabrah/safari-njema)'
+
+const stamp = (path: string) => '?v=' + createHash('md5').update(readFileSync(path)).digest('hex').slice(0, 8)
 
 const ARTICLES: Record<string, string | null> = {
   'sample-maasai-market': null,
@@ -192,9 +195,9 @@ for (const [id, photo] of Object.entries(result) as Array<[string, any]>) {
     }
     unlinkSync(original)
   }
-  photo.url = `/places/${id}.jpg`
-  photo.medium = `/places/${id}-medium.jpg`
-  photo.small = `/places/${id}-small.jpg`
+  photo.url = `/places/${id}.jpg` + stamp(`public/places/${id}.jpg`)
+  photo.medium = `/places/${id}-medium.jpg` + stamp(`public/places/${id}-medium.jpg`)
+  photo.small = `/places/${id}-small.jpg` + stamp(`public/places/${id}-small.jpg`)
 }
 
 writeFileSync('src/features/places/placePhotos.json', JSON.stringify(result, null, 2) + '\n')

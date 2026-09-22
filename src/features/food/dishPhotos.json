@@ -1,8 +1,8 @@
 {
   "ugali": {
-    "url": "/dishes/ugali.jpg",
-    "medium": "/dishes/ugali-medium.jpg",
-    "small": "/dishes/ugali-small.jpg",
+    "url": "/dishes/ugali.jpg?v=83ed67a0",
+    "medium": "/dishes/ugali-medium.jpg?v=ec973a19",
+    "small": "/dishes/ugali-small.jpg?v=54dcd4a8",
     "author": "Queen Asali",
     "licence": "CC0",
     "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -11,9 +11,9 @@
     "height": 1884
   },
   "nyama-choma": {
-    "url": "/dishes/nyama-choma.jpg",
-    "medium": "/dishes/nyama-choma-medium.jpg",
-    "small": "/dishes/nyama-choma-small.jpg",
+    "url": "/dishes/nyama-choma.jpg?v=ae576b73",
+    "medium": "/dishes/nyama-choma-medium.jpg?v=dd49e71c",
+    "small": "/dishes/nyama-choma-small.jpg?v=206505cf",
     "author": "safaritravelplus",
     "licence": "CC0",
     "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -22,9 +22,9 @@
     "height": 2656
   },
   "sukuma-wiki": {
-    "url": "/dishes/sukuma-wiki.jpg",
-    "medium": "/dishes/sukuma-wiki-medium.jpg",
-    "small": "/dishes/sukuma-wiki-small.jpg",
+    "url": "/dishes/sukuma-wiki.jpg?v=e2cb70e1",
+    "medium": "/dishes/sukuma-wiki-medium.jpg?v=f1252160",
+    "small": "/dishes/sukuma-wiki-small.jpg?v=33526189",
     "author": "Nana Pearls",
     "licence": "CC0",
     "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -33,9 +33,9 @@
     "height": 2855
   },
   "chapati": {
-    "url": "/dishes/chapati.jpg",
-    "medium": "/dishes/chapati-medium.jpg",
-    "small": "/dishes/chapati-small.jpg",
+    "url": "/dishes/chapati.jpg?v=303863a6",
+    "medium": "/dishes/chapati-medium.jpg?v=de81d03b",
+    "small": "/dishes/chapati-small.jpg?v=e36fb23a",
     "author": "GioRan",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -44,9 +44,9 @@
     "height": 2322
   },
   "mandazi": {
-    "url": "/dishes/mandazi.jpg",
-    "medium": "/dishes/mandazi-medium.jpg",
-    "small": "/dishes/mandazi-small.jpg",
+    "url": "/dishes/mandazi.jpg?v=ad765fad",
+    "medium": "/dishes/mandazi-medium.jpg?v=aceaccd7",
+    "small": "/dishes/mandazi-small.jpg?v=d6757197",
     "author": "Orrling",
     "licence": "CC BY-SA 3.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -55,9 +55,9 @@
     "height": 3456
   },
   "pilau": {
-    "url": "/dishes/pilau.jpg",
-    "medium": "/dishes/pilau-medium.jpg",
-    "small": "/dishes/pilau-small.jpg",
+    "url": "/dishes/pilau.jpg?v=1a818369",
+    "medium": "/dishes/pilau-medium.jpg?v=7226e1ac",
+    "small": "/dishes/pilau-small.jpg?v=c4b54e30",
     "author": "Joe.wanjohi",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -66,9 +66,9 @@
     "height": 480
   },
   "kachumbari": {
-    "url": "/dishes/kachumbari.jpg",
-    "medium": "/dishes/kachumbari-medium.jpg",
-    "small": "/dishes/kachumbari-small.jpg",
+    "url": "/dishes/kachumbari.jpg?v=a4489423",
+    "medium": "/dishes/kachumbari-medium.jpg?v=83e77b85",
+    "small": "/dishes/kachumbari-small.jpg?v=9db4ad0b",
     "author": "Masaichris",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -77,9 +77,9 @@
     "height": 2322
   },
   "githeri": {
-    "url": "/dishes/githeri.jpg",
-    "medium": "/dishes/githeri-medium.jpg",
-    "small": "/dishes/githeri-small.jpg",
+    "url": "/dishes/githeri.jpg?v=315973bd",
+    "medium": "/dishes/githeri-medium.jpg?v=069d2a90",
+    "small": "/dishes/githeri-small.jpg?v=743c5153",
     "author": "safaritravelplus",
     "licence": "CC0",
     "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
@@ -88,9 +88,9 @@
     "height": 2656
   },
   "mukimo": {
-    "url": "/dishes/mukimo.jpg",
-    "medium": "/dishes/mukimo-medium.jpg",
-    "small": "/dishes/mukimo-small.jpg",
+    "url": "/dishes/mukimo.jpg?v=c8ef459a",
+    "medium": "/dishes/mukimo-medium.jpg?v=f1432c23",
+    "small": "/dishes/mukimo-small.jpg?v=e78e9983",
     "author": "Jaymuiaphotography",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -99,9 +99,9 @@
     "height": 2000
   },
   "chai": {
-    "url": "/dishes/chai.jpg",
-    "medium": "/dishes/chai-medium.jpg",
-    "small": "/dishes/chai-small.jpg",
+    "url": "/dishes/chai.jpg?v=0fc3e1f5",
+    "medium": "/dishes/chai-medium.jpg?v=825707f0",
+    "small": "/dishes/chai-small.jpg?v=c2b2046d",
     "author": "Maliqbhai",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -110,9 +110,9 @@
     "height": 3456
   },
   "samaki": {
-    "url": "/dishes/samaki.jpg",
-    "medium": "/dishes/samaki-medium.jpg",
-    "small": "/dishes/samaki-small.jpg",
+    "url": "/dishes/samaki.jpg?v=ff2c4b30",
+    "medium": "/dishes/samaki-medium.jpg?v=e184a501",
+    "small": "/dishes/samaki-small.jpg?v=1b64ae5b",
     "author": "Bahnfrend",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -121,9 +121,9 @@
     "height": 3060
   },
   "viazi-karai": {
-    "url": "/dishes/viazi-karai.jpg",
-    "medium": "/dishes/viazi-karai-medium.jpg",
-    "small": "/dishes/viazi-karai-small.jpg",
+    "url": "/dishes/viazi-karai.jpg?v=6987415a",
+    "medium": "/dishes/viazi-karai-medium.jpg?v=9fe38412",
+    "small": "/dishes/viazi-karai-small.jpg?v=705338de",
     "author": "Anitah Pezz",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
@@ -132,9 +132,9 @@
     "height": 1152
   },
   "sambusa": {
-    "url": "/dishes/sambusa.jpg",
-    "medium": "/dishes/sambusa-medium.jpg",
-    "small": "/dishes/sambusa-small.jpg",
+    "url": "/dishes/sambusa.jpg?v=6dc517dd",
+    "medium": "/dishes/sambusa-medium.jpg?v=062acf89",
+    "small": "/dishes/sambusa-small.jpg?v=9e5fa63e",
     "author": "Vis M",
     "licence": "CC BY-SA 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",

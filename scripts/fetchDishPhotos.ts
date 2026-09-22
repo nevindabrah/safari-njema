@@ -2,10 +2,13 @@
 // Exists for the same reason as fetchPlacePhotos.ts: the site serves its own photos and never depends on a live lookup.
 // Run: node scripts/fetchDishPhotos.ts   (a search and one download per dish. Needs macOS for sips.)
 import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 
 const USER_AGENT = 'SafariNjema/1.0 (student project; https://github.com/nevindabrah/safari-njema)'
 const MIN_WIDE = 1200
+
+const stamp = (path: string) => '?v=' + createHash('md5').update(readFileSync(path)).digest('hex').slice(0, 8)
 const SIZES: Array<[suffix: string, width: number, quality: string]> = [['', 1600, '80'], ['-medium', 960, '78'], ['-small', 480, '76']]
 
 const source = readFileSync('src/features/food/dishes.ts', 'utf8')
@@ -51,7 +54,7 @@ for (const dish of dishes) {
   }
   const meta = chosen.extmetadata
   result[dish.id] = {
-    url: `/dishes/${dish.id}.jpg`, medium: `/dishes/${dish.id}-medium.jpg`, small: `/dishes/${dish.id}-small.jpg`,
+    url: `/dishes/${dish.id}.jpg` + stamp(`public/dishes/${dish.id}.jpg`), medium: `/dishes/${dish.id}-medium.jpg` + stamp(`public/dishes/${dish.id}-medium.jpg`), small: `/dishes/${dish.id}-small.jpg` + stamp(`public/dishes/${dish.id}-small.jpg`),
     author: stripTags(meta.Artist?.value ?? 'Unknown author').slice(0, 80), licence: meta.LicenseShortName.value, licenceUrl: meta.LicenseUrl?.value ?? null, filePage: chosen.descriptionurl, width: chosen.width, height: chosen.height,
   }
   console.log(`  ${dish.id}: ${chosen.width}x${chosen.height} ${meta.LicenseShortName.value}`)
