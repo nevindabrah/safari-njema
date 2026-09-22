@@ -103,6 +103,11 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Alternatives.** Two Vercel projects. Twice the deployments to keep in step.
 **Trade-off.** `isDemoMode` is a constant per page load, not React state. The reload is what makes that safe, and it keeps every data hook to one `if (isDemoMode)`.
 
+### 4.4a Who is signed in is decided by the auth library's own signal
+**Decision.** The auth provider does not call `getSession()` first. It listens to `onAuthStateChange` and treats `INITIAL_SESSION`, `SIGNED_IN` or `SIGNED_OUT` as the moment it knows the answer, with a four second fallback to `getSession()`. The login and sign up screens send a visitor who turns out to be signed in on to the trip.
+**Why.** Returning from Google, the URL carries a code that the library exchanges for a session asynchronously. `getSession()` could resolve before that exchange, so the guard saw nobody, redirected to the login page, and when the session arrived a moment later nothing on that page reacted. The visitor saw a login form that never moved on, and the welcome step never appeared.
+**Alternatives.** Polling `getSession()` until it returns a user (wasteful, and no end condition for a visitor who really is signed out). Handling the OAuth callback on its own route (more code for the same event the library already emits).
+
 ### 4.5 Usernames, and logging in with one
 **Decision.** Every profile has a unique username, lower case letters, numbers and underscores, 3 to 20 characters, enforced by a check constraint and a unique index. Sign up sends it in the auth metadata and the trigger keeps it if valid and free. Google accounts choose one on a welcome step. Logging in accepts a username or an email.
 **Why.** The owner asked for friends to find each other by username, and for a username to work at log in.
