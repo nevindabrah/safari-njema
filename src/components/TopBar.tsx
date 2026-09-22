@@ -1,6 +1,7 @@
 // The blurred sticky top bar: the logo that leads home, the main links on wide screens, and the sound, theme and sign in controls.
 // Exists so every screen has the same way to get around. On a phone the main links move to BottomTabs, within thumb reach.
 import { Link, NavLink } from 'react-router'
+import { Icon } from './icons'
 import { useAuth } from '../features/auth/useAuth'
 import { DemoBanner } from '../features/demo/DemoBanner'
 import { SoundToggle } from './SoundToggle'
@@ -12,7 +13,7 @@ import { Logo } from './Logo'
 const link = ({ isActive }: { isActive: boolean }) => `px-3 py-3 rounded-pill ${isActive ? 'bg-tint' : 'hover:bg-tint'}`
 
 export function TopBar() {
-  const { user, signOut } = useAuth()
+  const { user } = useAuth()
   return (
     <>
       <header className="sticky top-0 z-20 backdrop-blur-md" style={{ background: 'color-mix(in srgb, var(--bg) 80%, transparent)' }}>
@@ -27,7 +28,7 @@ export function TopBar() {
             <SoundToggle />
             <ThemeToggle />
             {user ? (
-              <button onClick={signOut} className="px-2 sm:px-3 min-h-[44px] rounded-pill hover:bg-tint cursor-pointer">Sign out</button>
+              <Link to="/account" aria-label="Your account" className="px-2 sm:px-3 min-h-[44px] inline-flex items-center rounded-pill hover:bg-tint"><Icon name="user" size={20} /></Link>
             ) : (
               <Link to="/login" className="px-4 min-h-[44px] inline-flex items-center rounded-pill bg-primary text-on-primary">Log in</Link>
             )}

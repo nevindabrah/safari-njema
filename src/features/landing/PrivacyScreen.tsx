@@ -15,7 +15,7 @@ const SECTIONS = [
     title: 'What is kept on a server',
     body: isDemoMode
       ? 'Nothing. This version has no accounts, so nothing you do here leaves your device unless you choose to email your phrasebook notes.'
-      : 'If you create an account, your email address, your trip, your stops and your lesson progress are stored with Supabase, our database provider, so you can sign in from another device. Only you can read them. You can ask for your account and everything in it to be deleted.',
+      : 'If you create an account, your email address, your trip, your stops and your lesson progress are stored with Supabase, our database provider, so you can sign in from another device. Only you can read them. You can delete your account and everything in it yourself, from the account page.',
   },
   {
     title: 'What is never collected',

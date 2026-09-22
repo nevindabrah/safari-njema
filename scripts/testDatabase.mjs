@@ -64,5 +64,15 @@ ok('user A can mark their lesson completed', await as(a, async () => (await db.q
 ok('deleting a stop removes its lesson', await as(a, async () => { await db.query(`delete from trip_stops where id = '${stopA}'`); return (await count(`select count(*) n from user_lessons`)) === 0 }))
 ok('someone not signed in sees no trips', await (async () => { await db.exec(`set role anon`); try { return (await count(`select count(*) n from trips`)) === 0 } finally { await db.exec(`reset role`) } })())
 
+
+// Deleting an account. User B must not be able to delete anyone but themselves, and everything of theirs must go with them.
+await as(b, async () => { await db.query(`insert into trips (user_id, title) values ('${b}', 'B trip')`) })
+// The function takes no argument, so the only account it can reach is the caller's. User A calls it here.
+await as(a, async () => { await db.query(`select delete_my_account()`) })
+await db.exec(`reset role`)
+ok('a user deleting their account removes their auth row, profile and trip', (await count(`select count(*) n from auth.users where id = '${a}'`)) === 0 && (await count(`select count(*) n from profiles where id = '${a}'`)) === 0 && (await count(`select count(*) n from trips where user_id = '${a}'`)) === 0)
+ok('user B is untouched', (await count(`select count(*) n from trips where user_id = '${b}'`)) === 1)
+ok('an anonymous visitor cannot call delete_my_account', await (async () => { await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`); try { await db.query(`select delete_my_account()`); return false } catch { return true } finally { await db.exec(`reset role`) } })())
+
 console.log(`\n${passed} passed, ${failed} failed`)
 process.exit(failed ? 1 : 0)

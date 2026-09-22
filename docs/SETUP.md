@@ -24,9 +24,11 @@ The anon key is safe in the browser. Row Level Security is what protects the dat
 1. Open **SQL Editor, New query**.
 2. Open `supabase/setup.sql` from this repo, copy all of it, paste it in, and press **Run**.
 
-That one file creates every table, every Row Level Security policy, the two database functions, and the 95 reviewed phrases and 10 proverbs. It is meant for a new project and should be run once.
+That one file creates every table, every Row Level Security policy, the three database functions (including the one behind "Delete my account"), and the 95 reviewed phrases and 10 proverbs. It is meant for a new project and should be run once.
 
-This exact file has been run in a real Postgres by `scripts/testDatabase.mjs`, which also checks that one user can never read or change another user's trip, stops or lessons.
+If you set the project up before 22 September 2026, run only `supabase/migrations/0006_delete_my_account.sql` in the SQL editor instead. Migrations are never edited, only added, so a later one is always safe to run on its own.
+
+This exact file has been run in a real Postgres by `scripts/testDatabase.mjs`, which also checks that one user can never read or change another user's trip, stops or lessons, and that deleting an account removes everything in it and nothing of anyone else's.
 
 ## 3. Email sign in
 
