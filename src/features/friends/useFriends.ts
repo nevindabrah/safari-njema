@@ -39,7 +39,7 @@ export function useFriends() {
     }
     const { data } = await supabase
       .from('friendships')
-      .select('id, status, requester_id, addressee_id, requester:profiles!friendships_requester_id_fkey(id, username, display_name), addressee:profiles!friendships_addressee_id_fkey(id, username, display_name)')
+      .select('id, status, requester_id, addressee_id, requester:profiles!friendships_requester_profile_fkey(id, username, display_name), addressee:profiles!friendships_addressee_profile_fkey(id, username, display_name)')
       .order('created_at')
     const rows = (data ?? []) as unknown as FriendshipRow[]
     setFriendships(rows.map((row) => {

@@ -20,8 +20,8 @@ export function useTripMembers(tripId: string | null, ownerId: string | null) {
   const reload = useCallback(async () => {
     if (!user || isDemoMode) return
     const [memberRows, sharedRows, ownerRow] = await Promise.all([
-      tripId ? supabase.from('trip_members').select('person:profiles!trip_members_user_id_fkey(id, username, display_name)').eq('trip_id', tripId) : Promise.resolve({ data: [] }),
-      supabase.from('trips').select('id, user_id, title, start_date, end_date, owner:profiles!trips_user_id_fkey(id, username, display_name)').neq('user_id', user.id),
+      tripId ? supabase.from('trip_members').select('person:profiles!trip_members_user_profile_fkey(id, username, display_name)').eq('trip_id', tripId) : Promise.resolve({ data: [] }),
+      supabase.from('trips').select('id, user_id, title, start_date, end_date, owner:profiles!trips_user_profile_fkey(id, username, display_name)').neq('user_id', user.id),
       ownerId && ownerId !== user.id ? supabase.from('profiles').select('id, username, display_name').eq('id', ownerId).maybeSingle() : Promise.resolve({ data: null }),
     ])
     setMembers(((memberRows.data ?? []) as unknown as { person: Person | null }[]).map((r) => r.person).filter((p): p is Person => !!p))
