@@ -9,9 +9,10 @@ export interface Profile {
   id: string
   username: string | null
   display_name: string | null
+  is_teacher: boolean
 }
 
-const DEMO_PROFILE: Profile = { id: 'demo-user', username: 'demo', display_name: 'Demo traveller' }
+const DEMO_PROFILE: Profile = { id: 'demo-user', username: 'demo', display_name: 'Demo traveller', is_teacher: false }
 
 export function useProfile() {
   const { user } = useAuth()
@@ -25,7 +26,7 @@ export function useProfile() {
       setLoading(false)
       return
     }
-    const { data } = await supabase.from('profiles').select('id, username, display_name').eq('id', user.id).maybeSingle()
+    const { data } = await supabase.from('profiles').select('id, username, display_name, is_teacher').eq('id', user.id).maybeSingle()
     setProfile(data)
     setLoading(false)
   }, [user])

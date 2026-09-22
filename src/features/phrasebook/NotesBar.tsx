@@ -1,7 +1,8 @@
-// The bar at the bottom of the phrasebook that gathers a reviewer's notes and sends them: by email, by copying, or as a file.
-// Exists so feedback reaches Nevin with no account and no server. Three ways, because not everyone's device opens email links.
+// The bar at the bottom of the phrasebook that gathers a reviewer's notes and sends them to the teacher's page, or by email, copy or file.
+// Exists so feedback reaches the people who can act on it with no account needed. The teacher's page is the main way; the others need no server.
 import { useState } from 'react'
 import { Button } from '../../components/Button'
+import { supabase, isSupabaseConfigured } from '../../lib/supabase'
 import { FEEDBACK_EMAIL, feedbackMailto } from '../../lib/contact'
 import { countNotes, formatNotes, type NotedPhrase } from '../../lib/phraseNotes'
 
@@ -16,8 +17,9 @@ interface NotesBarProps {
 export function NotesBar({ notes, phrases, reviewer, onReviewer, onClear }: NotesBarProps) {
   const [open, setOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [sent, setSent] = useState<'no' | 'sending' | 'yes' | 'failed'>('no')
   const count = countNotes(notes)
-  if (count === 0) return null
+  if (count === 0) return sent === 'yes' ? <p role="status" className="fixed z-30 left-4 right-4 bottom-4 mx-auto max-w-3xl bg-surface rounded-card shadow-lift p-4 font-bold text-center">Sent. Asante for your notes.</p> : null
   const message = formatNotes(notes, phrases, reviewer)
 
   async function copy() {
@@ -27,6 +29,15 @@ export function NotesBar({ notes, phrases, reviewer, onReviewer, onClear }: Note
     } catch {
       setCopied(false)
     }
+  }
+
+  async function sendToTeacher() {
+    setSent('sending')
+    const rows = phrases.filter((p) => (notes[p.swahili] ?? '').trim() !== '').map((p) => ({ swahili: p.swahili, note: notes[p.swahili].trim().slice(0, 1000), reviewer_name: reviewer.trim() || null }))
+    const { error } = await supabase.from('phrase_notes').insert(rows)
+    if (error) return setSent('failed')
+    setSent('yes')
+    onClear()
   }
 
   function download() {
@@ -52,11 +63,13 @@ export function NotesBar({ notes, phrases, reviewer, onReviewer, onClear }: Note
             </label>
             <pre className="text-xs bg-surface-2 rounded-input p-3 max-h-40 overflow-auto whitespace-pre-wrap">{message}</pre>
             <div className="mt-3 flex flex-wrap gap-2">
+              {isSupabaseConfigured && <Button variant="accent" onClick={sendToTeacher} disabled={sent === 'sending'}>{sent === 'sending' ? 'Sending' : 'Send to the teacher'}</Button>}
               <a href={feedbackMailto('Safari Njema: notes on the Swahili phrases', message)}><Button tabIndex={-1}>Email them</Button></a>
               <Button variant="soft" onClick={copy}>{copied ? 'Copied' : 'Copy them'}</Button>
               <Button variant="soft" onClick={download}>Save as a file</Button>
               <button type="button" onClick={onClear} className="underline text-sm text-muted px-2 min-h-[44px] cursor-pointer">Clear my notes</button>
             </div>
+            {sent === 'failed' && <p role="alert" className="text-sm text-accent-text font-bold mt-2">Could not send. Check your connection, or use one of the other ways.</p>}
             {!FEEDBACK_EMAIL && <p className="text-xs text-muted mt-2">The email opens with the address left empty. Send it to Nevin.</p>}
           </div>
         )}
