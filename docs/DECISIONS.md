@@ -157,6 +157,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Why.** Kangas are cloths printed with proverbs. It is the one reward in the app that is Kenyan rather than generic.
 **Alternatives.** Points and streaks alone. The streak exists inside practice; the kanga is the lasting thing.
 
+### 5.6 What a place is comes from Wikipedia, not from a model
+**Decision.** The brief step and the add card open with two sentences about the place from the English Wikipedia article, credited in very small type with a link to the article and to CC BY-SA 4.0. The 51 catalogue places have their descriptions saved in `placeSummaries.json` by a script run once and read by a person (43 of 51 have a fitting article; the rest show nothing). A place found on Google Maps is looked up live: first the article with exactly that title, then a quoted search steered by the county. An article is used only if every word of the place name appears in its title, and disambiguation pages and stubs are dropped. No article means no paragraph, not a wrong one.
+**Why.** The owner wanted lessons about the exact place without paying for an AI key. Wikipedia is free, needs no key, allows requests from the browser, and its text is licensed for this with credit. The template brief stays underneath, so the Swahili teaching does not depend on Wikipedia at all.
+**Alternatives.** Claude writing the brief (costs money and writes text nobody reviewed). A free tier model key (still a key to keep secret and a quota to run out). Writing 51 briefs by hand (the owner's time, and nothing for places outside the catalogue). Showing whatever Wikipedia's search returns first (the first run matched Giraffe Centre to Giraffe Manor and Talisman Restaurant to a September 11 article).
+**Trade-off.** Some places have no article, and a few catalogue entries use the nearest one on purpose: Watamu Beach shows the town, the two Madaraka Express stations show the railway, Nairobi CBD shows the city. The credit is 10 pixel type at the owner's request, which is smaller than the rest of the app's text.
+
 ## 6. Demo mode and the map
 
 ### 6.1 A full demo with no keys, no accounts and no server

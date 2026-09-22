@@ -1,0 +1,217 @@
+{
+  "sample-maasai-mara": {
+    "title": "Maasai Mara",
+    "extract": "Maasai Mara, sometimes also spelt Masai Mara and locally known simply as The Mara, is a large national game reserve in Narok County, Kenya, contiguous with the Serengeti National Park in Tanzania. It is named in honour of the Maasai people, the ancestral inhabitants of the area, who migrated to the area from the Nile Basin.",
+    "url": "https://en.wikipedia.org/wiki/Maasai_Mara"
+  },
+  "sample-diani": {
+    "title": "Diani Beach",
+    "extract": "Diani Beach is a beach on the Indian Ocean coast of Kenya. It is located 30 kilometres (19 mi) south of Mombasa, in Kwale County.",
+    "url": "https://en.wikipedia.org/wiki/Diani_Beach"
+  },
+  "sample-lamu": {
+    "title": "Lamu",
+    "extract": "Lamu or Lamu Town is a small town on Lamu Island, which in turn is a part of the Lamu Archipelago in Kenya on the continent of Africa. Situated 341 kilometres (212 mi) by road northeast of Mombasa that ends at Mokowe Jetty, from where the sea channel has to be crossed to reach Lamu Island, it is the headquarter of Lamu County and a UNESCO World Heritage Site.",
+    "url": "https://en.wikipedia.org/wiki/Lamu"
+  },
+  "sample-fort-jesus": {
+    "title": "Fort Jesus",
+    "extract": "Fort Jesus (Portuguese: Forte Jesus de Mombaça; Swahili: Boma la Yesu la Mombasa), is a fort located on Mombasa Island. Designed by the Italian architect Giovanni Battista Cairati, it was built between 1593 and 1596 by order of King Felipe II of Spain, who also reigned as King Filipe I of Portugal and the Algarves, to guard the Old Port of Mombasa.",
+    "url": "https://en.wikipedia.org/wiki/Fort_Jesus"
+  },
+  "sample-nairobi-np": {
+    "title": "Nairobi National Park",
+    "extract": "Nairobi National Park is a national park in Kenya that was established in 1946 about 7 km (4.3 mi) south of Nairobi. It is fenced on three sides, whereas the open southern boundary allows migrating wildlife to move between the park and the adjacent Kitengela plains.",
+    "url": "https://en.wikipedia.org/wiki/Nairobi_National_Park"
+  },
+  "sample-giraffe-centre": {
+    "title": "Giraffe Centre",
+    "extract": "The Giraffe Centre is a wildlife conservation facility located in Lang'ata, approximately 20 kilometres (12 mi) from the centre of Nairobi, Kenya. It was established to protect the vulnerable Rothschild's giraffe, that is found only in the grasslands of East Africa.",
+    "url": "https://en.wikipedia.org/wiki/Giraffe_Centre"
+  },
+  "sample-karura": {
+    "title": "Karura Forest",
+    "extract": "Karura Forest is an urban forest in Nairobi, the capital of Kenya. It is the second largest urban forest in the world after the Tijuca Forest in Rio de Janeiro located in Brazil.",
+    "url": "https://en.wikipedia.org/wiki/Karura_Forest"
+  },
+  "sample-amboseli": {
+    "title": "Amboseli National Park",
+    "extract": "Amboseli National Park, formerly Maasai Amboseli Game Reserve, is a national park in Loitoktok District in Kajiado County, Kenya. It measures 392 km2 (151 sq mi) in size at the core of an 8,000 km2 (3,100 sq mi) ecosystem that spreads across the Kenya-Tanzania border.",
+    "url": "https://en.wikipedia.org/wiki/Amboseli_National_Park"
+  },
+  "sample-lake-nakuru": {
+    "title": "Lake Nakuru",
+    "extract": "Lake Nakuru is one of the Rift Valley lakes, located at an elevation of 1,754 m (5,755 ft) above sea level. It lies to the south of Nakuru, in the rift valley of Kenya and is protected by Lake Nakuru National Park.",
+    "url": "https://en.wikipedia.org/wiki/Lake_Nakuru"
+  },
+  "sample-hells-gate": {
+    "title": "Hell's Gate National Park",
+    "extract": "Hell's Gate National Park is a national park situated near Lake Naivasha in Kenya. The park is named after a narrow break in the cliffs, once a tributary of a prehistoric lake that fed early humans in the Rift Valley.",
+    "url": "https://en.wikipedia.org/wiki/Hell%27s_Gate_National_Park"
+  },
+  "sample-mount-kenya": {
+    "title": "Mount Kenya National Park",
+    "extract": "Mount Kenya National Park (Hifadhi ya Taifa ya Mlima Kenya, in Swahili) is a national park in Kenya that was established in 1949 around Mount Kenya to protect its surrounding environment and wildlife. It is also a drainage basin for the region's water supply.",
+    "url": "https://en.wikipedia.org/wiki/Mount_Kenya_National_Park"
+  },
+  "sample-watamu": {
+    "title": "Watamu",
+    "extract": "Watamu is a small town located approximately 105 km north of Mombasa and about 15 km south of Malindi on the Indian Ocean coast of Kenya. It lies on a small headland, between the Blue Lagoon and Watamu Bay.",
+    "url": "https://en.wikipedia.org/wiki/Watamu"
+  },
+  "sample-malindi": {
+    "title": "Malindi",
+    "extract": "Malindi (known as Melinde in antiquity) is a town on Malindi Bay at the mouth of the Galana River, lying on the Indian Ocean coast of Kenya. It is 120 kilometres northeast of Mombasa.",
+    "url": "https://en.wikipedia.org/wiki/Malindi"
+  },
+  "sample-kisumu": {
+    "title": "Kisumu",
+    "extract": "Kisumu ( kee-SOO-moo) is the third-largest city in Kenya located in the Lake Victoria area in the former Nyanza Province. It is the second-largest city in the Lake Victoria Basin after Kampala.",
+    "url": "https://en.wikipedia.org/wiki/Kisumu"
+  },
+  "sample-nairobi-cbd": {
+    "title": "Nairobi",
+    "extract": "Nairobi ( ny-ROH-bee) (Jiji kuu la Nairobi, in Swahili), is the capital and largest city of Kenya, located in the south-central part of the country. As of 2026, it has a population of 5.6 million and a metropolitan population of 15.95 million, making it the 8th most populous city in Africa and the 4th most populous metropolitan area.",
+    "url": "https://en.wikipedia.org/wiki/Nairobi"
+  },
+  "sample-jkia": {
+    "title": "Jomo Kenyatta International Airport",
+    "extract": "Jomo Kenyatta International Airport (IATA: NBO, ICAO: HKJK) is an international airport serving Nairobi, the capital and largest city of Kenya. It is located in the Embakasi suburb, approximately 18 kilometres (11 mi) southeast of Nairobi city centre.",
+    "url": "https://en.wikipedia.org/wiki/Jomo_Kenyatta_International_Airport"
+  },
+  "sample-sgr": {
+    "title": "Mombasa–Nairobi Standard Gauge Railway",
+    "extract": "The Mombasa–Nairobi Standard Gauge Railway, completed in 2017, was built as the first phase of the Kenya Standard Gauge Railway. It is a standard-gauge railway (SGR) in Kenya that connects the large Indian Ocean city of Mombasa with Nairobi, the country's capital and largest city.",
+    "url": "https://en.wikipedia.org/wiki/Mombasa%E2%80%93Nairobi_Standard_Gauge_Railway"
+  },
+  "sample-carnivore": {
+    "title": "Carnivore (restaurant)",
+    "extract": "Carnivore is an open-air restaurant in the Langata suburb of Nairobi, Kenya. Carnivore's specialty is meat, and features an all-you-can-eat meat buffet.",
+    "url": "https://en.wikipedia.org/wiki/Carnivore_(restaurant)"
+  },
+  "sample-hotel": {
+    "title": "Stanley Hotel, Nairobi",
+    "extract": "The Stanley Hotel (currently called the Sarova Stanley) is a five-star hotel in Nairobi, Kenya. It is the first luxury hotel in Nairobi, having been established in 1902 by English businesswoman Mayence Bent, when the city was a railway halt.",
+    "url": "https://en.wikipedia.org/wiki/Stanley_Hotel,_Nairobi"
+  },
+  "sample-jamia": {
+    "title": "Jamia Mosque (Kenya)",
+    "extract": "Jamia Mosque, also known as Jamia Masjid, is a Sunni mosque on Banda Street in the Nairobi Central Business District, Kenya. The present mosque was designed by Glasgow-based architect William Landels and constructed between 1925 and 1933 through an extensive community fundraising effort organised by the Anjuman Islamia, also known as the Jamia Mosque Association.",
+    "url": "https://en.wikipedia.org/wiki/Jamia_Mosque_(Kenya)"
+  },
+  "sample-tsavo-east": {
+    "title": "Tsavo East National Park",
+    "extract": "Tsavo East National Park is a national park in Kenya with an area of 13,747 km2 (5,308 sq mi). Established in April 1948 covering a semi-arid area previously known as the Taru Desert.",
+    "url": "https://en.wikipedia.org/wiki/Tsavo_East_National_Park"
+  },
+  "sample-lake-naivasha": {
+    "title": "Lake Naivasha",
+    "extract": "Lake Naivasha is a freshwater lake in Kenya, outside the town of Naivasha in Nakuru County, north west of Nairobi in the Great Rift Valley. The name derives from the local Maasai name ɛnaɨpɔ́sha , meaning \"that which heaves,\" a common Maasai word for bodies of water large enough to have wave action when it is windy or stormy.",
+    "url": "https://en.wikipedia.org/wiki/Lake_Naivasha"
+  },
+  "sample-ol-pejeta": {
+    "title": "Ol Pejeta Conservancy",
+    "extract": "The Ol Pejeta Conservancy is a 360 km2 (140 sq mi) not-for-profit wildlife conservancy in Central Kenya's Laikipia County. It is situated on the equator west of Nanyuki, between the foothills of the Aberdares and Mount Kenya.",
+    "url": "https://en.wikipedia.org/wiki/Ol_Pejeta_Conservancy"
+  },
+  "sample-samburu": {
+    "title": "Samburu National Reserve",
+    "extract": "Samburu National Reserve is a game reserve on the banks of the Ewaso Ng'iro river in Kenya. It is 165 km2 (64 sq mi) in size and is 350 km (220 mi) from Nairobi.",
+    "url": "https://en.wikipedia.org/wiki/Samburu_National_Reserve"
+  },
+  "sample-sheldrick": {
+    "title": "Sheldrick Wildlife Trust",
+    "extract": "The Sheldrick Wildlife Trust (SWT) operates an orphaned elephant rescue and wildlife rehabilitation program in Nairobi, Kenya. It was founded in 1977 by Dame Daphne Sheldrick to honour her late husband, David.",
+    "url": "https://en.wikipedia.org/wiki/Sheldrick_Wildlife_Trust"
+  },
+  "sample-kakamega-forest": {
+    "title": "Kakamega Forest",
+    "extract": "Kakamega Forest is a tropical rainforest situated in the Kakamega, Vihiga, and Nandi counties of Kenya, northwest of the capital Nairobi, and near the border with Uganda. It is Kenya's only tropical rainforest and is said to be Kenya's last remnant of the ancient Guineo-Congolian rainforest that once spanned the continent.",
+    "url": "https://en.wikipedia.org/wiki/Kakamega_Forest"
+  },
+  "sample-mombasa-old-town": {
+    "title": "Mombasa Old Town",
+    "extract": "The Old Town of Mombasa, also known as Mji Wa Kale (Swahili for 'old town'), is the old part of Mombasa, the main city of Mombasa County in Kenya. Situated on the south-east side of Mombasa Island, the Old Town covers an area of 72 hectares (180 acres), and is inhabited by a mix of Swahili, Arab, Persian, Indian, Asian, Portuguese and British settlers.",
+    "url": "https://en.wikipedia.org/wiki/Mombasa_Old_Town"
+  },
+  "sample-nanyuki": {
+    "title": "Nanyuki",
+    "extract": "Nanyuki is a market town in Laikipia County, Kenya, located northwest of Mount Kenya along the A2 road and at the terminus of the branch railway from Nairobi. The name is derived from the Maasai word \"Enyaanyukie,\" which means \"resemblance.\" It lies just north of the Equator (0° 01' N).",
+    "url": "https://en.wikipedia.org/wiki/Nanyuki"
+  },
+  "sample-nakuru": {
+    "title": "Nakuru",
+    "extract": "Nakuru, sometimes referred to as Nakuru City, is the capital and largest city of Nakuru County, Kenya. As of 2019, Nakuru had an urban population of 570,674.",
+    "url": "https://en.wikipedia.org/wiki/Nakuru"
+  },
+  "sample-eldoret": {
+    "title": "Eldoret",
+    "extract": "Eldoret is a city in the Rift Valley region of Kenya. It serves as the capital of Uasin Gishu County.",
+    "url": "https://en.wikipedia.org/wiki/Eldoret"
+  },
+  "sample-naivasha-town": {
+    "title": "Naivasha",
+    "extract": "Naivasha () is a town in Nakuru County, Kenya, 92.8 km (57.7 mi) north west of Nairobi. From 1969, the population expanded by a factor of 17 times to over 355,383 at the 2019 census.",
+    "url": "https://en.wikipedia.org/wiki/Naivasha"
+  },
+  "sample-gedi": {
+    "title": "Ruins of Gedi",
+    "extract": "The Ruins of Gedi (Magofu wa mji wa kale wa Gedi in (Swahili) are a UNESCO World Heritage site near the Indian Ocean coast of eastern Kenya. The site is adjacent to the town of Gedi (also known as Gede) in Kilifi County and within the Arabuko-Sokoke Forest.",
+    "url": "https://en.wikipedia.org/wiki/Ruins_of_Gedi"
+  },
+  "sample-bomas": {
+    "title": "Bomas of Kenya",
+    "extract": "Bomas of Kenya is a tourist village in Langata, Nairobi, in Kenya. Bomas interpreted to mean (homesteads) displays traditional villages belonging to the several Kenyan tribes.",
+    "url": "https://en.wikipedia.org/wiki/Bomas_of_Kenya"
+  },
+  "sample-karen-blixen": {
+    "title": "Karen Blixen Museum, Kenya",
+    "extract": "The Karen Blixen Museum, located 10 km (6.2 mi) outside of Nairobi, Kenya, \"at the foot of the Ngong Hills\", is the former African home of Danish author Karen Blixen, famous for her 1937 book Out of Africa which chronicles life at the estate.",
+    "url": "https://en.wikipedia.org/wiki/Karen_Blixen_Museum,_Kenya"
+  },
+  "sample-kicc": {
+    "title": "Kenyatta International Convention Centre",
+    "extract": "The Kenyatta International Convention Centre (KICC), formerly the Kenyatta International Conference Centre, is a 32-story building located in Nairobi, Kenya. The KICC is located in the City Square of Nairobi, and is a crucial address for a number of Government offices, including those of recently elected Senators.",
+    "url": "https://en.wikipedia.org/wiki/Kenyatta_International_Convention_Centre"
+  },
+  "sample-village-market": {
+    "title": "The Village Market",
+    "extract": "The Village Market is a large shopping, recreation and entertainment complex in the Kenyan capital, Nairobi. It accommodates over 150 stores outlets covering 210,000 square feet (20,000 m2) of retail space, 20,000 square feet (1,900 m2) square feet of office space, in addition to recreation and entertainment facilities.",
+    "url": "https://en.wikipedia.org/wiki/The_Village_Market"
+  },
+  "sample-moi-airport": {
+    "title": "Moi International Airport",
+    "extract": "Moi International Airport (IATA: MBA, ICAO: HKMO) is an international airport in Mombasa, the second-largest city in Kenya. In 2020, the airport was heralded as the \"Best Airport in Africa\" (with under 2 million passengers annually) by Airports Council International.",
+    "url": "https://en.wikipedia.org/wiki/Moi_International_Airport"
+  },
+  "sample-wilson-airport": {
+    "title": "Wilson Airport",
+    "extract": "Wilson Airport (IATA: WIL, ICAO: HKNW) is an airport in Nairobi, Kenya. It has flights to many regional airports in Kenya while Nairobi's main airport, Jomo Kenyatta International Airport, serves domestic and many international destinations.",
+    "url": "https://en.wikipedia.org/wiki/Wilson_Airport"
+  },
+  "sample-mombasa-terminus": {
+    "title": "Mombasa–Nairobi Standard Gauge Railway",
+    "extract": "The Mombasa–Nairobi Standard Gauge Railway, completed in 2017, was built as the first phase of the Kenya Standard Gauge Railway. It is a standard-gauge railway (SGR) in Kenya that connects the large Indian Ocean city of Mombasa with Nairobi, the country's capital and largest city.",
+    "url": "https://en.wikipedia.org/wiki/Mombasa%E2%80%93Nairobi_Standard_Gauge_Railway"
+  },
+  "sample-nyali": {
+    "title": "Nyali",
+    "extract": "Nyali is a residential area and Sub-County within Mombasa City, located on the mainland north of Mombasa County. It is connected to Mombasa Island by the New Nyali Bridge.",
+    "url": "https://en.wikipedia.org/wiki/Nyali"
+  },
+  "sample-bamburi": {
+    "title": "Bamburi",
+    "extract": "Bamburi (Swahili: [ɓɑ'ᵐburi]), from the local bantu words \"Ba\" (People) and \"Mburi\" (Goat), is a commercial, industrial and local electoral, administrative and a tourist and residential area on the Kenyan north-coast which extends from the coastline on the Indian Ocean to the surrounding middle and low-income settlements on the mainland. Administratively, Bamburi is in the Kisauni sub-county of Mombasa and has tourist and beach-front facilities, which include international and local hotels and parks such as Serena International Beach Hotel, Sai Rock Hotel, Kahamas Hotel, Haller Park and Butterfly Pavilion.",
+    "url": "https://en.wikipedia.org/wiki/Bamburi"
+  },
+  "sample-giraffe-manor": {
+    "title": "Giraffe Manor",
+    "extract": "Giraffe Manor is a small, boutique hotel in the Lang'ata suburb of Nairobi, Kenya which, together with the AFEW Giraffe Centre, serves as a home to a number of endangered Nubian giraffes, and operates a breeding programme to reintroduce breeding pairs back into the wild to secure the future of the subspecies.",
+    "url": "https://en.wikipedia.org/wiki/Giraffe_Manor"
+  },
+  "sample-all-saints": {
+    "title": "All Saints' Cathedral, Nairobi",
+    "extract": "All Saints' Cathedral, Nairobi, formerly the Cathedral of the Highlands, is a cathedral of the Anglican Church of Kenya (ACK) in Nairobi.",
+    "url": "https://en.wikipedia.org/wiki/All_Saints%27_Cathedral,_Nairobi"
+  }
+}

@@ -21,6 +21,7 @@ Safari Njema is designed around **Google Maps Platform** and the **Claude API**.
 | Part | In the demo | With the keys switched on | Where the code is |
 |---|---|---|---|
 | Map and search | A sketch of Kenya and a catalogue of 51 built-in places, searchable by intent | Google Maps JavaScript API for the map and pins. Places Autocomplete, limited to Kenya, with session tokens and only six billed fields | `src/features/trip/TripMap.tsx`, `usePlaceSearch.ts` |
+| What a place is | Two sentences from the English Wikipedia article, saved once for the catalogue and credited in small type | The same, looked up live for any place found on Google Maps, and shown only when the article's title holds every word of the place name | `src/lib/wikipedia.ts`, `src/features/places/useWikipediaSummary.ts` |
 | Lessons | A template picks phrases from the bank and adds a general brief | The Claude API writes the brief for the exact place and chooses phrases from the bank. JSON is validated with zod, retried once, then falls back to the template | `supabase/functions/generate-lesson/claude.ts` |
 | Accounts and data | One demo account in the browser | Supabase Auth, Postgres with Row Level Security, and an Edge Function that keeps the Anthropic key on the server | `supabase/migrations/`, `generate-lesson/index.ts` |
 

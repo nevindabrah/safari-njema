@@ -12,6 +12,7 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Set the Site URL and Redirect URLs in Supabase | Owner | Step 7. Wrong values send Google sign in back to localhost. |
 | Google Cloud OAuth client, pasted into Supabase | Owner | Step 4. Needs the consent screen and the Supabase callback URL. |
 | Run `npm run check:supabase`, then sign up for real and add a stop | Owner, then assistant | The first ever live test of accounts. Fix whatever it finds. |
+| Turn on Google Maps: key, Map ID, domain restriction, quota cap, then the two `VITE_GOOGLE` values on Vercel | Owner | Section 8 of `docs/SETUP.md`. Free within Google's monthly allowance; needs a card on the Cloud billing account. Until then the catalogue is the planner. |
 | Human recordings for the four held phrases | Owner's professor or friend | Sasa? / Poa, Ndiyo / Hapana, Mia / Elfu, Twiga. Drop the files into `public/audio` and add them to the manifest. |
 | Owner reviews the 16 "unsure" recordings and says keep or remove | Owner | Listed behind "recordings to check" on `/phrasebook`. |
 | Teacher reads the food page notes | Owner's professor | `src/features/food/dishes.ts`. English descriptions of 14 dishes and their names as written on menus. |
@@ -41,7 +42,6 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Offline lessons | A finished lesson and its audio kept for the bus. The PRD says the site is not an installable app, so this would be cache only. |
 | Screen reader pass | Labels and live regions exist. Nobody has used the app with VoiceOver yet. |
 | Commercial voice | Only if the project ever earns money. MMS is non-commercial. |
-| Google Maps key on the live site | Paid. Until then the catalogue is the planner. |
 
 ## Not doing, and why
 

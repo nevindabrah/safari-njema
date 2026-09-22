@@ -1,11 +1,21 @@
-// Step one of the lesson: what this place is, three things to know, etiquette and a practical note.
+// Step one of the lesson: what this place is, in Wikipedia's words when it has them, three things to know, etiquette and a practical note.
 // Exists as the orientation part of every lesson.
 import type { Lesson } from '../../lib/lessonSchema'
+import { useWikipediaSummary } from '../places/useWikipediaSummary'
+import { WikipediaNote } from '../places/WikipediaNote'
 
-export function BriefStep({ brief }: { brief: Lesson['brief'] }) {
+interface BriefStepProps {
+  brief: Lesson['brief']
+  placeName: string
+  googlePlaceId: string | null
+}
+
+export function BriefStep({ brief, placeName, googlePlaceId }: BriefStepProps) {
+  const summary = useWikipediaSummary(googlePlaceId, placeName)
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-lg leading-relaxed">{brief.what_it_is}</p>
+      <WikipediaNote summary={summary} className="text-lg" />
+      <p className={summary ? 'leading-relaxed' : 'text-lg leading-relaxed'}>{brief.what_it_is}</p>
       <div>
         <h3 className="text-xl mb-2">Things to know today</h3>
         <ul className="flex flex-col gap-2">

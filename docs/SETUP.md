@@ -114,6 +114,21 @@ Then tell Supabase where the site lives, so emailed links and Google sign in com
 
 The landing page then offers "Create your account". The demo only runs when the Supabase values are missing, for development and the browser tests, and it lives only in the visitor's browser.
 
+## 8. Optional: Google Maps, so students can search any place in Kenya
+
+Without this the planner shows the sketch map and the 51 built-in places. With it, the trip screen shows Google Maps and the search box finds any place in Kenya. Google gives each API a free monthly allowance (as of 2025, 10,000 map loads and 10,000 search suggestions a month) but needs a card on the account.
+
+1. In [console.cloud.google.com](https://console.cloud.google.com) pick the project you used for Google sign in, or make one. Open **Billing** and attach a card.
+2. Open **APIs and Services, Library** and enable two APIs: **Maps JavaScript API** and **Places API (New)**. Not the old Places API.
+3. Open **APIs and Services, Credentials**, then **Create credentials, API key**. Edit the key straight away:
+   - **Application restrictions**: Websites. Add `https://safari-njema-rust.vercel.app/*` and `http://localhost:5184/*`.
+   - **API restrictions**: Restrict key, tick only Maps JavaScript API and Places API (New).
+4. Open **Google Maps Platform, Map Management** and create a Map ID with map type **JavaScript** and **Vector**. Copy the ID. The custom pins need it.
+5. Protect the bill. In **APIs and Services, Enabled APIs**, open each of the two APIs, then **Quotas**, and cap requests per day (for example 2,000). In **Billing, Budgets and alerts**, set a budget of a few dollars with an email alert.
+6. Put `VITE_GOOGLE_MAPS_KEY` and `VITE_GOOGLE_MAP_ID` in `.env` for local work and in Vercel's environment variables for the live site, then redeploy.
+
+The key is visible in the page source by design. The website restriction in step 3 is what stops anyone else using it.
+
 ## What can go wrong
 
 | What you see | Likely cause |

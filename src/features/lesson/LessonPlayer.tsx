@@ -93,7 +93,7 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
 
       <Card>
         {step === -1 && <LengthPicker selected={length} sizes={sizes} onSelect={chooseLength} onStart={() => setStep(0)} />}
-        {step === 0 && <BriefStep brief={lesson.brief} />}
+        {step === 0 && <BriefStep brief={lesson.brief} placeName={lesson.place.name} googlePlaceId={googlePlaceId ?? null} />}
         {step === 1 && <PhrasesStep phrases={studied} lessonPhrases={lesson.phrases} />}
         {step === 2 && <QuizStep exercises={exercises} onFinish={finishQuiz} />}
         {step === 3 && result && <LessonEnd lesson={lesson} studied={studied} result={result} backTo={backTo} backLabel={backLabel} userLessonId={userLessonId} />}
