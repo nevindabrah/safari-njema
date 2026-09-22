@@ -24,9 +24,12 @@ test('the demo opens on a three stop trip and a stop can be added and removed', 
 
 test('the catalogue opens, filters by kind, and closes with Escape', async ({ page }) => {
   await openDemo(page)
-  await page.getByRole('button', { name: 'Browse places to add' }).click()
+  await page.getByRole('button', { name: 'Add a place' }).click()
   const dialog = page.getByRole('dialog', { name: 'Where are you going?' })
   await expect(dialog).toBeVisible()
+  await dialog.getByRole('searchbox', { name: 'Search places' }).fill('karura')
+  await expect(dialog.getByRole('button', { name: /Karura Forest/ })).toBeVisible()
+  await dialog.getByRole('searchbox', { name: 'Search places' }).fill('')
   await dialog.getByRole('button', { name: /^Food/ }).click()
   await expect(dialog.getByRole('button', { name: /^All/ })).toBeVisible()
   await page.keyboard.press('Escape')

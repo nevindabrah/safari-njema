@@ -1,6 +1,7 @@
-// The itinerary: trip progress, then the stops grouped by day in visiting order.
+// The itinerary: trip progress, the stops grouped by day in visiting order, then a button to add the next place.
 // Exists as the home screen's main content. Each row is a StopCard.
 import { ProgressBar } from '../../components/ProgressBar'
+import { Button } from '../../components/Button'
 import { Icon } from '../../components/icons'
 import { dayNumber } from '../../lib/orderStops'
 import type { StopRow, Trip } from '../../lib/types'
@@ -14,6 +15,7 @@ interface ItineraryListProps {
   onDelete: (stopId: string) => void
   onRetry: (stopId: string) => void
   onMove: (stopId: string, visitDate: string | null) => void
+  onAdd: () => void
 }
 
 function dayLabel(date: string | null, trip: Trip): string {
@@ -23,13 +25,14 @@ function dayLabel(date: string | null, trip: Trip): string {
   return day ? `Day ${day} · ${text}` : text
 }
 
-export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, onRetry, onMove }: ItineraryListProps) {
+export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, onRetry, onMove, onAdd }: ItineraryListProps) {
   if (stops.length === 0) {
     return (
       <div className="bg-surface rounded-card shadow-soft p-6 text-center">
         <p className="flex justify-center mb-3 text-muted"><Icon name="map" size={40} /></p>
         <p className="font-bold">You have no stops yet.</p>
-        <p className="text-muted text-sm">Search for the first place you are going and add it.</p>
+        <p className="text-muted text-sm mb-4">Search for the first place you are going and add it.</p>
+        <Button variant="accent" onClick={onAdd}><Icon name="search" size={18} />Add a place</Button>
       </div>
     )
   }
@@ -69,6 +72,10 @@ export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, 
           </ul>
         </section>
       ))}
+      <div className="px-2">
+        <Button variant="accent" full onClick={onAdd}><Icon name="search" size={18} />Add a place</Button>
+        <p className="text-xs text-muted text-center mt-2">Search by name, or browse every place by kind.</p>
+      </div>
     </div>
   )
 }

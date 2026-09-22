@@ -18,8 +18,6 @@ import { SamplePlaceSearch } from '../demo/SamplePlaceSearch'
 import { playSound } from '../../lib/sounds'
 import { TripDates } from './TripDates'
 import { PlaceCatalog } from './PlaceCatalog'
-import { Button } from '../../components/Button'
-import { Icon } from '../../components/icons'
 import { useTripMembers } from './useTripMembers'
 import { useAuth } from '../auth/useAuth'
 import { TripMembers } from './TripMembers'
@@ -112,11 +110,10 @@ export function TripScreen() {
           {(stopsError || membersError) && <p role="alert" className="mx-2 mb-4 rounded-input p-3 text-sm font-bold" style={{ background: 'var(--wrong-soft)' }}>{stopsError ?? membersError}</p>}
           {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} readOnly={!isOwner && !isDemoMode} /></div>}
           {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onInvite={invite} onRemove={removeMember} />}
-          <div className="px-2 mb-5"><Button variant="soft" full onClick={() => setCatalogOpen(true)}><Icon name="map" size={18} />Browse places to add</Button></div>
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>
           ) : (
-            trip && <ItineraryList trip={trip} stops={stops} highlightedId={highlightedId} onSelect={selectStop} onDelete={deleteStop} onRetry={retryLesson} onMove={moveStop} />
+            trip && <ItineraryList trip={trip} stops={stops} highlightedId={highlightedId} onSelect={selectStop} onDelete={deleteStop} onRetry={retryLesson} onMove={moveStop} onAdd={() => setCatalogOpen(true)} />
           )}
           <ReviewNote />
         </section>
