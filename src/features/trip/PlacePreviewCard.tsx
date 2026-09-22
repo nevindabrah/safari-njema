@@ -36,7 +36,7 @@ export function PlacePreviewCard({ place, trip, shared, onAdd, onClose }: PlaceP
   const [visitDate, setVisitDate] = useState<string | null>(null)
   const [activities, setActivities] = useState<string[]>([])
   const [justMe, setJustMe] = useState(false)
-  const facts = usePlaceFacts(place.googlePlaceId, place.name, place.county)
+  const facts = usePlaceFacts(place.googlePlaceId, place.name, { county: place.county, region: place.region, lat: place.lat, lng: place.lng, placeType: place.placeType })
   const [busy, setBusy] = useState(false)
   const info = PLACE_TYPE_INFO[place.placeType]
   const days = tripDays(trip)

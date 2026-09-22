@@ -5,6 +5,7 @@ export interface WikipediaSummary {
   extract: string
   url: string
   imageFile?: string | null
+  source?: 'wikipedia' | 'wikivoyage'
 }
 
 export interface CommonsImage {

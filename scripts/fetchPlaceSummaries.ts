@@ -1,9 +1,10 @@
-// Asks Wikipedia once for a two sentence description of each built-in place and saves the ones that pass the fit check.
+// Asks Wikipedia, then Wikivoyage, once for a two sentence description of each built-in place and saves the ones that pass the fit check.
 // Exists so the catalogue's descriptions are fixed, reviewed text with a credit, and only places found on Google Maps need a live lookup.
 // Run: node scripts/fetchPlaceSummaries.ts
 import { writeFileSync } from 'node:fs'
 import { SAMPLE_PLACES } from '../src/features/demo/samplePlaces.ts'
 import { pickWikipediaSummary, wikipediaSearchUrl, wikipediaTitleUrl, type WikipediaSummary } from '../src/lib/wikipedia.ts'
+import { findListing, listingSummary, parseListings, wikitextOf, wikivoyagePagesFor, wikivoyagePageUrl } from '../src/lib/wikivoyage.ts'
 
 const USER_AGENT = 'SafariNjema/1.0 (student project; https://github.com/nevindabrah/safari-njema)'
 const KNOWN_TITLES: Record<string, string> = {
@@ -20,6 +21,8 @@ const KNOWN_TITLES: Record<string, string> = {
   'sample-all-saints': "All Saints' Cathedral, Nairobi",
 }
 const out: Record<string, WikipediaSummary> = {}
+const pages = new Map<string, string | null>()
+const pause = () => new Promise((resolve) => setTimeout(resolve, 400))
 const missed: string[] = []
 
 for (const place of SAMPLE_PLACES) {
@@ -28,9 +31,24 @@ for (const place of SAMPLE_PLACES) {
   let reply = await ask(wikipediaTitleUrl(known ?? place.name))
   let summary = pickWikipediaSummary(reply, known ?? place.name)
   if (!summary) {
+    await pause()
     reply = await ask(wikipediaSearchUrl(place.name, place.county))
     summary = pickWikipediaSummary(reply, place.name)
   }
+  if (summary) summary = { ...summary, imageFile: undefined, source: 'wikipedia' }
+  for (const title of summary ? [] : wikivoyagePagesFor(place.county, place.region)) {
+    if (!pages.has(title)) {
+      await pause()
+      pages.set(title, wikitextOf(await ask(wikivoyagePageUrl(title))))
+    }
+    const text = pages.get(title)
+    const listing = text ? findListing(parseListings(text), place.name, null, null) : null
+    if (listing) {
+      summary = listingSummary(listing, title)
+      break
+    }
+  }
+  await pause()
   const hit = (reply as { query?: { pages?: Record<string, { title?: string }> } }).query?.pages
   const title = hit ? Object.values(hit)[0]?.title : undefined
   if (summary) out[place.googlePlaceId] = summary

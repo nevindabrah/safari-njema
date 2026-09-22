@@ -28,7 +28,7 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
   const lessonId = stop.user_lessons[0]?.id
   const completed = stop.user_lessons[0]?.status === 'completed'
   const row = useRef<HTMLLIElement>(null)
-  const facts = usePlaceFacts(stop.place.google_place_id, stop.place.name)
+  const facts = usePlaceFacts(stop.place.google_place_id, stop.place.name, { region: stop.place.region, lat: Number(stop.place.lat), lng: Number(stop.place.lng), placeType: stop.place.place_type })
 
   useEffect(() => {
     if (highlighted && window.matchMedia('(min-width: 1024px)').matches) row.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
