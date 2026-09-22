@@ -34,7 +34,7 @@ export function TripScreen() {
   const navigate = useNavigate()
   const { user } = useAuth()
   const { trip, error, updateDates, isOwner } = useTrip(tripId ?? null)
-  const { members, owner, sharedWithMe, error: membersError, remove } = useTripMembers(trip?.id ?? null, trip?.user_id ?? null)
+  const { members, owner, sharedWithMe, error: membersError, invite, remove } = useTripMembers(trip?.id ?? null, trip?.user_id ?? null)
   const { stops, loading, error: stopsError, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
   const { due } = useDueProgress()
   const [preview, setPreview] = useState<PickedPlace | null>(null)
@@ -109,7 +109,7 @@ export function TripScreen() {
           <h2 className="text-2xl mb-3 px-2 break-words">{trip?.title ?? 'My trip'}</h2>
           {(stopsError || membersError) && <p role="alert" className="mx-2 mb-4 rounded-input p-3 text-sm font-bold" style={{ background: 'var(--wrong-soft)' }}>{stopsError ?? membersError}</p>}
           {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} readOnly={!isOwner && !isDemoMode} /></div>}
-          {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onRemove={removeMember} />}
+          {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onInvite={invite} onRemove={removeMember} />}
           <div className="px-2 mb-5"><Button variant="soft" full onClick={() => setCatalogOpen(true)}><Icon name="map" size={18} />Browse places to add</Button></div>
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>

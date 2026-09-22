@@ -65,6 +65,7 @@ ok('a username already taken is dropped at sign up instead of failing the sign u
 ok('username_taken sees it regardless of case', (await db.query(`select username_taken('ChEbEt_1') t`)).rows[0].t === true && (await db.query(`select username_taken('nobody_here') t`)).rows[0].t === false)
 ok('a user can set their own username, and a bad one is refused', await as(d, async () => { await db.query(`update profiles set username = 'dan_k' where id = '${d}'`); try { await db.query(`update profiles set username = 'Bad Name!' where id = '${d}'`); return false } catch { return true } }))
 ok('two people cannot share a username', await as(d, async () => { try { await db.query(`update profiles set username = 'chebet_1' where id = '${d}'`); return false } catch { return true } }))
+ok('a username differing only by case is refused too', await (async () => { try { await db.query(`alter table profiles drop constraint profiles_username_check`); await db.query(`update profiles set username = 'CHEBET_1' where id = '${d}'`); return false } catch { return true } finally { await db.query(`alter table profiles add constraint profiles_username_check check (username ~ '^[a-z0-9_]{3,20}$')`).catch(() => {}) } })())
 
 await db.query(`update auth.users set encrypted_password = crypt('correct horse', gen_salt('bf', 10)) where id = '${c}'`)
 await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)

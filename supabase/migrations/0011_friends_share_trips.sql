@@ -1,4 +1,4 @@
--- Friends share trips automatically: accepting a request joins each person to the other's trips, ending the friendship removes them, and a new trip includes existing friends.
+-- Friends share trips automatically: accepting a request joins each person to the other's trips, ending the friendship removes them, and a new trip includes existing friends. Usernames are unique whatever their case.
 -- Exists because the owner decided that being friends means planning together, so nobody has to send a second invitation after the first was accepted.
 
 create or replace function public.share_trips_between(p_a uuid, p_b uuid)
@@ -73,3 +73,5 @@ $$;
 create trigger trip_created
   after insert on public.trips
   for each row execute function public.on_trip_created();
+
+create unique index profiles_username_lower_idx on public.profiles (lower(username));
