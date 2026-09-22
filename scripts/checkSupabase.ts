@@ -43,8 +43,11 @@ report(sortOrder.ok, 'phrases.sort_order column', 'phrases.sort_order is missing
 const content = await fetch(`${url}/rest/v1/user_lessons?select=content&limit=1`, { headers })
 report(content.ok, 'user_lessons.content column', 'user_lessons.content is missing. Migration 0005 has not been run, so lessons cannot be saved without the Edge Function.')
 
-const rpc = await fetch(`${url}/rest/v1/rpc/add_trip_stop`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: '{}' })
+const stopArgs = { p_trip_id: null, p_google_place_id: null, p_name: null, p_lat: null, p_lng: null, p_google_types: null, p_place_type: null, p_region: null, p_visit_date: null, p_activities: null }
+const rpc = await fetch(`${url}/rest/v1/rpc/add_trip_stop`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify(stopArgs) })
 report(rpc.status !== 404, 'function add_trip_stop', 'function add_trip_stop is missing. Migration 0003 has not been run.')
+const wipe = await fetch(`${url}/rest/v1/rpc/delete_my_account`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: '{}' })
+report(wipe.status === 401 || wipe.status === 403, 'function delete_my_account exists and refuses anonymous callers', wipe.status === 404 ? 'function delete_my_account is missing. Run supabase/migrations/0006_delete_my_account.sql.' : `delete_my_account answered HTTP ${wipe.status} to an anonymous caller. It must refuse them.`)
 
 const settings = await fetch(`${url}/auth/v1/settings`, { headers })
 if (settings.ok) {
