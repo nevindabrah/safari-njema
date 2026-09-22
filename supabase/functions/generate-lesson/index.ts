@@ -37,11 +37,11 @@ Deno.serve(async (req) => {
 
   const { data: stop } = await admin
     .from('trip_stops')
-    .select('id, user_id, trip_id, activities, position, place:places(id, name, place_type, region)')
+    .select('id, user_id, trip_id, activities, position, place:places(id, name, place_type, region, google_types)')
     .eq('id', trip_stop_id)
     .single()
   if (!stop || stop.user_id !== user.id) return json({ error: 'Stop not found' }, 404)
-  const place = stop.place as unknown as { id: string; name: string; place_type: string; region: string }
+  const place = stop.place as unknown as { id: string; name: string; place_type: string; region: string; google_types: string[] }
 
   const { data: profile } = await admin.from('profiles').select('is_demo, swahili_level').eq('id', user.id).single()
   if (profile?.is_demo) return json({ error: 'The demo account cannot generate new lessons' }, 403)
@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
   const knownIds = (progress ?? []).map((p) => p.phrase_id as string)
 
   const { data: bank } = await admin.from('phrases').select('id, swahili, pronunciation, english, tags, register').order('sort_order')
-  const ctx = { placeType: place.place_type, activities: stop.activities ?? [], region: place.region, firstStop, level, knownIds }
+  const ctx = { placeType: place.place_type, activities: stop.activities ?? [], region: place.region, googleTypes: place.google_types ?? [], firstStop, level, knownIds }
   const candidates = pickCandidates((bank ?? []) as CandidatePhrase[], ctx)
   if (candidates.length === 0) {
     await admin.from('trip_stops').update({ lesson_status: 'failed' }).eq('id', stop.id)
@@ -105,7 +105,7 @@ Deno.serve(async (req) => {
   if (lesson && !lesson.kanga && proverb) lesson.kanga = { proverb: proverb.swahili, meaning: proverb.meaning }
 
   if (!lesson) {
-    lesson = buildTemplateLesson({ placeName: place.name, placeType: place.place_type, region: place.region, firstStop, phrases: pickTemplatePhrases(candidates, ctx), proverb })
+    lesson = buildTemplateLesson({ placeName: place.name, placeType: place.place_type, region: place.region, googleTypes: place.google_types ?? [], firstStop, phrases: pickTemplatePhrases(candidates, ctx), proverb })
     generatedBy = 'template'
   }
 
