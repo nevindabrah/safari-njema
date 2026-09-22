@@ -276,9 +276,10 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Review.** These words were added after the teacher's review. The owner reviewed the words and every recording on 22 September 2026, so the "not yet reviewed" label was removed.
 
 ### 11.3a Now is exact, taps are in fives
-**Decision.** Pressing Now sets the real minute, the minute hand sits between the marks, and the Swahili is said for that minute. Tapping or dragging still snaps to five minute steps, and the 289 recordings cover those steps; an exact minute shows a note instead of a speaker.
+**Decision.** Pressing Now sets the real minute, the minute hand sits between the marks, and the Swahili is said for that minute. Tapping or dragging still snaps to five minute steps. Every minute of the day is recorded, 1,440 clips plus "Saa ngapi?", so Now has a speaker too.
 **Why.** The owner asked for Now to show the exact time, the way a real watch does, and for the hand to estimate it. Minute numbers between the fives are formed the regular way from the reviewed one to ten with kumi and ishirini (kumi na tatu, ishirini na saba), so no new number words were written.
-**Alternatives.** Recording all 1,440 minutes (five times the audio for little gain). Rounding Now to five minutes (the earlier choice; it showed a time that was not the time).
+**Alternatives.** Recording only the five minute steps (the first version; Now then had no speaker). Stitching an hour clip, a minutes clip and a part of day clip together at run time (choppy, and the recogniser could not judge the result). Rounding Now to five minutes (the earliest choice; it showed a time that was not the time).
+**Trade-off.** About 20 MB of audio in `public/audio/time`, each clip fetched only when pressed, and a two hour generation run once.
 
 ### 11.4 The face does not turn dark at night
 **Decision.** An early version darkened the clock face after 7 pm as a reminder of the count restarting at sunset. The owner did not want it, so it was removed.

@@ -53,12 +53,16 @@ def hear(audio: np.ndarray) -> str:
     return processor.decode(ids)
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
-previous = {r["swahili"]: r for r in json.loads(REPORT.read_text())} if ONLY_HELD else {}
-manifest = json.loads(MANIFEST.read_text()) if ONLY_HELD else {}
+previous = {r["swahili"]: r for r in json.loads(REPORT.read_text())} if REPORT.exists() else {}
+manifest = json.loads(MANIFEST.read_text()) if MANIFEST.exists() else {}
 report = []
 for index, swahili in enumerate(phrases):
-    if ONLY_HELD and previous.get(swahili, {}).get("shipped"):
-        report.append(previous[swahili])
+    done = previous.get(swahili)
+    if done and done["shipped"] and (OUT_DIR / done["file"]).exists():
+        report.append(done)
+        continue
+    if ONLY_HELD and done:
+        report.append(done)
         continue
     best = None
     for seed, speed in TAKES + (MORE_TAKES if ONLY_HELD else []):
@@ -69,7 +73,7 @@ for index, swahili in enumerate(phrases):
             best = {"audio": audio, "heard": heard, "score": score, "seed": seed, "speed": speed}
         if score == 1.0:
             break
-    name = f"{index + 1:03d}.m4a"
+    name = f"{index + 1:04d}.m4a"
     shipped = best["score"] >= SHIP_AT
     if shipped:
         with tempfile.NamedTemporaryFile(suffix=".wav") as wav:
