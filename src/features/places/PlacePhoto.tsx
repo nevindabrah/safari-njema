@@ -23,7 +23,8 @@ export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, classN
   if (!photo || failed) {
     return (
       <div className={`relative overflow-hidden flex items-center justify-center ${className}`} style={{ background: 'var(--tint)', color: 'var(--accent-text)' }} aria-hidden="true">
-        <span className="kanga-dots absolute inset-0 opacity-50" />
+        <span className={`kanga-cloth absolute inset-0 opacity-40 ${size === 'small' ? 'kanga-cloth-small' : ''}`} />
+        <span className={`absolute rounded-input border-2 border-current opacity-30 ${size === 'small' ? 'inset-1' : 'inset-2'}`} />
         <Icon name={placeType} size={size === 'small' ? 26 : 56} />
       </div>
     )
