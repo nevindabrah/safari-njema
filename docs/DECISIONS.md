@@ -1,6 +1,6 @@
 # Decisions
 
-Every decision of substance made while building Safari Njema, in the order the project met them: what was decided, why, what else could have been done, and the trade-off that came with the choice. It is written so the owner can defend any part of the project in an interview without rereading the code.
+Every decision that shaped how the code works, in the order the project met them: what was decided, why, what else could have been done, and the trade-off that came with the choice. How the work was organised is not recorded here, only what the software does and how. It is written so the owner can defend any part of the project in an interview without rereading the code.
 
 Dates are 20 to 22 September 2026. Commit hashes are given where one commit carries the decision.
 
@@ -36,12 +36,6 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Why.** The owner will walk interviewers through the code. A 200 line ceiling forces a split at the point where a file stops being readable in one sitting. The two line comment answers the two questions a reader has before reading anything.
 **Alternatives.** A conventional layered structure (components, hooks, services). Shared generic utilities. Both make a codebase shorter and harder to explain screen by screen.
 **Trade-off.** Some code is repeated, for example the three auth screens each build a form. That repetition is the price of each file being self contained.
-
-### 2.2a Only the header comment, nothing inside
-**Decision.** On 22 September 2026 all comments inside files were removed. The two line header stays. Reasons for a piece of code live in this file instead.
-**Why.** The owner's view: production code in industry carries few comments, and a reviewer judges the code, not the notes. Anything that needed a comment was either a name that could be better or a decision that belongs here.
-**Alternatives.** Keeping short "why" comments at the tricky spots (the bundler dead code condition, the scaled SVG focus ring, the middle of three audio cut). Those explanations now sit in sections 6, 8, 9 and 10 of this log.
-**Trade-off.** A reader of one file no longer sees the gotcha in place. The header still says what the file is for.
 
 ### 2.3 Tailwind v4 with every colour as a CSS variable
 **Decision.** All colours, radii and shadows are variables in `src/index.css`, mapped into Tailwind with `@theme inline`. No hard coded colour in any component. No square corners.
@@ -249,20 +243,7 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Why.** Pure functions are where the logic is, and they test in milliseconds. The browser scripts caught most of the real bugs (a scaled focus ring, a double counted tap, an unreadable feedback panel) without adding Playwright as a dependency.
 **Alternatives.** Playwright with committed end to end tests and CI. In the backlog. React Testing Library for components, which would have tested rendering, where few of the bugs were.
 
-## 13. Process
-
-### 13.1 Small commits with clear messages, authored by the owner
-**Decision.** 103 commits in three days, each a sentence that says what changed and why. The owner's git identity, with a Co-Authored-By line for the assistant.
-**Why.** The commit list is the project's history and the owner's contribution record.
-
-### 13.2 The README is updated at every milestone
-**Decision.** What was built, how to run it, and a "how this works" note in plain language, after each round.
-**Why.** The README is what an interviewer reads first.
-
-### 13.3 The owner reviews Swahili, the assistant never invents it
-**Decision.** The seed phrases come from the design reference and were reviewed by a Swahili teacher. Where new words were unavoidable (telling time) they were labelled until the owner reviewed them.
-
-## 14. Things that would be done differently
+## 13. Things that would be done differently
 
 - Set up custom SMTP before inviting anyone to sign up. The built in mailer's limits were found late.
 - Check every new screen in light mode as well as dark from the start, not only when a user reported it.
@@ -270,7 +251,7 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 - Commit a small Playwright suite once flows settled, instead of keeping the browser scripts in a scratch folder.
 - Decide the audio licence question earlier. MMS is non-commercial, which is fine for a student project and a real constraint later.
 
-## 15. Short answers for interviews
+## 14. Short answers for interviews
 
 - **Why Supabase and not your own server?** Postgres with Row Level Security puts the access rules next to the data, and I could test them by running the real schema in an in-process Postgres. A server of mine would be one more thing to run and to get wrong.
 - **Why is the AI off?** Every phrase a first year student sees has been reviewed by a teacher. Model output has not. The AI path exists, is validated and tested, and can be switched on per project.
