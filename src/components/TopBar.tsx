@@ -27,6 +27,7 @@ export function TopBar() {
             {user && <span className="hidden sm:flex items-center gap-1"><NavLink to="/trip" className={link}>My trip{dot(badges.trips)}</NavLink><NavLink to="/friends" className={link}>Friends{dot(badges.friends)}</NavLink>{profile?.is_teacher && <NavLink to="/teacher" className={link}>Notes</NavLink>}<NavLink to="/kangas" className={link}>Kangas</NavLink></span>}
             <NavLink to="/phrasebook" className={(state) => `${link(state)} hidden sm:inline-block`}>Phrasebook</NavLink>
             <NavLink to="/time" className={(state) => `${link(state)} hidden sm:inline-block`}>Time</NavLink>
+            <NavLink to="/food" className={(state) => `${link(state)} hidden sm:inline-block`}>Food</NavLink>
             <NavLink to="/about" className={(state) => `${link(state)} hidden sm:inline-block`}>About</NavLink>
             <SoundToggle />
             <ThemeToggle />

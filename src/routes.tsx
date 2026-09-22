@@ -23,6 +23,12 @@ export const router = createBrowserRouter([
     lazy: async () => ({ Component: (await import('./features/phrasebook/PhrasebookScreen')).PhrasebookScreen }),
   },
   {
+    path: '/food',
+    hydrateFallbackElement: loading,
+    errorElement: <NotFoundScreen />,
+    lazy: async () => ({ Component: (await import('./features/food/FoodScreen')).FoodScreen }),
+  },
+  {
     path: '/time',
     hydrateFallbackElement: loading,
     errorElement: <NotFoundScreen />,

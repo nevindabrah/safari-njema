@@ -10,6 +10,7 @@ import { usePhrasebook } from './usePhrasebook'
 import { PhraseRow } from './PhraseRow'
 import { NotesBar } from './NotesBar'
 import { TimeTeaser } from '../time/TimeTeaser'
+import { FoodTeaser } from '../food/FoodTeaser'
 
 export function PhrasebookScreen() {
   const { phrases, notes, reviewer, saveNote, saveReviewer, clearNotes } = usePhrasebook()
@@ -36,6 +37,7 @@ export function PhrasebookScreen() {
         </div>
 
         <div className="mt-5"><TimeTeaser /></div>
+        <div className="mt-5"><FoodTeaser /></div>
 
         <div className="mt-5 flex flex-wrap gap-2 items-center">
           <SearchBox id="book-search" label="Search the phrasebook" placeholder="Search Swahili or English" value={query} onChange={setQuery} className="flex-1 min-w-[12rem]" />
