@@ -26,7 +26,7 @@ The anon key is safe in the browser. Row Level Security is what protects the dat
 
 That one file creates every table, every Row Level Security policy, the three database functions (including the one behind "Delete my account"), and the 95 reviewed phrases and 10 proverbs. It is meant for a new project and should be run once.
 
-If you set the project up before 22 September 2026, run only the migrations you are missing, in order, in the SQL editor: `0006_delete_my_account.sql`, `0007_usernames_friends_shared_trips.sql`, `0008_teacher_notes.sql`, `0009_profile_links.sql`, `0010_limits_and_hardening.sql`, then `0011_friends_share_trips.sql`.
+If you set the project up before 22 September 2026, run only the migrations you are missing, in order, in the SQL editor: `0006_delete_my_account.sql`, `0007_usernames_friends_shared_trips.sql`, `0008_teacher_notes.sql`, `0009_profile_links.sql`, `0010_limits_and_hardening.sql`, `0011_friends_share_trips.sql`, then `0012_just_me_stops.sql`.
 
 ## 2b. Mark the teacher
 

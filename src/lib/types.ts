@@ -39,6 +39,7 @@ export interface TripStop {
   activities: string[]
   position: number
   lesson_status: LessonStatus
+  private: boolean
   place: Place
 }
 

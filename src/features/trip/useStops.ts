@@ -12,7 +12,7 @@ import { ensureDemoTrip } from '../demo/demoTrip'
 import { buildLessonInBrowser } from './buildLessonInBrowser'
 import type { PickedPlace } from './usePlaceSearch'
 
-const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, position, lesson_status, place:places(*), user_lessons(id, status)'
+const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, position, lesson_status, private, place:places(*), user_lessons(id, status)'
 
 export function useStops(tripId: string | null) {
   const [stops, setStops] = useState<StopRow[]>([])
@@ -72,7 +72,7 @@ export function useStops(tripId: string | null) {
     await reload()
   }
 
-  async function addStop(place: PickedPlace, visitDate: string | null, activities: string[]) {
+  async function addStop(place: PickedPlace, visitDate: string | null, activities: string[], justMe: boolean) {
     if (isDemoMode) return addLocalStopWithLesson(place, visitDate, activities)
     const { data: stopId, error } = await supabase.rpc('add_trip_stop', {
       p_trip_id: tripId,
@@ -85,6 +85,7 @@ export function useStops(tripId: string | null) {
       p_region: place.region,
       p_visit_date: visitDate,
       p_activities: activities,
+      ...(justMe ? { p_private: true } : {}),
     })
     if (error || !stopId) {
       setError(error ? writeProblem({ error }) : 'The stop was not added.')

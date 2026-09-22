@@ -52,13 +52,15 @@ export function TripScreen() {
     setHighlightedId((current) => (current === stopId ? null : stopId))
   }
 
-  async function handleAdd(visitDate: string | null, activities: string[]) {
+  async function handleAdd(visitDate: string | null, activities: string[], justMe: boolean) {
     if (!preview) return
     const place = preview
     setPreview(null)
     playSound('added')
-    await addStop(place, visitDate, activities)
+    await addStop(place, visitDate, activities, justMe)
   }
+
+  const shared = !isDemoMode && (members.length > 0 || !isOwner)
 
   const wide = window.matchMedia('(min-width: 1024px)').matches
 
@@ -80,7 +82,7 @@ export function TripScreen() {
               </div>
               {preview && wide && (
                 <div className="absolute bottom-4 left-4 right-4 z-10 max-h-[70%] overflow-y-auto">
-                  <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} onAdd={handleAdd} onClose={() => setPreview(null)} />
+                  <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} shared={shared} onAdd={handleAdd} onClose={() => setPreview(null)} />
                 </div>
               )}
             </APIProvider>
@@ -92,7 +94,7 @@ export function TripScreen() {
               </div>
               {preview && wide && (
                 <div className="absolute bottom-4 left-4 right-4 z-30 max-h-[70%] overflow-y-auto">
-                  <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} onAdd={handleAdd} onClose={() => setPreview(null)} />
+                  <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} shared={shared} onAdd={handleAdd} onClose={() => setPreview(null)} />
                 </div>
               )}
             </>
@@ -121,7 +123,7 @@ export function TripScreen() {
       </main>
       {preview && trip && !wide && (
         <PreviewSheet onClose={() => setPreview(null)}>
-          <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} onAdd={handleAdd} onClose={() => setPreview(null)} />
+          <PlacePreviewCard key={preview.googlePlaceId} place={preview} trip={trip} shared={shared} onAdd={handleAdd} onClose={() => setPreview(null)} />
         </PreviewSheet>
       )}
       {catalogOpen && <PlaceCatalog addedIds={stops.map((s) => s.place.google_place_id)} onPick={pickPlace} onClose={() => setCatalogOpen(false)} />}

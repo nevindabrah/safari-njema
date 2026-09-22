@@ -104,6 +104,16 @@ test('accepting a friend request shares the trip, and each friend gets their own
   await expect(d.getByText('owner', { exact: true })).toBeVisible()
   await expect(d.getByRole('link', { name: 'Start lesson' })).toHaveCount(1, { timeout: 20_000 })
 
+  await d.getByRole('searchbox').first().fill('karura')
+  await d.getByRole('listbox').getByRole('button').first().click()
+  await d.getByRole('button', { name: 'Just me' }).click()
+  await d.getByRole('button', { name: 'Add to itinerary' }).click()
+  await expect(d.getByText('Just you')).toBeVisible()
+  await expect(d.getByRole('link', { name: 'Start lesson' })).toHaveCount(2, { timeout: 20_000 })
+  await a.reload()
+  await expect(a.getByRole('link', { name: 'Start lesson' })).toHaveCount(1)
+  await expect(a.getByText('Karura')).toHaveCount(0)
+
   await d.getByRole('button', { name: 'Leave this trip' }).click()
   await d.getByRole('alertdialog').getByRole('button', { name: 'Leave' }).click()
   await expect(d).toHaveURL(/\/trip$/)

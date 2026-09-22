@@ -43,6 +43,7 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
         </button>
         <div className="flex-1 min-w-0 py-0.5">
           <p className="font-display font-extrabold text-lg leading-tight truncate">{stop.place.name}</p>
+          {stop.private && <p className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-pill bg-tint text-muted text-xs font-bold"><Icon name="user" size={12} />Just you</p>}
           <p className="text-sm text-muted truncate flex items-center gap-1.5 mt-0.5"><Icon name={stop.place.place_type} size={15} />{info.label}</p>
           {stop.activities.length > 0 && <p className="text-xs text-muted truncate mt-0.5">{stop.activities.join(' · ')}</p>}
         </div>

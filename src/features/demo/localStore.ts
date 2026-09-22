@@ -75,6 +75,7 @@ export function addLocalStop(place: PickedPlace, visitDate: string | null, activ
     activities,
     position: data.stops.length + 1,
     lesson_status: 'generating',
+    private: false,
     place: {
       id: placeId,
       google_place_id: place.googlePlaceId,

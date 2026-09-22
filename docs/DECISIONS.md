@@ -122,6 +122,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Trade-off.** Friendship now means full trip access. Someone who wants a friend without sharing a trip can remove them from that trip on the Travelling with panel, and the trigger will not add them back until the friendship is made again.
 **Gotcha learned.** A `stable` security definer function used in a select policy cannot see a row inserted by the same statement, so `insert ... returning` failed for trips. `is_trip_member` is volatile and the owner check is written inline in the policy.
 
+### 4.7 "Just me" stops on a shared trip (migration 0012)
+**Decision.** A stop has a `private` flag, false by default. On a shared trip the add card asks "Who is this stop for?" with two choices, Everyone on the trip or Just me. A private stop is returned by the select policy only to the person who added it, so it is missing from the other members' itinerary, map and lessons rather than hidden by the interface. Only the adder can make a stop private, by the update policy's check. The choice is made when the stop is added; there is no toggle afterwards. The app sends the flag only when Just me is chosen, so a database that has not run migration 0012 yet still accepts ordinary stops. Private stops carry a small "Just you" tag.
+**Why.** Friends share whole trips, and one of them may still have an errand or a visit that is theirs alone. Doing it in the database means a second device, a stale tab or a direct API call all see the same thing.
+**Alternatives.** Two itineraries per trip (shared and personal) with two lists on the screen: more to explain and to render. A personal trip beside the shared one: the map would then show one trip at a time. A visibility list per stop: more than two students need.
+**Trade-off.** The owner of a trip cannot see everything on their own trip. Positions still count private stops, so the shared numbering can skip a number for the friend who cannot see the private stop; the list renumbers from what it shows.
+
 ## 5. Lessons
 
 ### 5.1 Claude behind an Edge Function, validated with zod, one retry, template fallback
