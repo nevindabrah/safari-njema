@@ -9,7 +9,7 @@ import type { StoredLesson } from '../demo/localStore'
 const STOPS = [
   { placeId: 'sample-maasai-market', placeName: 'Maasai Market', placeType: 'market', region: 'nairobi', activities: ['shopping'], firstStop: true, note: 'First stop, so it opens with greetings, then prices and bargaining.' },
   { placeId: 'sample-diani', placeName: 'Diani Beach', placeType: 'beach', region: 'coast', activities: ['eating out'], firstStop: false, note: 'Ordering food, a coastal greeting, beach words, and a note on dress.' },
-  { placeId: 'sample-maasai-mara', placeName: 'Maasai Mara', placeType: 'park', region: 'rift_valley_mara', activities: ['game drive'], firstStop: false, note: 'The animals your guide will call out, and how to ask about them.' },
+  { placeId: 'sample-maasai-mara', placeName: 'Maasai Mara', placeType: 'park', region: 'rift_valley_mara', googleTypes: ['national_park'], activities: ['game drive'], firstStop: false, note: 'The animals your guide will call out, and how to ask about them.' },
 ]
 
 export function LessonShowcase() {

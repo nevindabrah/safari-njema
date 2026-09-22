@@ -32,7 +32,7 @@ async function seedDemoTrip() {
     const place = SAMPLE_PLACES.find((p) => p.googlePlaceId === demo.placeId)
     if (!place) continue
     const stop = addLocalStop(place, dayOfTrip(trip.start_date, demo.dayOffset), demo.activities)
-    const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, activities: demo.activities, firstStop: stop.position === 1 })
+    const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, googleTypes: place.googleTypes, activities: demo.activities, firstStop: stop.position === 1 })
     attachLocalLesson(stop.id, lesson)
   }
 }

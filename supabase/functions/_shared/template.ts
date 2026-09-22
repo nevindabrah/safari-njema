@@ -1,13 +1,15 @@
-// Builds a lesson with no model call: a brief that names the place, its kind and its region, plus the top phrases for that kind.
+// Builds a lesson with no model call: a brief that names the place, what Google says it really is and its region, plus the top phrases and a note that suits it.
 // Exists because the live site runs with the AI switch off, so this is the main path users see.
 import type { Lesson } from './lessonSchema.ts'
 import type { PickedPhrase } from './pickCandidates.ts'
 import type { Proverb } from './lessonPlan.ts'
+import { flavourFor } from './placeFlavour.ts'
 
 export interface TemplateInput {
   placeName: string
   placeType: string
   region: string
+  googleTypes?: string[]
   firstStop: boolean
   phrases: PickedPhrase[]
   proverb?: Proverb | null
@@ -81,10 +83,11 @@ const REGION: Record<string, string> = {
   western_lake: 'western Kenya near Lake Victoria', north: 'northern Kenya',
 }
 
-export function placeLine(placeName: string, placeType: string, region: string): string {
+export function placeLine(placeName: string, placeType: string, region: string, googleTypes?: string[]): string {
   const where = REGION[region] ?? 'Kenya'
   const inWhere = where.startsWith('on ') ? where : `in ${where}`
-  return `${placeName} is ${KIND[placeType] ?? KIND.other} ${inWhere}.`
+  const noun = flavourFor(googleTypes)?.noun ?? KIND[placeType] ?? KIND.other
+  return `${placeName} is ${noun} ${inWhere}.`
 }
 
 const PRACTICAL: Record<string, string> = {
@@ -131,13 +134,14 @@ const WHY: Record<string, string> = {
 
 export function buildTemplateLesson(input: TemplateInput): Lesson {
   const brief = BRIEFS[input.placeType] ?? BRIEFS.other
-  const know = [...brief.know]
+  const flavour = flavourFor(input.googleTypes)
+  const know = flavour?.replacesKind ? [...flavour.know] : [...(flavour?.know ?? []), ...brief.know]
   if (input.firstStop) know.unshift('This is your first stop, so it starts with the greetings you will use everywhere.')
   return {
     place: { name: input.placeName, type: input.placeType },
     brief: {
-      what_it_is: `${placeLine(input.placeName, input.placeType, input.region)} ${brief.what}`,
-      know_today: know.slice(0, 4),
+      what_it_is: `${placeLine(input.placeName, input.placeType, input.region, input.googleTypes)} ${flavour?.what ?? brief.what}`,
+      know_today: know.slice(0, 5),
       etiquette: brief.etiquette,
       practical: PRACTICAL[input.region] ?? PRACTICAL.nairobi,
     },

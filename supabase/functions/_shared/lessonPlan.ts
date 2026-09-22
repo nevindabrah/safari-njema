@@ -1,5 +1,6 @@
-// The tables that connect a stop to phrase tags: which tags matter for a place type, an activity or a region,
+// The tables that connect a stop to phrase tags: which tags matter for a place type, an activity, a region or Google's detailed type,
 // and the ordered "slots" a template lesson fills. Exists so lesson balance is data you can read, not logic.
+import { flavourFor } from './placeFlavour.ts'
 
 export const PLACE_TYPE_TAGS: Record<string, string[]> = {
   market: ['market', 'bargaining', 'numbers', 'shopping', 'price', 'paying'],
@@ -62,6 +63,15 @@ const ACTIVITY_SLOTS: Record<string, string[]> = {
   'business meeting': ['introductions', 'polite'],
 }
 
+const REGION_SLOTS: Record<string, string[]> = {
+  coast: ['coastal_greeting'],
+  nairobi: [],
+  rift_valley_mara: [],
+  central_mt_kenya: [],
+  western_lake: [],
+  north: [],
+}
+
 const PROVERB_THEME: Record<string, string> = {
   market: 'market', restaurant: 'food', park: 'safari', beach: 'coast', airport: 'airport', hotel: 'airport',
   station: 'transport', city: 'basics', religious_site: 'basics', museum: 'general', other: 'help',
@@ -78,9 +88,20 @@ export function pickProverb(proverbs: Proverb[], placeType: string): Proverb | n
   return proverbs.find((p) => p.themes.includes(theme)) ?? proverbs.find((p) => p.themes.includes('general')) ?? null
 }
 
-export function buildSlotPlan(placeType: string, activities: string[], firstStop: boolean): string[] {
-  const greetingSlots = firstStop ? ['core_greeting', 'core_greeting'] : []
-  const activitySlots = activities.flatMap((a) => ACTIVITY_SLOTS[a] ?? [])
-  const typeSlots = TYPE_SLOTS[placeType] ?? TYPE_SLOTS.other
-  return [...greetingSlots, ...activitySlots, ...typeSlots]
+export interface SlotContext {
+  placeType: string
+  activities: string[]
+  region: string
+  firstStop: boolean
+  googleTypes?: string[]
+}
+
+export function buildSlotPlan(ctx: SlotContext): string[] {
+  const greetingSlots = ctx.firstStop ? ['core_greeting', 'core_greeting'] : []
+  const activitySlots = ctx.activities.flatMap((a) => ACTIVITY_SLOTS[a] ?? [])
+  const flavour = flavourFor(ctx.googleTypes)
+  const typeSlots = TYPE_SLOTS[ctx.placeType] ?? TYPE_SLOTS.other
+  const regionSlots = (REGION_SLOTS[ctx.region] ?? []).filter((slot) => !typeSlots.includes(slot))
+  const plan = [...greetingSlots, ...activitySlots, ...(flavour?.slots ?? []), ...typeSlots, ...regionSlots]
+  return flavour?.avoid ? plan.filter((slot) => !flavour.avoid!.includes(slot)) : plan
 }

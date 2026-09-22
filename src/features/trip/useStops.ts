@@ -67,7 +67,7 @@ export function useStops(tripId: string | null) {
     const stop = addLocalStop(place, visitDate, activities)
     await reload()
     await new Promise((resolve) => setTimeout(resolve, 300))
-    const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, activities, firstStop: stop.position === 1 })
+    const lesson = await buildLocalLesson({ placeName: place.name, placeType: place.placeType, region: place.region, googleTypes: place.googleTypes, activities, firstStop: stop.position === 1 })
     attachLocalLesson(stop.id, lesson)
     await reload()
   }

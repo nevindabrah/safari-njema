@@ -36,4 +36,12 @@ describe('buildTemplateLesson', () => {
     expect(placeLine('Diani Beach', 'beach', 'coast')).toBe('Diani Beach is a beach on the Kenyan coast.')
     expect(placeLine('Somewhere', 'other', 'unknown')).toBe('Somewhere is a place in Kenya.')
   })
+
+  it('uses what Google says the place really is, and adds a note that suits it', () => {
+    const lesson = buildTemplateLesson({ placeName: 'Java House', placeType: 'restaurant', region: 'nairobi', googleTypes: ['restaurant', 'coffee_shop'], firstStop: false, phrases })
+    expect(lesson.brief.what_it_is.startsWith('Java House is a coffee house in Nairobi. ')).toBe(true)
+    expect(lesson.brief.what_it_is).toMatch(/Service is at the table/)
+    expect(lesson.brief.know_today[0]).toMatch(/boiled with milk/)
+    expect(lesson.brief.know_today.length).toBeLessThanOrEqual(5)
+  })
 })

@@ -18,13 +18,14 @@ export async function buildLessonInBrowser(stop: StopRow, firstStop: boolean): P
   ])
   if (!bank || bank.length === 0) return false
 
-  const ctx = { placeType: stop.place.place_type, activities: stop.activities, region: stop.place.region, firstStop, level: 'none', knownIds: [] }
+  const ctx = { placeType: stop.place.place_type, activities: stop.activities, region: stop.place.region, googleTypes: stop.place.google_types, firstStop, level: 'none', knownIds: [] }
   const picked = pickTemplatePhrases(pickCandidates(bank as CandidatePhrase[], ctx), ctx)
   if (picked.length === 0) return false
   const lesson = buildTemplateLesson({
     placeName: stop.place.name,
     placeType: stop.place.place_type,
     region: stop.place.region,
+    googleTypes: stop.place.google_types,
     firstStop,
     phrases: picked,
     proverb: pickProverb((proverbs ?? []) as Proverb[], stop.place.place_type),

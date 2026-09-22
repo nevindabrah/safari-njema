@@ -1,6 +1,7 @@
 // Chooses phrases from the bank for a stop. pickCandidates scores every phrase by its tags,
 // and pickTemplatePhrases fills the lesson's slots from those candidates. Pure functions, tested with Vitest.
 import { ACTIVITY_TAGS, PLACE_TYPE_TAGS, REGION_TAGS, buildSlotPlan } from './lessonPlan.ts'
+import { flavourFor } from './placeFlavour.ts'
 
 export interface CandidatePhrase {
   id: string
@@ -19,6 +20,7 @@ export interface CandidateContext {
   level: string
   knownIds: string[]
   shengEnabled?: boolean
+  googleTypes?: string[]
 }
 
 export interface PickedPhrase {
@@ -31,10 +33,13 @@ export function scorePhrase(phrase: CandidatePhrase, ctx: CandidateContext): num
   const typeTags = PLACE_TYPE_TAGS[ctx.placeType] ?? PLACE_TYPE_TAGS.other
   const activityTags = ctx.activities.flatMap((a) => ACTIVITY_TAGS[a] ?? [])
   const regionTags = REGION_TAGS[ctx.region] ?? []
+  const flavour = flavourFor(ctx.googleTypes)
   for (const tag of phrase.tags) {
+    if (flavour?.avoid?.includes(tag)) return 0
     if (typeTags.includes(tag)) score += 3
     if (activityTags.includes(tag)) score += 3
     if (regionTags.includes(tag)) score += 2
+    if (flavour?.tags.includes(tag)) score += 2
   }
   if (phrase.tags.includes('greeting')) {
     score += ctx.firstStop ? 6 : -1
@@ -57,7 +62,7 @@ export function pickCandidates(phrases: CandidatePhrase[], ctx: CandidateContext
 export function pickTemplatePhrases(candidates: CandidatePhrase[], ctx: CandidateContext, count = 8): PickedPhrase[] {
   const picked: PickedPhrase[] = []
   const used = new Set<string>()
-  for (const slot of buildSlotPlan(ctx.placeType, ctx.activities, ctx.firstStop)) {
+  for (const slot of buildSlotPlan(ctx)) {
     if (picked.length >= count) break
     const fits = candidates.filter((c) => !used.has(c.id) && c.tags.includes(slot))
     const match = fits.find((c) => c.tags.includes('essential')) ?? fits[0]
