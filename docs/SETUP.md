@@ -26,7 +26,17 @@ The anon key is safe in the browser. Row Level Security is what protects the dat
 
 That one file creates every table, every Row Level Security policy, the three database functions (including the one behind "Delete my account"), and the 95 reviewed phrases and 10 proverbs. It is meant for a new project and should be run once.
 
-If you set the project up before 22 September 2026, run only the migrations you are missing, in order, in the SQL editor: `0006_delete_my_account.sql`, then `0007_usernames_friends_shared_trips.sql`. Migrations are never edited, only added, so a later one is always safe to run on its own.
+If you set the project up before 22 September 2026, run only the migrations you are missing, in order, in the SQL editor: `0006_delete_my_account.sql`, then `0007_usernames_friends_shared_trips.sql`, then `0008_teacher_notes.sql`.
+
+## 2b. Mark the teacher
+
+Notes that readers leave on the phrasebook go to a page at `/teacher`. Only a profile marked as a teacher can read them. Once your teacher has an account, run this in the SQL editor with their username:
+
+```sql
+update public.profiles set is_teacher = true where username = 'their_username';
+```
+
+They then see a "Notes" link in the top bar. Migrations are never edited, only added, so a later one is always safe to run on its own.
 
 This exact file has been run in a real Postgres by `scripts/testDatabase.mjs`, which also checks that one user can never read or change another user's trip, stops or lessons, and that deleting an account removes everything in it and nothing of anyone else's.
 

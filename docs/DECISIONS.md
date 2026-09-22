@@ -249,10 +249,32 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 ### 11.4 The face does not turn dark at night
 **Decision.** An early version darkened the clock face after 7 pm as a reminder of the count restarting at sunset. The owner did not want it, so it was removed.
 
+## 11a. Teacher notes, Today, review and badges
+
+### 11a.1 Notes go to a table a teacher can read, not to an email
+**Decision.** `phrase_notes` accepts inserts from anyone, signed in or not, and is readable only by profiles flagged `is_teacher`, through a security definer `is_teacher()` used in the policies. The teacher marks notes handled or removes them.
+**Why.** Corrections were leaving the app as an email the owner had to read and type back. The teacher is the person who acts on them, so they should land on his page.
+**Alternatives.** Requiring an account to leave a note (loses casual reviewers). Making notes public (invites spam and argument). A separate admin tool (another login).
+**Trade-off.** Anonymous inserts can be abused. The note length is capped at 1,000 characters and the teacher can remove anything.
+
+### 11a.2 The Today card is a pure decision
+**Decision.** `todayPlan(stops, start, end, today)` returns one of five states: no dates, before, today, between, after. The card only draws the state.
+**Why.** Date logic has many edge days. A pure function is tested for each of them in milliseconds.
+
+### 11a.3 Leitner boxes for review
+**Decision.** Five boxes with gaps of 1, 3, 7, 14 and 30 days. A right answer moves a phrase up one box, a wrong one back to box one. The Today card shows how many are due and `/review` practises them with the same exercise engine as lessons.
+**Why.** The `phrase_progress` table existed from the PRD. Leitner is the simplest schedule a learner can understand ("get it right, see it less often") and it needs no per-phrase difficulty estimate.
+**Alternatives.** SM-2 or FSRS (better tuned, harder to explain, more state). Reviewing inside the next lesson (mixes places and confuses the brief).
+
+### 11a.4 Badges from two counts, not a notifications table
+**Decision.** The Friends badge is the count of pending requests addressed to me. The My trip badge is the number of shared trips whose ids are not in a "seen" list in localStorage.
+**Why.** Two queries at page load give the two signals that matter, with no new table and no push service.
+**Trade-off.** "Seen" is per browser, so a trip shared while you were on your phone shows as new once on your laptop too.
+
 ## 12. Testing approach
 
 ### 12.1 Vitest for pure functions, a browser script for flows, PGlite for the database
-**Decision.** 179 Vitest tests cover the pure functions in `src/lib/` and `supabase/functions/_shared/`, plus the theme and contrast checks. Whole user flows are exercised by throwaway Node scripts that drive headless Chrome over the DevTools protocol, including a solver that completes a full lesson using the seed JSON as the answer key. Those scripts are not committed. The database is tested by running the real `setup.sql` in PGlite.
+**Decision.** 179 Vitest tests cover the pure functions in `src/lib/` and `supabase/functions/_shared/`, plus the theme and contrast checks. Whole user flows were first exercised by throwaway Node scripts driving headless Chrome over the DevTools protocol. On 22 September 2026 the ones that mattered became a committed Playwright suite in `e2e/`, run on every push by GitHub Actions against the demo build on a phone and a laptop viewport, including a solver that finishes a whole lesson using the seed JSON as the answer key. Playwright is the one dependency outside the PRD's list, added with the owner's agreement. The database is tested by running the real `setup.sql` in PGlite.
 **Why.** Pure functions are where the logic is, and they test in milliseconds. The browser scripts caught most of the real bugs (a scaled focus ring, a double counted tap, an unreadable feedback panel) without adding Playwright as a dependency.
 **Alternatives.** Playwright with committed end to end tests and CI. In the backlog. React Testing Library for components, which would have tested rendering, where few of the bugs were.
 

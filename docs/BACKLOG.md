@@ -14,7 +14,8 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Run `npm run check:supabase`, then sign up for real and add a stop | Owner, then assistant | The first ever live test of accounts. Fix whatever it finds. |
 | Human recordings for the four held phrases | Owner's professor or friend | Sasa? / Poa, Ndiyo / Hapana, Mia / Elfu, Twiga. Drop the files into `public/audio` and add them to the manifest. |
 | Owner reviews the 16 "unsure" recordings and says keep or remove | Owner | Listed behind "recordings to check" on `/phrasebook`. |
-| Paste `0007_usernames_friends_shared_trips.sql`, then test friends and a shared trip live | Owner, then assistant | The database side passes 52 checks in PGlite. Nothing has run against the live project yet. |
+| Paste `0007_usernames_friends_shared_trips.sql` and `0008_teacher_notes.sql`, then test friends, a shared trip and the teacher page live | Owner, then assistant | The database side passes 58 checks in PGlite. Nothing has run against the live project yet. |
+| Mark the teacher's profile with `is_teacher = true` once he has an account | Owner | Step 2b of the setup guide. |
 
 ## Next: soon after students arrive
 
@@ -25,19 +26,16 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Run the Claude path live once, with a key, and read three lessons | The AI path has never run against the real API. |
 | Pre-generated Claude lessons for the 51 built in places, reviewed once | PRD 7.3a. Gives the exact place brief without live model calls or unreviewed text. |
 | A shared demo login on the real backend | PRD asks for it. Sign up an account, add three stops, set `is_demo = true` on its profile. |
-| Teacher view of `phrase_reports` and emailed notes | The professor's corrections arrive by email today. A page that lists them would save him work. |
 | Places study abroad students really go | Grow the catalogue from the professor's programme itinerary. This was the plan behind the catalogue. |
-| A GitHub Actions workflow: type check, lint, tests, build, database test | Nothing runs on push today except Vercel's build. |
-| A small Playwright suite from the scratch browser scripts | Sign up, add a stop, finish a lesson, in light and dark, at 360 and 1280 px. |
+| Browser tests for signed in flows | The Playwright suite covers the demo. Sign up, friends and shared trips need a test Supabase project with its own keys in CI secrets. |
 
 ## Later: the rest of the PRD and good ideas
 
 | Item | Notes |
 |---|---|
-| Today screen | "Here is today's stop and its lesson" when the trip has dates. |
 | Onboarding | First run: name the trip, pick dates, add a first stop. Today the trip simply appears. |
 | Speaking practice | The `speaking_attempts` table exists. Needs the Web Speech API or a recogniser, and a decision on privacy. |
-| Spaced repetition | The `phrase_progress` table exists. Bring back phrases from earlier stops in later lessons. |
+| Review inside the next lesson | Today review is its own practice at `/review`. One or two due phrases could also be slipped into the next lesson's practice. |
 | Bargaining game | A market role play with prices. Needs Swahili number phrases beyond ten, reviewed. |
 | Progress across trips | Kangas and phrases learned, kept when a trip ends. |
 | Offline lessons | A finished lesson and its audio kept for the bus. The PRD says the site is not an installable app, so this would be cache only. |
