@@ -35,3 +35,6 @@ supabase/functions/**/deno.lock
 
 # Python leftovers from the audio scripts
 __pycache__/
+# Playwright leaves these behind
+playwright-report/
+test-results/

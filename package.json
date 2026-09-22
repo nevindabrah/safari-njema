@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "seed:build": "node scripts/extractPhrases.ts && node scripts/buildSeedSql.ts && node scripts/buildSetupSql.ts",
-    "check:supabase": "node scripts/checkSupabase.ts"
+    "check:supabase": "node scripts/checkSupabase.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
@@ -21,6 +22,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/google.maps": "^3.66.3",
     "@types/node": "^24.13.3",
