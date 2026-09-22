@@ -35,7 +35,7 @@ export function TeacherScreen() {
           <>
             <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
               <p className="text-muted">{open === 0 ? 'Nothing waiting. Every note has been handled.' : `${open} note${open === 1 ? '' : 's'} waiting.`}</p>
-              <button type="button" onClick={() => setShowHandled(!showHandled)} aria-pressed={showHandled} className={`min-h-[40px] px-4 rounded-pill text-sm font-bold cursor-pointer ${showHandled ? 'bg-primary text-on-primary' : 'bg-tint'}`}>{showHandled ? 'Hiding nothing' : 'Show handled too'}</button>
+              <button type="button" onClick={() => setShowHandled(!showHandled)} aria-pressed={showHandled} className={`min-h-[40px] px-4 rounded-pill text-sm font-bold cursor-pointer ${showHandled ? 'bg-primary text-on-primary' : 'bg-soft text-on-soft'}`}>{showHandled ? 'Hiding nothing' : 'Show handled too'}</button>
             </div>
             {loading && <p className="text-muted">Loading.</p>}
             {error && <p role="alert" className="mb-4 rounded-input p-3 text-sm font-bold" style={{ background: 'var(--wrong-soft)' }}>{error}</p>}

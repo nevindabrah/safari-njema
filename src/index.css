@@ -31,6 +31,9 @@
   --primary: var(--ink);
   --primary-edge: #090a1e;
   --on-primary: #ffffff;
+  --soft: var(--tint);
+  --soft-edge: var(--line);
+  --on-soft: var(--ink);
   --success: var(--leaf);
   --on-success: #15173a;
   --hero-ghost: rgba(255, 255, 255, 0.6);
@@ -78,6 +81,9 @@
     --primary: #f2f2fb;
     --primary-edge: #b9bbe0;
     --on-primary: #15173a;
+    --soft: var(--marigold);
+    --soft-edge: #d9a11f;
+    --on-soft: #15173a;
     --right-soft: #123428;
     --wrong-soft: #3a2230;
     --map-ground: #12142b;
@@ -107,6 +113,9 @@
   --primary: #f2f2fb;
   --primary-edge: #b9bbe0;
   --on-primary: #15173a;
+  --soft: var(--marigold);
+  --soft-edge: #d9a11f;
+  --on-soft: #15173a;
   --right-soft: #123428;
   --wrong-soft: #3a2230;
   --map-ground: #12142b;
@@ -135,6 +144,8 @@
   --color-accent-text: var(--accent-text);
   --color-on-success: var(--on-success);
   --color-primary: var(--primary);
+  --color-soft: var(--soft);
+  --color-on-soft: var(--on-soft);
   --color-on-primary: var(--on-primary);
   --color-success: var(--success);
   --radius-card: var(--radius-card);

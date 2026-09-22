@@ -49,7 +49,7 @@ export function PlacePreviewCard({ place, trip, shared, onAdd, onClose }: PlaceP
   }
 
   const chip = (active: boolean) =>
-    `px-3.5 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
+    `px-3.5 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'bg-soft text-on-soft'}`
 
   return (
     <div className="bg-surface rounded-card shadow-lift overflow-clip">

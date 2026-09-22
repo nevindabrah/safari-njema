@@ -40,7 +40,7 @@ export function PlaceCatalog({ addedIds, onPick, onClose }: PlaceCatalogProps) {
   const found = query.trim() ? searchPlaces(SAMPLE_PLACES, query) : SAMPLE_PLACES
   const types = CATEGORIES.find((c) => c.key === category)?.types
   const shown = types ? found.filter((p) => types.includes(p.placeType)) : found
-  const chip = (active: boolean) => `shrink-0 px-4 min-h-[40px] rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
+  const chip = (active: boolean) => `shrink-0 px-4 min-h-[40px] rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap ${active ? 'bg-primary text-on-primary' : 'bg-soft text-on-soft'}`
 
   return (
     <div className="fixed inset-0 z-40 flex sm:items-center sm:justify-center sm:p-6" style={{ background: 'color-mix(in srgb, var(--ink) 55%, transparent)' }} onClick={onClose}>

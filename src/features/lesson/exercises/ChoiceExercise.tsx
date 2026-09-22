@@ -49,10 +49,10 @@ export function ChoiceExercise({ exercise, onAnswer }: ChoiceExerciseProps) {
       {exercise.hint && <p className={exercise.variant === 'true_false' ? 'mt-3 text-xl font-bold' : 'mt-1 text-muted'}>{exercise.variant === 'true_false' ? `“${exercise.hint}”` : exercise.hint}</p>}
       <ul className="flex flex-col gap-3 mt-5">
         {exercise.options.map((option, i) => {
-          let background = 'var(--tint)'
+          let background = 'var(--soft)'
           if (chosen !== null && i === exercise.correctIndex) background = 'var(--success)'
           else if (chosen === i) background = 'var(--accent)'
-          let color = 'var(--text)'
+          let color = 'var(--on-soft)'
           if (chosen !== null && i === exercise.correctIndex) color = 'var(--on-success)'
           else if (chosen === i) color = 'var(--on-accent)'
           return (

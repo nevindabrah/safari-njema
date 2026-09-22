@@ -26,7 +26,7 @@ export function DatePicker({ value, onChange, label, placeholder = 'Pick a date'
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" aria-label={`${label}: ${value ? dayLabel(value) : 'no date yet'}. Change it`}
-        className={`inline-flex items-center gap-2 min-h-[44px] px-4 rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap ${active ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`}>
+        className={`inline-flex items-center gap-2 min-h-[44px] px-4 rounded-pill text-sm font-bold cursor-pointer whitespace-nowrap ${active ? 'bg-primary text-on-primary' : 'bg-soft text-on-soft'}`}>
         <Icon name="calendar" size={16} />
         <span className={value ? '' : 'opacity-70'}>{value ? dayLabel(value) : placeholder}</span>
       </button>

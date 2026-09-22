@@ -36,7 +36,7 @@ export function MatchExercise({ exercise, onAnswer }: MatchExerciseProps) {
     if (matched.includes(phraseId)) return { background: 'var(--success)', color: 'var(--on-success)', opacity: 0.6 }
     if (wrongPair && wrongPair[side === 'sw' ? 0 : 1] === phraseId) return { background: 'var(--accent)', color: 'var(--on-accent)' }
     if (side === 'sw' && selected === phraseId) return { background: 'var(--primary)', color: 'var(--on-primary)' }
-    return { background: 'var(--tint)', color: 'var(--text)' }
+    return { background: 'var(--soft)', color: 'var(--on-soft)' }
   }
 
   const card = 'w-full text-left px-4 py-3 min-h-[52px] rounded-input font-bold cursor-pointer disabled:cursor-default text-sm sm:text-base'

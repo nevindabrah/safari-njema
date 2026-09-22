@@ -23,7 +23,7 @@ export function LengthPicker({ selected, sizes, onSelect, onStart }: LengthPicke
           return (
             <button key={length} type="button" role="radio" aria-checked={active} onClick={() => onSelect(length)}
               className="text-left rounded-card p-4 cursor-pointer flex items-center gap-4"
-              style={{ background: active ? 'var(--primary)' : 'var(--tint)', color: active ? 'var(--on-primary)' : 'var(--text)' }}>
+              style={{ background: active ? 'var(--primary)' : 'var(--soft)', color: active ? 'var(--on-primary)' : 'var(--on-soft)' }}>
               <span className="font-display font-extrabold text-2xl w-16 shrink-0">{info.minutes} min</span>
               <span className="flex-1">
                 <span className="block font-bold">{info.label}</span>

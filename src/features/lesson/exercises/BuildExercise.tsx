@@ -48,7 +48,7 @@ export function BuildExercise({ exercise, onAnswer }: BuildExerciseProps) {
       <div lang="sw" className="mt-4 flex flex-wrap gap-2">
         {exercise.tiles.map((word, index) => (
           <button key={index} type="button" className={tile} disabled={checked || placed.includes(index)} onClick={() => place(index)}
-            style={{ background: 'var(--tint)', color: 'var(--text)', opacity: placed.includes(index) ? 0.3 : 1 }}>
+            style={{ background: 'var(--soft)', color: 'var(--on-soft)', opacity: placed.includes(index) ? 0.3 : 1 }}>
             {word}
           </button>
         ))}

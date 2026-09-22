@@ -211,6 +211,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Decision.** Bricolage Grotesque and DM Sans are in `public/fonts`, preloaded, and cached for a year (603d760).
 **Why.** Two extra connections to Google cost about half a second before the final lettering appeared on a phone. It also means the privacy page can say the site talks to no other service.
 
+### 7.5 Secondary buttons have their own colour, marigold in dark mode
+**Decision.** Button-like controls that are not the main action (Pocket card, Try again, day pills, chips, lesson lengths, quiz options) use `--soft` and `--on-soft`, not the panel tint. In light mode soft is the same pale gold as the tint, so nothing changed there. In dark mode soft is the brand marigold with ink text, where before it was the dark olive tint that the owner had to squint at.
+**Why.** The tint is a background for panels and needs light text on it in dark mode, which forces it to stay dark. A button needs to read as something to press. One token cannot do both jobs, so buttons got their own.
+**Alternatives.** Brightening the tint itself (panels and banners with white text would fail contrast). Using the pink accent for every button (then nothing stands out as the main action). Outlined buttons in dark mode (thin outlines vanish on phones in sunlight).
+**Trade-off.** Two golds exist in dark mode: a muted one for panels and a vivid one for buttons. The demo banner and the pale panels keep the muted one on purpose.
+
 ## 8. Audio
 
 ### 8.1 Offline text to speech, judged by speech recognition, no service at run time

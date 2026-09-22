@@ -14,7 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const styles: Record<Variant, { bg: string; text: string; edge: string }> = {
   primary: { bg: 'var(--primary)', text: 'var(--on-primary)', edge: 'var(--primary-edge)' },
   accent: { bg: 'var(--accent)', text: 'var(--on-accent)', edge: 'var(--accent-edge)' },
-  soft: { bg: 'var(--tint)', text: 'var(--text)', edge: 'var(--line)' },
+  soft: { bg: 'var(--soft)', text: 'var(--on-soft)', edge: 'var(--soft-edge)' },
   onHero: { bg: 'var(--hero-ghost)', text: 'var(--on-hero-ghost)', edge: 'var(--hero-ghost-edge)' },
 }
 
