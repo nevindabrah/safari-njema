@@ -168,6 +168,17 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Why.** Wikipedia's per page summary API rate limits with 429 after a few dozen requests, and loading full size photos from Wikimedia cost 832 KB on the landing page. Self hosting cut the landing page from 1,119 KB to 410 KB.
 **Alternatives.** Google Places photos (paid, and licensed for use only beside the map). Stock photos (unlicensed or paid). Unsplash (fine, but not the actual place).
 
+### 6.5 Photos in three sizes, wide ones preferred
+**Decision.** Each photo is stored at 1,600, 960 and 480 px wide and served with `srcset` and `sizes`. The download script prefers a landscape photo at least 1,400 px across, drawn from the article's lead image and a Commons search, and never upscales a small source.
+**Why.** The first version stored one 960 px file compressed to quality 48 to 62 and showed it in a 1,280 px hero on 2x and 3x phone screens. It looked soft everywhere, and the market's portrait close up was stretched across a landscape frame. Sharp photos are most of what makes the site feel made rather than generated.
+**Alternatives.** One large file for everything (slow on phones). An image service that resizes on request (a dependency and a bill). WebP or AVIF (smaller, but `sips` on the build machine writes JPEG, and the gain did not justify a new tool).
+**Trade-off.** `public/places` grew from about 4 MB to 35 MB. Nothing loads that is not on screen, and each file is cached for a month.
+
+### 6.6 A food page of dishes, with reviewed phrases only
+**Decision.** Fourteen dishes with what, how to eat, where, and a phrase to order. Every phrase comes from the reviewed bank; the descriptions are English and the page says they were not part of the teacher's review.
+**Why.** The first meal is where a traveller first needs the language. Dish names are the Swahili words a menu uses, so they are not invented.
+**Alternatives.** Folding dishes into restaurant lessons (hides them from someone who is not planning a restaurant stop).
+
 ## 7. Design
 
 ### 7.1 No emoji, an own icon set

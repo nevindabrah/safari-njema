@@ -14,6 +14,7 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Run `npm run check:supabase`, then sign up for real and add a stop | Owner, then assistant | The first ever live test of accounts. Fix whatever it finds. |
 | Human recordings for the four held phrases | Owner's professor or friend | Sasa? / Poa, Ndiyo / Hapana, Mia / Elfu, Twiga. Drop the files into `public/audio` and add them to the manifest. |
 | Owner reviews the 16 "unsure" recordings and says keep or remove | Owner | Listed behind "recordings to check" on `/phrasebook`. |
+| Teacher reads the food page notes | Owner's professor | `src/features/food/dishes.ts`. English descriptions of 14 dishes and their names as written on menus. |
 | Paste `0007_usernames_friends_shared_trips.sql` and `0008_teacher_notes.sql`, then test friends, a shared trip and the teacher page live | Owner, then assistant | The database side passes 58 checks in PGlite. Nothing has run against the live project yet. |
 | Mark the teacher's profile with `is_teacher = true` once he has an account | Owner | Step 2b of the setup guide. |
 | Paste `0010_limits_and_hardening.sql` | Owner | Length limits, the 200 notes an hour cap, one lesson per stop, search needs three letters and hides display names of non friends, only the owner or the adder can delete a stop. The app works before and after. |
