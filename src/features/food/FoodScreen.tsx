@@ -20,7 +20,7 @@ export function FoodScreen() {
         <LeaveButton kind="back" label="Back" to="/" showLabel className="mb-3" />
         <h1 lang="sw" className="text-4xl sm:text-5xl">Chakula</h1>
         <p className="text-muted mt-2 max-w-2xl">The dishes you will meet in Kenya: what each one is, how people eat it, and what to say when you order. The notes are in English and have not been reviewed by the Swahili teacher.</p>
-        <SearchBox id="dish-search" label="Search dishes" placeholder="Search dishes, or try beans, coast, breakfast" value={query} onChange={setQuery} className="mt-5 max-w-xl" />
+        <SearchBox id="dish-search" label="Search dishes" placeholder="Search dishes, or try beans or coast" value={query} onChange={setQuery} className="mt-5 max-w-xl" />
         {shown.length === 0 && <p className="text-muted mt-6">Nothing matches that. Try a plainer word, like rice or bread.</p>}
         <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((dish) => <DishCard key={dish.id} dish={dish} />)}
