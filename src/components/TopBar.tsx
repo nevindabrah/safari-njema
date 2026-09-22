@@ -8,18 +8,23 @@ import { SoundToggle } from './SoundToggle'
 import { ThemeToggle } from './ThemeToggle'
 import { BottomTabs } from './BottomTabs'
 import { Logo } from './Logo'
+import { useBadges } from '../features/friends/useBadges'
+import { useProfile } from '../features/auth/useProfile'
 
 const link = ({ isActive }: { isActive: boolean }) => `px-3 py-3 rounded-pill ${isActive ? 'bg-tint' : 'hover:bg-tint'}`
 
 export function TopBar() {
   const { user } = useAuth()
+  const badges = useBadges()
+  const { profile } = useProfile()
+  const dot = (n: number) => (n > 0 ? <span aria-label={`${n} new`} className="ml-1 inline-block min-w-[18px] h-[18px] px-1 rounded-pill text-[11px] leading-[18px] text-center align-middle" style={{ background: 'var(--accent)', color: 'var(--on-accent)' }}>{n}</span> : null)
   return (
     <>
       <header className="sticky top-0 z-20 backdrop-blur-md" style={{ background: 'color-mix(in srgb, var(--bg) 80%, transparent)' }}>
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between gap-2">
           <Logo />
           <nav className="flex items-center gap-1 text-sm font-bold whitespace-nowrap" aria-label="Main">
-            {user && <span className="hidden sm:flex items-center gap-1"><NavLink to="/trip" className={link}>My trip</NavLink><NavLink to="/friends" className={link}>Friends</NavLink><NavLink to="/kangas" className={link}>Kangas</NavLink></span>}
+            {user && <span className="hidden sm:flex items-center gap-1"><NavLink to="/trip" className={link}>My trip{dot(badges.trips)}</NavLink><NavLink to="/friends" className={link}>Friends{dot(badges.friends)}</NavLink>{profile?.is_teacher && <NavLink to="/teacher" className={link}>Notes</NavLink>}<NavLink to="/kangas" className={link}>Kangas</NavLink></span>}
             <NavLink to="/phrasebook" className={(state) => `${link(state)} hidden sm:inline-block`}>Phrasebook</NavLink>
             <NavLink to="/time" className={(state) => `${link(state)} hidden sm:inline-block`}>Time</NavLink>
             <NavLink to="/about" className={(state) => `${link(state)} hidden sm:inline-block`}>About</NavLink>
@@ -34,7 +39,7 @@ export function TopBar() {
         </div>
         <DemoBanner />
       </header>
-      {user && <BottomTabs />}
+      {user && <BottomTabs badges={{ '/trip': badges.trips, '/friends': badges.friends }} />}
     </>
   )
 }

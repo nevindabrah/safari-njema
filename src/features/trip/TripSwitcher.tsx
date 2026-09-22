@@ -1,9 +1,14 @@
 // Pills to move between your own trip and the trips friends have shared with you. Hidden when there is only one.
 // Exists so a shared trip is one tap away from the planner, without a separate list screen.
+import { useEffect } from 'react'
 import { NavLink } from 'react-router'
+import { markSharedTripsSeen } from '../friends/useBadges'
 import type { SharedTrip } from './useTripMembers'
 
 export function TripSwitcher({ shared }: { shared: SharedTrip[] }) {
+  useEffect(() => {
+    if (shared.length > 0) markSharedTripsSeen(shared.map((t) => t.id))
+  }, [shared])
   if (shared.length === 0) return null
   const pill = ({ isActive }: { isActive: boolean }) => `inline-flex items-center min-h-[40px] px-4 rounded-pill text-sm font-bold whitespace-nowrap ${isActive ? 'bg-primary text-on-primary' : 'bg-tint text-text'}`
   return (
