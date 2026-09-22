@@ -14,6 +14,7 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Run `npm run check:supabase`, then sign up for real and add a stop | Owner, then assistant | The first ever live test of accounts. Fix whatever it finds. |
 | Human recordings for the four held phrases | Owner's professor or friend | Sasa? / Poa, Ndiyo / Hapana, Mia / Elfu, Twiga. Drop the files into `public/audio` and add them to the manifest. |
 | Owner reviews the 16 "unsure" recordings and says keep or remove | Owner | Listed behind "recordings to check" on `/phrasebook`. |
+| Paste `0007_usernames_friends_shared_trips.sql`, then test friends and a shared trip live | Owner, then assistant | The database side passes 52 checks in PGlite. Nothing has run against the live project yet. |
 
 ## Next: soon after students arrive
 

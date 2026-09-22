@@ -97,6 +97,19 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Alternatives.** Two Vercel projects. Twice the deployments to keep in step.
 **Trade-off.** `isDemoMode` is a constant per page load, not React state. The reload is what makes that safe, and it keeps every data hook to one `if (isDemoMode)`.
 
+### 4.5 Usernames, and logging in with one
+**Decision.** Every profile has a unique username, lower case letters, numbers and underscores, 3 to 20 characters, enforced by a check constraint and a unique index. Sign up sends it in the auth metadata and the trigger keeps it if valid and free. Google accounts choose one on a welcome step. Logging in accepts a username or an email.
+**Why.** The owner asked for friends to find each other by username, and for a username to work at log in.
+**How log in by username works.** Supabase only signs in with an email. `email_for_login(username, password)` runs as its owner, compares the password with the bcrypt hash in `auth.users` using pgcrypto's `crypt`, and returns the email only on a match. The browser then calls the normal password sign in. Five wrong tries lock the username for 15 minutes, in a `login_attempts` table nobody can read.
+**Alternatives.** An Edge Function with the service role key doing the lookup (more moving parts and a deploy step). A function that returns the email for any username (leaks every student's email to anyone who knows their username). Asking Google users to reuse their Google password (impossible: Google never shares it, and a site that claimed to would be phishing).
+**Trade-off.** The lookup is not covered by Supabase's own auth rate limits, hence the attempts table.
+
+### 4.6 Friend requests and shared trips
+**Decision.** One `friendships` table: requester, addressee, status pending or accepted, one row per pair in either direction. One `trip_members` table. The owner may invite only accepted friends. Members see the trip and its stops, may add and move stops, and each gets their own lesson per stop; only the owner changes the dates or the title.
+**Why.** The owner's idea: friends who are going on a trip together plan one trip. Keeping lessons per person means each traveller's progress is their own.
+**Alternatives.** Copying a trip to a friend (no shared editing). Trip codes anyone can join (no friendship step, and anyone with the code can edit). Full roles per trip (more than two students need).
+**Gotcha learned.** A `stable` security definer function used in a select policy cannot see a row inserted by the same statement, so `insert ... returning` failed for trips. `is_trip_member` is volatile and the owner check is written inline in the policy.
+
 ## 5. Lessons
 
 ### 5.1 Claude behind an Edge Function, validated with zod, one retry, template fallback
