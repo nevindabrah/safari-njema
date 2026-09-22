@@ -1,6 +1,6 @@
 # Backlog
 
-What is left to do, in the order it should happen. "Owner" marks steps only Nevin can take, because they need his accounts. Everything else can be built in the repo. Last updated 22 September 2026.
+What is left to do, in the order it should happen. "Owner" marks steps only Nevin can take, because they need his accounts. Everything else can be built in the repo. Last updated 22 September 2026. Migrations 0001 to 0012 are live, and the live account tests pass against production, including friends, automatic trip sharing and Just me stops.
 
 ## Now: before the first students sign up
 
@@ -15,11 +15,7 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Human recordings for the four held phrases | Owner's professor or friend | Sasa? / Poa, Ndiyo / Hapana, Mia / Elfu, Twiga. Drop the files into `public/audio` and add them to the manifest. |
 | Owner reviews the 16 "unsure" recordings and says keep or remove | Owner | Listed behind "recordings to check" on `/phrasebook`. |
 | Teacher reads the food page notes | Owner's professor | `src/features/food/dishes.ts`. English descriptions of 14 dishes and their names as written on menus. |
-| Paste `0007_usernames_friends_shared_trips.sql` and `0008_teacher_notes.sql`, then test friends, a shared trip and the teacher page live | Owner, then assistant | The database side passes 58 checks in PGlite. Nothing has run against the live project yet. |
 | Mark the teacher's profile with `is_teacher = true` once he has an account | Owner | Step 2b of the setup guide. |
-| Paste `0011_friends_share_trips.sql` | Owner | Accepting a friend request then shares trips both ways automatically, by triggers. Until it is in, the Travelling with panel shows only people added before. |
-| Paste `0012_just_me_stops.sql` | Owner | Adds the "Just me" choice when adding a stop to a shared trip. Until it is in, the app keeps working: it only sends the flag when Just me is chosen, so only that choice fails. Paste it right after 0011. |
-| Paste `0010_limits_and_hardening.sql` | Owner | Length limits, the 200 notes an hour cap, one lesson per stop, search needs three letters and hides display names of non friends, only the owner or the adder can delete a stop. The app works before and after. |
 
 ## Next: soon after students arrive
 
