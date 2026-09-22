@@ -1,6 +1,7 @@
 // The trip planner: map on one side, itinerary on the other. This is the home screen for the cut.
 // Exists to hold the loop together: search, add, then open a lesson.
 import { useState } from 'react'
+import { useParams } from 'react-router'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import { TopBar } from '../../components/TopBar'
 import { ReviewNote } from '../../components/ReviewNote'
@@ -19,10 +20,16 @@ import { TripDates } from './TripDates'
 import { PlaceCatalog } from './PlaceCatalog'
 import { Button } from '../../components/Button'
 import { Icon } from '../../components/icons'
+import { useTripMembers } from './useTripMembers'
+import { TripMembers } from './TripMembers'
+import { TripSwitcher } from './TripSwitcher'
+import { isDemoMode } from '../demo/demoMode'
 
 export function TripScreen() {
   const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_KEY as string | undefined
-  const { trip, error, updateDates } = useTrip()
+  const { tripId } = useParams()
+  const { trip, error, updateDates, isOwner } = useTrip(tripId ?? null)
+  const { members, owner, sharedWithMe, invite, remove } = useTripMembers(trip?.id ?? null, trip?.user_id ?? null)
   const { stops, loading, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
   const [preview, setPreview] = useState<PickedPlace | null>(null)
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
@@ -86,8 +93,10 @@ export function TripScreen() {
         </section>
 
         <section className="pt-2 min-w-0">
+          <TripSwitcher shared={sharedWithMe} />
           <h2 className="text-2xl mb-3 px-2">{trip?.title ?? 'My trip'}</h2>
-          {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} /></div>}
+          {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} readOnly={!isOwner && !isDemoMode} /></div>}
+          {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onInvite={invite} onRemove={remove} />}
           <div className="px-2 mb-5"><Button variant="soft" full onClick={() => setCatalogOpen(true)}><Icon name="map" size={18} />Browse places to add</Button></div>
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>

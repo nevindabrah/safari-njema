@@ -10,6 +10,7 @@ export function plainAuthMessage(message: string): string {
   if (text.includes('not authorized')) return 'We cannot send email to that address yet. Continue with Google instead.'
   if (text.includes('session missing')) return 'This link has expired or was opened on another device. Ask for a new link.'
   if (text.includes('failed to fetch') || text.includes('network')) return 'Could not reach the server. Check your connection and try again.'
+  if (text.includes('too many tries')) return 'Too many tries for that username. Wait 15 minutes, or log in with your email.'
   if (text.includes('provider is not enabled')) return 'Google sign in is not switched on yet. Use your email instead.'
   return message
 }

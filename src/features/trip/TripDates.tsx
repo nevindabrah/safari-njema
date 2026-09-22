@@ -1,14 +1,19 @@
 // The trip's start and end dates, editable at any time and both optional.
 // Exists so day chips and "Day 3" labels follow the real trip, and so a trip with no dates still works.
 import { DatePicker } from '../../components/DatePicker'
+import { dayLabel } from '../../lib/calendar'
 import type { Trip } from '../../lib/types'
 
 interface TripDatesProps {
   trip: Trip
   onChange: (startDate: string | null, endDate: string | null) => void
+  readOnly?: boolean
 }
 
-export function TripDates({ trip, onChange }: TripDatesProps) {
+export function TripDates({ trip, onChange, readOnly = false }: TripDatesProps) {
+  if (readOnly) {
+    return <p className="text-sm text-muted">{trip.start_date && trip.end_date ? `${dayLabel(trip.start_date)} to ${dayLabel(trip.end_date)}` : 'No dates yet. Only the owner can set them.'}</p>
+  }
   return (
     <div className="flex flex-wrap items-center gap-2 text-sm">
       <span className="text-muted font-bold">From</span>

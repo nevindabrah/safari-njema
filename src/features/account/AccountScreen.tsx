@@ -1,4 +1,4 @@
-// The account screen: who is signed in, sign out, and delete the account with everything in it.
+// The account screen: your profile, your password, who is signed in, sign out, and delete the account with everything in it.
 // Exists because the privacy page promises deletion, and a real student must be able to do it themselves without emailing anyone.
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
@@ -11,6 +11,8 @@ import { LeaveButton } from '../../components/LeaveButton'
 import { useAuth } from '../auth/useAuth'
 import { isDemoMode, leaveDemo } from '../demo/demoMode'
 import { startEmptyTrip } from '../demo/localStore'
+import { ProfileForm } from './ProfileForm'
+import { PasswordForm } from './PasswordForm'
 
 export function AccountScreen() {
   const { user, signOut } = useAuth()
@@ -48,6 +50,20 @@ export function AccountScreen() {
           <p className="font-bold text-lg break-all">{isDemoMode ? 'The demo account, saved in this browser' : user?.email}</p>
           <Button variant="soft" full className="mt-5" onClick={signOut}>Sign out</Button>
         </Card>
+
+        <Card className="mt-5">
+          <h2 className="text-xl mb-1">Your profile</h2>
+          <p className="text-sm text-muted mb-4">Your username is how friends find you. Two people cannot have the same one.</p>
+          <ProfileForm />
+        </Card>
+
+        {!isDemoMode && (
+          <Card className="mt-5">
+            <h2 className="text-xl mb-1">Password</h2>
+            <p className="text-sm text-muted mb-4">Set one to log in with your username or email. If you use Google, this is optional.</p>
+            <PasswordForm />
+          </Card>
+        )}
 
         <Card className="mt-5">
           <h2 className="text-xl mb-2">Delete your account</h2>

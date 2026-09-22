@@ -1,13 +1,14 @@
-// The sign up screen. Creates a Supabase account with email and password.
+// The sign up screen. Creates a Supabase account with a username, an email and a password.
 // Exists as the front door for new users. A trip is created on first visit to the planner.
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
 import { isExistingAccount, plainAuthMessage } from '../../lib/authMessages'
+import { usernameProblem } from '../../lib/username'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
 import { LeaveButton } from '../../components/LeaveButton'
-import { AuthForm } from './AuthForm'
+import { AuthForm, type AuthFormValues } from './AuthForm'
 import { SetupNotice } from './SetupNotice'
 import { GoogleButton } from './GoogleButton'
 import { isDemoMode } from '../demo/demoMode'
@@ -16,8 +17,12 @@ export function SignupScreen() {
   const navigate = useNavigate()
   const [needsConfirm, setNeedsConfirm] = useState(false)
 
-  async function signup(email: string, password: string) {
-    const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/trip` } })
+  async function signup({ identifier: email, password, username }: AuthFormValues) {
+    const problem = usernameProblem(username)
+    if (problem) return `Username: ${problem}`
+    const { data: taken } = await supabase.rpc('username_taken', { p_username: username })
+    if (taken) return 'That username is taken. Choose another.'
+    const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { username }, emailRedirectTo: `${window.location.origin}/trip` } })
     if (error) return plainAuthMessage(error.message)
     if (isExistingAccount(data.user)) return plainAuthMessage('User already registered')
     if (!data.session) {
@@ -45,7 +50,7 @@ export function SignupScreen() {
               <p className="text-muted mb-6">Your itinerary and lessons will live here.</p>
               <SetupNotice />
               {!isDemoMode && <GoogleButton />}
-              {!isDemoMode && <AuthForm submitLabel="Sign up" newPassword onSubmit={signup} />}
+              {!isDemoMode && <AuthForm submitLabel="Sign up" mode="signup" onSubmit={signup} />}
               <p className="text-sm text-muted mt-6 text-center">
                 Already have one? <Link to="/login" className="font-bold text-text underline">Log in</Link>
               </p>

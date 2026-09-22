@@ -3,23 +3,21 @@
 // dependency, so install it just for the run:
 //   npm install --no-save @electric-sql/pglite && node scripts/testDatabase.mjs
 import { PGlite } from '@electric-sql/pglite'
+import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto'
 import { readFileSync } from 'node:fs'
 const repo = process.argv[2] ?? '.'
-const db = new PGlite()
+const db = new PGlite({ extensions: { pgcrypto } })
 let passed = 0, failed = 0
 const ok = (name, cond, detail = '') => { cond ? passed++ : failed++; console.log(`  ${cond ? 'ok  ' : 'FAIL'} ${name}${cond ? '' : ' -> ' + detail}`) }
 
 await db.exec(`
   create schema auth;
-  create table auth.users (id uuid primary key default gen_random_uuid(), email text);
+  create table auth.users (id uuid primary key default gen_random_uuid(), email text, encrypted_password text, raw_user_meta_data jsonb not null default '{}'::jsonb);
   create role authenticated nologin; create role anon nologin;
   create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
   grant usage on schema public, auth to authenticated, anon;
 `)
-let sql = readFileSync(repo + '/supabase/setup.sql', 'utf8')
-try { await db.exec(sql) } catch (e) {
-  if (/pgcrypto/.test(String(e))) { console.log('  note: this test Postgres has no pgcrypto extension. gen_random_uuid is built in, so it is skipped here only.'); sql = sql.replace(/create extension if not exists "pgcrypto";/, ''); await db.exec(sql) } else throw e
-}
+await db.exec(readFileSync(repo + '/supabase/setup.sql', 'utf8'))
 await db.exec(`grant select, insert, update, delete on all tables in schema public to authenticated; grant select on all tables in schema public to anon;`)
 console.log('setup.sql ran without errors')
 
@@ -59,6 +57,45 @@ ok('user B cannot read user A\'s lesson', await as(b, async () => (await count(`
 ok('user A can mark their lesson completed', await as(a, async () => (await db.query(`update user_lessons set status = 'completed', score = 5 where user_id = '${a}'`)).affectedRows === 1))
 ok('deleting a stop removes its lesson', await as(a, async () => { await db.query(`delete from trip_stops where id = '${stopA}'`); return (await count(`select count(*) n from user_lessons`)) === 0 }))
 ok('someone not signed in sees no trips', await (async () => { await db.exec(`set role anon`); try { return (await count(`select count(*) n from trips`)) === 0 } finally { await db.exec(`reset role`) } })())
+
+const c = (await db.query(`insert into auth.users (email, raw_user_meta_data) values ('chebet@example.com', '{"username":"Chebet_1","full_name":"Chebet K"}') returning id`)).rows[0].id
+ok('a valid username from sign up metadata is kept, lower cased, with the Google display name', (await db.query(`select username, display_name from profiles where id = '${c}'`)).rows[0].username === 'chebet_1' && (await db.query(`select display_name from profiles where id = '${c}'`)).rows[0].display_name === 'Chebet K')
+const d = (await db.query(`insert into auth.users (email, raw_user_meta_data) values ('dan@example.com', '{"username":"CHEBET_1"}') returning id`)).rows[0].id
+ok('a username already taken is dropped at sign up instead of failing the sign up', (await db.query(`select username from profiles where id = '${d}'`)).rows[0].username === null)
+ok('username_taken sees it regardless of case', (await db.query(`select username_taken('ChEbEt_1') t`)).rows[0].t === true && (await db.query(`select username_taken('nobody_here') t`)).rows[0].t === false)
+ok('a user can set their own username, and a bad one is refused', await as(d, async () => { await db.query(`update profiles set username = 'dan_k' where id = '${d}'`); try { await db.query(`update profiles set username = 'Bad Name!' where id = '${d}'`); return false } catch { return true } }))
+ok('two people cannot share a username', await as(d, async () => { try { await db.query(`update profiles set username = 'chebet_1' where id = '${d}'`); return false } catch { return true } }))
+
+await db.query(`update auth.users set encrypted_password = crypt('correct horse', gen_salt('bf', 10)) where id = '${c}'`)
+await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)
+ok('the right password returns the email', (await db.query(`select email_for_login('Chebet_1', 'correct horse') e`)).rows[0].e === 'chebet@example.com')
+ok('a wrong password returns nothing', (await db.query(`select email_for_login('chebet_1', 'wrong') e`)).rows[0].e === null)
+ok('an unknown username returns nothing', (await db.query(`select email_for_login('nobody_here', 'x') e`)).rows[0].e === null)
+for (let i = 0; i < 4; i++) await db.query(`select email_for_login('chebet_1', 'wrong')`)
+ok('after five wrong tries the username is locked, even with the right password', await (async () => { try { await db.query(`select email_for_login('chebet_1', 'correct horse')`); return false } catch (e) { return /Too many/.test(String(e)) } })())
+ok('an anonymous visitor cannot read the attempts table', await (async () => { try { return (await count(`select count(*) n from login_attempts`)) === 0 } catch { return true } })())
+await db.exec(`reset role`)
+
+ok('C can send D a request', await as(c, async () => { await db.query(`insert into friendships (requester_id, addressee_id) values ('${c}', '${d}')`); return true }))
+ok('C cannot send a request in D\'s name', await as(c, async () => { try { await db.query(`insert into friendships (requester_id, addressee_id) values ('${d}', '${b}')`); return false } catch { return true } }))
+ok('D cannot send the same pair back the other way', await as(d, async () => { try { await db.query(`insert into friendships (requester_id, addressee_id) values ('${d}', '${c}')`); return false } catch { return true } }))
+ok('D sees the pending request and C\'s profile, B sees neither', (await as(d, async () => (await count(`select count(*) n from friendships where status = 'pending'`)) === 1 && (await count(`select count(*) n from profiles where id = '${c}'`)) === 1)) && (await as(b, async () => (await count(`select count(*) n from friendships`)) === 0 && (await count(`select count(*) n from profiles where id = '${c}'`)) === 0)))
+ok('C cannot accept their own request', await as(c, async () => (await db.query(`update friendships set status = 'accepted' where requester_id = '${c}'`)).affectedRows === 0))
+ok('D can accept it', await as(d, async () => (await db.query(`update friendships set status = 'accepted' where addressee_id = '${d}'`)).affectedRows === 1))
+ok('search by username prefix finds D for C and never C themselves', await as(c, async () => { const r = (await db.query(`select username from search_usernames('DA')`)).rows.map((x) => x.username); const me = (await db.query(`select username from search_usernames('che')`)).rows; return r.includes('dan_k') && me.length === 0 }))
+ok('search needs at least two letters', await as(c, async () => (await db.query(`select * from search_usernames('d')`)).rows.length === 0))
+
+const tripC = await as(c, async () => (await db.query(`insert into trips (user_id, title) values ('${c}', 'Coast trip') returning id`)).rows[0].id)
+ok('the owner cannot invite someone who is not a friend', await as(c, async () => { try { await db.query(`insert into trip_members (trip_id, user_id, added_by) values ('${tripC}', '${b}', '${c}')`); return false } catch { return true } }))
+ok('the owner can invite a friend', await as(c, async () => { await db.query(`insert into trip_members (trip_id, user_id, added_by) values ('${tripC}', '${d}', '${c}')`); return true }))
+ok('a friend cannot add themselves to a trip', await as(d, async () => { try { await db.query(`insert into trip_members (trip_id, user_id, added_by) values ('${tripC}', '${b}', '${d}')`); return false } catch { return true } }))
+ok('D now sees C\'s trip, B does not', (await as(d, async () => (await count(`select count(*) n from trips where id = '${tripC}'`)) === 1)) && (await as(b, async () => (await count(`select count(*) n from trips where id = '${tripC}'`)) === 0)))
+const stopD = await as(d, async () => (await db.query(`select add_trip_stop('${tripC}', 'g-shared', 'Diani Beach', -4.3, 39.6, '{}', 'beach', 'coast', null, '{}') id`)).rows[0].id)
+ok('a member can add a stop to the shared trip', !!stopD && (await as(c, async () => (await count(`select count(*) n from trip_stops where trip_id = '${tripC}'`)) === 1)))
+ok('a member cannot rename the trip, only the owner can', await as(d, async () => (await db.query(`update trips set title = 'Hijacked' where id = '${tripC}'`)).affectedRows === 0))
+ok('each member keeps their own lesson for a shared stop', (await as(c, async () => { await db.query(`insert into user_lessons (user_id, trip_stop_id, content) values ('${c}', '${stopD}', '{}'::jsonb)`); return (await count(`select count(*) n from user_lessons where trip_stop_id = '${stopD}'`)) === 1 })) && (await as(d, async () => (await count(`select count(*) n from user_lessons where trip_stop_id = '${stopD}'`)) === 0)))
+ok('a member can leave, and then sees nothing of the trip', await as(d, async () => { await db.query(`delete from trip_members where trip_id = '${tripC}' and user_id = '${d}'`); return (await count(`select count(*) n from trips where id = '${tripC}'`)) === 0 }))
+ok('ending the friendship works from either side', await as(c, async () => (await db.query(`delete from friendships where requester_id = '${c}' and addressee_id = '${d}'`)).affectedRows === 1))
 
 await as(b, async () => { await db.query(`insert into trips (user_id, title) values ('${b}', 'B trip')`) })
 await as(a, async () => { await db.query(`select delete_my_account()`) })

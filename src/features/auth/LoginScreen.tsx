@@ -1,12 +1,13 @@
-// The log in screen: Google, or email and password.
+// The log in screen: Google, or a username or email with a password.
 // Exists as the front door for returning users.
 import { Link, useLocation, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
 import { plainAuthMessage } from '../../lib/authMessages'
+import { isEmail } from '../../lib/username'
 import { Card } from '../../components/Card'
 import { TopBar } from '../../components/TopBar'
 import { LeaveButton } from '../../components/LeaveButton'
-import { AuthForm } from './AuthForm'
+import { AuthForm, type AuthFormValues } from './AuthForm'
 import { SetupNotice } from './SetupNotice'
 import { GoogleButton } from './GoogleButton'
 import { isDemoMode } from '../demo/demoMode'
@@ -16,7 +17,14 @@ export function LoginScreen() {
   const location = useLocation()
   const from = (location.state as { from?: string } | null)?.from ?? '/trip'
 
-  async function login(email: string, password: string) {
+  async function login({ identifier, password }: AuthFormValues) {
+    let email = identifier
+    if (!isEmail(identifier)) {
+      const { data, error: lookup } = await supabase.rpc('email_for_login', { p_username: identifier, p_password: password })
+      if (lookup) return plainAuthMessage(lookup.message)
+      if (!data) return 'That username and password do not match an account.'
+      email = data as string
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) return plainAuthMessage(error.message)
     navigate(from, { replace: true })
@@ -35,7 +43,7 @@ export function LoginScreen() {
           {!isDemoMode && (
             <>
               <GoogleButton />
-              <AuthForm submitLabel="Log in" onSubmit={login} />
+              <AuthForm submitLabel="Log in" mode="login" onSubmit={login} />
               <p className="text-sm text-center mt-4"><Link to="/forgot" className="underline text-muted">Forgot your password?</Link></p>
             </>
           )}

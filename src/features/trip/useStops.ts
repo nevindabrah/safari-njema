@@ -1,6 +1,6 @@
 // Loads the trip's stops and handles add, delete and lesson generation.
 // Exists so TripScreen only renders and this file owns the data calls.
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { StopRow } from '../../lib/types'
 import { orderStops } from '../../lib/orderStops'
@@ -16,6 +16,7 @@ const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, pos
 export function useStops(tripId: string | null) {
   const [stops, setStops] = useState<StopRow[]>([])
   const [loading, setLoading] = useState(true)
+  const tried = useRef(new Set<string>())
 
   const reload = useCallback(async () => {
     if (!tripId) return
@@ -26,8 +27,15 @@ export function useStops(tripId: string | null) {
       return
     }
     const { data } = await supabase.from('trip_stops').select(STOP_SELECT).eq('trip_id', tripId).order('position')
-    setStops(orderStops((data ?? []) as unknown as StopRow[]))
+    const rows = orderStops((data ?? []) as unknown as StopRow[])
+    setStops(rows)
     setLoading(false)
+    const mine = rows.find((s) => s.lesson_status === 'ready' && s.user_lessons.length === 0 && !tried.current.has(s.id))
+    if (mine) {
+      tried.current.add(mine.id)
+      await buildLessonInBrowser(mine, rows.indexOf(mine) === 0)
+      await reload()
+    }
   }, [tripId])
 
   useEffect(() => {

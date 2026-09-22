@@ -1,17 +1,25 @@
-// The email and password form shared by login and sign up.
+// The form shared by log in and sign up: who you are, your password, and on sign up the username you want.
 // Exists so the two screens differ only in which Supabase call they make.
 import { useState, type FormEvent } from 'react'
 import { Button } from '../../components/Button'
+import { UsernameField } from './UsernameField'
+
+export interface AuthFormValues {
+  identifier: string
+  password: string
+  username: string
+}
 
 interface AuthFormProps {
   submitLabel: string
-  newPassword?: boolean
-  onSubmit: (email: string, password: string) => Promise<string | null>
+  mode: 'login' | 'signup'
+  onSubmit: (values: AuthFormValues) => Promise<string | null>
 }
 
-export function AuthForm({ submitLabel, newPassword = false, onSubmit }: AuthFormProps) {
-  const [email, setEmail] = useState('')
+export function AuthForm({ submitLabel, mode, onSubmit }: AuthFormProps) {
+  const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -19,7 +27,7 @@ export function AuthForm({ submitLabel, newPassword = false, onSubmit }: AuthFor
     event.preventDefault()
     setBusy(true)
     setError(null)
-    const message = await onSubmit(email, password)
+    const message = await onSubmit({ identifier: identifier.trim(), password, username })
     setError(message)
     setBusy(false)
   }
@@ -28,13 +36,14 @@ export function AuthForm({ submitLabel, newPassword = false, onSubmit }: AuthFor
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      {mode === 'signup' && <UsernameField value={username} onChange={setUsername} />}
       <label className="flex flex-col gap-1 text-sm font-bold">
-        Email
-        <input className={inputClass} type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+        {mode === 'signup' ? 'Email' : 'Email or username'}
+        <input className={inputClass} type={mode === 'signup' ? 'email' : 'text'} autoComplete={mode === 'signup' ? 'email' : 'username'} autoCapitalize="none" required value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
       </label>
       <label className="flex flex-col gap-1 text-sm font-bold">
         Password
-        <input className={inputClass} type="password" autoComplete={newPassword ? 'new-password' : 'current-password'} required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input className={inputClass} type="password" autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       {error && <p role="alert" className="text-sm text-accent-text font-bold">{error}</p>}
       <Button type="submit" full disabled={busy} className="mt-2">
