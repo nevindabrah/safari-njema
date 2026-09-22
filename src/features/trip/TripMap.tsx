@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { AdvancedMarker, Map, useMap } from '@vis.gl/react-google-maps'
 import { Icon } from '../../components/icons'
+import { MapControls } from './MapControls'
 import type { TripStop } from '../../lib/types'
 import type { PickedPlace } from './usePlaceSearch'
 
@@ -64,6 +65,7 @@ export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapPr
       style={{ width: '100%', height: '100%' }}
     >
       <CameraFollow target={target} closeUp={Boolean(preview)} />
+      <MapControls points={stops.map((s) => ({ lat: Number(s.place.lat), lng: Number(s.place.lng) }))} home={KENYA_CENTER} />
       <RouteLine stops={stops} />
       {stops.map((stop, index) => (
         <AdvancedMarker
