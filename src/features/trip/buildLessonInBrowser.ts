@@ -32,6 +32,7 @@ export async function buildLessonInBrowser(stop: StopRow, firstStop: boolean): P
 
   const { error } = await supabase.from('user_lessons').insert({ user_id: userId, trip_stop_id: stop.id, content: lesson, generated_by: 'template' })
   if (error) return false
-  await supabase.from('trip_stops').update({ lesson_status: 'ready' }).eq('id', stop.id)
+  const { error: statusError } = await supabase.from('trip_stops').update({ lesson_status: 'ready' }).eq('id', stop.id)
+  if (statusError) return false
   return true
 }

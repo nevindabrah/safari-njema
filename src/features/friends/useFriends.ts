@@ -1,8 +1,9 @@
 // Loads the signed in user's friendships and makes the four moves: search, ask, accept, end.
 // Exists so FriendsScreen and the trip's member picker read the same list and never write to the table themselves.
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../auth/useAuth'
+import { writeProblem } from '../../lib/writeResult'
 import { isDemoMode } from '../demo/demoMode'
 
 export interface Person {
@@ -31,6 +32,8 @@ export function useFriends() {
   const { user } = useAuth()
   const [friendships, setFriendships] = useState<Friendship[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const alive = useRef(true)
 
   const reload = useCallback(async () => {
     if (!user || isDemoMode) {
@@ -41,6 +44,7 @@ export function useFriends() {
       .from('friendships')
       .select('id, status, requester_id, addressee_id, requester:profiles!friendships_requester_profile_fkey(id, username, display_name), addressee:profiles!friendships_addressee_profile_fkey(id, username, display_name)')
       .order('created_at')
+    if (!alive.current) return
     const rows = (data ?? []) as unknown as FriendshipRow[]
     setFriendships(rows.map((row) => {
       const iAsked = row.requester_id === user.id
@@ -51,7 +55,11 @@ export function useFriends() {
   }, [user])
 
   useEffect(() => {
+    alive.current = true
     reload()
+    return () => {
+      alive.current = false
+    }
   }, [reload])
 
   const search = useCallback(async (query: string): Promise<Person[]> => {
@@ -69,12 +77,16 @@ export function useFriends() {
   }
 
   async function accept(friendshipId: string) {
-    await supabase.from('friendships').update({ status: 'accepted' }).eq('id', friendshipId)
+    const problem = writeProblem(await supabase.from('friendships').update({ status: 'accepted' }).eq('id', friendshipId))
+    if (problem) return setError(problem)
+    setError(null)
     await reload()
   }
 
   async function end(friendshipId: string) {
-    await supabase.from('friendships').delete().eq('id', friendshipId)
+    const problem = writeProblem(await supabase.from('friendships').delete().eq('id', friendshipId))
+    if (problem) return setError(problem)
+    setError(null)
     await reload()
   }
 
@@ -82,5 +94,5 @@ export function useFriends() {
   const incoming = friendships.filter((f) => f.status === 'pending' && !f.iAsked)
   const outgoing = friendships.filter((f) => f.status === 'pending' && f.iAsked)
 
-  return { friends, incoming, outgoing, loading, search, ask, accept, end, reload }
+  return { friends, incoming, outgoing, loading, error, search, ask, accept, end, reload }
 }

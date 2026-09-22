@@ -34,8 +34,8 @@ export function TripScreen() {
   const navigate = useNavigate()
   const { user } = useAuth()
   const { trip, error, updateDates, isOwner } = useTrip(tripId ?? null)
-  const { members, owner, sharedWithMe, invite, remove } = useTripMembers(trip?.id ?? null, trip?.user_id ?? null)
-  const { stops, loading, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
+  const { members, owner, sharedWithMe, error: membersError, invite, remove } = useTripMembers(trip?.id ?? null, trip?.user_id ?? null)
+  const { stops, loading, error: stopsError, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
   const { due } = useDueProgress()
   const [preview, setPreview] = useState<PickedPlace | null>(null)
   const [highlightedId, setHighlightedId] = useState<string | null>(null)
@@ -106,7 +106,8 @@ export function TripScreen() {
         <section className="pt-2 min-w-0">
           <TripSwitcher shared={sharedWithMe} />
           {trip && !loading && <TodayCard trip={trip} stops={stops} dueCount={due.length} onSelect={selectStop} />}
-          <h2 className="text-2xl mb-3 px-2">{trip?.title ?? 'My trip'}</h2>
+          <h2 className="text-2xl mb-3 px-2 break-words">{trip?.title ?? 'My trip'}</h2>
+          {(stopsError || membersError) && <p role="alert" className="mx-2 mb-4 rounded-input p-3 text-sm font-bold" style={{ background: 'var(--wrong-soft)' }}>{stopsError ?? membersError}</p>}
           {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} readOnly={!isOwner && !isDemoMode} /></div>}
           {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onInvite={invite} onRemove={removeMember} />}
           <div className="px-2 mb-5"><Button variant="soft" full onClick={() => setCatalogOpen(true)}><Icon name="map" size={18} />Browse places to add</Button></div>

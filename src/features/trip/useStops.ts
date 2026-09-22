@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { StopRow } from '../../lib/types'
 import { orderStops } from '../../lib/orderStops'
+import { writeProblem } from '../../lib/writeResult'
 import { isDemoMode } from '../demo/demoMode'
 import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops, updateLocalStopDate } from '../demo/localStore'
 import { buildLocalLesson } from '../demo/localLessons'
@@ -16,7 +17,9 @@ const STOP_SELECT = 'id, trip_id, user_id, place_id, visit_date, activities, pos
 export function useStops(tripId: string | null) {
   const [stops, setStops] = useState<StopRow[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const tried = useRef(new Set<string>())
+  const alive = useRef(true)
 
   const reload = useCallback(async () => {
     if (!tripId) return
@@ -26,20 +29,26 @@ export function useStops(tripId: string | null) {
       setLoading(false)
       return
     }
-    const { data } = await supabase.from('trip_stops').select(STOP_SELECT).eq('trip_id', tripId).order('position')
+    const { data, error: readError } = await supabase.from('trip_stops').select(STOP_SELECT).eq('trip_id', tripId).order('position')
+    if (!alive.current) return
+    if (readError) setError(writeProblem({ error: readError }))
     const rows = orderStops((data ?? []) as unknown as StopRow[])
     setStops(rows)
     setLoading(false)
     const mine = rows.find((s) => s.lesson_status === 'ready' && s.user_lessons.length === 0 && !tried.current.has(s.id))
     if (mine) {
       tried.current.add(mine.id)
-      await buildLessonInBrowser(mine, rows.indexOf(mine) === 0)
-      await reload()
+      const built = await buildLessonInBrowser(mine, rows.indexOf(mine) === 0)
+      if (built && alive.current) await reload()
     }
   }, [tripId])
 
   useEffect(() => {
+    alive.current = true
     reload()
+    return () => {
+      alive.current = false
+    }
   }, [reload])
 
   async function generateLesson(stopId: string) {
@@ -49,7 +58,7 @@ export function useStops(tripId: string | null) {
       const stop = data as unknown as StopRow | null
       const { count } = await supabase.from('trip_stops').select('id', { count: 'exact', head: true }).eq('trip_id', tripId).lt('position', stop?.position ?? 0)
       const built = stop ? await buildLessonInBrowser(stop, (count ?? 0) === 0) : false
-      if (!built) await supabase.from('trip_stops').update({ lesson_status: 'failed' }).eq('id', stopId)
+      if (!built) setError(writeProblem(await supabase.from('trip_stops').update({ lesson_status: 'failed' }).eq('id', stopId)) ?? 'The lesson could not be built. Press Try again.')
     }
     await reload()
   }
@@ -77,35 +86,52 @@ export function useStops(tripId: string | null) {
       p_visit_date: visitDate,
       p_activities: activities,
     })
-    if (error || !stopId) return
+    if (error || !stopId) {
+      setError(error ? writeProblem({ error }) : 'The stop was not added.')
+      return
+    }
+    setError(null)
     await reload()
     await generateLesson(stopId as string)
   }
 
   async function deleteStop(stopId: string) {
+    const before = stops
     setStops((list) => list.filter((s) => s.id !== stopId))
     if (isDemoMode) {
       deleteLocalStop(stopId)
       return reload()
     }
-    await supabase.from('trip_stops').delete().eq('id', stopId)
+    const problem = writeProblem(await supabase.from('trip_stops').delete().eq('id', stopId))
+    if (problem) {
+      setStops(before)
+      setError(problem)
+      return
+    }
     await reload()
   }
 
   async function moveStop(stopId: string, visitDate: string | null) {
+    const before = stops
     setStops((list) => orderStops(list.map((s) => (s.id === stopId ? { ...s, visit_date: visitDate } : s))))
     if (isDemoMode) {
       updateLocalStopDate(stopId, visitDate)
       return
     }
-    await supabase.from('trip_stops').update({ visit_date: visitDate }).eq('id', stopId)
+    const problem = writeProblem(await supabase.from('trip_stops').update({ visit_date: visitDate }).eq('id', stopId))
+    if (problem) {
+      setStops(before)
+      setError(problem)
+    }
   }
 
   async function retryLesson(stopId: string) {
-    await supabase.from('trip_stops').update({ lesson_status: 'generating' }).eq('id', stopId)
+    setError(null)
+    const problem = writeProblem(await supabase.from('trip_stops').update({ lesson_status: 'generating' }).eq('id', stopId))
+    if (problem) return setError(problem)
     await reload()
     await generateLesson(stopId)
   }
 
-  return { stops, loading, addStop, deleteStop, retryLesson, moveStop }
+  return { stops, loading, error, addStop, deleteStop, retryLesson, moveStop }
 }

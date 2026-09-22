@@ -16,7 +16,7 @@ function when(iso: string): string {
 export function TeacherScreen() {
   const { profile, loading: profileLoading } = useProfile()
   const isTeacher = profile?.is_teacher === true
-  const { notes, loading, setHandled, remove } = useTeacherNotes(isTeacher)
+  const { notes, loading, error, setHandled, remove } = useTeacherNotes(isTeacher)
   const [showHandled, setShowHandled] = useState(false)
   const shown = notes.filter((n) => showHandled || !n.handled_at)
   const byPhrase = new Map<string, PhraseNote[]>()
@@ -38,6 +38,7 @@ export function TeacherScreen() {
               <button type="button" onClick={() => setShowHandled(!showHandled)} aria-pressed={showHandled} className={`min-h-[40px] px-4 rounded-pill text-sm font-bold cursor-pointer ${showHandled ? 'bg-primary text-on-primary' : 'bg-tint'}`}>{showHandled ? 'Hiding nothing' : 'Show handled too'}</button>
             </div>
             {loading && <p className="text-muted">Loading.</p>}
+            {error && <p role="alert" className="mb-4 rounded-input p-3 text-sm font-bold" style={{ background: 'var(--wrong-soft)' }}>{error}</p>}
             {[...byPhrase.entries()].map(([swahili, group]) => (
               <Card key={swahili} className="mb-4">
                 <h2 lang="sw" className="text-2xl mb-3">{swahili}</h2>

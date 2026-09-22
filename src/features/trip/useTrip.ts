@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Trip } from '../../lib/types'
+import { writeProblem } from '../../lib/writeResult'
 import { useAuth } from '../auth/useAuth'
 import { isDemoMode } from '../demo/demoMode'
 import { getLocalTrip, updateLocalTripDates } from '../demo/localStore'
@@ -62,8 +63,13 @@ export function useTrip(tripId: string | null = null) {
       setTrip({ ...updateLocalTripDates(startDate, end) })
       return
     }
+    const before = trip
     setTrip({ ...trip, start_date: startDate, end_date: end })
-    await supabase.from('trips').update({ start_date: startDate, end_date: end }).eq('id', trip.id)
+    const problem = writeProblem(await supabase.from('trips').update({ start_date: startDate, end_date: end }).eq('id', trip.id))
+    if (problem) {
+      setTrip(before)
+      setError(problem)
+    }
   }
 
   const isOwner = !!trip && !!user && trip.user_id === user.id
