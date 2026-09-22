@@ -19,6 +19,8 @@ import { LESSON_LENGTHS, saveLessonLength, savedLessonLength, type LessonLength 
 import { isDemoMode } from '../demo/demoMode'
 import { audioUrlFor, preloadPhrases } from '../audio/audio'
 import { playSound } from '../../lib/sounds'
+import { recordLessonResults } from '../review/useProgress'
+import { useAuth } from '../auth/useAuth'
 
 const STEPS = ['The brief', 'The phrases', 'Practice']
 
@@ -36,6 +38,7 @@ interface LessonPlayerProps {
 
 export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonId, generatedBy, backTo, backLabel, onComplete }: LessonPlayerProps) {
   const [step, setStep] = useState(-1)
+  const { user } = useAuth()
   const [length, setLength] = useState<LessonLength>(savedLessonLength)
   const [result, setResult] = useState<QuizResult | null>(null)
   const [startedAt] = useState(() => Date.now())
@@ -68,6 +71,7 @@ export function LessonPlayer({ lesson, phrases, pool, googlePlaceId, userLessonI
     setStep(3)
     playSound('complete')
     onComplete?.(quizResult.correct, Math.round((Date.now() - startedAt) / 1000))
+    recordLessonResults(user?.id, studied, quizResult.missedPhraseIds)
   }
 
   const type = (lesson.place.type in PLACE_TYPE_INFO ? lesson.place.type : 'other') as PlaceType
