@@ -1,5 +1,5 @@
 // Small sound effects made with the browser's Web Audio, so there are no audio files and no library.
-// Exists to make taps, right and wrong answers and a finished lesson feel alive. It can be muted, and the choice is remembered.
+// Exists to make taps, right and wrong answers and a finished lesson feel alive. It can be muted, and the choice is remembered. Phones only let sound start from a tap, so the first tap on the page unlocks it.
 
 export type SoundName = 'tap' | 'select' | 'correct' | 'wrong' | 'added' | 'complete'
 
@@ -44,24 +44,46 @@ const SOUNDS: Record<SoundName, Array<{ freq: number; at: number; length: number
   ],
 }
 
+function ensureContext(): AudioContext | null {
+  if (typeof AudioContext === 'undefined') return null
+  if (!context) context = new AudioContext()
+  return context
+}
+
+export function unlockSounds() {
+  const audio = ensureContext()
+  if (!audio) return
+  if (audio.state === 'suspended') audio.resume().catch(() => {})
+  const buffer = audio.createBuffer(1, 1, audio.sampleRate)
+  const source = audio.createBufferSource()
+  source.buffer = buffer
+  source.connect(audio.destination)
+  source.start(0)
+}
+
+function schedule(audio: AudioContext, name: SoundName) {
+  const now = audio.currentTime
+  for (const note of SOUNDS[name]) {
+    const oscillator = audio.createOscillator()
+    const gain = audio.createGain()
+    oscillator.type = note.wave
+    oscillator.frequency.value = note.freq
+    gain.gain.setValueAtTime(0.0001, now + note.at)
+    gain.gain.linearRampToValueAtTime(note.volume, now + note.at + 0.01)
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + note.at + note.length)
+    oscillator.connect(gain).connect(audio.destination)
+    oscillator.start(now + note.at)
+    oscillator.stop(now + note.at + note.length + 0.02)
+  }
+}
+
 export function playSound(name: SoundName) {
-  if (!isSoundOn() || typeof AudioContext === 'undefined') return
+  if (!isSoundOn()) return
   try {
-    if (!context) context = new AudioContext()
-    if (context.state === 'suspended') context.resume()
-    const now = context.currentTime
-    for (const note of SOUNDS[name]) {
-      const oscillator = context.createOscillator()
-      const gain = context.createGain()
-      oscillator.type = note.wave
-      oscillator.frequency.value = note.freq
-      gain.gain.setValueAtTime(0.0001, now + note.at)
-      gain.gain.linearRampToValueAtTime(note.volume, now + note.at + 0.01)
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + note.at + note.length)
-      oscillator.connect(gain).connect(context.destination)
-      oscillator.start(now + note.at)
-      oscillator.stop(now + note.at + note.length + 0.02)
-    }
+    const audio = ensureContext()
+    if (!audio) return
+    if (audio.state === 'running') schedule(audio, name)
+    else audio.resume().then(() => schedule(audio, name)).catch(() => {})
   } catch {
   }
 }

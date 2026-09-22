@@ -223,6 +223,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Decision.** `scripts/listTimePhrases.ts` prints the Swahili for all 288 times the clock can show by calling the same functions the screen uses. `generateTimeAudio.py` records them with the same judge (a19953a, b0d704a). 262 of 289 were heard exactly; the mean score is 0.996.
 **Why.** A copied list would drift from the code. The list is derived, so a wording change re-records the right clips.
 
+### 8.6 Sound is unlocked by the first tap
+**Decision.** The first tap or key press anywhere on the page creates the Web Audio context, resumes it, plays one silent sample through it, and plays a silent clip through the shared phrase player. Sound effects are scheduled only once the context reports it is running.
+**Why.** Phones refuse audio that no tap started. On iPhones the audio context created by the first tap is still suspended for a moment, so notes scheduled at once were lost, and a phrase played 420 ms after an answer, outside any tap, was refused because the player had never been played from a tap. On a laptop none of this applies, which is why sound worked there and not on phones.
+**Alternatives.** Playing the phrase inside the tap instead of after the chime (loses the chime then phrase order). A visible "turn on sound" button (one more thing to tap, and the sound toggle already exists).
+**Trade-off.** An iPhone with the ringer switch on silent still mutes sound effects; playing through a media element first makes iOS treat the page as playback, which usually lifts that, but not on every version.
+
 ## 9. Performance
 
 ### 9.1 Measured on an emulated 4G phone before and after
