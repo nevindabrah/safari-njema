@@ -21,6 +21,11 @@ export function AccountScreen() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  async function leave() {
+    navigate('/', { replace: true })
+    await signOut()
+  }
+
   async function deleteAccount() {
     setBusy(true)
     setError(null)
@@ -48,7 +53,7 @@ export function AccountScreen() {
         <Card>
           <p className="text-xs uppercase tracking-wide font-bold text-muted">Signed in as</p>
           <p className="font-bold text-lg break-all">{isDemoMode ? 'The demo account, saved in this browser' : user?.email}</p>
-          <Button variant="soft" full className="mt-5" onClick={signOut}>Sign out</Button>
+          <Button variant="soft" full className="mt-5" onClick={leave}>Sign out</Button>
         </Card>
 
         <Card className="mt-5">

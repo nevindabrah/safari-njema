@@ -643,18 +643,18 @@
     "take": {
       "voice": "facebook/mms-tts-swh",
       "method": "run with pauses at commas",
-      "seed": 21,
+      "seed": 7,
       "speed": 0.88,
       "split_commas": false,
       "noise": 0.667,
-      "pause": 0.45
+      "pause": 0.7
     }
   },
   {
     "file": "050.m4a",
     "swahili": "Sita, saba, nane, tisa, kumi",
-    "heard": "sitasaba nane tisa kumi",
-    "score": 1.0,
+    "heard": "sitasabat nane tisa kumi",
+    "score": 0.95,
     "shipped": true,
     "take": {
       "voice": "facebook/mms-tts-swh",
@@ -663,7 +663,7 @@
       "speed": 0.88,
       "split_commas": false,
       "noise": 0.667,
-      "pause": 0.45
+      "pause": 0.7
     }
   },
   {
