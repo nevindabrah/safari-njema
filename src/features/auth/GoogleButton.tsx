@@ -18,18 +18,23 @@ function GoogleMark() {
 
 export function GoogleButton() {
   const [error, setError] = useState<string | null>(null)
+  const [leaving, setLeaving] = useState(false)
   if (isDemoMode) return null
 
   async function signIn() {
     setError(null)
+    setLeaving(true)
     const { error: problem } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}/trip` } })
-    if (problem) setError(plainAuthMessage(problem.message))
+    if (problem) {
+      setError(plainAuthMessage(problem.message))
+      setLeaving(false)
+    }
   }
 
   return (
     <div className="mb-5">
-      <button type="button" onClick={signIn} className="w-full min-h-[48px] rounded-pill bg-surface-2 font-bold flex items-center justify-center gap-3 cursor-pointer" style={{ boxShadow: '0 4px 0 var(--line)' }}>
-        <GoogleMark />Continue with Google
+      <button type="button" onClick={signIn} disabled={leaving} className="w-full min-h-[48px] rounded-pill bg-surface-2 font-bold flex items-center justify-center gap-3 cursor-pointer" style={{ boxShadow: '0 4px 0 var(--line)' }}>
+        <GoogleMark />{leaving ? 'Taking you to Google' : 'Continue with Google'}
       </button>
       {error && <p role="alert" className="text-sm text-accent-text font-bold mt-2">{error}</p>}
       <p className="text-center text-xs text-muted mt-4">or use your email</p>

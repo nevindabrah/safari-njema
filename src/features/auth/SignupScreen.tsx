@@ -1,7 +1,7 @@
 // The sign up screen. Creates a Supabase account with a username, an email and a password.
 // Exists as the front door for new users. A trip is created on first visit to the planner.
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link, Navigate, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
 import { isExistingAccount, plainAuthMessage } from '../../lib/authMessages'
 import { usernameProblem } from '../../lib/username'
@@ -12,10 +12,13 @@ import { AuthForm, type AuthFormValues } from './AuthForm'
 import { SetupNotice } from './SetupNotice'
 import { GoogleButton } from './GoogleButton'
 import { isDemoMode } from '../demo/demoMode'
+import { useAuth } from './useAuth'
 
 export function SignupScreen() {
   const navigate = useNavigate()
   const [needsConfirm, setNeedsConfirm] = useState(false)
+  const { user, loading } = useAuth()
+  if (!loading && user && !isDemoMode && !needsConfirm) return <Navigate to="/trip" replace />
 
   async function signup({ identifier: email, password, username }: AuthFormValues) {
     const problem = usernameProblem(username)

@@ -1,6 +1,6 @@
 // The log in screen: Google, or a username or email with a password.
 // Exists as the front door for returning users.
-import { Link, useLocation, useNavigate } from 'react-router'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router'
 import { supabase } from '../../lib/supabase'
 import { plainAuthMessage } from '../../lib/authMessages'
 import { isEmail } from '../../lib/username'
@@ -11,11 +11,14 @@ import { AuthForm, type AuthFormValues } from './AuthForm'
 import { SetupNotice } from './SetupNotice'
 import { GoogleButton } from './GoogleButton'
 import { isDemoMode } from '../demo/demoMode'
+import { useAuth } from './useAuth'
 
 export function LoginScreen() {
   const navigate = useNavigate()
   const location = useLocation()
   const from = (location.state as { from?: string } | null)?.from ?? '/trip'
+  const { user, loading } = useAuth()
+  if (!loading && user && !isDemoMode) return <Navigate to={from} replace />
 
   async function login({ identifier, password }: AuthFormValues) {
     let email = identifier

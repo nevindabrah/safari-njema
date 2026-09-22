@@ -1,5 +1,5 @@
 // Holds the signed in user and their profile, kept in sync with Supabase. In demo mode it holds the demo user instead.
-// Exists so every screen reads the same user and the same profile, and a saved username is seen everywhere at once.
+// Exists so every screen reads the same user and the same profile, and a saved username is seen everywhere at once. The first answer waits for the auth library's own signal, so a return from Google is not mistaken for a stranger.
 import { createContext, useCallback, useEffect, useState, type ReactNode } from 'react'
 import { supabase } from '../../lib/supabase'
 import { isDemoMode, accountsAvailable, leaveDemo, DEMO_USER, DEMO_SIGNED_IN_KEY } from '../demo/demoMode'
@@ -51,14 +51,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false)
       return
     }
-    supabase.auth.getSession().then(({ data }) => {
-      setUser(data.session?.user ?? null)
-      setLoading(false)
-    })
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null)
+      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN' || event === 'SIGNED_OUT') setLoading(false)
     })
-    return () => listener.subscription.unsubscribe()
+    const fallback = window.setTimeout(() => {
+      supabase.auth.getSession().then(({ data }) => {
+        setUser((current) => current ?? data.session?.user ?? null)
+        setLoading(false)
+      })
+    }, 4000)
+    return () => {
+      listener.subscription.unsubscribe()
+      window.clearTimeout(fallback)
+    }
   }, [])
 
   const refreshProfile = useCallback(async () => {
@@ -78,12 +84,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user])
 
   useEffect(() => {
-    let cancelled = false
     setProfileLoading(true)
-    refreshProfile().then(() => { if (cancelled) setProfileLoading(true) })
-    return () => {
-      cancelled = true
-    }
+    refreshProfile()
   }, [refreshProfile])
 
   async function saveProfile(changes: ProfileChanges): Promise<string | null> {
