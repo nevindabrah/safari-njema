@@ -275,6 +275,11 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Why.** This is the common convention. Speakers differ on the boundaries, and the screen says so.
 **Review.** These words were added after the teacher's review. The owner reviewed the words and every recording on 22 September 2026, so the "not yet reviewed" label was removed.
 
+### 11.3a Now is exact, taps are in fives
+**Decision.** Pressing Now sets the real minute, the minute hand sits between the marks, and the Swahili is said for that minute. Tapping or dragging still snaps to five minute steps, and the 289 recordings cover those steps; an exact minute shows a note instead of a speaker.
+**Why.** The owner asked for Now to show the exact time, the way a real watch does, and for the hand to estimate it. Minute numbers between the fives are formed the regular way from the reviewed one to ten with kumi and ishirini (kumi na tatu, ishirini na saba), so no new number words were written.
+**Alternatives.** Recording all 1,440 minutes (five times the audio for little gain). Rounding Now to five minutes (the earlier choice; it showed a time that was not the time).
+
 ### 11.4 The face does not turn dark at night
 **Decision.** An early version darkened the clock face after 7 pm as a reminder of the count restarting at sunset. The owner did not want it, so it was removed.
 
