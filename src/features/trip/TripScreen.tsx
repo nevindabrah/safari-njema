@@ -1,7 +1,7 @@
 // The trip planner: map on one side, itinerary on the other. This is the home screen for the cut.
 // Exists to hold the loop together: search, add, then open a lesson.
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import { TopBar } from '../../components/TopBar'
 import { ReviewNote } from '../../components/ReviewNote'
@@ -21,6 +21,7 @@ import { PlaceCatalog } from './PlaceCatalog'
 import { Button } from '../../components/Button'
 import { Icon } from '../../components/icons'
 import { useTripMembers } from './useTripMembers'
+import { useAuth } from '../auth/useAuth'
 import { TripMembers } from './TripMembers'
 import { TripSwitcher } from './TripSwitcher'
 import { isDemoMode } from '../demo/demoMode'
@@ -30,6 +31,8 @@ import { useDueProgress } from '../review/useProgress'
 export function TripScreen() {
   const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_KEY as string | undefined
   const { tripId } = useParams()
+  const navigate = useNavigate()
+  const { user } = useAuth()
   const { trip, error, updateDates, isOwner } = useTrip(tripId ?? null)
   const { members, owner, sharedWithMe, invite, remove } = useTripMembers(trip?.id ?? null, trip?.user_id ?? null)
   const { stops, loading, addStop, deleteStop, retryLesson, moveStop } = useStops(trip?.id ?? null)
@@ -58,6 +61,11 @@ export function TripScreen() {
   }
 
   const wide = window.matchMedia('(min-width: 1024px)').matches
+
+  async function removeMember(personId: string) {
+    await remove(personId)
+    if (personId === user?.id) navigate('/trip', { replace: true })
+  }
 
   return (
     <div className="min-h-dvh flex flex-col">
@@ -100,7 +108,7 @@ export function TripScreen() {
           {trip && !loading && <TodayCard trip={trip} stops={stops} dueCount={due.length} onSelect={selectStop} />}
           <h2 className="text-2xl mb-3 px-2">{trip?.title ?? 'My trip'}</h2>
           {trip && <div className="px-2 mb-5"><TripDates trip={trip} onChange={updateDates} readOnly={!isOwner && !isDemoMode} /></div>}
-          {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onInvite={invite} onRemove={remove} />}
+          {trip && !isDemoMode && <TripMembers isOwner={isOwner} owner={owner} members={members} onInvite={invite} onRemove={removeMember} />}
           <div className="px-2 mb-5"><Button variant="soft" full onClick={() => setCatalogOpen(true)}><Icon name="map" size={18} />Browse places to add</Button></div>
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>
