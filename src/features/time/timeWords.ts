@@ -14,17 +14,22 @@ export const PART_WORDS: Record<PartOfDay, string> = {
 
 export const ASK_THE_TIME = { swahili: 'Saa ngapi?', english: 'What time is it?' }
 
-const MINUTE_WORDS: Record<number, string> = { 5: 'tano', 10: 'kumi', 20: 'ishirini', 25: 'ishirini na tano' }
+export function minuteWord(n: number): string {
+  if (n <= 10) return HOUR_WORDS[n - 1]
+  if (n < 20) return `kumi na ${HOUR_WORDS[n - 11]}`
+  if (n === 20) return 'ishirini'
+  return `ishirini na ${HOUR_WORDS[n - 21]}`
+}
 
 export function sayTime({ hour, part, kind, minutes }: SwahiliTime): string {
   const base = `saa ${HOUR_WORDS[hour - 1]}`
   const middle = {
     exact: '',
-    past: ` na dakika ${MINUTE_WORDS[minutes]}`,
+    past: ` na dakika ${minuteWord(minutes)}`,
     quarter: ' na robo',
     half: ' na nusu',
     quarterTo: ' kasorobo',
-    to: ` kasoro dakika ${MINUTE_WORDS[minutes]}`,
+    to: ` kasoro dakika ${minuteWord(minutes)}`,
   }[kind]
   return `${base}${middle} ${part}`
 }

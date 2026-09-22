@@ -21,7 +21,7 @@ export function TimeExplorer() {
     const now = new Date()
     setClock12(now.getHours() % 12 === 0 ? 12 : now.getHours() % 12)
     setPm(now.getHours() >= 12)
-    setMinute(Math.floor(now.getMinutes() / 5) * 5)
+    setMinute(now.getMinutes())
   }
 
   const tab = (active: boolean) => `flex-1 min-h-[44px] rounded-pill text-sm font-bold cursor-pointer ${active ? 'bg-primary text-on-primary' : 'text-text'}`
@@ -62,7 +62,7 @@ export function TimeExplorer() {
               <span className="block text-sm font-bold text-accent-text mt-0.5">{pronounce(sayTime(said))}</span>
               <span className="text-sm text-muted">{timeInWords(said)}, {PART_WORDS[said.part]}</span>
             </p>
-            <TimeSpeakButton swahili={sayTime(said)} />
+            {minute % 5 === 0 ? <TimeSpeakButton swahili={sayTime(said)} /> : <span className="text-xs text-muted max-w-[8rem] text-right">Recordings cover every five minutes. Tap a minute on the clock to hear one.</span>}
           </div>
         </div>
       )}
