@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import { Button } from '../../components/Button'
 import { Icon } from '../../components/icons'
+import { ConfirmButton } from '../../components/ConfirmButton'
 import { useFriends, type Person } from '../friends/useFriends'
 import { useAuth } from '../auth/useAuth'
 
@@ -38,7 +39,7 @@ export function TripMembers({ isOwner, owner, members, onInvite, onRemove }: Tri
           <li key={m.id} className="inline-flex items-center gap-1.5 min-h-[40px] pl-3 pr-1 rounded-pill bg-tint text-sm font-bold">
             {m.id === user?.id ? 'You' : name(m)}
             {(isOwner || m.id === user?.id) && (
-              <button type="button" onClick={() => onRemove(m.id)} aria-label={m.id === user?.id ? 'Leave this trip' : `Remove ${name(m)} from this trip`} className="w-8 h-8 rounded-pill hover:bg-surface flex items-center justify-center cursor-pointer"><Icon name="close" size={14} /></button>
+              <ConfirmButton icon question={m.id === user?.id ? 'Leave this trip?' : `Remove ${name(m)} from this trip?`} confirmLabel={m.id === user?.id ? 'Leave' : 'Remove'} onConfirm={() => onRemove(m.id)} ariaLabel={m.id === user?.id ? 'Leave this trip' : `Remove ${name(m)} from this trip`} className="w-8 h-8 rounded-pill hover:bg-surface flex items-center justify-center cursor-pointer"><Icon name="close" size={14} /></ConfirmButton>
             )}
           </li>
         ))}

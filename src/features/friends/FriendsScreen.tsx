@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { Card } from '../../components/Card'
 import { Button } from '../../components/Button'
+import { ConfirmButton } from '../../components/ConfirmButton'
 import { TopBar } from '../../components/TopBar'
 import { LeaveButton } from '../../components/LeaveButton'
 import { SearchBox } from '../../components/SearchBox'
@@ -64,7 +65,7 @@ export function FriendsScreen() {
             <Card className="mt-5">
               <h2 className="text-xl">Your friends</h2>
               {loading ? <p className="text-muted mt-2">Loading.</p> : friends.length === 0 ? <p className="text-muted mt-2">No friends yet. Search for a username above.</p> : (
-                <ul>{friends.map((f) => <PersonRow key={f.id} person={f.person}><Button variant="soft" onClick={() => end(f.id)}>Remove</Button></PersonRow>)}</ul>
+                <ul>{friends.map((f) => <PersonRow key={f.id} person={f.person}><ConfirmButton question="Remove this friend?" confirmLabel="Remove" onConfirm={() => end(f.id)}>Remove</ConfirmButton></PersonRow>)}</ul>
               )}
             </Card>
 
