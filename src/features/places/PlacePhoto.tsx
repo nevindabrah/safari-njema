@@ -1,5 +1,5 @@
 // A place's photo, or a patterned tile with the place type icon when there is none or it fails to load.
-// Exists so every screen shows places the same way and nothing ever renders a broken image.
+// Exists so every screen shows places the same way, and a stand-in photo of the town is kept off the small thumbnails where it would repeat down the list.
 import { useState } from 'react'
 import { Icon } from '../../components/icons'
 import type { PlaceType } from '../../lib/types'
@@ -17,7 +17,8 @@ interface PlacePhotoProps {
 
 export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, className = '', photo: livePhoto }: PlacePhotoProps) {
   const [failed, setFailed] = useState(false)
-  const photo = photoFor(googlePlaceId) ?? livePhoto ?? null
+  const standIn = Boolean(livePhoto?.of)
+  const photo = photoFor(googlePlaceId) ?? (standIn && size === 'small' ? null : livePhoto) ?? null
 
   if (!photo || failed) {
     return (
