@@ -57,7 +57,7 @@ class Voice:
         piece[-fade:] *= np.linspace(1, 0, fade)
         return piece
 
-    def speak_phrase(self, swahili: str, seed: int, speed: float, split_commas: bool, noise: float, method: str = "alone") -> np.ndarray:
+    def speak_phrase(self, swahili: str, seed: int, speed: float, split_commas: bool, noise: float, method: str = "alone", pause: float = 0.22) -> np.ndarray:
         """A pair like "Kushoto / Kulia" gets a clear pause between its halves. A list can get a short pause at each comma."""
         pieces = []
         halves = [h.strip() for h in swahili.split(" / ")]
@@ -66,7 +66,7 @@ class Voice:
             for p, part in enumerate(parts):
                 pieces.append(self.speak(part, seed, speed, noise) if method == "alone" else self.middle_of_three(part, seed, speed, noise, method == "middle, quiet cut"))
                 if p < len(parts) - 1:
-                    pieces.append(self.silence(0.22))
+                    pieces.append(self.silence(pause))
             if h < len(halves) - 1:
                 pieces.append(self.silence(0.55))
         audio = np.concatenate([self.silence(0.08), *pieces, self.silence(0.08)])
