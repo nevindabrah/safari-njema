@@ -1,5 +1,5 @@
 // The blurred sticky top bar: the logo that leads home, the main links on wide screens, and the sound, theme and sign in controls.
-// Exists so every screen has the same way to get around. On a phone the main links move to BottomTabs, within thumb reach.
+// Exists so every screen has the same way to get around. On a phone the links move to a menu button and to BottomTabs, within thumb reach.
 import { Link, NavLink } from 'react-router'
 import { Icon } from './icons'
 import { useAuth } from '../features/auth/useAuth'
@@ -8,6 +8,7 @@ import { SoundToggle } from './SoundToggle'
 import { ThemeToggle } from './ThemeToggle'
 import { BottomTabs } from './BottomTabs'
 import { Logo } from './Logo'
+import { MenuSheet } from './MenuSheet'
 import { useBadges } from '../features/friends/useBadges'
 import { useProfile } from '../features/auth/useProfile'
 
@@ -31,16 +32,17 @@ export function TopBar() {
             <NavLink to="/about" className={(state) => `${link(state)} hidden sm:inline-block`}>About</NavLink>
             <SoundToggle />
             <ThemeToggle />
+            <MenuSheet />
             {user ? (
               <Link to="/account" aria-label="Your account" className="px-2 sm:px-3 min-h-[44px] inline-flex items-center rounded-pill hover:bg-tint"><Icon name="user" size={20} /></Link>
             ) : (
-              <Link to="/login" className="px-4 min-h-[44px] inline-flex items-center rounded-pill bg-primary text-on-primary">Log in</Link>
+              <Link to="/login" className="hidden sm:inline-flex px-4 min-h-[44px] items-center rounded-pill bg-primary text-on-primary">Log in</Link>
             )}
           </nav>
         </div>
         <DemoBanner />
       </header>
-      {user && <BottomTabs badges={{ '/trip': badges.trips, '/friends': badges.friends }} />}
+      <BottomTabs badges={{ '/trip': badges.trips, '/friends': badges.friends }} />
     </>
   )
 }

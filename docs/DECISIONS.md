@@ -241,6 +241,12 @@ Dates are 20 to 22 September 2026. Commit hashes are given where one commit carr
 **Decision.** `Logo.tsx`, `LeaveButton.tsx` and `SearchBox.tsx` are the three shared pieces (9523f25, 4c9f0c7).
 **Detail.** The back arrow returns to the previous screen when there is one in this tab (React Router's history index above zero) and otherwise to a sensible home. A signed in visitor is sent straight to the trip only when the home page is the first screen of the visit, so the logo can still show the home page.
 
+### 10.2a A phone menu for everyone, and tabs for signed out visitors
+**Decision.** On a phone the top bar carries a menu button that opens a sheet listing every screen, and the bottom tabs show for signed out visitors (Home, Phrases, Time, Food) as well as signed in ones. The sheet is rendered at the document root.
+**Why.** The links were hidden on phones and the tabs only appeared once signed in, so a visitor on a phone had no way to reach the phrasebook, the clock or the food page. The first version of the sheet was rendered inside the blurred top bar, and a `backdrop-filter` makes its element the containing block for `position: fixed` children, which pinned the sheet 400 px above the screen. Playwright caught it as "element is outside of the viewport".
+**Alternatives.** Cramming the links into the phone bar (they do not fit at 320 px). A hamburger only, no tabs (loses thumb reach for the four pages everyone uses).
+**Testing rule that came out of it.** Browser tests run on three viewports, phone, tablet and laptop, on every push.
+
 ### 10.3 The app's own calendar
 **Decision.** The browser's date field was replaced by `DatePicker.tsx` and `CalendarSheet.tsx`, with the arithmetic in `src/lib/calendar.ts` (9c22f13).
 **Why.** The native field looks different on every device and ignores the app's colours and corners. The owner asked for it to match.
