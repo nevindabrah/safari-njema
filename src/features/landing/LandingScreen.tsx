@@ -1,5 +1,5 @@
-// The public landing page: the kanga hero, the way in, a live showcase of lessons, and a section for reviewers.
-// Exists as the first thing a visitor or a recruiter sees, so one tap must lead to the product.
+// The public landing page: the kanga hero, the way in, three sample lessons, the clock and the phrasebook.
+// Exists as the first thing a traveller sees, so one tap must lead to their trip.
 import { Link, Navigate, useNavigate } from 'react-router'
 import { Hero } from '../../components/Hero'
 import { Icon, type IconName } from '../../components/icons'
@@ -7,15 +7,13 @@ import { Button } from '../../components/Button'
 import { TopBar } from '../../components/TopBar'
 import { Footer } from '../../components/Footer'
 import { useAuth } from '../auth/useAuth'
-import { isDemoMode, enterDemo } from '../demo/demoMode'
+import { isDemoMode } from '../demo/demoMode'
 import { LessonShowcase } from './LessonShowcase'
 import { TimeTeaser } from '../time/TimeTeaser'
-import { BuiltSection } from './BuiltSection'
 import { HeroMap } from './HeroMap'
-import { FullVersionSection } from './FullVersionSection'
 
 const STEPS: Array<{ icon: IconName; title: string; body: string }> = [
-  { icon: 'search', title: 'Search', body: 'Find any place in Kenya on the map, from a beach to a market stall.' },
+  { icon: 'search', title: 'Pick', body: 'Choose the places you are going in Kenya, from a beach to a market stall.' },
   { icon: 'other', title: 'Add', body: 'Put it on a day of your trip. It becomes a numbered pin on your map.' },
   { icon: 'bolt', title: 'Learn', body: 'A lesson is made for that exact place, as long as you have time for: what to know, what to say, and practice.' },
 ]
@@ -45,10 +43,7 @@ export function LandingScreen() {
             ) : isDemoMode ? (
               <Button variant="accent" onClick={openDemo}>Try the live demo</Button>
             ) : (
-              <>
-                <Link to="/signup"><Button variant="accent" tabIndex={-1}>Create your account</Button></Link>
-                <Button variant="onHero" onClick={enterDemo}>Try the demo, no sign up</Button>
-              </>
+              <Link to="/signup"><Button variant="accent" tabIndex={-1}>Create your account</Button></Link>
             )}
             <Link to="/preview"><Button variant="onHero" tabIndex={-1}>See a sample lesson</Button></Link>
           </div>
@@ -81,8 +76,6 @@ export function LandingScreen() {
           <Link to="/phrasebook"><Button tabIndex={-1}>Open the phrasebook<Icon name="arrow" size={18} /></Button></Link>
         </section>
 
-        <FullVersionSection />
-        <BuiltSection />
         <Footer />
       </main>
     </div>

@@ -4,7 +4,7 @@
 
 You add the places you are going. Each stop becomes a five minute Swahili lesson made for that place: a brief on what to know, the phrases you will need there, and a quiz. A market teaches prices and bargaining. A beach teaches coast words and ordering. A game reserve teaches the animals your guide will call out.
 
-**Live demo:** https://safari-njema-rust.vercel.app. No sign up is needed. The demo opens on a ready-made trip.
+**Live site:** https://safari-njema-rust.vercel.app. Create an account, or sign in with Google.
 
 ![The landing page](docs/screenshots/landing.png)
 

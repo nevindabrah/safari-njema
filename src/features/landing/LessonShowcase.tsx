@@ -28,9 +28,9 @@ export function LessonShowcase() {
 
   return (
     <section aria-labelledby="showcase-title">
-      <p className="text-sm font-bold uppercase tracking-wide text-accent-text px-1">The idea</p>
+      <p className="text-sm font-bold uppercase tracking-wide text-accent-text px-1">How a lesson fits its place</p>
       <h2 id="showcase-title" className="text-3xl sm:text-4xl mb-2 px-1">Three stops, three different lessons</h2>
-      <p className="text-muted mb-6 px-1 max-w-2xl">These are built right now in your browser, by the same code that runs on the server. Nothing below is a screenshot.</p>
+      <p className="text-muted mb-6 px-1 max-w-2xl">A market teaches prices and bargaining. A beach teaches coast words. A reserve teaches the animals your guide will call out.</p>
       <div className="grid md:grid-cols-3 gap-5">
         {STOPS.map((stop, i) => {
           const built = lessons[i]
