@@ -13,7 +13,7 @@ export const PLACE_TYPE_TAGS: Record<string, string[]> = {
   city: ['directions', 'transport', 'help', 'polite'],
   religious_site: ['respect', 'polite', 'questions', 'help'],
   museum: ['polite', 'questions', 'help'],
-  other: ['help', 'polite', 'questions'],
+  other: ['basics', 'essential', 'greeting', 'polite', 'help', 'questions', 'numbers', 'directions'],
 }
 
 export const ACTIVITY_TAGS: Record<string, string[]> = {
@@ -48,7 +48,7 @@ const TYPE_SLOTS: Record<string, string[]> = {
   city: ['directions', 'transport', 'help', 'directions', 'polite', 'help'],
   religious_site: ['respect', 'polite', 'polite', 'questions', 'polite', 'help'],
   museum: ['polite', 'questions', 'polite', 'help', 'polite', 'questions'],
-  other: ['polite', 'help', 'questions', 'polite', 'help', 'polite'],
+  other: ['core_greeting', 'polite', 'questions', 'help', 'numbers', 'directions', 'farewell', 'basics'],
 }
 
 const ACTIVITY_SLOTS: Record<string, string[]> = {

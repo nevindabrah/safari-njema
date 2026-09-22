@@ -1,7 +1,7 @@
 // Tests for the Wikipedia request and the guard that drops articles about the wrong thing.
 // Exists because a wrong two-sentence description at the top of a lesson would be worse than none.
 import { describe, expect, it } from 'vitest'
-import { commonsImageUrl, pickCommonsImage, pickWikipediaSummary, titleFitsPlace, wikipediaSearchUrl, wikipediaTitleUrl } from './wikipedia'
+import { commonsImageUrl, looksLikeAPlacePhoto, pickCommonsImage, pickWikipediaSummary, titleFitsPlace, wikipediaSearchUrl, wikipediaTitleUrl } from './wikipedia'
 
 const reply = (title: string, extract: string, pageimage?: string) => ({ query: { pages: { '1': { title, extract, pageimage, fullurl: `https://en.wikipedia.org/wiki/${title.replace(/ /g, '_')}` } } } })
 
@@ -98,5 +98,15 @@ describe('pickCommonsImage', () => {
   })
   it('accepts public domain', () => {
     expect(pickCommonsImage(image({}, { LicenseShortName: 'Public domain' }))?.licence).toBe('Public domain')
+  })
+})
+
+describe('looksLikeAPlacePhoto', () => {
+  it('keeps photographs and drops maps, flags and diagrams', () => {
+    expect(looksLikeAPlacePhoto('Nairobi_skyline_from_Gem_Hotel.jpg')).toBe(true)
+    expect(looksLikeAPlacePhoto('Mombasa_Island.jpg')).toBe(true)
+    expect(looksLikeAPlacePhoto('Kwale_County_in_Kenya.svg')).toBe(false)
+    expect(looksLikeAPlacePhoto('Flag_of_Kenya.png')).toBe(false)
+    expect(looksLikeAPlacePhoto('Coat_of_arms_of_Kenya.png')).toBe(false)
   })
 })

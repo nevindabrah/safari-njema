@@ -1,4 +1,4 @@
-// A place's photo, or a tinted tile with the place type icon when there is none or it fails to load.
+// A place's photo, or a patterned tile with the place type icon when there is none or it fails to load.
 // Exists so every screen shows places the same way and nothing ever renders a broken image.
 import { useState } from 'react'
 import { Icon } from '../../components/icons'
@@ -21,7 +21,8 @@ export function PlacePhoto({ googlePlaceId, placeType, name, size, sizes, classN
 
   if (!photo || failed) {
     return (
-      <div className={`bg-tint text-text flex items-center justify-center ${className}`} aria-hidden="true">
+      <div className={`relative overflow-hidden flex items-center justify-center ${className}`} style={{ background: 'var(--tint)', color: 'var(--accent-text)' }} aria-hidden="true">
+        <span className="kanga-dots absolute inset-0 opacity-50" />
         <Icon name={placeType} size={size === 'small' ? 26 : 56} />
       </div>
     )
@@ -34,7 +35,7 @@ export function PhotoCredit({ googlePlaceId, className = '', photo: livePhoto }:
   if (!photo) return null
   return (
     <p className={`text-[11px] leading-snug ${className}`}>
-      {photo.illustrative ? 'Illustrative photo' : 'Photo'} by {photo.author},{' '}
+      {photo.of ? `Illustrative photo of ${photo.of}` : photo.illustrative ? 'Illustrative photo' : 'Photo'} by {photo.author},{' '}
       <a href={photo.licenceUrl ?? photo.filePage} target="_blank" rel="noreferrer" className="underline">{photo.licence}</a>, via{' '}
       <a href={photo.filePage} target="_blank" rel="noreferrer" className="underline">Wikimedia Commons</a>
     </p>

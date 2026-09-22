@@ -42,7 +42,7 @@ export function scorePhrase(phrase: CandidatePhrase, ctx: CandidateContext): num
     if (flavour?.tags.includes(tag)) score += 2
   }
   if (phrase.tags.includes('greeting')) {
-    score += ctx.firstStop ? 6 : -1
+    score += ctx.firstStop || ctx.placeType === 'other' ? 6 : -1
   }
   return score
 }

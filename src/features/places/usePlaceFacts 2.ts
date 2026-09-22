@@ -1,7 +1,7 @@
 // Finds what the free travel sources know about a place: two sentences from Wikipedia or Wikivoyage, and a freely licensed photo. Catalogue places use their saved text; others are looked up live and remembered in the browser.
 // Exists so lessons and cards can show what a place is and looks like without an AI key or a paid photo. Undefined means still looking.
 import { useEffect, useState } from 'react'
-import { commonsImageUrl, looksLikeAPlacePhoto, pickCommonsImage, pickWikipediaSummary, wikipediaSearchUrl, wikipediaTitleUrl, type WikipediaSummary } from '../../lib/wikipedia'
+import { commonsImageUrl, pickCommonsImage, pickWikipediaSummary, wikipediaSearchUrl, wikipediaTitleUrl, type WikipediaSummary } from '../../lib/wikipedia'
 import { KINDS_FOR, findListing, listingSummary, parseListings, wikitextOf, wikivoyagePagesFor, wikivoyagePageUrl } from '../../lib/wikivoyage'
 import type { PlacePhotoInfo } from './photoData'
 import { summaryFor } from './summaryData'
@@ -21,7 +21,6 @@ export interface Whereabouts {
 
 const remembered = new Map<string, PlaceFacts>()
 const pages = new Map<string, Promise<string | null>>()
-const townPhotos = new Map<string, Promise<PlacePhotoInfo | null>>()
 const KEY = 'safari-njema:place-facts:v2:'
 
 function recall(name: string): PlaceFacts | undefined {
@@ -85,33 +84,10 @@ async function photoFor(summary: WikipediaSummary): Promise<PlacePhotoInfo | nul
   }
 }
 
-async function townPhoto(town: string): Promise<PlacePhotoInfo | null> {
-  try {
-    const summary = pickWikipediaSummary(await ask(wikipediaTitleUrl(town)), town)
-    if (!summary?.imageFile || !looksLikeAPlacePhoto(summary.imageFile)) return null
-    const image = pickCommonsImage(await ask(commonsImageUrl(summary.imageFile)))
-    if (!image || image.width < image.height) return null
-    return { ...image, article: summary.url, illustrative: true, of: town, smallWidth: 500, largeWidth: 1920 }
-  } catch {
-    return null
-  }
-}
-
-async function nearbyPhoto(where: Whereabouts): Promise<PlacePhotoInfo | null> {
-  for (const town of wikivoyagePagesFor(where.county ?? null, where.region ?? null)) {
-    if (!townPhotos.has(town)) townPhotos.set(town, townPhoto(town))
-    const photo = await townPhotos.get(town)!
-    if (photo) return photo
-  }
-  return null
-}
-
 async function lookUp(name: string, where: Whereabouts): Promise<PlaceFacts> {
   const wikipedia = await fromWikipedia(name, where.county ?? null)
-  const ownPhoto = wikipedia ? await photoFor(wikipedia) : null
-  if (wikipedia && ownPhoto) return { summary: { ...wikipedia, source: 'wikipedia' }, photo: ownPhoto }
-  const summary = wikipedia ? { ...wikipedia, source: 'wikipedia' as const } : await fromWikivoyage(name, where)
-  return { summary, photo: await nearbyPhoto(where) }
+  if (wikipedia) return { summary: { ...wikipedia, source: 'wikipedia' }, photo: await photoFor(wikipedia) }
+  return { summary: await fromWikivoyage(name, where), photo: null }
 }
 
 export function usePlaceFacts(googlePlaceId: string | null, name: string, where: Whereabouts = {}): PlaceFacts | undefined {

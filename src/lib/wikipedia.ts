@@ -69,6 +69,11 @@ export function commonsImageUrl(imageFile: string): string {
 }
 
 const FREE_LICENCE = /^(CC|Public domain|CC0|No restrictions)/i
+const NOT_A_PLACE_PHOTO = /(map|flag|seal|coat[_ ]of[_ ]arms|locator|location|logo|emblem|diagram|chart|poster|screenshot)|\.(svg|gif)$/i
+
+export function looksLikeAPlacePhoto(fileName: string): boolean {
+  return !NOT_A_PLACE_PHOTO.test(fileName)
+}
 
 function plainText(html: string): string {
   return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()

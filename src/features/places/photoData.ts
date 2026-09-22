@@ -15,6 +15,7 @@ export interface PlacePhotoInfo {
   filePage: string
   article: string | null
   illustrative: boolean
+  of?: string
   smallWidth?: number
   largeWidth?: number
 }

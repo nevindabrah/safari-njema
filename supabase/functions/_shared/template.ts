@@ -67,8 +67,8 @@ const BRIEFS: Record<string, { what: string; know: string[]; etiquette: string }
     etiquette: 'Greet the guide first and thank them at the end.',
   },
   other: {
-    what: 'Wherever you are in Kenya, a greeting opens every door. Take your time with hello and how are you before you ask for anything.',
-    know: ['Greet first, always.', 'Ask for help. People are generous with it.', 'Keep a little cash for small purchases.'],
+    what: 'These are the words that work anywhere in Kenya: hello, please, thank you, how much, and where is it. Wherever you are going, a greeting opens the door before anything else.',
+    know: ['Greet first, always. Business comes after hello.', 'Ask for help. People are generous with it.', 'Numbers and a little cash cover most small moments.', 'A thank you at the end is remembered.'],
     etiquette: 'Patience and warmth are noticed and returned.',
   },
 }
@@ -130,6 +130,9 @@ const WHY: Record<string, string> = {
   help: 'Useful if you need a hand.',
   emergency: 'Keep this one ready in case you need it.',
   questions: 'A handy question to have ready.',
+  basics: 'A phrase that works anywhere in Kenya.',
+  essential: 'One of the phrases you will use most.',
+  smalltalk: 'Useful once the greeting is done.',
 }
 
 export function buildTemplateLesson(input: TemplateInput): Lesson {
