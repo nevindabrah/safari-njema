@@ -22,10 +22,13 @@ async function api(params: Record<string, string>) {
 }
 const stripTags = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
 
+const OUT = 'src/features/food/dishPhotos.json'
+const existing: Record<string, unknown> = existsSync(OUT) ? JSON.parse(readFileSync(OUT, 'utf8')) : {}
 const result: Record<string, unknown> = {}
 mkdirSync('public/dishes', { recursive: true })
 for (const dish of dishes) {
   if (dish.photo === 'none') { console.log(`  ${dish.id}: no photo by choice`); continue }
+  if (existing[dish.id] && existsSync(`public/dishes/${dish.id}.jpg`)) { result[dish.id] = existing[dish.id]; console.log(`  ${dish.id}: kept the picture already chosen`); continue }
   await new Promise((resolve) => setTimeout(resolve, 1200))
   const found = dish.photo ? null : await api({ action: 'query', list: 'search', srnamespace: '6', srsearch: `${dish.search} filetype:bitmap`, srlimit: '12' })
   const titles = dish.photo ? ['File:' + dish.photo] : (found.query.search as Array<{ title: string }>).map((r) => r.title).filter((t) => /\.jpe?g$/i.test(t))
@@ -59,5 +62,5 @@ for (const dish of dishes) {
   }
   console.log(`  ${dish.id}: ${chosen.width}x${chosen.height} ${meta.LicenseShortName.value}`)
 }
-writeFileSync('src/features/food/dishPhotos.json', JSON.stringify(result, null, 2) + '\n')
+writeFileSync(OUT, JSON.stringify(result, null, 2) + '\n')
 console.log(`Saved ${Object.keys(result).length} of ${dishes.length} dish photos.`)

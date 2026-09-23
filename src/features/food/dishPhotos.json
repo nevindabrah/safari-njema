@@ -21,6 +21,17 @@
     "width": 3984,
     "height": 2656
   },
+  "mutura": {
+    "url": "/dishes/mutura.jpg?v=5540b83f",
+    "medium": "/dishes/mutura-medium.jpg?v=bcd86e93",
+    "small": "/dishes/mutura-small.jpg?v=d79fe5c1",
+    "author": "Leemwangi29",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Mutura.jpg",
+    "width": 2448,
+    "height": 2448
+  },
   "sukuma-wiki": {
     "url": "/dishes/sukuma-wiki.jpg?v=e2cb70e1",
     "medium": "/dishes/sukuma-wiki-medium.jpg?v=f1252160",
@@ -44,15 +55,15 @@
     "height": 2322
   },
   "mandazi": {
-    "url": "/dishes/mandazi.jpg?v=ad765fad",
-    "medium": "/dishes/mandazi-medium.jpg?v=aceaccd7",
-    "small": "/dishes/mandazi-small.jpg?v=d6757197",
-    "author": "Orrling",
-    "licence": "CC BY-SA 3.0",
-    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "filePage": "https://commons.wikimedia.org/wiki/File:Andazi.jpg",
-    "width": 4608,
-    "height": 3456
+    "url": "/dishes/mandazi.jpg?v=640a9d6b",
+    "medium": "/dishes/mandazi-medium.jpg?v=1b2c31c8",
+    "small": "/dishes/mandazi-small.jpg?v=26f4c048",
+    "author": "Kengee8",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Tea_and_mandazi.jpg",
+    "width": 1536,
+    "height": 2048
   },
   "pilau": {
     "url": "/dishes/pilau.jpg?v=1a818369",
