@@ -2,6 +2,7 @@
 // Exists so the site never depends on a live photo lookup, and every photo carries the credit its licence requires.
 // It also downloads each photo once at high resolution and saves three sizes in public/places, so the site serves sharp
 // photos on every screen from Vercel's network. Wide landscape photos are preferred because every place they appear in is wider than tall.
+// A place whose best picture the search keeps missing is named outright in COMMONS_FILE.
 // Run: node scripts/fetchPlacePhotos.ts   (a few batched requests, then one slow download per photo. Needs macOS for sips.)
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
@@ -127,9 +128,18 @@ async function describe(files: string[]): Promise<Map<string, Candidate>> {
 
 const isWide = (c: Candidate) => c.licensed && c.width > c.height && c.width >= MIN_WIDE
 
+const COMMONS_FILE: Record<string, string> = {
+  'sample-mombasa-old-town': 'Mombasa old town view.JPG',
+}
+
 const candidatesById = new Map<string, string[]>()
 for (const id of Object.keys(ARTICLES)) {
   if (NO_PHOTO.has(id)) continue
+  if (COMMONS_FILE[id]) {
+    fileById.set(id, COMMONS_FILE[id])
+    articleById.delete(id)
+    continue
+  }
   const own = fileById.get(id)
   const search = COMMONS_SEARCH[id] ?? `${ARTICLES[id]} Kenya`
   const hits = await searchCommons(search)

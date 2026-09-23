@@ -336,18 +336,18 @@
     "small": "/places/sample-maasai-mara-small.jpg?v=c1741d7c"
   },
   "sample-mombasa-old-town": {
-    "source": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Amritpal_S_Jutla._Mombasa._1959.jpg",
-    "illustrative": true,
-    "width": 1910,
-    "height": 1456,
-    "author": "Amarjit Chandan",
-    "licence": "Public domain",
-    "licenceUrl": null,
-    "filePage": "https://commons.wikimedia.org/wiki/File:Amritpal_S_Jutla._Mombasa._1959.jpg",
+    "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Mombasa_old_town_view.JPG/3840px-Mombasa_old_town_view.JPG",
+    "illustrative": false,
+    "width": 4000,
+    "height": 3000,
+    "author": "FredD",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Mombasa_old_town_view.JPG",
     "article": null,
-    "url": "/places/sample-mombasa-old-town.jpg?v=2d2373f7",
-    "medium": "/places/sample-mombasa-old-town-medium.jpg?v=58976660",
-    "small": "/places/sample-mombasa-old-town-small.jpg?v=9772287d"
+    "url": "/places/sample-mombasa-old-town.jpg?v=39e9af0d",
+    "medium": "/places/sample-mombasa-old-town-medium.jpg?v=4df36066",
+    "small": "/places/sample-mombasa-old-town-small.jpg?v=e04209b0"
   },
   "sample-nanyuki": {
     "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/View_of_Mt._Kenya_from_Nanyuki_-_Styled.jpg/3840px-View_of_Mt._Kenya_from_Nanyuki_-_Styled.jpg",
