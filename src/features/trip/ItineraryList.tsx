@@ -6,6 +6,7 @@ import { Icon } from '../../components/icons'
 import { dayNumber } from '../../lib/orderStops'
 import type { StopRow, Trip } from '../../lib/types'
 import { StopCard } from './StopCard'
+import { isDemoMode } from '../demo/demoMode'
 
 interface ItineraryListProps {
   trip: Trip
@@ -16,6 +17,8 @@ interface ItineraryListProps {
   onRetry: (stopId: string) => void
   onMove: (stopId: string, visitDate: string | null) => void
   onAdd: () => void
+  userId: string | null
+  isOwner: boolean
 }
 
 function dayLabel(date: string | null, trip: Trip): string {
@@ -25,7 +28,7 @@ function dayLabel(date: string | null, trip: Trip): string {
   return day ? `Day ${day} · ${text}` : text
 }
 
-export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, onRetry, onMove, onAdd }: ItineraryListProps) {
+export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, onRetry, onMove, onAdd, userId, isOwner }: ItineraryListProps) {
   if (stops.length === 0) {
     return (
       <div className="bg-surface rounded-card shadow-soft p-6 text-center">
@@ -63,6 +66,7 @@ export function ItineraryList({ trip, stops, highlightedId, onSelect, onDelete, 
                 tripStart={trip.start_date}
                 tripEnd={trip.end_date}
                 highlighted={stop.id === highlightedId}
+                canRemove={isDemoMode || isOwner || stop.user_id === userId}
                 onSelect={() => onSelect(stop.id)}
                 onDelete={() => onDelete(stop.id)}
                 onRetry={() => onRetry(stop.id)}

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { Trip } from '../../lib/types'
-import { writeProblem } from '../../lib/writeResult'
+import { deleteProblem } from '../../lib/writeResult'
 import { useAuth } from '../auth/useAuth'
 import { isDemoMode } from '../demo/demoMode'
 import type { Person } from '../friends/useFriends'
@@ -51,7 +51,10 @@ export function useTripMembers(tripId: string | null, ownerId: string | null) {
 
   async function remove(personId: string) {
     if (!tripId) return
-    const problem = writeProblem(await supabase.from('trip_members').delete().eq('trip_id', tripId).eq('user_id', personId))
+    const problem = deleteProblem(
+      await supabase.from('trip_members').delete().eq('trip_id', tripId).eq('user_id', personId).select('user_id'),
+      'Only the owner of the trip can remove somebody else.',
+    )
     if (problem) return setError(problem)
     setError(null)
     await reload()

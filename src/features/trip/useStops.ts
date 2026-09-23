@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { StopRow } from '../../lib/types'
 import { orderStops } from '../../lib/orderStops'
-import { writeProblem } from '../../lib/writeResult'
+import { deleteProblem, writeProblem } from '../../lib/writeResult'
 import { isDemoMode } from '../demo/demoMode'
 import { addLocalStop, attachLocalLesson, deleteLocalStop, listLocalStops, updateLocalStopDate } from '../demo/localStore'
 import { buildLocalLesson } from '../demo/localLessons'
@@ -103,7 +103,10 @@ export function useStops(tripId: string | null) {
       deleteLocalStop(stopId)
       return reload()
     }
-    const problem = writeProblem(await supabase.from('trip_stops').delete().eq('id', stopId))
+    const problem = deleteProblem(
+      await supabase.from('trip_stops').delete().eq('id', stopId).select('id'),
+      'Only the person who added this stop, or the owner of the trip, can remove it.',
+    )
     if (problem) {
       setStops(before)
       setError(problem)

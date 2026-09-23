@@ -17,13 +17,14 @@ interface StopCardProps {
   tripStart: string | null
   tripEnd: string | null
   highlighted: boolean
+  canRemove: boolean
   onSelect: () => void
   onDelete: () => void
   onRetry: () => void
   onMove: (visitDate: string | null) => void
 }
 
-export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSelect, onDelete, onRetry, onMove }: StopCardProps) {
+export function StopCard({ stop, number, tripStart, tripEnd, highlighted, canRemove, onSelect, onDelete, onRetry, onMove }: StopCardProps) {
   const info = PLACE_TYPE_INFO[stop.place.place_type]
   const lessonId = stop.user_lessons[0]?.id
   const completed = stop.user_lessons[0]?.status === 'completed'
@@ -49,7 +50,7 @@ export function StopCard({ stop, number, tripStart, tripEnd, highlighted, onSele
           <p className="text-sm text-muted truncate flex items-center gap-1.5 mt-0.5"><Icon name={stop.place.place_type} size={15} />{info.label}</p>
           {stop.activities.length > 0 && <p className="text-xs text-muted truncate mt-0.5">{stop.activities.join(' · ')}</p>}
         </div>
-        <ConfirmButton icon question="Remove this stop and its lesson?" confirmLabel="Remove" onConfirm={onDelete} ariaLabel={`Remove ${stop.place.name}`} className="w-10 h-10 shrink-0 rounded-pill hover:bg-tint text-muted cursor-pointer flex items-center justify-center"><Icon name="trash" size={18} /></ConfirmButton>
+        {canRemove && <ConfirmButton icon question="Remove this stop and its lesson?" confirmLabel="Remove" onConfirm={onDelete} ariaLabel={`Remove ${stop.place.name}`} className="w-10 h-10 shrink-0 rounded-pill hover:bg-tint text-muted cursor-pointer flex items-center justify-center"><Icon name="trash" size={18} /></ConfirmButton>}
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">

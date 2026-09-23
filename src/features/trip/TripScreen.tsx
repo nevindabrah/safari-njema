@@ -113,7 +113,7 @@ export function TripScreen() {
           {loading && trip ? (
             <p className="text-muted px-2">Loading your stops.</p>
           ) : (
-            trip && <ItineraryList trip={trip} stops={stops} highlightedId={highlightedId} onSelect={selectStop} onDelete={deleteStop} onRetry={retryLesson} onMove={moveStop} onAdd={() => setCatalogOpen(true)} />
+            trip && <ItineraryList trip={trip} stops={stops} highlightedId={highlightedId} onSelect={selectStop} onDelete={deleteStop} onRetry={retryLesson} onMove={moveStop} onAdd={() => setCatalogOpen(true)} userId={user?.id ?? null} isOwner={isOwner} />
           )}
           <ReviewNote />
         </section>
