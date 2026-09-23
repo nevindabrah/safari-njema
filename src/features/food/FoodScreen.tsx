@@ -16,7 +16,7 @@ export function FoodScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-5xl px-4 pt-4 pb-28 sm:pb-10">
+      <main className="mx-auto max-w-5xl px-4 pt-4 pb-28 min-[700px]:pb-10">
         <LeaveButton kind="back" label="Back" to="/" showLabel className="mb-3" />
         <h1 lang="sw" className="text-4xl sm:text-5xl">Chakula</h1>
         <p className="text-muted mt-2 max-w-2xl">The dishes you will meet in Kenya: how to say each name, what it is, and how people eat it. The notes are in English and have not been reviewed by the Swahili teacher.</p>

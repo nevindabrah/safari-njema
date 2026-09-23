@@ -20,7 +20,7 @@ export function PocketCardScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-2xl px-4 pt-4 pb-28 sm:pb-10">
+      <main className="mx-auto max-w-2xl px-4 pt-4 pb-28 min-[700px]:pb-10">
         <LeaveButton kind="back" label="Back to my trip" to="/trip" showLabel className="mb-3" />
         {error && <p className="p-8 text-center">{error} <Link to="/trip" className="underline font-bold">Back to my trip</Link></p>}
         {!error && !data && <p className="p-8 text-center text-muted">Opening your pocket card.</p>}

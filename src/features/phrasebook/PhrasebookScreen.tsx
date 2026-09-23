@@ -25,7 +25,7 @@ export function PhrasebookScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className={`mx-auto max-w-3xl px-4 pt-4 ${countNotes(notes) > 0 ? 'pb-44' : 'pb-28 sm:pb-10'}`}>
+      <main className={`mx-auto max-w-3xl px-4 pt-4 ${countNotes(notes) > 0 ? 'pb-44' : 'pb-28 min-[700px]:pb-10'}`}>
         <LeaveButton kind="back" label="Back" to="/" showLabel className="mb-3" />
         <h1 className="text-4xl sm:text-5xl">Phrasebook</h1>
         <p className="text-muted mt-2">

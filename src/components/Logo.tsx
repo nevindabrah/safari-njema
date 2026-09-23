@@ -1,4 +1,4 @@
-// The Safari Njema mark and name. Pressing it always goes to the home screen.
+// The Safari Njema mark and name. Pressing it always goes to the home screen. The name is dropped on the widths where the top bar needs the room for its links.
 // Exists so every screen has the same, obvious way home in its top left corner.
 import { Link } from 'react-router'
 
@@ -16,7 +16,7 @@ export function Logo() {
   return (
     <Link to="/" aria-label="Safari Njema, go to the home screen" className="flex items-center gap-2 min-h-[44px] min-w-[44px] font-display font-extrabold text-lg sm:text-xl tracking-tight whitespace-nowrap">
       <LogoMark />
-      <span className="hidden min-[350px]:inline">Safari Njema</span>
+      <span className="hidden min-[350px]:inline min-[700px]:hidden lg:inline">Safari Njema</span>
     </Link>
   )
 }

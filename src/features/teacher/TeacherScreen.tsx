@@ -26,7 +26,7 @@ export function TeacherScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-2xl px-4 pt-4 pb-28 sm:pb-10">
+      <main className="mx-auto max-w-2xl px-4 pt-4 pb-28 min-[700px]:pb-10">
         <LeaveButton kind="back" label="Back to my trip" to="/trip" showLabel className="mb-3" />
         <h1 className="text-4xl sm:text-5xl mb-2">Notes from readers</h1>
         {profileLoading ? <p className="text-muted">One moment.</p> : !isTeacher ? (

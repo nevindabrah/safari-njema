@@ -31,7 +31,7 @@ export function AboutScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-3xl px-4 pt-4 pb-28 sm:pb-6 flex flex-col gap-6">
+      <main className="mx-auto max-w-3xl px-4 pt-4 pb-28 min-[700px]:pb-6 flex flex-col gap-6">
         <LeaveButton kind="back" label="Back" to="/" showLabel className="self-start -mb-3" />
         <Hero title="Kuhusu mimi" artFrom="md" art={<HeroPhotos />}>
           <p className="text-lg">About me, and why I built this.</p>

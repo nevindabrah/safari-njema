@@ -70,7 +70,7 @@ export function TripScreen() {
     <MapsProvider>
     <div className="min-h-dvh flex flex-col">
       <TopBar />
-      <main className="flex-1 mx-auto w-full max-w-6xl px-4 pb-28 sm:pb-8 grid gap-6 grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+      <main className="flex-1 mx-auto w-full max-w-6xl px-4 pb-28 min-[700px]:pb-8 grid gap-6 grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <section className="relative isolate min-w-0 h-[55dvh] lg:h-[calc(100dvh-6rem)] lg:sticky lg:top-20 rounded-card overflow-hidden shadow-soft bg-tint">
           {mapsKey && trip ? (
             <>

@@ -25,7 +25,7 @@ export function BottomTabs({ badges = {} }: { badges?: Partial<Record<string, nu
   if (pathname.startsWith('/lesson') || pathname.startsWith('/preview') || pathname.startsWith('/review')) return null
   const tabs = user ? SIGNED_IN : SIGNED_OUT
   return (
-    <nav aria-label="Main" className="no-print sm:hidden fixed z-30 left-1/2 -translate-x-1/2 flex gap-1 p-1.5 rounded-pill bg-surface shadow-lift" style={{ bottom: 'calc(0.9rem + env(safe-area-inset-bottom, 0px))' }}>
+    <nav aria-label="Main" className="no-print min-[700px]:hidden fixed z-30 left-1/2 -translate-x-1/2 flex gap-1 p-1.5 rounded-pill bg-surface shadow-lift" style={{ bottom: 'calc(0.9rem + env(safe-area-inset-bottom, 0px))' }}>
       {tabs.map((tab) => (
         <NavLink key={tab.to} to={tab.to} end={tab.to === '/'} className={({ isActive }) => `flex flex-col items-center justify-center gap-0.5 w-[3.6rem] min-[360px]:w-16 min-[400px]:w-[4.4rem] min-h-[52px] rounded-pill text-xs font-bold whitespace-nowrap ${isActive ? 'bg-primary text-on-primary' : 'text-muted'}`}>
           <span className="relative"><Icon name={tab.icon} size={18} />{(badges[tab.to] ?? 0) > 0 && <span aria-label={`${badges[tab.to]} new`} className="absolute -top-1 -right-2 min-w-[16px] h-4 px-1 rounded-pill text-[10px] leading-4 text-center" style={{ background: 'var(--accent)', color: 'var(--on-accent)' }}>{badges[tab.to]}</span>}</span>{tab.label}

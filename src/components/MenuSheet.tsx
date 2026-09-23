@@ -18,8 +18,7 @@ const PUBLIC: Entry[] = [
   { to: '/about', label: 'About', icon: 'user' },
 ]
 
-export function MenuSheet({ until = 'sm' }: { until?: 'sm' | 'lg' }) {
-  const onlyBelow = until === 'lg' ? 'lg:hidden' : 'sm:hidden'
+export function MenuSheet() {
   const { user } = useAuth()
   const { profile } = useProfile()
   const { pathname } = useLocation()
@@ -52,11 +51,11 @@ export function MenuSheet({ until = 'sm' }: { until?: 'sm' | 'lg' }) {
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} aria-label="Open the menu" aria-expanded={open} className={`${onlyBelow} w-11 h-11 rounded-pill hover:bg-tint cursor-pointer flex items-center justify-center`}>
+      <button type="button" onClick={() => setOpen(true)} aria-label="Open the menu" aria-expanded={open} className="min-[700px]:hidden w-11 h-11 rounded-pill hover:bg-tint cursor-pointer flex items-center justify-center">
         <Icon name="menu" size={22} />
       </button>
       {open && createPortal(
-        <div className={`fixed inset-0 z-50 flex items-end ${onlyBelow}`} style={{ background: 'color-mix(in srgb, var(--ink) 55%, transparent)' }} onClick={() => setOpen(false)}>
+        <div className="fixed inset-0 z-50 flex items-end min-[700px]:hidden" style={{ background: 'color-mix(in srgb, var(--ink) 55%, transparent)' }} onClick={() => setOpen(false)}>
           <div ref={panel} role="dialog" aria-modal="true" aria-label="Menu" onClick={(e) => e.stopPropagation()} className="w-full max-h-[85dvh] overflow-y-auto rounded-t-card bg-surface p-4" style={{ paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))' }}>
             <div className="flex items-center justify-between mb-2">
               <p className="font-display font-extrabold text-xl px-2">Where to?</p>

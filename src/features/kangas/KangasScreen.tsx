@@ -17,7 +17,7 @@ export function KangasScreen() {
   return (
     <div className="min-h-dvh">
       <TopBar />
-      <main className="mx-auto max-w-5xl px-4 pt-4 pb-28 sm:pb-10">
+      <main className="mx-auto max-w-5xl px-4 pt-4 pb-28 min-[700px]:pb-10">
         <LeaveButton kind="back" label="Back to my trip" to="/trip" showLabel className="mb-3" />
         <h1 className="text-4xl sm:text-5xl">My kangas</h1>
         <p className="text-muted mt-2 max-w-2xl">
