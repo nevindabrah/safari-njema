@@ -36,7 +36,16 @@ test('a signed in visitor sees their own tabs and menu', async ({ page, isMobile
     await expect(menu).toBeHidden()
   } else {
     const bar = page.getByRole('banner').getByRole('navigation', { name: 'Main' })
-    for (const name of ['My trip', 'Friends', 'Kangas', 'Phrasebook', 'Time', 'Food']) await expect(bar.getByRole('link', { name: new RegExp(`^${name}`) })).toBeVisible()
+    const roomy = (page.viewportSize()?.width ?? 0) >= 1024
+    const shown = roomy ? ['My trip', 'Friends', 'Kangas', 'Phrasebook', 'Time', 'Food'] : ['My trip', 'Friends', 'Kangas']
+    for (const name of shown) await expect(bar.getByRole('link', { name: new RegExp(`^${name}`) })).toBeVisible()
+    if (!roomy) {
+      await expect(bar.getByRole('link', { name: 'Food', exact: true })).toBeHidden()
+      await expect(page.getByRole('button', { name: 'Open the menu' })).toBeVisible()
+      await page.getByRole('button', { name: 'Open the menu' }).click()
+      await expect(page.getByRole('dialog', { name: 'Menu' }).getByRole('link', { name: 'Food', exact: true })).toBeVisible()
+      await page.keyboard.press('Escape')
+    }
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
 })

@@ -1,5 +1,5 @@
 // The blurred sticky top bar: the logo that leads home, the main links on wide screens, and the sound, theme and sign in controls.
-// Exists so every screen has the same way to get around. On a phone the links move to a menu button and to BottomTabs, within thumb reach.
+// Exists so every screen has the same way to get around. On a phone the links move to a menu button and to BottomTabs, and on a tablet a signed in person keeps their own links while the public ones move into the menu, so nothing is squeezed.
 import { Link, NavLink } from 'react-router'
 import { Icon } from './icons'
 import { useAuth } from '../features/auth/useAuth'
@@ -18,6 +18,7 @@ export function TopBar() {
   const { user } = useAuth()
   const badges = useBadges()
   const { profile } = useProfile()
+  const wide = user ? 'hidden lg:inline-block' : 'hidden sm:inline-block'
   const dot = (n: number) => (n > 0 ? <span aria-label={`${n} new`} className="ml-1 inline-block min-w-[18px] h-[18px] px-1 rounded-pill text-[11px] leading-[18px] text-center align-middle" style={{ background: 'var(--accent)', color: 'var(--on-accent)' }}>{n}</span> : null)
   return (
     <>
@@ -26,13 +27,13 @@ export function TopBar() {
           <Logo />
           <nav className="flex items-center gap-1 text-sm font-bold whitespace-nowrap" aria-label="Main">
             {user && <span className="hidden sm:flex items-center gap-1"><NavLink to="/trip" className={link}>My trip{dot(badges.trips)}</NavLink><NavLink to="/friends" className={link}>Friends{dot(badges.friends)}</NavLink>{profile?.is_teacher && <NavLink to="/teacher" className={link}>Notes</NavLink>}<NavLink to="/kangas" className={link}>Kangas</NavLink></span>}
-            <NavLink to="/phrasebook" className={(state) => `${link(state)} hidden sm:inline-block`}>Phrasebook</NavLink>
-            <NavLink to="/time" className={(state) => `${link(state)} hidden sm:inline-block`}>Time</NavLink>
-            <NavLink to="/food" className={(state) => `${link(state)} hidden sm:inline-block`}>Food</NavLink>
-            <NavLink to="/about" className={(state) => `${link(state)} hidden sm:inline-block`}>About</NavLink>
+            <NavLink to="/phrasebook" className={(state) => `${link(state)} ${wide}`}>Phrasebook</NavLink>
+            <NavLink to="/time" className={(state) => `${link(state)} ${wide}`}>Time</NavLink>
+            <NavLink to="/food" className={(state) => `${link(state)} ${wide}`}>Food</NavLink>
+            <NavLink to="/about" className={(state) => `${link(state)} ${wide}`}>About</NavLink>
             <SoundToggle />
             <ThemeToggle />
-            <MenuSheet />
+            <MenuSheet until={user ? 'lg' : 'sm'} />
             {user ? (
               <Link to="/account" aria-label="Your account" className="px-2 sm:px-3 min-h-[44px] inline-flex items-center rounded-pill hover:bg-tint"><Icon name="user" size={20} /></Link>
             ) : (
