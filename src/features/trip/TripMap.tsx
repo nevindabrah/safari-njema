@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { AdvancedMarker, Map, useMap } from '@vis.gl/react-google-maps'
 import { Icon } from '../../components/icons'
 import { MapControls } from './MapControls'
+import { mapId } from './MapsProvider'
 import type { TripStop } from '../../lib/types'
 import type { PickedPlace } from './usePlaceSearch'
 
@@ -44,7 +45,6 @@ function RouteLine({ stops }: { stops: TripStop[] }) {
 }
 
 export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapProps) {
-  const mapId = import.meta.env.VITE_GOOGLE_MAP_ID as string | undefined
   const target = preview
     ? { lat: preview.lat, lng: preview.lng }
     : highlightedId
