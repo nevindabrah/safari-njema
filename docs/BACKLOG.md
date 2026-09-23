@@ -14,6 +14,7 @@ What is left to do, in the order it should happen. "Owner" marks steps only Nevi
 | Run `npm run check:supabase`, then sign up for real and add a stop | Owner, then assistant | The first ever live test of accounts. Fix whatever it finds. |
 | Turn on Google Maps: key, Map ID, domain restriction, quota cap, then the two `VITE_GOOGLE` values on Vercel | Owner | Section 8 of `docs/SETUP.md`. Free within Google's monthly allowance; needs a card on the Cloud billing account. Until then the catalogue is the planner. |
 | Human recordings for the four held phrases | Owner's professor or friend | Sasa? / Poa, Ndiyo / Hapana, Mia / Elfu, Twiga. Drop the files into `public/audio` and add them to the manifest. |
+| Listen to the four dish names the machine found hardest | Owner, or his professor | Githeri, Mukimo, Maharagwe and Chai scored between 0.83 and 0.89 rather than a clean 1.00, so they are worth hearing once. `docs/dish-audio-report.json` has every score. |
 | Owner reviews the 16 "unsure" recordings and says keep or remove | Owner | Listed behind "recordings to check" on `/phrasebook`. |
 | Teacher reads the food page notes | Owner's professor | `src/features/food/dishes.ts`. English descriptions of 15 dishes and their names as written on menus. |
 | Mark the teacher's profile with `is_teacher = true` once he has an account | Owner | Step 2b of the setup guide. |

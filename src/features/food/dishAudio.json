@@ -1,12 +1,17 @@
 {
   "Ugali": "/audio/dishes/01.m4a",
   "Nyama choma": "/audio/dishes/02.m4a",
-  "Sukuma wiki": "/audio/dishes/03.m4a",
-  "Chapati": "/audio/dishes/04.m4a",
-  "Mandazi": "/audio/dishes/05.m4a",
-  "Pilau": "/audio/dishes/06.m4a",
-  "Kachumbari": "/audio/dishes/07.m4a",
-  "Mukimo": "/audio/dishes/09.m4a",
-  "Samaki wa kupaka": "/audio/dishes/11.m4a",
-  "Viazi karai": "/audio/dishes/12.m4a"
+  "Mutura": "/audio/dishes/03.m4a",
+  "Sukuma wiki": "/audio/dishes/04.m4a",
+  "Chapati": "/audio/dishes/05.m4a",
+  "Mandazi": "/audio/dishes/06.m4a",
+  "Pilau": "/audio/dishes/07.m4a",
+  "Kachumbari": "/audio/dishes/08.m4a",
+  "Githeri": "/audio/dishes/09.m4a",
+  "Mukimo": "/audio/dishes/10.m4a",
+  "Chai": "/audio/dishes/11.m4a",
+  "Samaki wa kupaka": "/audio/dishes/12.m4a",
+  "Viazi karai": "/audio/dishes/13.m4a",
+  "Maharagwe": "/audio/dishes/14.m4a",
+  "Sambusa": "/audio/dishes/15.m4a"
 }

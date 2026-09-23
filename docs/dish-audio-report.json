@@ -21,6 +21,16 @@
   },
   {
     "file": "03.m4a",
+    "name": "Mutura",
+    "heard": "mutura",
+    "score": 1.0,
+    "shipped": true,
+    "seed": 7,
+    "speed": 0.88,
+    "method": "alone"
+  },
+  {
+    "file": "04.m4a",
     "name": "Sukuma wiki",
     "heard": "sukuma wiki",
     "score": 1.0,
@@ -30,7 +40,7 @@
     "method": "alone"
   },
   {
-    "file": "04.m4a",
+    "file": "05.m4a",
     "name": "Chapati",
     "heard": "chapati",
     "score": 1.0,
@@ -40,7 +50,7 @@
     "method": "alone"
   },
   {
-    "file": "05.m4a",
+    "file": "06.m4a",
     "name": "Mandazi",
     "heard": "mandazi",
     "score": 1.0,
@@ -50,7 +60,7 @@
     "method": "alone"
   },
   {
-    "file": "06.m4a",
+    "file": "07.m4a",
     "name": "Pilau",
     "heard": "pilau",
     "score": 1.0,
@@ -60,7 +70,7 @@
     "method": "middle"
   },
   {
-    "file": "07.m4a",
+    "file": "08.m4a",
     "name": "Kachumbari",
     "heard": "kachumbari",
     "score": 1.0,
@@ -70,17 +80,20 @@
     "method": "alone"
   },
   {
-    "file": "08.m4a",
+    "file": "09.m4a",
     "name": "Githeri",
-    "heard": "his herli",
-    "score": 0.62,
-    "shipped": false,
-    "seed": 3,
-    "speed": 0.75,
-    "method": "alone"
+    "score": 0.86,
+    "shipped": true,
+    "take": {
+      "voice": "facebook/mms-tts-swh",
+      "seed": 7,
+      "speed": 0.8,
+      "noise": 0.667,
+      "method": "alone"
+    }
   },
   {
-    "file": "09.m4a",
+    "file": "10.m4a",
     "name": "Mukimo",
     "heard": "mukino",
     "score": 0.83,
@@ -90,17 +103,20 @@
     "method": "alone"
   },
   {
-    "file": "10.m4a",
+    "file": "11.m4a",
     "name": "Chai",
-    "heard": "cai",
-    "score": 0.75,
-    "shipped": false,
-    "seed": 7,
-    "speed": 0.88,
-    "method": "alone"
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "voice": "facebook/mms-tts-swh",
+      "seed": 1,
+      "speed": 0.88,
+      "noise": 0.4,
+      "method": "alone"
+    }
   },
   {
-    "file": "11.m4a",
+    "file": "12.m4a",
     "name": "Samaki wa kupaka",
     "heard": "samaki wa kupaka",
     "score": 1.0,
@@ -110,7 +126,7 @@
     "method": "alone"
   },
   {
-    "file": "12.m4a",
+    "file": "13.m4a",
     "name": "Viazi karai",
     "heard": "viazikarai",
     "score": 1.0,
@@ -120,23 +136,29 @@
     "method": "alone"
   },
   {
-    "file": "13.m4a",
+    "file": "14.m4a",
     "name": "Maharagwe",
-    "heard": "maharabe",
-    "score": 0.78,
-    "shipped": false,
-    "seed": 7,
-    "speed": 0.88,
-    "method": "alone"
+    "score": 0.89,
+    "shipped": true,
+    "take": {
+      "voice": "facebook/mms-tts-swh",
+      "seed": 7,
+      "speed": 0.75,
+      "noise": 0.4,
+      "method": "middle"
+    }
   },
   {
-    "file": "14.m4a",
+    "file": "15.m4a",
     "name": "Sambusa",
-    "heard": "sam bruza",
-    "score": 0.75,
-    "shipped": false,
-    "seed": 3,
-    "speed": 0.75,
-    "method": "alone"
+    "score": 1.0,
+    "shipped": true,
+    "take": {
+      "voice": "facebook/mms-tts-swh",
+      "seed": 21,
+      "speed": 0.7,
+      "noise": 0.3,
+      "method": "alone"
+    }
   }
 ]
