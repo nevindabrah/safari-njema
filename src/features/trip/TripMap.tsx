@@ -5,6 +5,7 @@ import { AdvancedMarker, Map, useMap } from '@vis.gl/react-google-maps'
 import { Icon } from '../../components/icons'
 import { MapControls } from './MapControls'
 import { mapId } from './MapsProvider'
+import { ClassicPins } from './ClassicPins'
 import type { TripStop } from '../../lib/types'
 import type { PickedPlace } from './usePlaceSearch'
 
@@ -67,7 +68,8 @@ export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapPr
       <CameraFollow target={target} closeUp={Boolean(preview)} />
       <MapControls points={stops.map((s) => ({ lat: Number(s.place.lat), lng: Number(s.place.lng) }))} home={KENYA_CENTER} />
       <RouteLine stops={stops} />
-      {stops.map((stop, index) => (
+      {!mapId && <ClassicPins stops={stops} preview={preview} highlightedId={highlightedId} onPinClick={onPinClick} />}
+      {mapId && stops.map((stop, index) => (
         <AdvancedMarker
           key={stop.id}
           position={{ lat: Number(stop.place.lat), lng: Number(stop.place.lng) }}
@@ -92,7 +94,7 @@ export function TripMap({ stops, preview, highlightedId, onPinClick }: TripMapPr
           </div>
         </AdvancedMarker>
       ))}
-      {preview && (
+      {mapId && preview && (
         <AdvancedMarker key={preview.googlePlaceId} position={{ lat: preview.lat, lng: preview.lng }} title={preview.name} zIndex={20}>
           <div className="pin-drop flex flex-col items-center">
             <div className="w-11 h-11 rounded-pill flex items-center justify-center shadow-lift" style={{ background: 'var(--hero)', color: 'var(--on-hero)', border: '3px solid var(--surface)' }}>
