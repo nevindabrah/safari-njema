@@ -4,6 +4,7 @@ Exists so each dish has a speaker button. Names the recogniser cannot follow get
 Run from the repo root, in the same Python environment as generateAudio.py:
     python scripts/generateDishAudio.py
 """
+import hashlib
 import json
 import re
 import subprocess
@@ -16,6 +17,10 @@ import torch
 from transformers import AutoProcessor, Wav2Vec2ForCTC
 
 from audioVoice import Voice
+
+
+def stamp(path: Path) -> str:
+    return "?v=" + hashlib.md5(path.read_bytes()).hexdigest()[:8]
 
 OUT_DIR, MANIFEST, REPORT = Path("public/audio/dishes"), Path("src/features/food/dishAudio.json"), Path("docs/dish-audio-report.json")
 SHIP_AT = 0.8
@@ -69,7 +74,7 @@ for index, name in enumerate(names):
         with tempfile.NamedTemporaryFile(suffix=".wav") as wav:
             scipy.io.wavfile.write(wav.name, voice.rate, (best["audio"] * 32767).astype(np.int16))
             subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", "40000", wav.name, str(OUT_DIR / file)], check=True)
-        manifest[name] = f"/audio/dishes/{file}"
+        manifest[name] = f"/audio/dishes/{file}" + stamp(OUT_DIR / file)
     report.append({"file": file, "name": name, "heard": best["heard"], "score": round(best["score"], 2), "shipped": shipped, "seed": best["seed"], "speed": best["speed"], "method": best["method"]})
     print(f"{file}  {best['score']:.2f}  {'    ' if shipped else 'HELD'}  {name}  ->  {best['heard']}", flush=True)
 

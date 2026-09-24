@@ -4,6 +4,7 @@ Exists because four names kept failing the ordinary six takes, and a name with a
 Run from the repo root, in the same Python environment as generateDishAudio.py:
     python scripts/retryDishAudio.py Githeri Chai Maharagwe Sambusa
 """
+import hashlib
 import json
 import re
 import subprocess
@@ -17,6 +18,10 @@ import torch
 from transformers import AutoProcessor, Wav2Vec2ForCTC
 
 from audioVoice import Voice
+
+
+def stamp(path: Path) -> str:
+    return "?v=" + hashlib.md5(path.read_bytes()).hexdigest()[:8]
 
 OUT_DIR, MANIFEST, REPORT = Path("public/audio/dishes"), Path("src/features/food/dishAudio.json"), Path("docs/dish-audio-report.json")
 MAIN_VOICE = "facebook/mms-tts-swh"
@@ -83,7 +88,7 @@ for name in wanted:
     with tempfile.NamedTemporaryFile(suffix=".wav") as wav:
         scipy.io.wavfile.write(wav.name, best["rate"], (best["audio"] * 32767).astype(np.int16))
         subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", "40000", wav.name, str(OUT_DIR / file)], check=True)
-    manifest[name] = f"/audio/dishes/{file}"
+    manifest[name] = f"/audio/dishes/{file}" + stamp(OUT_DIR / file)
     report[name] = {"file": file, "name": name, "score": round(best["score"], 2), "shipped": True, "take": {"voice": best["voice"], "seed": best["seed"], "speed": best["speed"], "noise": best["noise"], "method": best["method"]}}
 
 MANIFEST.write_text(json.dumps({n: manifest[n] for n in names if n in manifest}, ensure_ascii=False, indent=2) + "\n")
